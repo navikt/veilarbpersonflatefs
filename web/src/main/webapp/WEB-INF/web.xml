@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<web-app xmlns="http://java.sun.com/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"
+         version="3.0">
+
+    <listener>
+        <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+    </listener>
+    <listener>
+        <listener-class>org.springframework.web.context.request.RequestContextListener</listener-class>
+    </listener>
+
+    <context-param>
+        <param-name>contextClass</param-name>
+        <param-value>org.springframework.web.context.support.AnnotationConfigWebApplicationContext</param-value>
+    </context-param>
+
+    <context-param>
+        <param-name>contextConfigLocation</param-name>
+        <param-value>no.nav.fo.veilarbpersonflatefs.config.ApplicationConfig</param-value>
+    </context-param>
+
+    <servlet>
+        <servlet-name>selftest</servlet-name>
+        <servlet-class>no.nav.fo.veilarbpersonflatefs.internal.SelftestServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>selftest</servlet-name>
+        <url-pattern>/internal/selftest</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>isAlive</servlet-name>
+        <servlet-class>no.nav.fo.veilarbpersonflatefs.internal.IsAliveServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>isAlive</servlet-name>
+        <url-pattern>/internal/isAlive</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>selftest-json</servlet-name>
+        <servlet-class>no.nav.fo.veilarbpersonflatefs.internal.SelftestJsonServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>selftest-json</servlet-name>
+        <url-pattern>/internal/selftest.json</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>AppServlet</servlet-name>
+        <servlet-class>no.nav.fo.veilarbpersonflatefs.AppServlet</servlet-class>
+        <init-param>
+            <param-name>applicationFile</param-name>
+            <param-value>index.html</param-value>
+        </init-param>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>AppServlet</servlet-name>
+        <url-pattern>/*</url-pattern>
+    </servlet-mapping>
+</web-app>
