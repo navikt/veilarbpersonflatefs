@@ -107,39 +107,6 @@
                         </configuration>
                     </execution>
 
-                    <execution>
-                        <id>test</id>
-                        <goals>
-                            <goal>exec</goal>
-                        </goals>
-                        <phase>generate-resources</phase>
-                        <configuration>
-                            <executable>npm</executable>
-                            <arguments>
-                                <argument>test</argument>
-                            </arguments>
-                            <skip>${skip.frontend}</skip>
-                            <workingDirectory>src/frontend</workingDirectory>
-                        </configuration>
-                    </execution>
-
-                    <execution>
-                        <id>lint</id>
-                        <goals>
-                            <goal>exec</goal>
-                        </goals>
-                        <phase>generate-resources</phase>
-                        <configuration>
-                            <executable>npm</executable>
-                            <arguments>
-                                <argument>run</argument>
-                                <argument>eslint</argument>
-                            </arguments>
-                            <skip>${skip.frontend}</skip>
-                            <workingDirectory>src/frontend</workingDirectory>
-                        </configuration>
-                    </execution>
-
                 </executions>
             </plugin>
         </plugins>
