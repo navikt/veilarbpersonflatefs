@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jboss-deployment-structure xmlns="urn:jboss:deployment-structure:1.2">
+    <deployment>
+        <exclude-subsystems>
+            <subsystem name="webservices"/>
+            <subsystem name="jaxrs"/>
+        </exclude-subsystems>
+        <exclusions>
+            <module name="org.slf4j"/>
+        </exclusions>
+    </deployment>
+    <sub-deployment name="veilarbpersonflatefs-web.war">
+        <exclusions>
+            <module name="org.slf4j"/>
+            <module name="javaee.api"/>
+        </exclusions>
+        <dependencies>
+            <module name="sun.jdk"/>
+            <system>
+                <paths>
+                    <path name="com/sun/org/apache/xerces/internal/jaxp/datatype"/>
+                    <path name="com/sun/image/codec/jpeg"/>
+                </paths>
+            </system>
+            
+            <!-- This one always goes last. -->
+            <module name="javax.api" export="true"/>
+        </dependencies>
+    </sub-deployment>
+</jboss-deployment-structure>

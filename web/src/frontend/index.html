@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="no">
+<head>
+    <meta charset="UTF-8">
+    <title>Intern arbeidsflate</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <link rel="stylesheet" href="http://a34duvw25927.devillo.no:8186/internarbeidsflatedecorator/styles.css?1000" />
+    {{fragment.styles}}
+</head>
+
+<body>
+{{fragment.header-withmenu}}
+<h1>Personoversikt</h1>
+<h4 id="mytest"></h4>
+<script type="text/javascript">
+    document.addEventListener("dekorator-hode-personsok", function (event) {
+        var mytest = document.getElementById("mytest");
+        mytest.innerHTML = event.personnummer;
+    });
+</script>
+<div id="app"></div>
+
+<script type="text/javascript" src="http://a34duvw25927.devillo.no:8186/internarbeidsflatedecorator/init.js"></script>
+<script type="text/javascript" src="/veilarbpersonflatefs/js/bundle.js?ts={timestamp}"></script>
+
+</body>
+</html>
