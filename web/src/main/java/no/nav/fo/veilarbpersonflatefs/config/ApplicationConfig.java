@@ -13,7 +13,6 @@ public class ApplicationConfig {
         return new PropertySourcesPlaceholderConfigurer();
     }
 
-    @Bean
     public IsAliveServlet isAliveServlet() {
         return new IsAliveServlet();
     }
