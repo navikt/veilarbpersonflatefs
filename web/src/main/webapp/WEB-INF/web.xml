@@ -4,6 +4,17 @@
          xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"
          version="3.0">
 
+    <filter>
+        <filter-name>decoratorFilter</filter-name>
+        <filter-class>no.nav.fo.veilarbpersonflatefs.Dekorator</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>decoratorFilter</filter-name>
+        <url-pattern>/*</url-pattern>
+        <dispatcher>REQUEST</dispatcher>
+        <dispatcher>ERROR</dispatcher>
+    </filter-mapping>
+
     <listener>
         <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
     </listener>
@@ -60,4 +71,4 @@
         <servlet-name>AppServlet</servlet-name>
         <url-pattern>/*</url-pattern>
     </servlet-mapping>
-</web-app>
+    </web-app>
