@@ -13,6 +13,7 @@ public class StartJetty {
         Jetty jetty = usingWar()
                 .at("/veilarbpersonflatefs")
                 .port(PORT)
+                .loadProperties("/environment-test.properties")
                 .buildJetty();
         jetty.startAnd(first(waitFor(gotKeypress())).then(jetty.stop));
     }
