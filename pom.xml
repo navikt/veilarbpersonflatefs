@@ -23,9 +23,11 @@
 
     <properties>
         <common-jetty.version>2.0.11</common-jetty.version>
+        <common-types.version>1.2</common-types.version>
+        <common-web.version>4.0.5</common-web.version>
         <javax.servlet-api.version>3.1.0</javax.servlet-api.version>
-        <spring.version>4.1.6.RELEASE</spring.version>
         <slf4j.version>1.7.21</slf4j.version>
+        <spring.version>4.1.6.RELEASE</spring.version>
     </properties>
 
     <dependencyManagement>
@@ -39,12 +41,12 @@
             <dependency>
                 <groupId>no.nav.sbl.dialogarena</groupId>
                 <artifactId>common-web</artifactId>
-                <version>4.0.5</version>
+                <version>${common-web.version}</version>
             </dependency>
             <dependency>
                 <groupId>no.nav.sbl.dialogarena</groupId>
                 <artifactId>common-types</artifactId>
-                <version>1.2</version>
+                <version>${common-types.version}</version>
             </dependency>
             <dependency>
                 <groupId>javax.servlet</groupId>
@@ -91,7 +93,6 @@
             </dependency>
         </dependencies>
     </dependencyManagement>
-
 
     <scm>
         <developerConnection>scm:git:http://stash.devillo.no/scm/fo/veilarbpersonflatefs.git</developerConnection>
