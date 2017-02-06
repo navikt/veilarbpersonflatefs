@@ -7,7 +7,7 @@ import static no.nav.sbl.dialogarena.common.jetty.JettyStarterUtils.*;
 
 public class StartJetty {
 
-    private static final int PORT = 8487;
+    private static final int PORT = 8485;
 
     public static void main(String []args) {
         Jetty jetty = usingWar()
