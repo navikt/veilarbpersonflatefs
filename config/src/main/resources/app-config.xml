@@ -10,8 +10,8 @@
     </artifacts>
 
     <selftest>
-        <path>veilarbpersonflatefs/internal/selftest.json</path>
-        <humanReadablePath>/veilarbpersonflatefs/internal/isAlive</humanReadablePath>
+        <path>veilarbpersonflatefs/internal/selftest</path>
+        <humanReadablePath>veilarbpersonflatefs/internal/selftest</humanReadablePath>
     </selftest>
 
 </application>
