@@ -4,15 +4,18 @@
     <meta charset="UTF-8">
     <title>Intern arbeidsflate</title>
     <meta name="viewport" content="width=device-width, initial-scale=1"/>
-    <link rel="stylesheet" href="http://a34duvw25927.devillo.no:8186/internarbeidsflatedecorator/styles.css?1000" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <link type="text/css" rel="stylesheet" href="/veilarbpersonfs/css/application.css?ts={timestamp}">
+
+    <link rel="stylesheet" href="/internarbeidsflatedecorator/styles.css?1000" />
     {{fragment.styles}}
 </head>
 
 <body>
 {{fragment.header-withmenu}}
-<h1>Personoversikt</h1>
 <h4 id="mytest"></h4>
-<script type="text/javascript">
+<script charset="UTF-8" type="text/javascript">
     document.addEventListener("dekorator-hode-personsok", function (event) {
         var mytest = document.getElementById("mytest");
         mytest.innerHTML = event.personnummer;
@@ -20,8 +23,15 @@
 </script>
 <div id="app"></div>
 
-<script type="text/javascript" src="http://a34duvw25927.devillo.no:8186/internarbeidsflatedecorator/init.js"></script>
-<script type="text/javascript" src="/veilarbpersonflatefs/js/bundle.js?ts={timestamp}"></script>
+<div class="pagewrapper">
+    <div class="hovedinnhold" id="app"></div>
+</div>
+
+<!--Denne må være først-->
+<script type="text/javascript" charset="UTF-8" src="/veilarbpersonfs/js/scripts.min.js"></script>
+
+<script type="text/javascript" charset="UTF-8" src="/veilarbpersonflatefs/js/scripts.min.js"></script>
+<script type="text/javascript" charset="UTF-8" src="/internarbeidsflatedecorator/init.js"></script>
 
 </body>
 </html>
