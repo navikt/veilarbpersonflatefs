@@ -14,4 +14,8 @@
         <humanReadablePath>veilarbpersonflatefs/internal/selftest</humanReadablePath>
     </selftest>
 
+    <resources>
+        <rest mapToProperty="internarbeidsflatedecorator.endpoint" alias="iadecorator"/>
+    </resources>
+
 </application>
