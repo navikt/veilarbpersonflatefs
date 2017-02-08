@@ -1,7 +1,7 @@
 import React from 'react';
 import { render } from 'react-dom';
 
-import Personoversikt from 'Personoversikt';
+import Personoversikt from 'Personoversikt'; // eslint-disable-line
 
 const BASE_URL = '/veilarbpersonflatefs/';
 
@@ -11,7 +11,7 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 const settPersonIURL = (personnummer) => {
-    window.history.pushState(`Endret personnummer til ${personnummer}`, "", `${BASE_URL}${personnummer}`)
+    window.history.pushState(`Endret personnummer til ${personnummer}`, '', `${BASE_URL}${personnummer}`);
 };
 
 const personErSattIURL = () => {
@@ -24,7 +24,7 @@ const hentPersonnummerFraURL = () => {
     const url = window.location.pathname;
     const regex = new RegExp(/^/.source + BASE_URL + /(\d+)\/?$/.source);
     const match = url.match(regex);
-    if (match.length == 2) {
+    if (match.length === 2) {
         return match[1];
     }
     return null;
@@ -36,7 +36,7 @@ document.addEventListener('dekorator-hode-personsok', (event) => {
 
 const sendEventOmPersonFraURL = () => {
     if (personErSattIURL()) {
-        let personsokEvent = new Event('dekorator-hode-personsok');
+        const personsokEvent = new CustomEvent('dekorator-hode-personsok'); // eslint-disable-line no-undef
         personsokEvent.personnummer = hentPersonnummerFraURL();
         document.dispatchEvent(personsokEvent);
     }
