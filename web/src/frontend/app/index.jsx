@@ -34,10 +34,13 @@ document.addEventListener('dekorator-hode-personsok', (event) => {
     settPersonIURL(event.personnummer);
 });
 
-window.onload = () => {
+const sendEventOmPersonFraURL = () => {
     if (personErSattIURL()) {
         let personsokEvent = new Event('dekorator-hode-personsok');
         personsokEvent.personnummer = hentPersonnummerFraURL();
         document.dispatchEvent(personsokEvent);
     }
 };
+
+window.onload = sendEventOmPersonFraURL;
+window.onpopstate = sendEventOmPersonFraURL;
