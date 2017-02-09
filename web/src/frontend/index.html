@@ -4,23 +4,31 @@
     <meta charset="UTF-8">
     <title>Intern arbeidsflate</title>
     <meta name="viewport" content="width=device-width, initial-scale=1"/>
-    <link rel="stylesheet" href="http://a34duvw25927.devillo.no:8186/internarbeidsflatedecorator/styles.css?1000" />
     {{fragment.styles}}
 </head>
 
 <body>
 {{fragment.header-withmenu}}
-<h1>Personoversikt</h1>
-<h4 id="mytest"></h4>
-<script type="text/javascript">
-    document.addEventListener("dekorator-hode-personsok", function (event) {
-        var mytest = document.getElementById("mytest");
-        mytest.innerHTML = event.personnummer;
-    });
-</script>
+
 <div id="app"></div>
 
+<div style="display: none;" id="veilarbpersonflatefs-meny">
+
+    <ul>
+        <li>
+            <a href="/veilarbportefoljeflatefs/enhet?enhet=0561&ident=z606404">Enhetsportefølje</a>
+        </li>
+        <li>
+            <a href="/veilarbportefoljeflatefs/enhet?enhet=0561&ident=z606404">Veilederportefølje</a>
+        </li>
+        <li>
+            <a href="/modiabrukerdialog">Modia</a>
+        </li>
+        </ul>
+</div>
+
 <script type="text/javascript" src="http://a34duvw25927.devillo.no:8186/internarbeidsflatedecorator/init.js"></script>
+<script type="text/javascript" src="http://a34duvw25927.devillo.no:8186/internarbeidsflatedecorator/personsok.js"></script>
 <script type="text/javascript" src="/veilarbpersonflatefs/js/bundle.js?ts={timestamp}"></script>
 
 </body>
