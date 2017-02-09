@@ -1,8 +1,9 @@
 import React from 'react';
 import { render } from 'react-dom';
 
+import Personoversikt from 'Personoversikt';
+
 document.addEventListener('DOMContentLoaded', () => {
-    render((
-        <h3>Hallo VeilArbPersonFlateFS!</h3>
-    ), document.getElementById('app'));
+    render(<Personoversikt />
+        , document.getElementById('app'));
 });
