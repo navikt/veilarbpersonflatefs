@@ -23,7 +23,8 @@ const hentPersonnummerFraURL = () => {
 
 const sendEventOmPersonFraURL = () => {
     if (personErSattIURL()) {
-        const personsokEvent = new CustomEvent('flate-person-endret'); // eslint-disable-line no-undef
+        const personsokEvent = document.createEvent('Event');
+        event.initEvent('flate-person-endret', true, true);
         personsokEvent.personnummer = hentPersonnummerFraURL();
         document.dispatchEvent(personsokEvent);
     }
