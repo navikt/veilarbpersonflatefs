@@ -10,7 +10,7 @@ import static java.util.Arrays.asList;
 
 public class Dekorator extends DecoratorFilter {
 
-    private static final String FRAGMENTS_URL = "?visSokefelt=true";
+    private static final String FRAGMENTS_URL = "?visSokefelt=true&visSaksbehandler=true&visEnhet=true";
     private static final String APPLICATION_NAME = "Oppfølging";
     private static final List<String> NO_DECORATOR_PATTERNS = new ArrayList<>(asList(".*/img/.*", ".*/css/.*", ".*/js/.*", ".*/font/.*", ".*selftest.*"));
     private static final List<String> FRAGMENT_NAMES = new ArrayList<>(asList("header-withmenu", "styles"));

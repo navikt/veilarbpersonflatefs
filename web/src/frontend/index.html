@@ -4,28 +4,36 @@
     <meta charset="UTF-8">
     <title>Intern arbeidsflate</title>
     <meta name="viewport" content="width=device-width, initial-scale=1"/>
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-
     <link type="text/css" rel="stylesheet" href="/veilarbpersonfs/css/application.css?ts={timestamp}">
-
-    <link rel="stylesheet" href="/internarbeidsflatedecorator/styles.css?1000" />
     {{fragment.styles}}
 </head>
 
 <body>
 {{fragment.header-withmenu}}
 
-<div id="app"></div>
-
 <div class="pagewrapper">
     <div class="hovedinnhold" id="app"></div>
+</div>
+
+<div style="display: none;" id="veilarbpersonflatefs-meny">
+
+    <ul>
+        <li>
+            <a href="/veilarbportefoljeflatefs/enhet?enhet=0561&ident=z606404">Enhetsportefølje</a>
+        </li>
+        <li>
+            <a href="/veilarbportefoljeflatefs/enhet?enhet=0561&ident=z606404">Veilederportefølje</a>
+        </li>
+        <li>
+            <a href="/modiabrukerdialog">Modia</a>
+        </li>
+    </ul>
 </div>
 
 <!--Denne må være før hoved-js-fila for flaten, fordi personoversikt trekkes inn som ekstern dependency til flaten-->
 <script type="text/javascript" charset="UTF-8" src="/veilarbpersonfs/js/personoversikt.min.js"> </script>
 
 <script type="text/javascript" charset="UTF-8" src="/veilarbpersonflatefs/js/scripts.min.js"></script>
-<script type="text/javascript" charset="UTF-8" src="/internarbeidsflatedecorator/init.js"></script>
 
 </body>
 </html>
