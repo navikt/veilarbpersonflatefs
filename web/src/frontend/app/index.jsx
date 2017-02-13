@@ -13,7 +13,6 @@ document.addEventListener('DOMContentLoaded', () => {
     hodeMenyKnapp.addEventListener('click', () => {
         hodeMeny.innerHTML = veilarbpersonflatefsMeny.innerHTML;
     });
-    console.log("Hello?");
     render(<Personoversikt />
         , document.getElementById('app'));
 });
