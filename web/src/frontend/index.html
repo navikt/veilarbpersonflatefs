@@ -4,13 +4,16 @@
     <meta charset="UTF-8">
     <title>Intern arbeidsflate</title>
     <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <link type="text/css" rel="stylesheet" href="/veilarbpersonfs/css/application.css?ts={timestamp}">
     {{fragment.styles}}
 </head>
 
 <body>
 {{fragment.header-withmenu}}
 
-<div id="app"></div>
+<div class="pagewrapper">
+    <div class="hovedinnhold" id="app"></div>
+</div>
 
 <div style="display: none;" id="veilarbpersonflatefs-meny">
 
@@ -27,9 +30,10 @@
         </ul>
 </div>
 
-<script type="text/javascript" src="http://a34duvw25927.devillo.no:8186/internarbeidsflatedecorator/init.js"></script>
-<script type="text/javascript" src="http://a34duvw25927.devillo.no:8186/internarbeidsflatedecorator/personsok.js"></script>
-<script type="text/javascript" src="/veilarbpersonflatefs/js/bundle.js?ts={timestamp}"></script>
+<!--Denne må være først-->
+<script type="text/javascript" charset="UTF-8" src="/veilarbpersonfs/js/personoversikt.min.js"></script>
+
+<script type="text/javascript" charset="UTF-8" src="/veilarbpersonflatefs/js/scripts.min.js"></script>
 
 </body>
 </html>
