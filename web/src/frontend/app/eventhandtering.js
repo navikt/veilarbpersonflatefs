@@ -24,7 +24,7 @@ const hentPersonnummerFraURL = () => {
 const sendEventOmPersonFraURL = () => {
     if (personErSattIURL()) {
         const personsokEvent = document.createEvent('Event');
-        event.initEvent('flate-person-endret', true, true);
+        personsokEvent.initEvent('flate-person-endret', true, true);
         personsokEvent.personnummer = hentPersonnummerFraURL();
         document.dispatchEvent(personsokEvent);
     }
