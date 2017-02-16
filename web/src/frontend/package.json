@@ -7,9 +7,9 @@
     "test": "echo \"Error: no test specified\" && exit 0",
     "collect": "gulp",
     "watch": "webpack --watch",
-    "build-js": "webpack",
     "eslint": "gulp eslint",
-    "watch": "webpack --watch",
+    "build-lib": "bash build-scripts/build-lib.sh",
+    "build-js": "webpack && npm run build-lib",
     "build": "npm run build-js --silent && npm run collect"
   },
   "author": "NAV",
