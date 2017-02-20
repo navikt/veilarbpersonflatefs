@@ -11,7 +11,7 @@ const personErSattIURL = () => {
     return url.match(regex);
 };
 
-const hentPersonnummerFraURL = () => {
+export const hentPersonnummerFraURL = () => {
     const url = window.location.pathname;
     const regex = new RegExp(/^/.source + BASE_URL + /(\d+)\/?$/.source);
     const match = url.match(regex);
