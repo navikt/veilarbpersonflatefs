@@ -8,9 +8,9 @@
     "collect": "gulp",
     "watch": "webpack --watch",
     "eslint": "gulp eslint",
-    "build-lib": "bash build-scripts/build-lib.sh",
-    "build-js": "webpack && npm run build-lib",
-    "build": "npm run build-js --silent && npm run collect"
+    "build-lib": "webpack --config vendor.webpack.config.js",
+    "build-js": "npm run build-lib && webpack",
+    "build": "set NODE_ENV=production&& npm run build-js --silent && npm run collect"
   },
   "author": "NAV",
   "devDependencies": {
