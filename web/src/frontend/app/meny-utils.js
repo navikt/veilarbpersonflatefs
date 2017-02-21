@@ -2,7 +2,7 @@ import { hentPersonnummerFraURL } from './eventhandtering';
 
 const menyValgliste = [
     {
-        url: '/mia/ledigestillinger',
+        url: 'https://modapp.adeo.no/mia/ledigestillinger',
         tekst: 'Arbeidsmarkedet'
     },
     {
