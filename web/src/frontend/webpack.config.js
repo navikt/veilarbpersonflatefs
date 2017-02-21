@@ -1,10 +1,26 @@
-var debug = process.env.NODE_ENV !== "production";
+const DEBUG = process.env.NODE_ENV !== "PRODUCTION";
+const PRODUCTION = process.env.NODE_ENV === "PRODUCTION";
 var webpack = require('webpack');
 
+const OUTPUT_DIRECTORY = '../main/webapp/js/';
+
+var plugins = [new webpack.DllReferencePlugin({
+    context: ".",
+    manifest: require([OUTPUT_DIRECTORY, 'vendor-manifest.json'].join(''))
+})];
+
+if (PRODUCTION) {
+    plugins.concat([
+        new webpack.optimize.OccurrenceOrderPlugin(),
+        new webpack.optimize.UglifyJsPlugin({ mangle: false, sourcemap: false }),
+    ])
+}
+
 module.exports = {
+    name: 'app',
     context: __dirname,
-    devtool: debug ? "inline-sourcemap" : false,
-    entry: "./app/index.jsx",
+    devtool: DEBUG ? "inline-sourcemap" : false,
+    entry:  "./app/index.jsx",
     module: {
         loaders: [
             {
@@ -29,9 +45,5 @@ module.exports = {
         path: "../main/webapp/js/",
         filename: "scripts.min.js"
     },
-    plugins: debug ? [] : [
-        new webpack.optimize.DedupePlugin(),
-        new webpack.optimize.OccurrenceOrderPlugin(),
-        new webpack.optimize.UglifyJsPlugin({ mangle: false, sourcemap: false }),
-    ],
+    plugins: plugins,
 };

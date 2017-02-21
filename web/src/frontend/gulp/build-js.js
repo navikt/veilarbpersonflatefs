@@ -13,8 +13,8 @@ const onError = function (err) {
     gutil.log("Error: [line " + err.lineNumber + "] " + err.message);
 };
 
-const isProduction = () => process.env.NODE_ENV === 'production';
-const isDevelopment = () => process.env.NODE_ENV !== 'production';
+const isProduction = () => process.env.NODE_ENV === 'PRODUCTION';
+const isDevelopment = () => process.env.NODE_ENV !== 'PRODUCTION';
 
 const babelifyReact = function (file) {
     const babelify = require('babelify');
