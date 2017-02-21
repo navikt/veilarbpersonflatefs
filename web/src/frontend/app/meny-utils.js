@@ -2,6 +2,10 @@ import { hentPersonnummerFraURL } from './eventhandtering';
 
 const menyValgliste = [
     {
+        url: '/mia/ledigestillinger',
+        tekst: 'Arbeidsmarkedet'
+    },
+    {
         url: '/veilarbportefoljeflatefs/enhet?enhet={{enhet}}&ident={{ident}}',
         tekst: 'Enhetsportefølje'
     },
