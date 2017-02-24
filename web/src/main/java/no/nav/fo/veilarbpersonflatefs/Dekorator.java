@@ -11,7 +11,7 @@ import static java.util.Arrays.asList;
 import static org.slf4j.LoggerFactory.getLogger;
 
 public class Dekorator extends DecoratorFilter {
-    private static final Logger LOG = getLogger(Dekorator .class);
+    private static final Logger LOG = getLogger(Dekorator.class);
 
     private static final String FRAGMENTS_URL = "?visSokefelt=true&visSaksbehandler=true&visEnhet=true";
     private static final String APPLICATION_NAME = "Oppfølging";
