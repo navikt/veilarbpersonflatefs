@@ -5,12 +5,12 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 0",
-    "collect": "gulp",
-    "watch": "webpack --watch",
-    "eslint": "gulp eslint",
-    "build-lib": "webpack --config vendor.webpack.config.js",
-    "build-js": "npm run build-lib && webpack",
-    "build": "set NODE_ENV=production&& npm run build-js --silent && npm run collect"
+    "lint": "eslint app --ext .js --ext .jsx || true",
+    "lint:fix": "eslint app --fix --ext .js --ext .jsx",
+    "dev": "webpack --watch",
+    "build-lib": "webpack --config vendor.webpack.config.js --optimize-minimize",
+    "build-js": "npm run build-lib && webpack  --optimize-minimize",
+    "build": "set NODE_ENV=production&& npm run build-js --silent"
   },
   "author": "NAV",
   "devDependencies": {

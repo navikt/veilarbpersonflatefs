@@ -1,5 +1,6 @@
-const DEBUG = process.env.NODE_ENV !== "PRODUCTION";
 var webpack = require('webpack');
+
+const DEBUG = process.env.NODE_ENV !== "production";
 
 const OUTPUT_DIRECTORY = '../main/webapp/js/';
 
@@ -8,6 +9,17 @@ const LIBS = [
     'redux',
     'redux-thunk',
     'react-redux'
+];
+
+const PLUGINS = [
+    new webpack.DllPlugin({
+        path: [OUTPUT_DIRECTORY, "vendor-manifest.json"].join(''),
+        name: 'vendor_dll'
+    })
+];
+
+const PRODUCTION_PLUGINS = [
+    new webpack.optimize.UglifyJsPlugin({ mangle: false, sourcemap: false })
 ];
 
 module.exports = {
@@ -23,12 +35,5 @@ module.exports = {
         filename: "vendor.bundle.min.js",
         library: "vendor_dll"
     },
-    plugins: [
-        new webpack.DllPlugin({
-            path: [OUTPUT_DIRECTORY, "vendor-manifest.json"].join(''),
-            name: 'vendor_dll'
-        }),
-        new webpack.optimize.UglifyJsPlugin({ mangle: false, sourcemap: DEBUG })
-    ]
-
+    plugins: DEBUG ? PLUGINS : [].concat(PLUGINS, PRODUCTION_PLUGINS)
 };
