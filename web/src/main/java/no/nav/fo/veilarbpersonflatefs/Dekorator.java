@@ -2,13 +2,16 @@ package no.nav.fo.veilarbpersonflatefs;
 
 import no.nav.innholdshenter.common.EnonicContentRetriever;
 import no.nav.innholdshenter.filter.DecoratorFilter;
+import org.slf4j.Logger;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import static java.util.Arrays.asList;
+import static org.slf4j.LoggerFactory.getLogger;
 
 public class Dekorator extends DecoratorFilter {
+    private static final Logger LOG = getLogger(Dekorator.class);
 
     private static final String FRAGMENTS_URL = "?visSokefelt=true&visSaksbehandler=true&visEnhet=true";
     private static final String APPLICATION_NAME = "Oppfølging";
@@ -27,6 +30,7 @@ public class Dekorator extends DecoratorFilter {
     private EnonicContentRetriever setUpContentRetriever() {
         EnonicContentRetriever contentRetriever = new EnonicContentRetriever(10000);
         String baseUrl = System.getProperty("internarbeidsflatedecorator.endpoint.url");
+        LOG.info("Setter opp content retriever med base url: " + baseUrl);
         contentRetriever.setBaseUrl(baseUrl);
         contentRetriever.setRefreshIntervalSeconds(1800);
         return contentRetriever;
