@@ -1,16 +1,23 @@
-const DEBUG = process.env.NODE_ENV !== "PRODUCTION";
-const PRODUCTION = process.env.NODE_ENV === "PRODUCTION";
 var webpack = require('webpack');
+var HtmlWebpackPlugin = require('html-webpack-plugin');
+
+const DEBUG = process.env.NODE_ENV !== 'production';
+const PRODUCTION = process.env.NODE_ENV === 'production';
 
 const OUTPUT_DIRECTORY = '../main/webapp/js/';
 
-var plugins = [new webpack.DllReferencePlugin({
-    context: ".",
-    manifest: require([OUTPUT_DIRECTORY, 'vendor-manifest.json'].join(''))
-})];
+const PLUGINS = [
+    new HtmlWebpackPlugin({
+        template: PRODUCTION ? 'index.html' : 'dev-index.html'
+    }),
+    new webpack.DllReferencePlugin({
+        context: '.',
+        manifest: require([OUTPUT_DIRECTORY, 'vendor-manifest.json'].join(''))
+    })
+];
 
 if (PRODUCTION) {
-    plugins.concat([
+    PLUGINS.concat([
         new webpack.optimize.OccurrenceOrderPlugin(),
         new webpack.optimize.UglifyJsPlugin({ mangle: false, sourcemap: false }),
     ])
@@ -19,8 +26,8 @@ if (PRODUCTION) {
 module.exports = {
     name: 'app',
     context: __dirname,
-    devtool: DEBUG ? "inline-sourcemap" : false,
-    entry:  "./app/index.jsx",
+    devtool: DEBUG ? 'inline-sourcemap' : false,
+    entry:  './app/index.jsx',
     module: {
         loaders: [
             {
@@ -34,16 +41,16 @@ module.exports = {
             }
         ]
     },
-
     resolve: {
       extensions: ['.js', '.jsx', '.json']
     },
     externals: {
-        "Personoversikt": "PersonoversiktRoot",
+        'Personoversikt': 'PersonoversiktRoot',
     },
     output: {
-        path: "../main/webapp/js/",
-        filename: "scripts.min.js"
+        path: '../main/webapp/',
+        filename: 'js/scripts.min.js',
+        publicPath: '/veilarbpersonflatefs/'
     },
-    plugins: plugins,
+    plugins: PLUGINS
 };
