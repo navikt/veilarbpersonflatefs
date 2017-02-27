@@ -15,7 +15,7 @@
     </selftest>
 
     <resources>
-        <rest mapToProperty="internarbeidsflatedecorator.endpoint" alias="iadecorator"/>
+        <rest mapToProperty="internarbeidsflatedecorator.endpoint" alias="iadecorator-rest"/>
     </resources>
 
     <logging serviceCalls="true"/>
