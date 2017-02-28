@@ -74,6 +74,7 @@ module.exports = {
     },
     externals: {
         'Personoversikt': 'PersonoversiktRoot',
+        'react': 'React'
     },
     output: {
         path: '../main/webapp/',
