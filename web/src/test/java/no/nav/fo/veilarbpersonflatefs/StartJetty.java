@@ -1,4 +1,4 @@
-package no.nav.fo.veilarbpersonfs;
+package no.nav.fo.veilarbpersonflatefs;
 
 import no.nav.sbl.dialogarena.common.jetty.Jetty;
 
