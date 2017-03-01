@@ -4,9 +4,6 @@ var HtmlWebpackPlugin = require('html-webpack-plugin');
 const DEBUG = process.env.NODE_ENV !== 'production';
 const PRODUCTION = process.env.NODE_ENV === 'production';
 
-console.log(PRODUCTION);
-console.log(process.env.NODE_ENV);
-
 const OUTPUT_DIRECTORY = '../main/webapp/js/';
 
 const RULES = [
