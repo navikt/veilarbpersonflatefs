@@ -14,7 +14,6 @@ import static org.springframework.web.context.support.WebApplicationContextUtils
 public class SelftestServlet extends SelfTestBaseServlet {
 
     private ApplicationContext applicationContext;
-    private static final Logger logger = getLogger(SelftestServlet.class);
 
     @Override
     public void init() throws ServletException {
