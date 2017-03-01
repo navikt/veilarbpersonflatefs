@@ -1,6 +1,8 @@
 import React from 'react';
 import { render } from 'react-dom';
 
+import './index.less';
+
 import Personoversikt from 'Personoversikt'; // eslint-disable-line
 import { initialiserEventhandtering } from './eventhandtering';
 import { lagHtmlMeny } from './meny-utils';

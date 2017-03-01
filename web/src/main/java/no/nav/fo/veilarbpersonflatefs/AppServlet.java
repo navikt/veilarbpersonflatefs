@@ -3,7 +3,6 @@ package no.nav.fo.veilarbpersonflatefs;
 import javax.servlet.*;
 import javax.servlet.http.*;
 import java.io.IOException;
-import java.io.IOException;
 
 public class AppServlet extends HttpServlet {
     private String applicationFile;
