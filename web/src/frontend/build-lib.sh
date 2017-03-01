@@ -8,6 +8,8 @@ declare -a libs=("react"
 		 "react-redux"
 		)
 
+mkdir -p ../main/webapp/js/
+
 for lib in "${libs[@]}"
 do
     echo "Kopierer $lib til ../main/webapp/js/"
