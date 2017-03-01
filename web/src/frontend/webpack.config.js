@@ -45,10 +45,10 @@ const PLUGINS = [
     new HtmlWebpackPlugin({
         template: PRODUCTION ? 'index.html' : 'dev-index.html'
     }),
-    new webpack.DllReferencePlugin({
-        context: '.',
-        manifest: require([OUTPUT_DIRECTORY, 'vendor-manifest.json'].join(''))
-    })
+    // new webpack.DllReferencePlugin({
+    //     context: '.',
+    //     manifest: require([OUTPUT_DIRECTORY, 'vendor-manifest.json'].join(''))
+    // })
 ];
 
 const PRODUCTION_PLUGINS = [
