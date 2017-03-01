@@ -11,7 +11,7 @@
     "build-vendor": "set NODE_ENV=production&& webpack --config vendor.webpack.config.js --optimize-minimize",
     "build-lib": "bash build-lib.sh",
     "build-js": "webpack --optimize-minimize",
-    "build": "set NODE_ENV=production&& npm run build-lib --silent && npm run build-js --silent"
+    "build": "((NODE_ENV=production npm run build-lib --silent) || (set NODE_ENV=production&& npm run build-lib --silent)) && npm run build-js --silent"
   },
   "author": "NAV",
   "devDependencies": {
