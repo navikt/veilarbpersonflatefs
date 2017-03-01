@@ -2,13 +2,11 @@ package no.nav.fo.veilarbpersonflatefs.internal;
 
 import no.nav.sbl.dialogarena.common.web.selftest.SelfTestBaseServlet;
 import no.nav.sbl.dialogarena.types.Pingable;
-import org.slf4j.Logger;
 import org.springframework.context.ApplicationContext;
 
 import javax.servlet.ServletException;
 import java.util.*;
 
-import static org.slf4j.LoggerFactory.getLogger;
 import static org.springframework.web.context.support.WebApplicationContextUtils.getWebApplicationContext;
 
 public class SelftestServlet extends SelfTestBaseServlet {
