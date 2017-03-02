@@ -89,4 +89,39 @@
         <servlet-name>AppServlet</servlet-name>
         <url-pattern>/*</url-pattern>
     </servlet-mapping>
+
+    <servlet>
+        <servlet-name>restservlet</servlet-name>
+        <servlet-class>org.glassfish.jersey.servlet.ServletContainer</servlet-class>
+        <init-param>
+            <param-name>javax.ws.rs.Application</param-name>
+            <param-value>no.nav.fo.veilarbpersonflatefs.rest.RestConfig</param-value>
+        </init-param>
+        <load-on-startup>1</load-on-startup>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>restservlet</servlet-name>
+        <url-pattern>/api/*</url-pattern>
+    </servlet-mapping>
+
+
+    <security-constraint>
+        <web-resource-collection>
+            <web-resource-name>Ubeskyttet</web-resource-name>
+            <url-pattern>/api/login</url-pattern>
+            <url-pattern>/internal/*</url-pattern>
+        </web-resource-collection>
+    </security-constraint>
+    <security-constraint>
+        <web-resource-collection>
+            <web-resource-name>Alt annet beskyttet</web-resource-name>
+            <url-pattern>/*</url-pattern>
+        </web-resource-collection>
+        <auth-constraint>
+            <!-- From Servlet spec 3.1 "**" means any authenticated user
+            ref: https://community.oracle.com/blogs/swchan2/2013/04/19/role-servlet-31-security-constraint -->
+            <role-name>**</role-name>
+        </auth-constraint>
+    </security-constraint>
+
 </web-app>
