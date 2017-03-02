@@ -43,7 +43,7 @@ const LOADERS = [
 
 const PLUGINS = [
     new HtmlWebpackPlugin({
-        template: PRODUCTION ? 'index.html' : 'dev-index.html'
+        template: 'index.html'
     }),
     // new webpack.DllReferencePlugin({
     //     context: '.',
