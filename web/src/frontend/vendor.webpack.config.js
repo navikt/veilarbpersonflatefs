@@ -10,14 +10,14 @@ const PRODUCTION_PLUGINS = [
     }),
 ];
 
-const libraries = {
+const LIBRARIES = {
     'react': 'React',
     'redux': 'Redux',
     'redux-thunk': 'ReduxThunk',
     'react-redux': 'ReactRedux'
 };
 
-module.exports = Object.keys(libraries).map((key) => ({
+module.exports = Object.keys(LIBRARIES).map((key) => ({
         context: __dirname,
         devtool: DEBUG ? 'inline-sourcemap' : false,
         entry:  key,
@@ -27,7 +27,7 @@ module.exports = Object.keys(libraries).map((key) => ({
         output: {
             path: '../main/webapp/',
             filename: `js/${key}.min.js`,
-            library: libraries[key]
+            library: LIBRARIES[key]
         },
         plugins: DEBUG ? [] : PRODUCTION_PLUGINS
     })
