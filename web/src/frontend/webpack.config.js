@@ -74,6 +74,7 @@ module.exports = {
     },
     externals: {
         'Personoversikt': 'PersonoversiktRoot',
+        'Aktivitetsplan': 'AktivitetsplanRoot',
         'react': 'React'
     },
     output: {
