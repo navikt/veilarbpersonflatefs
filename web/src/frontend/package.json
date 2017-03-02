@@ -8,8 +8,7 @@
     "lint": "eslint app --ext .js --ext .jsx || true",
     "lint:fix": "eslint app --fix --ext .js --ext .jsx",
     "dev": "npm run build-lib --silent && webpack --watch",
-    "build-vendor": "set NODE_ENV=production&& webpack --config vendor.webpack.config.js --optimize-minimize",
-    "build-lib": "bash build-lib.sh",
+    "build-lib": "webpack --config vendor.webpack.config.js",
     "build-js": "webpack --optimize-minimize",
     "build": "cross-env NODE_ENV=production npm run build-lib --silent && cross-env NODE_ENV=production npm run build-js --silent"
   },
