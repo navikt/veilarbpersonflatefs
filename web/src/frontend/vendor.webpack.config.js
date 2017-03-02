@@ -1,39 +1,34 @@
 var webpack = require('webpack');
 
-const DEBUG = process.env.NODE_ENV !== "production";
-
-const OUTPUT_DIRECTORY = '../main/webapp/js/';
-
-const LIBS = [
-    'react',
-    'redux',
-    'redux-thunk',
-    'react-redux'
-];
-
-const PLUGINS = [
-    new webpack.DllPlugin({
-        path: [OUTPUT_DIRECTORY, "vendor-manifest.json"].join(''),
-        name: 'vendor_dll'
-    })
-];
+const DEBUG = process.env.NODE_ENV !== 'production';
 
 const PRODUCTION_PLUGINS = [
-    new webpack.optimize.UglifyJsPlugin({ mangle: false, sourcemap: false })
+    new webpack.optimize.OccurrenceOrderPlugin(),
+    new webpack.optimize.UglifyJsPlugin({
+        mangle: false,
+        sourcemap: false
+    }),
 ];
 
-module.exports = {
-    name: "vendor",
-    context: __dirname,
-    devtool: DEBUG ? "inline-sourcemap" : false,
-    entry:  LIBS,
-    resolve: {
-        extensions: [".js"]
-    },
-    output: {
-        path: OUTPUT_DIRECTORY,
-        filename: "vendor.bundle.min.js",
-        library: "vendor_dll"
-    },
-    plugins: DEBUG ? PLUGINS : [].concat(PLUGINS, PRODUCTION_PLUGINS)
+const libraries = {
+    'react': 'React',
+    'redux': 'Redux',
+    'redux-thunk': 'ReduxThunk',
+    'react-redux': 'ReactRedux'
 };
+
+module.exports = Object.keys(libraries).map((key) => ({
+        context: __dirname,
+        devtool: DEBUG ? 'inline-sourcemap' : false,
+        entry:  key,
+        resolve: {
+            extensions: ['.js']
+        },
+        output: {
+            path: '../main/webapp/',
+            filename: `js/${key}.min.js`,
+            library: libraries[key]
+        },
+        plugins: DEBUG ? [] : PRODUCTION_PLUGINS
+    })
+);
