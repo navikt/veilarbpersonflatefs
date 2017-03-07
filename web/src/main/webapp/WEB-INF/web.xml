@@ -124,4 +124,9 @@
         </auth-constraint>
     </security-constraint>
 
+    <error-page>
+        <error-code>500</error-code>
+        <location>/static/feilside.html</location>
+    </error-page>
+
 </web-app>
