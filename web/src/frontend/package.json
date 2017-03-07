@@ -9,7 +9,7 @@
     "eslint": "eslint app --ext .js --ext .jsx || true",
     "lint:fix": "eslint app --fix --ext .js --ext .jsx",
     "dev": "npm run build-lib --silent && webpack --watch",
-    "build-lib": "webpack --config vendor.webpack.config.js",
+    "build-lib": "webpack --config vendor.webpack.config.js --optimize-minimize",
     "build-js": "webpack --optimize-minimize",
     "build": "cross-env NODE_ENV=production npm run build-lib --silent && cross-env NODE_ENV=production npm run build-js --silent"
   },
