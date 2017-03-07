@@ -3,6 +3,11 @@ var webpack = require('webpack');
 const DEBUG = process.env.NODE_ENV !== 'production';
 
 const PRODUCTION_PLUGINS = [
+    new webpack.DefinePlugin({
+        'process.env': {
+            NODE_ENV: JSON.stringify('production')
+        }
+    }),
     new webpack.optimize.OccurrenceOrderPlugin(),
     new webpack.optimize.UglifyJsPlugin({
         mangle: false,
