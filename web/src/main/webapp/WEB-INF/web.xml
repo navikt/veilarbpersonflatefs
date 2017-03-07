@@ -101,14 +101,14 @@
     </servlet>
     <servlet-mapping>
         <servlet-name>restservlet</servlet-name>
-        <url-pattern>/api/*</url-pattern>
+        <url-pattern>/tjenester/*</url-pattern>
     </servlet-mapping>
 
 
     <security-constraint>
         <web-resource-collection>
             <web-resource-name>Ubeskyttet</web-resource-name>
-            <url-pattern>/api/login</url-pattern>
+            <url-pattern>/tjenester/login</url-pattern>
             <url-pattern>/internal/*</url-pattern>
         </web-resource-collection>
     </security-constraint>
