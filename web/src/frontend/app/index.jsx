@@ -7,7 +7,7 @@ import Personoversikt from 'Personoversikt'; // eslint-disable-line
 import { initialiserEventhandtering } from './eventhandtering';
 import { lagHtmlMeny } from './meny-utils';
 
-var visFeilmelding = function () {
+const visFeilmelding = () => {
     window.location = '/veilarbpersonflatefs/static/feilside.html';
 };
 
