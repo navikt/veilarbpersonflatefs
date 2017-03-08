@@ -15,7 +15,7 @@ export const hentPersonnummerFraURL = () => {
     const url = window.location.pathname;
     const regex = new RegExp(/^/.source + BASE_URL + /(\d+)\/?$/.source);
     const match = url.match(regex);
-    if (match.length === 2) {
+    if (match && match.length === 2) {
         return match[1];
     }
     return null;
