@@ -12,7 +12,7 @@ const visFeilmelding = () => {
 };
 
 document.addEventListener('DOMContentLoaded', () => {
-    if (!document.varsel) {
+    if (!document.internarbeidsflatedecoratorErLastet) {
         visFeilmelding();
     } else {
         const hodeMeny = document.getElementById('js-dekorator-nav');
