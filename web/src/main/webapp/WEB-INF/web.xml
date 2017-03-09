@@ -29,8 +29,8 @@
         </init-param>
     </filter>
     <filter-mapping>
-    <filter-name>charEncodingFilter</filter-name>
-    <url-pattern>/*</url-pattern>
+        <filter-name>charEncodingFilter</filter-name>
+        <url-pattern>/*</url-pattern>
     </filter-mapping>
 
     <listener>
@@ -123,5 +123,10 @@
             <role-name>**</role-name>
         </auth-constraint>
     </security-constraint>
+
+    <error-page>
+        <error-code>500</error-code>
+        <location>/static/feilside.html</location>
+    </error-page>
 
 </web-app>
