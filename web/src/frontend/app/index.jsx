@@ -13,7 +13,7 @@ const visFeilmelding = () => {
 
 document.addEventListener('DOMContentLoaded', () => {
     if (!document.varsel) {
-        visFeilmelding()
+        visFeilmelding();
     } else {
         const hodeMeny = document.getElementById('js-dekorator-nav');
         const hodeMenyKnapp = document.getElementById('js-dekorator-toggle-meny');
