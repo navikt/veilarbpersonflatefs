@@ -2,7 +2,9 @@
 
 set -e
 
-declare -a libs=("react"
+declare -a libs=(
+         "react"
+         "react-dom"
 		 "redux"
 		 "redux-thunk"
 		 "react-redux"

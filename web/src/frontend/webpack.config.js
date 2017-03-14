@@ -75,7 +75,8 @@ module.exports = {
     externals: {
         'Personoversikt': 'PersonoversiktRoot',
         'Aktivitetsplan': 'AktivitetsplanRoot',
-        'react': 'React'
+        'react': 'React',
+        'react-dom': 'ReactDOM'
     },
     output: {
         path: '../main/webapp/',

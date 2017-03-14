@@ -6,6 +6,7 @@ const OUTPUT_DIRECTORY = '../main/webapp/js/';
 
 const LIBS = [
     'react',
+    'react-dom',
     'redux',
     'redux-thunk',
     'react-redux'
