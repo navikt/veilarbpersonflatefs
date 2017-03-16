@@ -5,9 +5,8 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 0",
-    "lint": "eslint app --ext .js --ext .jsx || true",
     "eslint": "eslint app --ext .js --ext .jsx || true",
-    "lint:fix": "eslint app --fix --ext .js --ext .jsx",
+    "eslint:fix": "eslint app --fix --ext .js --ext .jsx",
     "dev": "npm run build-lib --silent && webpack --watch",
     "build-lib": "webpack --config vendor.webpack.config.js --optimize-minimize",
     "build-js": "webpack --optimize-minimize",
