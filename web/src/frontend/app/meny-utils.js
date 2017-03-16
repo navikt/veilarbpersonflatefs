@@ -2,15 +2,15 @@ import { hentPersonnummerFraURL } from './eventhandtering';
 
 const menyValgliste = [
     {
-        url: 'https://modapp.adeo.no/mia/ledigestillinger',
+        url: '/mia/ledigestillinger',
         tekst: 'Arbeidsmarkedet'
     },
     {
-        url: '/veilarbportefoljeflatefs/enhet?enhet={{enhet}}&ident={{ident}}',
+        url: '/veilarbportefoljeflatefs/enhet',
         tekst: 'Enhetsportefølje'
     },
     {
-        url: '/veilarbportefoljeflatefs/enhet?enhet={{enhet}}&ident={{ident}}',
+        url: '/veilarbportefoljeflatefs/portefolje',
         tekst: 'Veilederportefølje'
     },
     {
@@ -20,13 +20,9 @@ const menyValgliste = [
 ];
 
 const erstattPlaceholders = (url) => {
-    const saksbehandlerIdent = 'z990301';
-    const enhet = '0356';
     const personnummer = hentPersonnummerFraURL();
 
     return url
-        .replace('{{enhet}}', enhet)
-        .replace('{{ident}}', saksbehandlerIdent)
         .replace('{{personnummer}}', personnummer);
 };
 

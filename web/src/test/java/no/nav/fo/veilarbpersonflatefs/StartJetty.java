@@ -1,5 +1,6 @@
 package no.nav.fo.veilarbpersonflatefs;
 
+import no.nav.brukerdialog.security.context.JettySubjectHandler;
 import no.nav.sbl.dialogarena.common.jetty.Jetty;
 import org.eclipse.jetty.client.HttpClient;
 import org.eclipse.jetty.proxy.ProxyServlet;
@@ -15,19 +16,38 @@ import java.net.URI;
 import java.util.Arrays;
 
 import static java.lang.System.getProperty;
+import no.nav.sbl.dialogarena.test.SystemProperties;
+import org.apache.geronimo.components.jaspi.AuthConfigFactoryImpl;
+
+import javax.security.auth.message.config.AuthConfigFactory;
+import java.security.Security;
+
+import static java.lang.System.setProperty;
 import static no.nav.sbl.dialogarena.common.jetty.Jetty.usingWar;
-import static no.nav.sbl.dialogarena.common.jetty.JettyStarterUtils.*;
+import static no.nav.sbl.dialogarena.common.jetty.JettyStarterUtils.first;
+import static no.nav.sbl.dialogarena.common.jetty.JettyStarterUtils.gotKeypress;
+import static no.nav.sbl.dialogarena.common.jetty.JettyStarterUtils.waitFor;
 
 public class StartJetty {
 
     private static final int PORT = 8485;
 
-    public static void main(String[] args) {
+    public static void main(String []args) {
+        SystemProperties.setFrom("environment-test.properties");
+
+        setProperty("develop-local", "true");
+        setProperty("no.nav.modig.core.context.subjectHandlerImplementationClass", JettySubjectHandler.class.getName());
+        setProperty("org.apache.geronimo.jaspic.configurationFile", "web/src/test/resources/jaspiconf.xml");
+        Security.setProperty(AuthConfigFactory.DEFAULT_FACTORY_SECURITY_PROPERTY, AuthConfigFactoryImpl.class.getCanonicalName());
+
         Jetty jetty = usingWar()
                 .at("/veilarbpersonflatefs")
                 .port(PORT)
                 .loadProperties("/environment-test.properties")
+                .overrideWebXml()
+                .configureForJaspic()
                 .buildJetty();
+
         addProxyContext(jetty);
         jetty.startAnd(first(waitFor(gotKeypress())).then(jetty.stop));
     }
@@ -92,5 +112,4 @@ public class StartJetty {
             return targetUri;
         }
     }
-
 }

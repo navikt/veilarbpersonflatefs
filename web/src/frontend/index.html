@@ -3,16 +3,15 @@
 <head>
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta charset="UTF-8">
-    <title>Intern arbeidsflate</title>
+    <title>Aktivitetsplan</title>
     <meta name="viewport" content="width=device-width, initial-scale=1"/>
     <link type="text/css" rel="stylesheet" href="/veilarbpersonfs/css/application.css">
 
-    <script type="text/javascript" charset="UTF-8" src="/veilarbpersonflatefs/js/react.js"></script>
-    <script type="text/javascript" charset="UTF-8" src="/veilarbpersonflatefs/js/react-dom.js"></script>
-    <script type="text/javascript" charset="UTF-8" src="/veilarbpersonflatefs/js/redux.js"></script>
-    <script type="text/javascript" charset="UTF-8" src="/veilarbpersonflatefs/js/redux-thunk.js"></script>
-    <script type="text/javascript" charset="UTF-8" src="/veilarbpersonflatefs/js/react-redux.js"></script>
-
+    <script type="text/javascript" charset="UTF-8" src="/veilarbpersonflatefs/js/react.min.js"></script>
+    <script type="text/javascript" charset="UTF-8" src="/veilarbpersonflatefs/js/react-dom.min.js"></script>
+    <script type="text/javascript" charset="UTF-8" src="/veilarbpersonflatefs/js/redux.min.js"></script>
+    <script type="text/javascript" charset="UTF-8" src="/veilarbpersonflatefs/js/redux-thunk.min.js"></script>
+    <script type="text/javascript" charset="UTF-8" src="/veilarbpersonflatefs/js/react-redux.min.js"></script>
     <!--Denne må være før hoved-js-fila for flaten, fordi personoversikt trekkes inn som ekstern dependency til flaten-->
     <script type="text/javascript" charset="UTF-8" src="/veilarbpersonfs/js/personoversikt.min.js"></script>
     <script type="text/javascript" charset="UTF-8" src="/veilarbaktivitetsplanfs/js/aktivitetsplan.min.js"></script>
@@ -21,12 +20,14 @@
 </head>
 
 <body>
-{{fragment.header-withmenu}}
 
-<div class="pagewrapper">
-    <div class="hovedinnhold" id="app"></div>
-    <div class="hovedinnhold" id="aktivitetsplan-app"></div>
-    <div id="modal-a11y-wrapper"> <!-- brukes av modalen til aktivitetsplan -->
+<div class="veilarbpersonflatefs">
+    {{fragment.header-withmenu}}
+    <div class="pagewrapper">
+        <div class="hovedinnhold" id="app"></div>
+        <div class="hovedinnhold" id="aktivitetsplan-app"></div>
+        <div id="modal-a11y-wrapper"></div> <!-- brukes av modalen til aktivitetsplan -->
+    </div>
 </div>
 
 </body>
