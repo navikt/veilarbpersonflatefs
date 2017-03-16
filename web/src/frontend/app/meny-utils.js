@@ -1,4 +1,4 @@
-import { hentPersonnummerFraURL } from './eventhandtering';
+import { hentFodselsnummerFraURL } from './eventhandtering';
 
 const menyValgliste = [
     {
@@ -14,16 +14,16 @@ const menyValgliste = [
         tekst: 'Veilederportefølje'
     },
     {
-        url: '/modiabrukerdialog/person/{{personnummer}}',
+        url: '/modiabrukerdialog/person/{{fodselsnummer }}',
         tekst: 'Modia'
     }
 ];
 
 const erstattPlaceholders = (url) => {
-    const personnummer = hentPersonnummerFraURL();
+    const fodselsnummer = hentFodselsnummerFraURL();
 
     return url
-        .replace('{{personnummer}}', personnummer);
+        .replace('{{fodselsnummer }}', fodselsnummer);
 };
 
 const konverterTilHtml = (menyvalg) => {
