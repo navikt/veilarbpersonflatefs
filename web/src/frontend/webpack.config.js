@@ -1,10 +1,18 @@
-var webpack = require('webpack');
-var HtmlWebpackPlugin = require('html-webpack-plugin');
+const webpack = require('webpack');
+const path = require('path');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+const CopyWebpackPlugin = require('copy-webpack-plugin');
 
 const DEBUG = process.env.NODE_ENV !== 'production';
 const PRODUCTION = process.env.NODE_ENV === 'production';
 
-const OUTPUT_DIRECTORY = '../main/webapp/js/';
+const LIBRARIES = {
+    'react': 'React',
+    'react-dom': 'ReactDOM',
+    'redux' : 'Redux',
+    'redux-thunk' : 'ReduxThunk',
+    'react-redux': 'ReactRedux'
+};
 
 const RULES = [
     {
@@ -45,10 +53,15 @@ const PLUGINS = [
     new HtmlWebpackPlugin({
         template: PRODUCTION ? 'index.html' : 'dev-index.html'
     }),
-    // new webpack.DllReferencePlugin({
-    //     context: '.',
-    //     manifest: require([OUTPUT_DIRECTORY, 'vendor-manifest.json'].join(''))
-    // })
+    new CopyWebpackPlugin(
+        Object.keys(LIBRARIES).map(library => {
+            return {
+                from: path.join(__dirname, `node_modules/${library}/dist/${library}.min.js`),
+                to: path.join(__dirname, `../main/webapp/js/${library}.min.js`)
+            }
+        }), {
+            copyUnmodified: true
+        })
 ];
 
 const PRODUCTION_PLUGINS = [
@@ -64,7 +77,6 @@ const PRODUCTION_PLUGINS = [
     }),
 ];
 
-
 module.exports = {
     name: 'app',
     context: __dirname,
@@ -77,10 +89,9 @@ module.exports = {
     resolve: {
       extensions: ['.js', '.jsx', '.json']
     },
-    externals: {
+    externals: Object.assign({
         'Personoversikt': 'PersonoversiktRoot',
-        'react': 'React'
-    },
+    }, LIBRARIES),
     output: {
         path: '../main/webapp/',
         filename: 'js/scripts.min.js',
