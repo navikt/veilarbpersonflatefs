@@ -7,7 +7,7 @@
       </pattern>
     </extension>
     <option name="MAIN_CLASS_NAME" value="no.nav.fo.veilarbpersonflatefs.StartJetty" />
-    <option name="VM_PARAMETERS" value="-Dinternarbeidsflatedecorator.url=https://app-t4.adeo.no -Dveilarbpersonfs.url=http://app-t4.adeo.no -Dveilarbperson.url=https://app-t4.adeo.no -Dveilarbveileder.url=https://app-t4.adeo.no -Dveilarbaktivitetsplanfs.url=https://app-t6.adeo.no -Dveilarbsituasjon.url=https://app-t6.adeo.no -Dveilarbaktivitet.url=http://app-t6.adeo.no" />
+    <option name="VM_PARAMETERS" value="-Dinternarbeidsflatedecorator.url=https://app-t4.adeo.no -Dveilarbpersonfs.url=http://app-t4.adeo.no -Dveilarbperson.url=https://app-t4.adeo.no -Dveilarbveileder.url=https://app-t4.adeo.no -Dveilarbaktivitetsplanfs.url=https://app-t6.adeo.no -Dveilarbsituasjon.url=https://app-t6.adeo.no -Dveilarbaktivitet.url=https://app-t6.adeo.no" />
     <option name="PROGRAM_PARAMETERS" value="" />
     <option name="WORKING_DIRECTORY" value="file://$PROJECT_DIR$" />
     <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
