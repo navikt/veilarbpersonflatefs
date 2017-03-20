@@ -51,7 +51,7 @@ const LOADERS = [
 
 const PLUGINS = [
     new HtmlWebpackPlugin({
-        template: PRODUCTION ? 'index.html' : 'dev-index.html'
+        template: 'index.html'
     }),
     new CopyWebpackPlugin(
         Object.keys(LIBRARIES).map(library => {
@@ -91,6 +91,7 @@ module.exports = {
     },
     externals: Object.assign({
         'Personoversikt': 'PersonoversiktRoot',
+        'Aktivitetsplan': 'AktivitetsplanRoot'
     }, LIBRARIES),
     output: {
         path: '../main/webapp/',
