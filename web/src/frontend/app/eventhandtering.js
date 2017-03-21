@@ -1,8 +1,8 @@
 
 const BASE_URL = '/veilarbpersonflatefs/';
 
-const settPersonIURL = (personnummer) => {
-    window.history.pushState(`Endret personnummer til ${personnummer}`, '', `${BASE_URL}${personnummer}`);
+const settPersonIURL = (fodselsnummer) => {
+    window.history.pushState(`Endret fodselsnummer til ${fodselsnummer}`, '', `${BASE_URL}${fodselsnummer}`);
 };
 
 const personErSattIURL = () => {
@@ -11,7 +11,7 @@ const personErSattIURL = () => {
     return url.match(regex);
 };
 
-export const hentPersonnummerFraURL = () => {
+export const hentFodselsnummerFraURL = () => {
     const url = window.location.pathname;
     const regex = new RegExp(/^/.source + BASE_URL + /(\d+)\/?$/.source);
     const match = url.match(regex);
@@ -25,7 +25,7 @@ const sendEventOmPersonFraURL = () => {
     if (personErSattIURL()) {
         const personsokEvent = document.createEvent('Event');
         personsokEvent.initEvent('flate-person-endret', true, true);
-        personsokEvent.personnummer = hentPersonnummerFraURL();
+        personsokEvent.fodselsnummer = hentFodselsnummerFraURL();
         document.dispatchEvent(personsokEvent);
     }
 };
@@ -35,7 +35,7 @@ export const initialiserEventhandtering = () => {
     window.onpopstate = sendEventOmPersonFraURL;
 
     document.addEventListener('dekorator-hode-personsok', (event) => {
-        settPersonIURL(event.personnummer);
+        settPersonIURL(event.fodselsnummer);
         sendEventOmPersonFraURL();
     });
 };

@@ -1,14 +1,14 @@
-import { hentPersonnummerFraURL } from './eventhandtering';
+import { hentFodselsnummerFraURL } from './eventhandtering';
 
 
 const erstattPlaceholders = (lenke) => {
-    const personnummer = hentPersonnummerFraURL();
+    const fodselsnummer = hentFodselsnummerFraURL();
 
     const url = lenke;
-    if (!personnummer) {
-        url[0] = lenke[0].replace('{{personnummer}}', '');
+    if (!fodselsnummer) {
+        url[0] = lenke[0].replace('{{fodselsnummer}}', '');
     } else {
-        url[0] = lenke[0].replace('{{personnummer}}', personnummer);
+        url[0] = lenke[0].replace('{{fodselsnummer}}', fodselsnummer);
     }
 
     return url;
@@ -23,12 +23,12 @@ const erstattPlaceholdersForLenker = (lenker) => {
 const lenker =
     {
         lenker:
-        [
+            [
                 ['/mia/ledigestillinger', 'Arbeidsmarkedet'],
                 ['/veilarbportefoljeflatefs/enhet', 'Enhetsportefolje'],
                 ['/veilarbportefoljeflatefs/portefolje', 'Veilederportefølje'],
-                ['/modiabrukerdialog/person/{{personnummer}}', 'Modia']
-        ],
+                ['/modiabrukerdialog/person/{{fodselsnummer}}', 'Modia']
+            ],
         tittel: ''
     };
 
