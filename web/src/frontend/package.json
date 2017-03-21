@@ -7,10 +7,9 @@
     "test": "echo \"Error: no test specified\" && exit 0",
     "eslint": "eslint app --ext .js --ext .jsx || true",
     "eslint:fix": "eslint app --fix --ext .js --ext .jsx",
-    "dev": "npm run build-lib --silent && webpack --watch",
-    "build-lib": "webpack --config vendor.webpack.config.js --optimize-minimize",
+    "dev": "webpack --watch",
     "build-js": "webpack --optimize-minimize",
-    "build": "cross-env NODE_ENV=production npm run build-lib --silent && cross-env NODE_ENV=production npm run build-js --silent"
+    "build": "cross-env NODE_ENV=production npm run build-js --silent"
   },
   "author": "NAV",
   "devDependencies": {
@@ -38,6 +37,7 @@
     "eslint-plugin-react": "^6.8.0",
     "file-loader": "^0.10.0",
     "html-webpack-plugin": "^2.28.0",
+    "copy-webpack-plugin": "4.0.1",
     "less": "^2.7.2",
     "less-loader": "^2.2.3",
     "modig-frontend": "git+http://stash.devillo.no/scm/felles/modig-frontend.git#modig-frontend-4.0.11",
