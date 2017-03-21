@@ -23,12 +23,12 @@ const erstattPlaceholdersForLenker = (lenker) => {
 const lenker =
     {
         lenker:
-            [
+        [
                 ['/mia/ledigestillinger', 'Arbeidsmarkedet'],
                 ['/veilarbportefoljeflatefs/enhet', 'Enhetsportefolje'],
                 ['/veilarbportefoljeflatefs/portefolje', 'Veilederportefølje'],
                 ['/modiabrukerdialog/person/{{fodselsnummer}}', 'Modia']
-            ],
+        ],
         tittel: ''
     };
 
