@@ -5,22 +5,18 @@ import './index.less';
 
 import Personoversikt from 'Personoversikt'; // eslint-disable-line
 import { initialiserEventhandtering } from './eventhandtering';
-import { lagHtmlMeny } from './meny-utils';
+import { initialiserToppmeny } from './hode-utils';
 
 const visFeilmelding = () => {
     window.location = '/veilarbpersonflatefs/static/feilside.html';
 };
 
 document.addEventListener('DOMContentLoaded', () => {
-    if (!document.internarbeidsflatedecoratorErLastet) {
+
+    if (!window.renderDecoratorHead) {
         visFeilmelding();
     } else {
-        const hodeMeny = document.getElementById('js-dekorator-nav');
-        const hodeMenyKnapp = document.getElementById('js-dekorator-toggle-meny');
-        hodeMenyKnapp.addEventListener('click', () => {
-            hodeMeny.innerHTML = lagHtmlMeny();
-        });
-
+        initialiserToppmeny();
         render(<Personoversikt />
             , document.getElementById('app'));
     }
