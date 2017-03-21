@@ -1,32 +1,34 @@
 import { hentPersonnummerFraURL } from './eventhandtering';
 
 
-const erstattPlaceholders = lenke => {
+const erstattPlaceholders = (lenke) => {
     const personnummer = hentPersonnummerFraURL();
 
+    const url = lenke;
     if (!personnummer) {
-        lenke[0] = lenke[0].replace('{{personnummer}}', "");
+        url[0] = lenke[0].replace('{{personnummer}}', '');
     } else {
-        lenke[0] = lenke[0].replace('{{personnummer}}', personnummer);
+        url[0] = lenke[0].replace('{{personnummer}}', personnummer);
     }
 
-    return lenke;
+    return url;
 };
 
-const erstattPlaceholdersForLenker = lenker => {
-    lenker.lenker = lenker.lenker.map(erstattPlaceholders);
-    return lenker;
+const erstattPlaceholdersForLenker = (lenker) => {
+    const lenkeliste = lenker;
+    lenkeliste.lenker = lenker.lenker.map(erstattPlaceholders);
+    return lenkeliste;
 };
 
 const lenker =
     {
         lenker:
-            [
+        [
                 ['/mia/ledigestillinger', 'Arbeidsmarkedet'],
                 ['/veilarbportefoljeflatefs/enhet', 'Enhetsportefolje'],
                 ['/veilarbportefoljeflatefs/portefolje', 'Veilederportefølje'],
                 ['/modiabrukerdialog/person/{{personnummer}}', 'Modia']
-            ],
+        ],
         tittel: ''
     };
 

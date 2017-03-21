@@ -12,7 +12,6 @@ const visFeilmelding = () => {
 };
 
 document.addEventListener('DOMContentLoaded', () => {
-
     if (!window.renderDecoratorHead) {
         visFeilmelding();
     } else {
