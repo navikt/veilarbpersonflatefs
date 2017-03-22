@@ -1,38 +1,51 @@
 import { hentFodselsnummerFraURL } from './eventhandtering';
 
-const menyValgliste = [
-    {
-        url: '/mia/ledigestillinger',
-        tekst: 'Arbeidsmarkedet'
-    },
-    {
-        url: '/veilarbportefoljeflatefs/enhet',
-        tekst: 'Enhetsportefølje'
-    },
-    {
-        url: '/veilarbportefoljeflatefs/portefolje',
-        tekst: 'Veilederportefølje'
-    },
-    {
-        url: '/modiabrukerdialog/person/{{fodselsnummer }}',
-        tekst: 'Modia'
-    }
-];
 
-const erstattPlaceholders = (url) => {
+const erstattPlaceholders = (lenke) => {
     const fodselsnummer = hentFodselsnummerFraURL();
 
-    return url
-        .replace('{{fodselsnummer }}', fodselsnummer);
+    const url = lenke;
+    if (!fodselsnummer) {
+        url[0] = lenke[0].replace('{{fodselsnummer}}', '');
+    } else {
+        url[0] = lenke[0].replace('{{fodselsnummer}}', fodselsnummer);
+    }
+
+    return url;
 };
 
-const konverterTilHtml = (menyvalg) => {
-    const url = erstattPlaceholders(menyvalg.url);
-    return (`<li><a href=${url}>${menyvalg.tekst}</a></li>\n`);
+const erstattPlaceholdersForLenker = (lenker) => {
+    const lenkeliste = lenker;
+    lenkeliste.lenker = lenker.lenker.map(erstattPlaceholders);
+    return lenkeliste;
 };
 
-export const lagHtmlMeny = () => {
-    const listeHtml = menyValgliste.map(valg => konverterTilHtml(valg))
-        .reduce((acc, val) => acc + val);
-    return `<ul>${listeHtml}</ul>`;
+const lenker =
+    {
+        lenker:
+        [
+                ['/mia/ledigestillinger', 'Arbeidsmarkedet'],
+                ['/veilarbportefoljeflatefs/enhet', 'Enhetsportefolje'],
+                ['/veilarbportefoljeflatefs/portefolje', 'Veilederportefølje'],
+                ['/modiabrukerdialog/person/{{fodselsnummer}}', 'Modia']
+        ],
+        tittel: ''
+    };
+
+
+const config = {
+    config: {
+        toggles: {
+            visEnhet: true,
+            visEnhetVelger: false,
+            visSokefelt: true,
+            visVeileder: true
+        },
+        egendefinerteLenker: erstattPlaceholdersForLenker(lenker),
+        applicationName: 'Oppfølging'
+    }
+};
+
+export const initialiserToppmeny = () => {
+    window.renderDecoratorHead(config);
 };

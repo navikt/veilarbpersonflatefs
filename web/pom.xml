@@ -103,10 +103,6 @@
         <!-- Logging -->
         <dependency>
             <groupId>org.slf4j</groupId>
-            <artifactId>slf4j-api</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.slf4j</groupId>
             <artifactId>jcl-over-slf4j</artifactId>
             <scope>runtime</scope>
         </dependency>
@@ -116,10 +112,6 @@
             <scope>runtime</scope>
         </dependency>
 
-        <dependency>
-            <groupId>no.nav.sbl</groupId>
-            <artifactId>innholdshenter</artifactId>
-        </dependency>
     </dependencies>
 
     <build>
