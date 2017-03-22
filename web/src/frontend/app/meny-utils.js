@@ -25,8 +25,8 @@ const lenker =
         lenker:
         [
                 ['/mia/ledigestillinger', 'Arbeidsmarkedet'],
-                ['/veilarbportefoljeflatefs/enhet', 'Enhetsportefolje'],
-                ['/veilarbportefoljeflatefs/portefolje', 'Veilederportefølje'],
+                ['/veilarbportefoljeflatefs/tilbaketilenhet', 'Enhetsportefolje'],
+                ['/veilarbportefoljeflatefs/tilbaketilveileder', 'Veilederportefølje'],
                 ['/modiabrukerdialog/person/{{fodselsnummer}}', 'Modia']
         ],
         tittel: ''
