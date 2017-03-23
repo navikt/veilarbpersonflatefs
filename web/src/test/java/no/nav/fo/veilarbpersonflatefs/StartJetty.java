@@ -30,7 +30,7 @@ import static no.nav.sbl.dialogarena.common.jetty.JettyStarterUtils.waitFor;
 
 public class StartJetty {
 
-    private static final int PORT = 8485;
+    private static final int PORT = 8880;
 
     public static void main(String []args) {
         SystemProperties.setFrom("environment-test.properties");
