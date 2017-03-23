@@ -94,7 +94,7 @@ module.exports = {
         'Aktivitetsplan': 'AktivitetsplanRoot'
     }, LIBRARIES),
     output: {
-        path: '../main/webapp/',
+        path: __dirname + '/../main/webapp/',
         filename: 'js/scripts.min.js',
         publicPath: '/veilarbpersonflatefs/'
     },

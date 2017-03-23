@@ -15,14 +15,14 @@
     <!--Denne må være før hoved-js-fila for flaten, fordi personoversikt trekkes inn som ekstern dependency til flaten-->
     <script type="text/javascript" charset="UTF-8" src="/veilarbpersonfs/js/personoversikt.min.js"></script>
     <script type="text/javascript" charset="UTF-8" src="/veilarbaktivitetsplanfs/js/aktivitetsplan.min.js"></script>
+    <script type="text/javascript" charset="UTF-8" src="/internarbeidsflatedecorator/js/head.min.js"></script>
 
-    {{fragment.styles}}
 </head>
 
 <body>
 
 <div class="veilarbpersonflatefs">
-    {{fragment.header-withmenu}}
+    <div id="header"></div>
     <div class="pagewrapper">
         <div class="hovedinnhold" id="app"></div>
         <div class="hovedinnhold" id="aktivitetsplan-app"></div>
