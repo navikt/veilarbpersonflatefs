@@ -6,7 +6,7 @@ describe('erstattMiljoPlaceholder', () => {
     it('skal gi riktig lenke i t4', () => {
         global.window = {
             location: {
-                host: 'modapp-t4.adeo.no'
+                host: 'app-t4.adeo.no'
             }
         };
 
@@ -17,7 +17,7 @@ describe('erstattMiljoPlaceholder', () => {
     it('skal gi riktig lenke i prod', () => {
         global.window = {
             location: {
-                host: 'modapp.adeo.no'
+                host: 'app.adeo.no'
             }
         };
 
