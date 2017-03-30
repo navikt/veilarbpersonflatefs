@@ -42,7 +42,7 @@ const config = {
             visVeileder: true
         },
         egendefinerteLenker: erstattPlaceholdersForLenker(lenker),
-        applicationName: 'Oppfølging'
+        applicationName: 'Arbeidsrettet oppfølging'
     }
 };
 
