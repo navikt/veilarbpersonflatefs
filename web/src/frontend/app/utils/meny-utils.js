@@ -50,7 +50,7 @@ const config = () => ({
             lenker: erstattPlaceholdersForLenker(veilarbpersonflatefsLenker.lenker),
             tittel: veilarbpersonflatefsLenker.tittel
         },
-        applicationName: 'Oppfølging'
+        applicationName: 'Arbeidsrettet oppfølging'
     }
 });
 
