@@ -1,5 +1,6 @@
-import { hentFodselsnummerFraURL } from '../eventhandtering';
+import queryString from 'query-string';
 
+import { hentFodselsnummerFraURL } from '../eventhandtering';
 import { veilarbpersonflatefsLenker } from '../lenker';
 
 const erstattFodselsnummerPlaceholder = (lenke) => {
@@ -29,10 +30,17 @@ export const erstattMiljoPlaceholder = (lenke) => {
     return lenke.replace('{{miljoStreng}}', miljoStreng);
 };
 
+const erstattEnhetPlaceholder = (lenke) => {
+    const queries = queryString.parse(location.search);
+    const valgtEnhet = queries.enhet;
+    return lenke.replace('{{enhet}}', valgtEnhet);
+};
+
 const erstattPlaceholders = (lenkeObjekt) => {
     const resultat = lenkeObjekt;
     resultat[0] = erstattFodselsnummerPlaceholder(resultat[0]);
     resultat[0] = erstattMiljoPlaceholder(resultat[0]);
+    resultat[0] = erstattEnhetPlaceholder(resultat[0]);
     return resultat;
 };
 
