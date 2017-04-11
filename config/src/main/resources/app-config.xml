@@ -17,7 +17,6 @@
     <resources>
         <rest mapToProperty="internarbeidsflatedecorator.endpoint" alias="iadecorator-rest"/>
         <applicationProperties alias="veilarbpersonflatefs.properties"/>
-
         <baseUrl alias="isso-host"/>
         <baseUrl alias="isso-jwks"/>
         <baseUrl alias="isso-issuer"/>
@@ -26,6 +25,7 @@
     </resources>
 
     <logging serviceCalls="true"/>
+    <loadBalancer isAlive="/veilarbpersonflatefs/internal/isAlive" />
 
     <security serviceUserResourceAlias="srvveilarbpersonflatefs"/>
 
