@@ -17,6 +17,8 @@
     <resources>
         <rest mapToProperty="internarbeidsflatedecorator.endpoint" alias="iadecorator-rest"/>
         <applicationProperties alias="veilarbpersonflatefs.properties"/>
+        <baseUrl alias="veilarbpersonPingURL" mapToProperty="veilarbperson.hent_person" />
+        <baseUrl alias="veilarbveilederPingURL" mapToProperty="veilarbveileder.hent_enheter" />
         <baseUrl alias="isso-host"/>
         <baseUrl alias="isso-jwks"/>
         <baseUrl alias="isso-issuer"/>

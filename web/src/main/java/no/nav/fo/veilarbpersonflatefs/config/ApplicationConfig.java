@@ -1,11 +1,14 @@
 package no.nav.fo.veilarbpersonflatefs.config;
 
 import no.nav.fo.veilarbpersonflatefs.internal.IsAliveServlet;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.*;
 import org.springframework.context.support.PropertySourcesPlaceholderConfigurer;
 
 @Configuration
+@Import({
+        PersonEndpointConfig.class,
+        VeilederEndpointConfig.class
+})
 public class ApplicationConfig {
 
     @Bean
@@ -13,8 +16,5 @@ public class ApplicationConfig {
         return new PropertySourcesPlaceholderConfigurer();
     }
 
-    public IsAliveServlet isAliveServlet() {
-        return new IsAliveServlet();
-    }
 
 }
