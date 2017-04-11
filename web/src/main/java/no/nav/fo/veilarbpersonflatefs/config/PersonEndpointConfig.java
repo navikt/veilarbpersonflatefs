@@ -16,7 +16,7 @@ public class PersonEndpointConfig {
     public Pingable portefoljePing() throws IOException {
         return () -> {
             try {
-                HttpURLConnection connection = (HttpURLConnection) new URL(System.getProperty("veilarbportefolje.hent_portefolje.url")).openConnection();
+                HttpURLConnection connection = (HttpURLConnection) new URL(System.getProperty("veilarbperson.hent_person.url")).openConnection();
                 connection.connect();
                 if (connection.getResponseCode() == 200) {
                     return Pingable.Ping.lyktes("VeilArbPortefolje");
