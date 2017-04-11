@@ -19,11 +19,11 @@ public class PersonEndpointConfig {
                 HttpURLConnection connection = (HttpURLConnection) new URL(System.getProperty("veilarbperson.hent_person.url")).openConnection();
                 connection.connect();
                 if (connection.getResponseCode() == 200) {
-                    return Pingable.Ping.lyktes("VeilArbPortefolje");
+                    return Pingable.Ping.lyktes("VeilArbPerson");
                 }
-                return Pingable.Ping.feilet("VeilArbPortefolje", new Exception("Statuskode: " + connection.getResponseCode()));
+                return Pingable.Ping.feilet("VeilArbPerson", new Exception("Statuskode: " + connection.getResponseCode()));
             } catch (Exception e) {
-                return Pingable.Ping.feilet("VeilArbPortefolje", e);
+                return Pingable.Ping.feilet("VeilArbPerson", e);
             }
         };
     }
