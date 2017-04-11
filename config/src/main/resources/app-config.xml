@@ -27,7 +27,7 @@
     </resources>
 
     <logging serviceCalls="true"/>
-    <loadBalancer isAlive="/veilarbpersonfs/internal/isAlive" />
+    <loadBalancer isAlive="/veilarbpersonflatefs/internal/isAlive" />
     <security serviceUserResourceAlias="srvveilarbpersonflatefs"/>
 
 </application>
