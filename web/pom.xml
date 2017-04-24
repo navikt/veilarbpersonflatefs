@@ -19,6 +19,10 @@
 
     <dependencies>
         <dependency>
+            <groupId>no.nav.sbl</groupId>
+            <artifactId>innholdshenter</artifactId>
+        </dependency>
+        <dependency>
             <groupId>no.nav.sbl.dialogarena</groupId>
             <artifactId>common-jetty</artifactId>
             <scope>test</scope>
