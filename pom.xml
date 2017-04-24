@@ -44,6 +44,11 @@
     <dependencyManagement>
         <dependencies>
             <dependency>
+                <groupId>no.nav.sbl</groupId>
+                <artifactId>innholdshenter</artifactId>
+                <version>4.3</version>
+            </dependency>
+            <dependency>
                 <groupId>no.nav.sbl.dialogarena</groupId>
                 <artifactId>common-jetty</artifactId>
                 <version>${common-jetty.version}</version>
@@ -74,6 +79,11 @@
             <dependency>
                 <groupId>org.springframework</groupId>
                 <artifactId>spring-web</artifactId>
+                <version>${spring.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework</groupId>
+                <artifactId>spring-beans</artifactId>
                 <version>${spring.version}</version>
             </dependency>
             <dependency>

@@ -66,6 +66,18 @@
         <url-pattern>/internal/selftest.json</url-pattern>
     </servlet-mapping>
 
+    <filter>
+        <filter-name>decoratorFilter</filter-name>
+        <filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>decoratorFilter</filter-name>
+        <servlet-name>AppServlet</servlet-name>
+        <dispatcher>FORWARD</dispatcher>
+        <dispatcher>REQUEST</dispatcher>
+        <dispatcher>ERROR</dispatcher>
+    </filter-mapping>
+
     <servlet>
         <servlet-name>AppServlet</servlet-name>
         <servlet-class>no.nav.fo.veilarbpersonflatefs.AppServlet</servlet-class>

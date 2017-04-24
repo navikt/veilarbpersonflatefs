@@ -15,7 +15,7 @@
     </selftest>
 
     <resources>
-        <rest mapToProperty="internarbeidsflatedecorator.endpoint" alias="iadecorator-js"/>
+        <rest mapToProperty="iadecorator" alias="iadecorator-js"/>
         <applicationProperties alias="veilarbpersonflatefs.properties"/>
         <baseUrl alias="veilarbpersonPingURL" mapToProperty="veilarbperson.hent_person" />
         <baseUrl alias="veilarbveilederPingURL" mapToProperty="veilarbveileder.hent_enheter" />
