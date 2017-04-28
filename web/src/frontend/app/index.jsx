@@ -6,7 +6,7 @@ import './index.less';
 import Personoversikt from 'Personoversikt'; // eslint-disable-line
 import Aktivitetsplan from 'Aktivitetsplan'; // eslint-disable-line
 import { initialiserEventhandtering } from './eventhandtering';
-import { initialiserToppmeny } from './meny-utils';
+import { initialiserToppmeny } from './utils/meny-utils';
 
 const visFeilmelding = () => {
     window.location = '/veilarbpersonflatefs/static/feilside.html';

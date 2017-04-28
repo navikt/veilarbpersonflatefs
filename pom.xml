@@ -30,7 +30,7 @@
         <javax.servlet-api.version>3.1.0</javax.servlet-api.version>
         <jackson.version>2.7.4</jackson.version>
         <spring.version>4.1.6.RELEASE</spring.version>
-        <oidc-security.version>2.0.15</oidc-security.version>
+        <oidc-security.version>2.0.23</oidc-security.version>
 
         <!-- Jersey -->
         <javax.ws.rs-api.version>2.0.1</javax.ws.rs-api.version>
@@ -44,6 +44,30 @@
 
     <dependencyManagement>
         <dependencies>
+            <!--oidc-security-->
+            <dependency>
+                <groupId>no.nav.dialogarena</groupId>
+                <artifactId>oidc-security</artifactId>
+                <version>${oidc-security.version}</version>
+                <type>test-jar</type>
+            </dependency>
+            <dependency>
+                <groupId>no.nav.dialogarena</groupId>
+                <artifactId>oidc-security</artifactId>
+                <version>${oidc-security.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.geronimo.components</groupId>
+                <artifactId>geronimo-jaspi</artifactId>
+                <version>2.0.0</version>
+                <scope>test</scope>
+            </dependency>
+
+            <dependency>
+                <groupId>no.nav.sbl</groupId>
+                <artifactId>innholdshenter</artifactId>
+                <version>4.3</version>
+            </dependency>
             <dependency>
                 <groupId>no.nav.sbl.dialogarena</groupId>
                 <artifactId>common-jetty</artifactId>
@@ -81,6 +105,11 @@
             <dependency>
                 <groupId>org.springframework</groupId>
                 <artifactId>spring-web</artifactId>
+                <version>${spring.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework</groupId>
+                <artifactId>spring-beans</artifactId>
                 <version>${spring.version}</version>
             </dependency>
             <dependency>
@@ -129,25 +158,6 @@
                 <artifactId>jersey-media-json-jackson</artifactId>
                 <scope>runtime</scope>
                 <version>${jersey.version}</version>
-            </dependency>
-
-            <!--oidc-security-->
-            <dependency>
-                <groupId>no.nav.dialogarena</groupId>
-                <artifactId>oidc-security</artifactId>
-                <version>${oidc-security.version}</version>
-                <type>test-jar</type>
-            </dependency>
-            <dependency>
-                <groupId>no.nav.dialogarena</groupId>
-                <artifactId>oidc-security</artifactId>
-                <version>${oidc-security.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.apache.geronimo.components</groupId>
-                <artifactId>geronimo-jaspi</artifactId>
-                <version>2.0.0</version>
-                <scope>test</scope>
             </dependency>
 
             <!-- Jackson -->
