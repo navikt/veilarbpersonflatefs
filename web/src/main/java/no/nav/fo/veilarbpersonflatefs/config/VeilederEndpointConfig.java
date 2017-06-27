@@ -13,16 +13,22 @@ public class VeilederEndpointConfig {
 
     @Bean
     public Pingable veilederPing() throws IOException {
+        Pingable.Ping.PingMetadata metadata = new Pingable.Ping.PingMetadata(
+                "VeilArbVeileder via " + System.getProperty("veilarbveileder.hent_enheter.url"),
+                "Endepunkt for å hente enheter for en veileder.",
+                true
+        );
+
         return () -> {
             try {
                 HttpURLConnection connection = (HttpURLConnection) new URL(System.getProperty("veilarbveileder.hent_enheter.url")).openConnection();
                 connection.connect();
                 if (connection.getResponseCode() == 200) {
-                    return Pingable.Ping.lyktes("VeilArbVeileder");
+                    return Pingable.Ping.lyktes(metadata);
                 }
-                return Pingable.Ping.feilet("VeilArbVeileder", new Exception("Statuskode: " + connection.getResponseCode()));
+                return Pingable.Ping.feilet(metadata, "Returnerte uforventet statuskode: " + connection.getResponseCode());
             } catch (Exception e) {
-                return Pingable.Ping.feilet("VeilArbVeileder", e);
+                return Pingable.Ping.feilet(metadata, e);
             }
         };
     }

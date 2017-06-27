@@ -57,15 +57,6 @@
         <url-pattern>/internal/isAlive</url-pattern>
     </servlet-mapping>
 
-    <servlet>
-        <servlet-name>selftest-json</servlet-name>
-        <servlet-class>no.nav.fo.veilarbpersonflatefs.internal.SelftestJsonServlet</servlet-class>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>selftest-json</servlet-name>
-        <url-pattern>/internal/selftest.json</url-pattern>
-    </servlet-mapping>
-
     <filter>
         <filter-name>decoratorFilter</filter-name>
         <filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class>
