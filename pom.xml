@@ -26,7 +26,7 @@
             <dependency>
                 <groupId>no.nav.sbl.dialogarena</groupId>
                 <artifactId>api-app-bom</artifactId>
-                <version>3.100.90</version>
+                <version>3.102.94</version>
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
