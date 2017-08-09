@@ -26,6 +26,10 @@
 
     </resources>
 
+    <serverOptions>
+        <memoryParameters resourceAlias="veilarb-memparams"/>
+    </serverOptions>
+  
     <logging serviceCalls="true"/>
     <loadBalancer isAlive="/veilarbpersonflatefs/internal/isAlive" />
     <security serviceUserResourceAlias="srvveilarbpersonflatefs"/>
