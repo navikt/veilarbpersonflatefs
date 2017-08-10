@@ -3,6 +3,10 @@ import queryString from 'query-string';
 import { hentFodselsnummerFraURL } from '../eventhandtering';
 import { veilarbpersonflatefsLenker } from '../lenker';
 
+const handlePersonsokSubmit = (fnr) => {
+    window.location.pathname = `veilarbpersonflatefs/${fnr}`;
+};
+
 const erstattFodselsnummerPlaceholder = (lenke) => {
     const fodselsnummer = hentFodselsnummerFraURL();
 
@@ -58,6 +62,7 @@ const config = () => ({
             lenker: erstattPlaceholdersForLenker(veilarbpersonflatefsLenker.lenker),
             tittel: veilarbpersonflatefsLenker.tittel
         },
+        handlePersonsokSubmit,
         applicationName: 'Arbeidsrettet oppfølging'
     }
 });
