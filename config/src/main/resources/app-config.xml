@@ -11,7 +11,6 @@
 
     <selftest>
         <path>veilarbpersonflatefs/internal/selftest</path>
-        <humanReadablePath>veilarbpersonflatefs/internal/selftest</humanReadablePath>
     </selftest>
 
     <resources>
@@ -29,6 +28,12 @@
     <logging serviceCalls="true"/>
     <loadBalancer isAlive="/veilarbpersonflatefs/internal/isAlive" />
 
-    <security serviceUserResourceAlias="srvveilarbpersonflatefs"/>
+    <security>
+        <logins>
+            <openIdConnect moduleClass="no.nav.aura.loginModule.JWTLoginModule">
+                <contextRoot>/veilarbpersonflatefs/tjenester/login</contextRoot>
+            </openIdConnect>
+        </logins>
+    </security>
 
 </application>
