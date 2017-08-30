@@ -29,11 +29,7 @@
     <loadBalancer isAlive="/veilarbpersonflatefs/internal/isAlive" />
 
     <security>
-        <logins>
-            <openIdConnect moduleClass="no.nav.aura.loginModule.JWTLoginModule">
-                <contextRoot>/veilarbpersonflatefs/tjenester/login</contextRoot>
-            </openIdConnect>
-        </logins>
+        <logins/>
     </security>
 
 </application>
