@@ -5,7 +5,7 @@ const settPersonIURL = (fodselsnummer) => {
     window.history.pushState(`Endret fodselsnummer til ${fodselsnummer}`, '', `${BASE_URL}${fodselsnummer}`);
 };
 
-const regex = '^' + BASE_URL + '(\\d+)';
+const regex = `^${BASE_URL}(\\d+)`;
 
 export const personErSattIURL = () => {
     const url = window.location.pathname;

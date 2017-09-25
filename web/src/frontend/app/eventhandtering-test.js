@@ -2,7 +2,6 @@ import { expect } from 'chai';
 import { personErSattIURL } from './eventhandtering';
 
 describe('person er satt i URL', () => {
-
     it('fnr i URL skal gi true', () => {
         global.window = {
             location: {
@@ -10,10 +9,8 @@ describe('person er satt i URL', () => {
             }
         };
 
-
-
         const personIUrl = personErSattIURL();
-        expect(!!personIUrl).to.be.true;
+        expect(!!personIUrl).to.equal(true);
     });
 
 
@@ -25,7 +22,7 @@ describe('person er satt i URL', () => {
         };
 
         const personIUrl = personErSattIURL();
-        expect(!!personIUrl).to.be.false;
+        expect(!!personIUrl).to.equal(false);
     });
 
     it('støtter å sjekke fnr i dype urls', () => {
@@ -36,9 +33,8 @@ describe('person er satt i URL', () => {
         };
 
         const personIUrl = personErSattIURL();
-        expect(!!personIUrl).to.be.true;
+        expect(!!personIUrl).to.equal(true);
     });
-
 });
 
 describe('hent Fodselsnummer Fra URL', () => {
