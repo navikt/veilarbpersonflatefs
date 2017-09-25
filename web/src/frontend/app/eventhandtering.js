@@ -5,15 +5,15 @@ const settPersonIURL = (fodselsnummer) => {
     window.history.pushState(`Endret fodselsnummer til ${fodselsnummer}`, '', `${BASE_URL}${fodselsnummer}`);
 };
 
-const personErSattIURL = () => {
+const regex = '^' + BASE_URL + '(\\d+)';
+
+export const personErSattIURL = () => {
     const url = window.location.pathname;
-    const regex = new RegExp(/^/.source + BASE_URL + /\d+\/?$/.source);
     return url.match(regex);
 };
 
 export const hentFodselsnummerFraURL = () => {
     const url = window.location.pathname;
-    const regex = new RegExp(/^/.source + BASE_URL + /(\d+)\/?$/.source);
     const match = url.match(regex);
     if (match && match.length === 2) {
         return match[1];
