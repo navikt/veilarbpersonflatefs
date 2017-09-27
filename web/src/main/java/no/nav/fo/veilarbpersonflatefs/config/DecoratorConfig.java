@@ -2,6 +2,7 @@ package no.nav.fo.veilarbpersonflatefs.config;
 
 import no.nav.innholdshenter.common.ContentRetriever;
 import no.nav.innholdshenter.filter.DecoratorFilter;
+import org.apache.commons.collections.map.HashedMap;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -23,16 +24,21 @@ public class DecoratorConfig {
 
     @Bean
     public DecoratorFilter decoratorFilter() {
-        Map<String, String> fragmenter = singletonMap(
+        Map<String, String> fragmenter = new HashedMap();
+        fragmenter.put(
                 "decoratorscript",
-                format("<script type=\"text/javascript\" charset=\"UTF-8\" src=\"%s\"></script>", decoratorJS)
+                format("<script type=\"text/javascript\" charset=\"UTF-8\" src=\"%s\"></script>",
+                        decoratorJS + "?v=" +Long.toString(System.currentTimeMillis())
+                )
         );
+
+        fragmenter.put("timestamp", Long.toString(System.currentTimeMillis()));
 
         DecoratorFilter filter = new DecoratorFilter();
         filter.setFragmentsUrl("");
         filter.setNoDecoratePatterns(new ArrayList<>(asList(".*/img/.*", ".*/internal/.*")));
         filter.setApplicationName("veilarbportefoljeflatefs");
-        filter.setFragmentNames(asList("decoratorscript"));
+        filter.setFragmentNames(asList("decoratorscript", "timestamp"));
         filter.setContentRetriever(contentRetriever(fragmenter));
         return filter;
     }
