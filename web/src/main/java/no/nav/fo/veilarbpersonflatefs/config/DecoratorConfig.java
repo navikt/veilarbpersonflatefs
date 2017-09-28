@@ -2,19 +2,18 @@ package no.nav.fo.veilarbpersonflatefs.config;
 
 import no.nav.innholdshenter.common.ContentRetriever;
 import no.nav.innholdshenter.filter.DecoratorFilter;
-import org.apache.commons.collections.map.HashedMap;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Map;
 import java.util.Properties;
 import java.util.stream.Collectors;
 
 import static java.lang.String.format;
 import static java.util.Arrays.asList;
-import static java.util.Collections.singletonMap;
 
 @Configuration
 public class DecoratorConfig {
@@ -24,7 +23,7 @@ public class DecoratorConfig {
 
     @Bean
     public DecoratorFilter decoratorFilter() {
-        Map<String, String> fragmenter = new HashedMap();
+        Map<String, String> fragmenter = new HashMap<>();
         fragmenter.put(
                 "decoratorscript",
                 format("<script type=\"text/javascript\" charset=\"UTF-8\" src=\"%s\"></script>",
