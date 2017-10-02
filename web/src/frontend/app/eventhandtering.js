@@ -21,12 +21,17 @@ export const hentFodselsnummerFraURL = () => {
     return null;
 };
 
+let forrigeFodselsnummer;
 const sendEventOmPersonFraURL = () => {
     if (personErSattIURL()) {
-        const personsokEvent = document.createEvent('Event');
-        personsokEvent.initEvent('flate-person-endret', true, true);
-        personsokEvent.fodselsnummer = hentFodselsnummerFraURL();
-        document.dispatchEvent(personsokEvent);
+        const fodselsnummer = hentFodselsnummerFraURL();
+        if (fodselsnummer !== forrigeFodselsnummer) {
+            forrigeFodselsnummer = fodselsnummer;
+            const personsokEvent = document.createEvent('Event');
+            personsokEvent.initEvent('flate-person-endret', true, true);
+            personsokEvent.fodselsnummer = fodselsnummer;
+            document.dispatchEvent(personsokEvent);
+        }
     }
 };
 
