@@ -51,7 +51,8 @@ const LOADERS = [
 
 const PLUGINS = [
     new HtmlWebpackPlugin({
-        template: 'index.html'
+        template: 'index.html',
+        hash: true
     }),
     new CopyWebpackPlugin(
         Object.keys(LIBRARIES).map(library => {

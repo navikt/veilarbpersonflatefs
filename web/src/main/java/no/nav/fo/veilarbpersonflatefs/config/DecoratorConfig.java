@@ -32,12 +32,13 @@ public class DecoratorConfig {
         );
 
         fragmenter.put("timestamp", Long.toString(System.currentTimeMillis()));
+        fragmenter.put("versjonsnummer", System.getProperty("application.version"));
 
         DecoratorFilter filter = new DecoratorFilter();
         filter.setFragmentsUrl("");
         filter.setNoDecoratePatterns(new ArrayList<>(asList(".*/img/.*", ".*/internal/.*")));
         filter.setApplicationName("veilarbportefoljeflatefs");
-        filter.setFragmentNames(asList("decoratorscript", "timestamp"));
+        filter.setFragmentNames(asList("decoratorscript", "timestamp", "versjonsnummer"));
         filter.setContentRetriever(contentRetriever(fragmenter));
         return filter;
     }
