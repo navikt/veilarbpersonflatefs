@@ -6,17 +6,16 @@
     <title>Aktivitetsplan</title>
     <meta name="viewport" content="width=device-width, initial-scale=1"/>
 
-    <script type="text/javascript" charset="UTF-8" src="/veilarbpersonflatefs/js/react.min.js"></script>
-    <script type="text/javascript" charset="UTF-8" src="/veilarbpersonflatefs/js/react-dom.min.js"></script>
-    <script type="text/javascript" charset="UTF-8" src="/veilarbpersonflatefs/js/redux.min.js"></script>
-    <script type="text/javascript" charset="UTF-8" src="/veilarbpersonflatefs/js/redux-thunk.min.js"></script>
-    <script type="text/javascript" charset="UTF-8" src="/veilarbpersonflatefs/js/react-redux.min.js"></script>
-    <!--Denne må være før hoved-js-fila for flaten, fordi personoversikt trekkes inn som ekstern dependency til flaten-->
+    <script type="text/javascript" charset="UTF-8" src="/veilarbpersonflatefs/js/react.min.js?v={{fragment.versjonsnummer}}"></script>
+    <script type="text/javascript" charset="UTF-8" src="/veilarbpersonflatefs/js/react-dom.min.js?v={{fragment.versjonsnummer}}"></script>
+    <script type="text/javascript" charset="UTF-8" src="/veilarbpersonflatefs/js/redux.min.js?v={{fragment.versjonsnummer}}"></script>
+    <script type="text/javascript" charset="UTF-8" src="/veilarbpersonflatefs/js/redux-thunk.min.js?v={{fragment.versjonsnummer}}"></script>
+    <script type="text/javascript" charset="UTF-8" src="/veilarbpersonflatefs/js/react-redux.min.js?v={{fragment.versjonsnummer}}"></script>
 
-    <script type="text/javascript" charset="UTF-8" src="/veilarbpersonfs/js/personoversikt.min.js"></script>
-    <script type="text/javascript" charset="UTF-8" src="/veilarbaktivitetsplanfs/environment.js"></script>
-    <script type="text/javascript" charset="UTF-8" src="/veilarbaktivitetsplanfs/js/aktivitetsplan.min.js"></script>
-    <link type="text/css" rel="stylesheet" href="/veilarbaktivitetsplanfs/index.css">
+    <script type="text/javascript" charset="UTF-8" src="/veilarbpersonfs/js/personoversikt.min.js?t={{fragment.timestamp}}"></script>
+    <script type="text/javascript" charset="UTF-8" src="/veilarbaktivitetsplanfs/environment.js?t={{fragment.timestamp}}"></script>
+    <script type="text/javascript" charset="UTF-8" src="/veilarbaktivitetsplanfs/js/aktivitetsplan.min.js?t={{fragment.timestamp}}"></script>
+    <link type="text/css" rel="stylesheet" href="/veilarbaktivitetsplanfs/index.css?t={{fragment.timestamp}}">
 
     {{fragment.decoratorscript}}
 
