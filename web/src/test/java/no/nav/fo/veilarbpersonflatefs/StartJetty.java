@@ -16,7 +16,7 @@ public class StartJetty {
                         .at("/veilarbpersonflatefs")
                         .port(PORT)
                         .loadProperties("/environment-test.properties"),
-                new DevelopmentSecurity.ISSOSecurityConfig("veilarbpersonflatefs","t6")
+                new DevelopmentSecurity.ISSOSecurityConfig("veilarbpersonflatefs")
         ).buildJetty();
         jetty.startAnd(first(waitFor(gotKeypress())).then(jetty.stop));
     }
