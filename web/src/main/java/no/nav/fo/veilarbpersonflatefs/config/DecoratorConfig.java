@@ -24,14 +24,6 @@ public class DecoratorConfig {
     @Bean
     public DecoratorFilter decoratorFilter() {
         Map<String, String> fragmenter = new HashMap<>();
-        fragmenter.put(
-                "decoratorscript",
-                format("<script type=\"text/javascript\" charset=\"UTF-8\" src=\"%s\"></script>",
-                        decoratorJS + "?v=" +Long.toString(System.currentTimeMillis())
-                )
-        );
-
-        fragmenter.put("timestamp", Long.toString(System.currentTimeMillis()));
         fragmenter.put("versjonsnummer", System.getProperty("application.version"));
 
         DecoratorFilter filter = new DecoratorFilter();
@@ -43,18 +35,27 @@ public class DecoratorConfig {
         return filter;
     }
 
-    static ContentRetriever contentRetriever(Map<String, String> fragments) {
-        final String html = createHtml(fragments);
+    ContentRetriever contentRetriever(Map<String, String> fragments) {
+        final String staticHtml = createHtml(fragments);
 
         return new ContentRetriever() {
             @Override
             public String getPageContent(String path) {
-                return html;
+                return content();
             }
 
             @Override
             public String getPageContentFullUrl(String url) {
-                return html;
+                return content();
+            }
+
+            private String content() {
+                return "<div>" + staticHtml + createDynamicHtml() + "</div>";
+            }
+
+            private String createDynamicHtml() {
+                return keyValueAsDiv("timestamp", Long.toString(System.currentTimeMillis()))
+                        + keyValueAsDiv("decoratorscript", decoratorScript());
             }
 
             @Override
@@ -74,13 +75,22 @@ public class DecoratorConfig {
         };
     }
 
+    private String decoratorScript() {
+        return format("<script type=\"text/javascript\" charset=\"UTF-8\" src=\"%s\"></script>",
+                decoratorJS + "?v=" + Long.toString(System.currentTimeMillis())
+        );
+    }
+
     private static String createHtml(Map<String, String> fragments) {
-        String content = fragments
+        return fragments
                 .entrySet()
                 .stream()
-                .map((entry) -> format("<div id=\"%s\">%s</div>", entry.getKey(), entry.getValue()))
+                .map((entry) -> keyValueAsDiv(entry.getKey(), entry.getValue()))
                 .collect(Collectors.joining("\n"));
-
-        return format("<div>%s</div>", content);
     }
+
+    private static String keyValueAsDiv(String key, String value) {
+        return format("<div id=\"%s\">%s</div>", key, value);
+    }
+
 }
