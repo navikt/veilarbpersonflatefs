@@ -35,15 +35,8 @@
             <dependency>
                 <groupId>no.nav.sbl</groupId>
                 <artifactId>innholdshenter</artifactId>
-                <version>4.3</version>
+                <version>4.8</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
-
-    <scm>
-        <developerConnection>scm:git:http://stash.devillo.no/scm/fo/veilarbpersonflatefs.git</developerConnection>
-        <url>http://stash.devillo.no/projects/FO/repos/veilarbpersonflatefs</url>
-        <tag>HEAD</tag>
-    </scm>
-
 </project>
