@@ -7,7 +7,7 @@
     <parent>
         <artifactId>veilarbpersonflatefs</artifactId>
         <groupId>no.nav.fo</groupId>
-        <version>1.0-SNAPSHOT</version>
+        <version>1</version>
     </parent>
 
     <artifactId>veilarbpersonflatefs-web</artifactId>

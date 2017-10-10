@@ -2,18 +2,20 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-
     <modelVersion>4.0.0</modelVersion>
+
+    <name>veilarbpersonflatefs</name>
+    <packaging>pom</packaging>
+
     <parent>
         <groupId>no.nav.sbl</groupId>
         <artifactId>mor-pom</artifactId>
-        <version>3.2</version>
+        <version>2017.10.06.16.34</version>
     </parent>
 
     <groupId>no.nav.fo</groupId>
     <artifactId>veilarbpersonflatefs</artifactId>
-    <version>1.0-SNAPSHOT</version>
-    <packaging>pom</packaging>
+    <version>1</version>
 
     <modules>
         <module>web</module>
@@ -24,9 +26,9 @@
     <dependencyManagement>
         <dependencies>
             <dependency>
-                <groupId>no.nav.sbl.dialogarena</groupId>
-                <artifactId>api-app-bom</artifactId>
-                <version>3.163.17</version>
+                <groupId>no.nav.sbl</groupId>
+                <artifactId>bom</artifactId>
+                <version>2017.10.06.16.34</version>
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
