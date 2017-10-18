@@ -1,0 +1,15 @@
+{
+    "compilerOptions": {
+        "outDir": "../main/webapp/js/",
+        "allowJs": true,
+        "sourceMap": true,
+        "noImplicitAny": false,
+        "target": "es5",
+        "jsx": "react",
+        "moduleResolution": "node"
+    },
+    "include": [
+        "./app/**/*",
+        "./@types/**/*"
+    ]
+}

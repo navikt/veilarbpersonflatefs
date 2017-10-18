@@ -1,36 +1,40 @@
-import React from 'react';
+import * as React from 'react';
 import { render } from 'react-dom';
 
 import './index.less';
 
-import Personoversikt from 'Personoversikt'; // eslint-disable-line
-import Aktivitetsplan from 'Aktivitetsplan'; // eslint-disable-line
+import Personoversikt from 'Personoversikt';
+import Aktivitetsplan from 'Aktivitetsplan';
 import { initialiserEventhandtering } from './eventhandtering';
 import { initialiserToppmeny } from './utils/meny-utils';
 
-const visFeilmelding = () => {
-    window.location = '/veilarbpersonflatefs/static/feilside.html';
+const visFeilmelding = (): void => {
+    (window as any).location = '/veilarbpersonflatefs/static/feilside.html';
 };
 
+interface FeilProps {
+    appNavn: string;
+}
 
-function Feil({ appNavn }) {
+
+function Feil({ appNavn }: FeilProps) {
     return (
         <div className="applikasjonsfeil">Feil i {appNavn}</div>
     );
 }
 
-function renderApp(AppComponent, elementId, appNavn) {
+function renderApp(AppComponent, elementId: string, appNavn: string) {
     const element = document.getElementById(elementId);
     try {
         render(<AppComponent />, element);
     } catch (e) {
-        console && console.error && console && console.error(e); // eslint-disable-line
+        console && console.error && console && console.error(e);
         render(<Feil appNavn={appNavn} />, element);
     }
 }
 
 document.addEventListener('DOMContentLoaded', () => {
-    if (!window.renderDecoratorHead) {
+    if (!(window as any).renderDecoratorHead) {
         visFeilmelding();
     } else {
         initialiserToppmeny();

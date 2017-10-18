@@ -13,6 +13,9 @@
   },
   "author": "NAV",
   "devDependencies": {
+    "@types/react": "^16.0.13",
+    "@types/react-dom": "^16.0.1",
+    "awesome-typescript-loader": "^3.2.3",
     "babel-core": "^6.18.2",
     "babel-eslint": "^7.1.0",
     "babel-loader": "^6.2.10",
@@ -43,7 +46,9 @@
     "mocha": "^3.2.0",
     "modig-frontend": "git+http://stash.devillo.no/scm/felles/modig-frontend.git#modig-frontend-4.0.11",
     "react-addons-test-utils": "^15.4.1",
+    "source-map-loader": "^0.2.2",
     "style-loader": "^0.13.1",
+    "typescript": "^2.5.3",
     "url-loader": "^0.5.7",
     "webpack": "~2.3.0",
     "yargs": "^6.5.0"

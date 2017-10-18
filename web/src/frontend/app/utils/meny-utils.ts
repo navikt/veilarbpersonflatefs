@@ -1,13 +1,14 @@
-import queryString from 'query-string';
+import * as queryString from 'query-string';
 
 import { hentFodselsnummerFraURL } from '../eventhandtering';
 import { veilarbpersonflatefsLenker } from '../lenker';
 
-const handlePersonsokSubmit = (fnr) => {
+
+const handlePersonsokSubmit = (fnr: Fnr): void => {
     window.location.pathname = `veilarbpersonflatefs/${fnr}`;
 };
 
-const erstattFodselsnummerPlaceholder = (lenke) => {
+const erstattFodselsnummerPlaceholder = (lenke: string): string => {
     const fodselsnummer = hentFodselsnummerFraURL();
 
     if (!fodselsnummer) {
@@ -16,7 +17,7 @@ const erstattFodselsnummerPlaceholder = (lenke) => {
     return lenke.replace('{{fodselsnummer}}', fodselsnummer);
 };
 
-const finnMiljoStreng = () => {
+const finnMiljoStreng = (): string => {
     const host = window.location.host;
     const bindestrekIndex = host.indexOf('-');
     if (bindestrekIndex === -1) {
@@ -26,7 +27,7 @@ const finnMiljoStreng = () => {
     return host.substring(bindestrekIndex + 1, dotIndex);
 };
 
-export const erstattMiljoPlaceholder = (lenke) => {
+export const erstattMiljoPlaceholder = (lenke: string): string => {
     const miljoStreng = finnMiljoStreng();
     if (miljoStreng) {
         return lenke.replace('{{miljoStreng}}', `-${miljoStreng}`);
@@ -34,13 +35,13 @@ export const erstattMiljoPlaceholder = (lenke) => {
     return lenke.replace('{{miljoStreng}}', miljoStreng);
 };
 
-const erstattEnhetPlaceholder = (lenke) => {
+const erstattEnhetPlaceholder = (lenke: string): string => {
     const queries = queryString.parse(location.search);
     const valgtEnhet = queries.enhet;
     return lenke.replace('{{enhet}}', valgtEnhet);
 };
 
-const erstattPlaceholders = (lenkeObjekt) => {
+const erstattPlaceholders = (lenkeObjekt): string => {
     const resultat = lenkeObjekt;
     resultat[0] = erstattFodselsnummerPlaceholder(resultat[0]);
     resultat[0] = erstattMiljoPlaceholder(resultat[0]);
@@ -50,7 +51,24 @@ const erstattPlaceholders = (lenkeObjekt) => {
 
 const erstattPlaceholdersForLenker = lenkeObjekter => lenkeObjekter.map(erstattPlaceholders);
 
-const config = () => ({
+interface Config {
+    config: {
+        toggles: {
+            visEnhet: boolean,
+            visEnhetVelger: boolean,
+            visSokefelt: boolean,
+            visVeileder: boolean,
+        },
+        egendefinerteLenker: {
+            lenker: (lenker: any) => any,
+            tittel: string,
+        },
+        handlePersonsokSubmit: (fnr: Fnr) => void,
+        applicationName: string
+    };
+}
+
+const config = (): Config => ({
     config: {
         toggles: {
             visEnhet: true,
@@ -67,6 +85,8 @@ const config = () => ({
     }
 });
 
-export const initialiserToppmeny = () => {
-    window.renderDecoratorHead(config());
+
+
+export const initialiserToppmeny = (): void => {
+    (window as any).renderDecoratorHead(config());
 };
