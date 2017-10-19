@@ -6,10 +6,25 @@
         "noImplicitAny": false,
         "target": "es5",
         "jsx": "react",
-        "moduleResolution": "node"
+        "moduleResolution": "node",
+        "module": "es2015",
+        "strictNullChecks": false,
+        "removeComments": true,
+        "preserveConstEnums": true,
+        "lib": [
+            "DOM",
+            "es2015",
+            "es2016",
+            "es2017"
+        ]
     },
     "include": [
         "./app/**/*",
         "./@types/**/*"
+    ],
+    "exclude": [
+        "node_modules",
+        "**/*-test.js",
+        "**/*.less"
     ]
 }
