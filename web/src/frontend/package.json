@@ -48,7 +48,6 @@
     "less": "2.7.2",
     "less-loader": "2.2.3",
     "modig-frontend": "git+http://stash.devillo.no/scm/felles/modig-frontend.git#modig-frontend-4.0.11",
-    "react-addons-test-utils": "15.4.1",
     "source-map-loader": "0.2.2",
     "style-loader": "0.13.1",
     "ts-jest": "21.1.3",
