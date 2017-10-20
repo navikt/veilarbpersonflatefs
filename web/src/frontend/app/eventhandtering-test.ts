@@ -10,10 +10,8 @@ describe('person er satt i URL', () => {
         };
 
         const personIUrl = personErSattIURL();
-        console.log("personErSattIURL()", personErSattIURL());
         expect(!!personIUrl).to.equal(true);
     });
-
 
     it('fnr ikke i URL skal gi false', () => {
         (global as any).window = {
