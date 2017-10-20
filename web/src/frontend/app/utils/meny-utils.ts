@@ -3,7 +3,6 @@ import * as queryString from 'query-string';
 import { hentFodselsnummerFraURL } from '../eventhandtering';
 import { veilarbpersonflatefsLenker } from '../lenker';
 
-
 const handlePersonsokSubmit = (fnr: Fnr): void => {
     window.location.pathname = `veilarbpersonflatefs/${fnr}`;
 };
@@ -49,7 +48,7 @@ const erstattPlaceholders = (lenkeObjekt): string => {
     return resultat;
 };
 
-const erstattPlaceholdersForLenker = lenkeObjekter => lenkeObjekter.map(erstattPlaceholders);
+const erstattPlaceholdersForLenker = (lenkeObjekter) => lenkeObjekter.map(erstattPlaceholders);
 
 interface Config {
     config: {
@@ -84,8 +83,6 @@ const config = (): Config => ({
         applicationName: 'Arbeidsrettet oppfølging'
     }
 });
-
-
 
 export const initialiserToppmeny = (): void => {
     (window as any).renderDecoratorHead(config());

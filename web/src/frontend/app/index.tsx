@@ -16,7 +16,6 @@ interface FeilProps {
     appNavn: string;
 }
 
-
 function Feil({ appNavn }: FeilProps) {
     return (
         <div className="applikasjonsfeil">Feil i {appNavn}</div>
@@ -28,7 +27,6 @@ function renderApp(AppComponent, elementId: string, appNavn: string) {
     try {
         render(<AppComponent />, element);
     } catch (e) {
-        console && console.error && console && console.error(e);
         render(<Feil appNavn={appNavn} />, element);
     }
 }
