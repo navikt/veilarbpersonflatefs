@@ -16,12 +16,6 @@ const LIBRARIES = {
 
 const RULES = [
     {
-        test: /\.jsx?$/,
-        exclude: /node_modules/,
-        enforce: 'pre',
-        loader: ['babel-loader', 'eslint-loader'],
-    },
-    {
         test: /\.svg$/,
         use: {
             loader: 'url-loader',
@@ -38,17 +32,6 @@ const RULES = [
     },
     { test: /\.tsx?$/, use: "awesome-typescript-loader" },
     { enforce: "pre", test: /\.js$/, use: "source-map-loader" },
-];
-
-const LOADERS = [
-    {
-        test: /\.jsx?$/,
-        exclude: /(node_modules)/,
-        loader: 'babel-loader',
-        query: {
-            plugins: ['react-html-attrs', 'transform-decorators-legacy', 'transform-class-properties'],
-        }
-    }
 ];
 
 const PLUGINS = [
@@ -86,8 +69,7 @@ module.exports = {
     devtool: DEBUG ? 'inline-sourcemap' : false,
     entry:  './app/index.tsx',
     module: {
-        rules: RULES,
-        loaders: LOADERS
+        rules: RULES
     },
     resolve: {
       extensions: ['.js', '.jsx', '.json', '.ts', '.tsx']
