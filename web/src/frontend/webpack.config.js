@@ -72,7 +72,7 @@ module.exports = {
         rules: RULES
     },
     resolve: {
-      extensions: ['.js', '.jsx', '.json', '.ts', '.tsx']
+      extensions: ['.js', '.json', '.ts', '.tsx']
     },
     externals: Object.assign({
         'Personoversikt': 'PersonoversiktRoot',
