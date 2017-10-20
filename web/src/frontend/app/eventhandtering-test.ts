@@ -3,19 +3,20 @@ import { personErSattIURL } from './eventhandtering';
 
 describe('person er satt i URL', () => {
     it('fnr i URL skal gi true', () => {
-        global.window = {
+        (global as any).window = {
             location: {
                 pathname: '/veilarbpersonflatefs/12345678912'
             }
         };
 
         const personIUrl = personErSattIURL();
+        console.log("personErSattIURL()", personErSattIURL());
         expect(!!personIUrl).to.equal(true);
     });
 
 
     it('fnr ikke i URL skal gi false', () => {
-        global.window = {
+        (global as any).window = {
             location: {
                 pathname: '/veilarbpersonflatefs/'
             }
@@ -26,7 +27,7 @@ describe('person er satt i URL', () => {
     });
 
     it('støtter å sjekke fnr i dype urls', () => {
-        global.window = {
+        (global as any).window = {
             location: {
                 pathname: '/veilarbpersonflatefs/12345678912/aktivitet/123'
             }
@@ -39,7 +40,7 @@ describe('person er satt i URL', () => {
 
 describe('hent Fodselsnummer Fra URL', () => {
     it('hente fnr fra url', () => {
-        global.window = {
+        (global as any).window = {
             location: {
                 pathname: '/veilarbpersonflatefs/12345678912'
             }
@@ -50,7 +51,7 @@ describe('hent Fodselsnummer Fra URL', () => {
     });
 
     it('hente fnr fra url uten fnr', () => {
-        global.window = {
+        (global as any).window = {
             location: {
                 pathname: '/veilarbpersonflatefs/'
             }
@@ -61,7 +62,7 @@ describe('hent Fodselsnummer Fra URL', () => {
     });
 
     it('hente fnr fra dyp url', () => {
-        global.window = {
+        (global as any).window = {
             location: {
                 pathname: '/veilarbpersonflatefs/12345678912/aktivitet/123'
             }

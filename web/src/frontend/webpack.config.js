@@ -16,7 +16,7 @@ const LIBRARIES = {
 
 const RULES = [
     {
-        test: /\.jsx?/,
+        test: /\.jsx?$/,
         exclude: /node_modules/,
         enforce: 'pre',
         loader: ['babel-loader', 'eslint-loader'],
@@ -35,7 +35,9 @@ const RULES = [
             {loader: 'css-loader', options: { importLoaders: 1 } },
             'less-loader'
         ]
-    }
+    },
+    { test: /\.tsx?$/, use: "awesome-typescript-loader" },
+    { enforce: "pre", test: /\.js$/, use: "source-map-loader" },
 ];
 
 const LOADERS = [
@@ -82,13 +84,13 @@ module.exports = {
     name: 'app',
     context: __dirname,
     devtool: DEBUG ? 'inline-sourcemap' : false,
-    entry:  './app/index.jsx',
+    entry:  './app/index.tsx',
     module: {
         rules: RULES,
         loaders: LOADERS
     },
     resolve: {
-      extensions: ['.js', '.jsx', '.json']
+      extensions: ['.js', '.jsx', '.json', '.ts', '.tsx']
     },
     externals: Object.assign({
         'Personoversikt': 'PersonoversiktRoot',
