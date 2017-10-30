@@ -1,7 +1,6 @@
 import * as React from 'react';
 import { AlertStripeAdvarselSolid } from 'nav-frontend-alertstriper';
 import { connect } from 'react-redux';
-import { FormattedMessage } from 'react-intl';
 import EnhetContextListener, {
     EnhetConnectionState,
     EnhetContextEvent,
@@ -11,10 +10,11 @@ import ContextFeilmodal from './context-feilmodal';
 import {erDev} from '../utils/utils';
 import {hentAktivBruker, hentAktivEnhet} from './context-api';
 
+import './enhet-context.less';
+
 interface EnhetContextState {
     enhetModalSynlig: boolean;
     brukerModalSynlig: boolean;
-    feilet: boolean;
     feilmodalSynlig: boolean;
     tilkoblingState: EnhetConnectionState;
 }
@@ -28,9 +28,10 @@ export default class EnhetContext extends React.Component<{}, EnhetContextState>
             enhetModalSynlig: false,
             brukerModalSynlig: false,
             feilmodalSynlig: false,
-            feilet: false,
             tilkoblingState: EnhetConnectionState.NOT_CONNECTED
-        }
+        };
+
+        this.enhetContextHandler = this.enhetContextHandler.bind(this);
     }
 
     componentDidMount() {
@@ -63,13 +64,14 @@ export default class EnhetContext extends React.Component<{}, EnhetContextState>
     render() {
         const alertIkkeTilkoblet = (
             <AlertStripeAdvarselSolid>
-                <FormattedMessage id="nyenhet.tilkobling.feilet" />
+                Det er fare for at du kan ha forskjellige brukere i forskjellige flater/vinduer.
+                Systemet feiler og klarer ikke oppfatte endringer du eventuelt har gjort i andre vinuer.
             </AlertStripeAdvarselSolid>
         );
 
         return (
             <div>
-                { this.state.feilet ? alertIkkeTilkoblet : null }
+                { this.state.tilkoblingState === EnhetConnectionState.FAILED ? alertIkkeTilkoblet : null }
                 <ContextFeilmodal
                     isOpen={this.state.feilmodalSynlig}
                     onClose={() => this.setState({ feilmodalSynlig: false })}
