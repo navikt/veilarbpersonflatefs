@@ -2,6 +2,8 @@ const webpack = require('webpack');
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
+const ExtractTextPlugin = require('extract-text-webpack-plugin');
+const OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 
 const DEBUG = process.env.NODE_ENV !== 'production';
 const PRODUCTION = process.env.NODE_ENV === 'production';
@@ -24,17 +26,26 @@ const RULES = [
     },
     {
         test: /\.less$/,
-        use: [
-            'style-loader',
-            {loader: 'css-loader', options: { importLoaders: 1 } },
-            'less-loader'
-        ]
+        loader: ExtractTextPlugin.extract({
+            use: [{
+                loader: 'css-loader'
+            }, {
+                loader: 'less-loader',
+                options: {
+                    globalVars: {
+                        coreModulePath: "'./../../../node_modules/'",
+                        nodeModulesPath: "'./../../../node_modules/'"
+                    }
+                }
+            }]
+        })
     },
     { test: /\.tsx?$/, use: "awesome-typescript-loader" },
-    { enforce: "pre", test: /\.js$/, use: "source-map-loader" },
 ];
 
 const PLUGINS = [
+    new ExtractTextPlugin('css/index.css'),
+    new OptimizeCssAssetsPlugin(),
     new HtmlWebpackPlugin({
         template: 'index.html',
         hash: true
@@ -68,6 +79,9 @@ module.exports = {
     context: __dirname,
     devtool: DEBUG ? 'inline-sourcemap' : false,
     entry:  './app/index.tsx',
+    stats: {
+        children: false
+    },
     module: {
         rules: RULES
     },

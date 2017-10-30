@@ -1,6 +1,6 @@
 const BASE_URL = '/veilarbpersonflatefs/';
 
-const settPersonIURL = (fodselsnummer: Fnr): void => {
+export const settPersonIURL = (fodselsnummer: Fnr): void => {
     window.history.pushState(`Endret fodselsnummer til ${fodselsnummer}`, '', `${BASE_URL}${fodselsnummer}`);
 };
 
