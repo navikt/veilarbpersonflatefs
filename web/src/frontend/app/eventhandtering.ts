@@ -25,7 +25,7 @@ interface PersonsokEvent extends Event {
 }
 
 let forrigeFodselsnummer: Fnr;
-const sendEventOmPersonFraURL = (): void => {
+export const sendEventOmPersonFraURL = (): void => {
     if (personErSattIURL()) {
         const fodselsnummer = hentFodselsnummerFraURL();
         if (fodselsnummer !== forrigeFodselsnummer) {

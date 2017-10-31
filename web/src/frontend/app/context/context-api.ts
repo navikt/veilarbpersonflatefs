@@ -25,7 +25,7 @@ export function hentAktivBruker(): Promise<string> {
 }
 
 export function oppdaterAktivEnhet(enhet: string): Promise<Response> {
-    return fetch(`/modiacontextholder/api/context`, {
+    return fetchToJson(`/modiacontextholder/api/context`, {
         method: 'post',
         body: JSON.stringify({
             verdi: enhet,
@@ -35,7 +35,7 @@ export function oppdaterAktivEnhet(enhet: string): Promise<Response> {
 }
 
 export function oppdaterAktivBruker(bruker: string): Promise<Response> {
-    return fetch(`/modiacontextholder/api/context`, {
+    return fetchToJson(`/modiacontextholder/api/context`, {
         method: 'post',
         body: JSON.stringify({
             verdi: bruker,

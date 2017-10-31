@@ -5,15 +5,15 @@ import { Innholdstittel, Normaltekst } from 'nav-frontend-typografi';
 import { AlertStripeAdvarselSolid } from 'nav-frontend-alertstriper';
 import Knapp, { Hovedknapp } from 'nav-frontend-knapper';
 
-interface NyContextModalProps {
+interface NyBrukerModalProps {
     isOpen: boolean;
     isPending: boolean;
-    doEndreAktivEnhet: () => void;
-    doBeholdAktivEnhet: () => void;
-    aktivEnhet: string;
+    doLastNyBruker: () => void;
+    doFortsettSammeBruker: () => void;
+    fodselsnummer: string;
 }
 
-class NyContextModal extends React.Component<NyContextModalProps> {
+class NyBrukerModal extends React.Component<NyBrukerModalProps> {
     render() {
         return (
             <NavFrontendModal
@@ -24,20 +24,21 @@ class NyContextModal extends React.Component<NyContextModalProps> {
             >
                 <div className="brukercontext__modal">
                     <Innholdstittel tag="h1" className="blokk-s">
-                        <FormattedMessage id="nyenhet.modal.overskrift" />
+                        Du har endret bruker
                     </Innholdstittel>
                     <AlertStripeAdvarselSolid className="blokk-s">
-                        <FormattedMessage id="nyenhet.modal.alertmelding" />
+                        Du har endret bruker i et annet vindu. Du kan ikke jobbe med 2 brukere samtidig.
+                        Velger du avbryt mister du arbeidet du ikke har lagret.
                     </AlertStripeAdvarselSolid>
                     <Normaltekst className="blokk-s">
-                        <FormattedMessage id="nyenhet.modal.sporsmal" values={{ enhet: this.props.aktivEnhet }}/>
+                        { `Vil du fortsette å jobbe med bruker som har fødselsnummer ${this.props.fodselsnummer}` }
                     </Normaltekst>
                     <div className="modal-footer" >
-                        <Hovedknapp onClick={this.props.doBeholdAktivEnhet} spinner={this.props.isPending} autoDisableVedSpinner>
-                            <FormattedMessage id="nyenhet.modal.bekreft" />
+                        <Hovedknapp onClick={() => this.props.doFortsettSammeBruker()} spinner={this.props.isPending} autoDisableVedSpinner>
+                            Bekreft
                         </Hovedknapp>
-                        <Knapp disabled={this.props.isPending} type="standard" onClick={() => this.props.doEndreAktivEnhet()}>
-                            <FormattedMessage id="nyenhet.modal.avbryt" />
+                        <Knapp disabled={this.props.isPending} type="standard" onClick={() => this.props.doLastNyBruker()}>
+                            Avbryt
                         </Knapp>
                     </div>
                 </div>
@@ -46,4 +47,4 @@ class NyContextModal extends React.Component<NyContextModalProps> {
     }
 }
 
-export default NyContextModal;
+export default NyBrukerModal;
