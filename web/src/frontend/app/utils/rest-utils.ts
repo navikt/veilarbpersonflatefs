@@ -7,5 +7,5 @@ const MED_CREDENTIALS: RequestInit = {
 
 export function fetchToJson<Modell>(uri: string, config: RequestInit = {}): Promise<Modell> {
     return fetch(uri, {...MED_CREDENTIALS, ...config})
-        .then(response => response.json());
+        .then((response) => response.json());
 }

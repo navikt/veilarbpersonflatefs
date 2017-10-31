@@ -7,12 +7,13 @@ import EnhetContextListener, {
     EnhetContextEventNames
 } from './enhet-context-listener';
 import ContextFeilmodal from './context-feilmodal';
-import {erDev} from '../utils/utils';
-import {hentAktivBruker, hentAktivEnhet, oppdaterAktivBruker} from './context-api';
+import { erDev } from '../utils/utils';
+import { hentAktivBruker, hentAktivEnhet, oppdaterAktivBruker } from './context-api';
+import { hentFodselsnummerFraURL, sendEventOmPersonFraURL, settPersonIURL } from '../eventhandtering';
+import NyBrukerModal from './ny-bruker-modal';
+import { initialiserToppmeny } from '../utils/meny-utils';
 
 import './enhet-context.less';
-import {hentFodselsnummerFraURL, sendEventOmPersonFraURL, settPersonIURL} from '../eventhandtering';
-import NyBrukerModal from './ny-bruker-modal';
 
 interface EnhetContextState {
     brukerModalSynlig: boolean;
@@ -41,12 +42,6 @@ export default class EnhetContext extends React.Component<{}, EnhetContextState>
         const uri = `wss://${host}/modiaeventdistribution/websocket`;
         this.contextListener = new EnhetContextListener(uri, this.enhetContextHandler);
 
-        hentAktivEnhet()
-            .then(enhet => {
-                console.log("hentet aktiv enhet:", enhet);
-            })
-            .catch(() => this.handterFeilet());
-
         const fnrFraUrl = hentFodselsnummerFraURL();
         if(fnrFraUrl != null) {
             this.oppdaterAktivBrukHvisEndret();
@@ -64,13 +59,13 @@ export default class EnhetContext extends React.Component<{}, EnhetContextState>
             lastBrukerPending: false,
             brukerModalSynlig: false,
             feilmodalSynlig: true
-        })
+        });
     }
 
     oppdaterAktivBrukHvisEndret() {
         const fnrFraUrl = hentFodselsnummerFraURL();
         return hentAktivBruker()
-            .then(nyBruker => {
+            .then((nyBruker) => {
                 if (nyBruker !== fnrFraUrl) {
                     oppdaterAktivBruker(fnrFraUrl);
                 }
@@ -79,7 +74,7 @@ export default class EnhetContext extends React.Component<{}, EnhetContextState>
 
     oppdaterSideMedNyAktivBruker() {
         hentAktivBruker()
-            .then(bruker => {
+            .then((bruker) => {
                 const fnrFraUrl = hentFodselsnummerFraURL();
                 if (bruker !==  null && bruker !== fnrFraUrl) {
                     settPersonIURL(bruker);
@@ -90,7 +85,7 @@ export default class EnhetContext extends React.Component<{}, EnhetContextState>
 
     handleNyAktivBruker() {
         hentAktivBruker()
-            .then(nyBruker => {
+            .then((nyBruker) => {
                 if (nyBruker !== hentFodselsnummerFraURL()) {
                     this.setState({
                         brukerModalSynlig: true
@@ -101,8 +96,9 @@ export default class EnhetContext extends React.Component<{}, EnhetContextState>
 
     handleNyAktivEnhet() {
         hentAktivEnhet()
-            .then(enhet => {
-                console.log("hentet aktiv enhet etter event", enhet);
+            .then((enhet) => {
+                initialiserToppmeny();
+                // todo: implementer oppdatering av enhet
             }).catch(() => this.handterFeilet());
     }
 

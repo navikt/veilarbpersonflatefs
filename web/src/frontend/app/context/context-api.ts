@@ -1,4 +1,4 @@
-import {fetchToJson} from '../utils/rest-utils';
+import { fetchToJson } from '../utils/rest-utils';
 
 interface AktivEnhetModell {
     aktivEnhet: string;
