@@ -76,7 +76,7 @@ export default class EnhetContext extends React.Component<{}, EnhetContextState>
         hentAktivBruker()
             .then((bruker) => {
                 const fnrFraUrl = hentFodselsnummerFraURL();
-                if (bruker !==  null && bruker !== fnrFraUrl) {
+                if (bruker !=  null && bruker !== fnrFraUrl) {
                     settPersonIURL(bruker);
                     sendEventOmPersonFraURL();
                 }
