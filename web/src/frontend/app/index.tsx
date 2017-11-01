@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { render } from 'react-dom';
+import * as ReactDOM from 'react-dom';
 
 import './index.less';
 
@@ -7,6 +7,8 @@ import Personoversikt from 'Personoversikt';
 import Aktivitetsplan from 'Aktivitetsplan';
 import { initialiserEventhandtering } from './eventhandtering';
 import { initialiserToppmeny } from './utils/meny-utils';
+import EnhetContext from './context/enhet-context';
+import { erDev } from './utils/utils';
 
 const visFeilmelding = (): void => {
     (window as any).location = '/veilarbpersonflatefs/static/feilside.html';
@@ -25,9 +27,9 @@ function Feil({ appNavn }: FeilProps) {
 function renderApp(AppComponent, elementId: string, appNavn: string) {
     const element = document.getElementById(elementId);
     try {
-        render(<AppComponent />, element);
+        ReactDOM.render(<AppComponent />, element);
     } catch (e) {
-        render(<Feil appNavn={appNavn} />, element);
+        ReactDOM.render(<Feil appNavn={appNavn} />, element);
     }
 }
 
@@ -36,6 +38,9 @@ document.addEventListener('DOMContentLoaded', () => {
         visFeilmelding();
     } else {
         initialiserToppmeny();
+        if (erDev() ) {
+            ReactDOM.render(<EnhetContext />, document.getElementById('context'));
+        }
         renderApp(Personoversikt, 'app', 'personoversikt');
         renderApp(Aktivitetsplan, 'aktivitetsplan-app', 'aktivitetsplan');
     }

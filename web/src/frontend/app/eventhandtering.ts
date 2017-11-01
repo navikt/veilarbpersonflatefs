@@ -1,6 +1,6 @@
 const BASE_URL = '/veilarbpersonflatefs/';
 
-const settPersonIURL = (fodselsnummer: Fnr): void => {
+export const settPersonIURL = (fodselsnummer: Fnr): void => {
     window.history.pushState(`Endret fodselsnummer til ${fodselsnummer}`, '', `${BASE_URL}${fodselsnummer}`);
 };
 
@@ -25,7 +25,7 @@ interface PersonsokEvent extends Event {
 }
 
 let forrigeFodselsnummer: Fnr;
-const sendEventOmPersonFraURL = (): void => {
+export const sendEventOmPersonFraURL = (): void => {
     if (personErSattIURL()) {
         const fodselsnummer = hentFodselsnummerFraURL();
         if (fodselsnummer !== forrigeFodselsnummer) {
