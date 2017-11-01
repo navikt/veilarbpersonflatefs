@@ -12,6 +12,8 @@ declare module "nav-frontend-modal" {
         shouldCloseOnOverlayClick?: boolean;
         closeTimeoutMS?: number;
         contentClass?: string;
+        overlayClassName?: string;
+        portalClassName?: string;
 	}
 
 

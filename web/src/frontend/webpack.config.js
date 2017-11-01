@@ -45,7 +45,14 @@ const RULES = [
 
 const PLUGINS = [
     new ExtractTextPlugin('css/index.css'),
-    new OptimizeCssAssetsPlugin(),
+    new OptimizeCssAssetsPlugin({
+        cssProcessorOptions: {
+            zindex: false,
+            discardComments: {
+                removeAll: true
+            }
+        }
+    }),
     new HtmlWebpackPlugin({
         template: 'index.html',
         hash: true
