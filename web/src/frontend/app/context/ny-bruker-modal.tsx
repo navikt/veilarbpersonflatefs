@@ -19,7 +19,6 @@ class NyBrukerModal extends React.Component<NyBrukerModalProps> {
             <NavFrontendModal
                 contentLabel="Brukercontext"
                 portalClassName="context-modal-portal"
-                overlayClassName="context-modal-overlay"
                 isOpen={this.props.isOpen}
                 closeButton={false}
                 onRequestClose={() => true}
