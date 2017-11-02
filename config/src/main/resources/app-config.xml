@@ -16,6 +16,8 @@
     <resources>
         <rest mapToProperty="iadecorator" alias="iadecorator-js"/>
         <rest alias="veilarblogin.redirect-url" mapToProperty="oidc-redirect" />
+        <rest alias="veiledercontext-isalive" mapToProperty="veiledercontext-isalive" />
+        <rest alias="modiaeventdistribution-isalive" mapToProperty="modiaeventdistribution-isalive" />
         <baseUrl alias="veilarbpersonPingURL" mapToProperty="veilarbperson.hent_person" />
         <baseUrl alias="veilarbveilederPingURL" mapToProperty="veilarbveileder.hent_enheter" />
         <baseUrl alias="isso-host"/>
