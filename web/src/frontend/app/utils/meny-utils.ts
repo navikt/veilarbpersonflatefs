@@ -93,5 +93,5 @@ export const leggEnhetIUrl = (enhet: string) => {
     currentParams.enhet = enhet;
     const newParams = queryString.stringify(currentParams);
     const newUrl = location.origin + location.pathname + '?' + newParams;
-    location.replace(newUrl);
+    history.replaceState(history.state, '', newUrl);
 };
