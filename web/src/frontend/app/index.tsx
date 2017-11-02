@@ -8,7 +8,6 @@ import Aktivitetsplan from 'Aktivitetsplan';
 import { initialiserEventhandtering } from './eventhandtering';
 import { initialiserToppmeny } from './utils/meny-utils';
 import EnhetContext from './context/enhet-context';
-import { erDev } from './utils/utils';
 
 const visFeilmelding = (): void => {
     (window as any).location = '/veilarbpersonflatefs/static/feilside.html';
