@@ -9,7 +9,8 @@ import org.springframework.context.support.PropertySourcesPlaceholderConfigurer;
 @Import({
         DecoratorConfig.class,
         PersonEndpointConfig.class,
-        VeilederEndpointConfig.class
+        VeilederEndpointConfig.class,
+        BrukerContextPing.class
 })
 public class ApplicationConfig {
 
