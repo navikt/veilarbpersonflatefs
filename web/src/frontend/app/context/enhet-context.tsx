@@ -97,6 +97,7 @@ export default class EnhetContext extends React.Component<{}, EnhetContextState>
     handleNyAktivEnhet() {
         hentAktivEnhet()
             .then((enhet) => {
+
                 initialiserToppmeny();
                 // todo: implementer oppdatering av enhet
             }).catch(() => this.handterFeilet());

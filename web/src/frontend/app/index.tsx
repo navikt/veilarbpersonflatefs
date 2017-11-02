@@ -38,9 +38,7 @@ document.addEventListener('DOMContentLoaded', () => {
         visFeilmelding();
     } else {
         initialiserToppmeny();
-        if (erDev() ) {
-            ReactDOM.render(<EnhetContext />, document.getElementById('context'));
-        }
+        ReactDOM.render(<EnhetContext />, document.getElementById('context'));
         renderApp(Personoversikt, 'app', 'personoversikt');
         renderApp(Aktivitetsplan, 'aktivitetsplan-app', 'aktivitetsplan');
     }
