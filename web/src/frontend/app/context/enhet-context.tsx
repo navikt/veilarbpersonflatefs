@@ -48,6 +48,8 @@ export default class EnhetContext extends React.Component<{}, EnhetContextState>
         } else {
             this.oppdaterSideMedNyAktivBruker();
         }
+
+        this.handleNyAktivEnhet();
     }
 
     componentWillUnmount() {
