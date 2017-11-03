@@ -11,7 +11,7 @@ import { erDev } from '../utils/utils';
 import { hentAktivBruker, hentAktivEnhet, oppdaterAktivBruker } from './context-api';
 import { hentFodselsnummerFraURL, sendEventOmPersonFraURL, settPersonIURL } from '../eventhandtering';
 import NyBrukerModal from './ny-bruker-modal';
-import {initialiserToppmeny} from '../utils/meny-utils';
+import {initialiserToppmeny} from '../utils/dekorator-utils';
 import {enhetFinnesIUrl, leggEnhetIUrl} from '../utils/url-utils';
 
 import './enhet-context.less';
