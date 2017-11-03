@@ -86,7 +86,11 @@ export default class EnhetContext extends React.Component<{}, EnhetContextState>
     handleNyAktivBruker() {
         hentAktivBruker()
             .then((nyBruker) => {
-                if (nyBruker !== hentFodselsnummerFraURL()) {
+                const fnrFraUrl = hentFodselsnummerFraURL();
+                if (fnrFraUrl == null) {
+                    this.oppdaterSideMedNyAktivBruker();
+                }
+                else if (nyBruker !== fnrFraUrl) {
                     this.setState({
                         brukerModalSynlig: true
                     });
