@@ -8,7 +8,6 @@ import Aktivitetsplan from 'Aktivitetsplan';
 import { initialiserEventhandtering } from './eventhandtering';
 import { initialiserToppmeny } from './utils/meny-utils';
 import EnhetContext from './context/enhet-context';
-import { erDev } from './utils/utils';
 
 const visFeilmelding = (): void => {
     (window as any).location = '/veilarbpersonflatefs/static/feilside.html';
@@ -38,9 +37,7 @@ document.addEventListener('DOMContentLoaded', () => {
         visFeilmelding();
     } else {
         initialiserToppmeny();
-        if (erDev() ) {
-            ReactDOM.render(<EnhetContext />, document.getElementById('context'));
-        }
+        ReactDOM.render(<EnhetContext />, document.getElementById('context'));
         renderApp(Personoversikt, 'app', 'personoversikt');
         renderApp(Aktivitetsplan, 'aktivitetsplan-app', 'aktivitetsplan');
     }

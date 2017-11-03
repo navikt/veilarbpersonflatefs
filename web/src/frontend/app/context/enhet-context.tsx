@@ -11,7 +11,7 @@ import { erDev } from '../utils/utils';
 import { hentAktivBruker, hentAktivEnhet, oppdaterAktivBruker } from './context-api';
 import { hentFodselsnummerFraURL, sendEventOmPersonFraURL, settPersonIURL } from '../eventhandtering';
 import NyBrukerModal from './ny-bruker-modal';
-import { initialiserToppmeny } from '../utils/meny-utils';
+import {initialiserToppmeny, leggEnhetIUrl} from '../utils/meny-utils';
 
 import './enhet-context.less';
 
@@ -86,7 +86,10 @@ export default class EnhetContext extends React.Component<{}, EnhetContextState>
     handleNyAktivBruker() {
         hentAktivBruker()
             .then((nyBruker) => {
-                if (nyBruker !== hentFodselsnummerFraURL()) {
+                const fnrFraUrl = hentFodselsnummerFraURL();
+                if (fnrFraUrl == null) {
+                    this.oppdaterSideMedNyAktivBruker();
+                } else if (nyBruker !== fnrFraUrl) {
                     this.setState({
                         brukerModalSynlig: true
                     });
@@ -97,8 +100,8 @@ export default class EnhetContext extends React.Component<{}, EnhetContextState>
     handleNyAktivEnhet() {
         hentAktivEnhet()
             .then((enhet) => {
+                leggEnhetIUrl(enhet);
                 initialiserToppmeny();
-                // todo: implementer oppdatering av enhet
             }).catch(() => this.handterFeilet());
     }
 
