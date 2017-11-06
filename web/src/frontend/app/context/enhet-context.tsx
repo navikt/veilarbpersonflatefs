@@ -6,17 +6,20 @@ import EnhetContextListener, {
     EnhetContextEvent,
     EnhetContextEventNames
 } from './enhet-context-listener';
+import { FormattedMessage, IntlProvider, addLocaleData } from 'react-intl';
+import * as nb from 'react-intl/locale-data/nb';
 import ContextFeilmodal from './context-feilmodal';
 import { erDev } from '../utils/utils';
 import { hentAktivBruker, hentAktivEnhet, oppdaterAktivBruker } from './context-api';
 import { hentFodselsnummerFraURL, sendEventOmPersonFraURL, settPersonIURL } from '../eventhandtering';
 import NyBrukerModal from './ny-bruker-modal';
 import { initialiserToppmeny, leggEnhetIUrl } from '../utils/meny-utils';
-import { FormattedMessage, IntlProvider } from 'react-intl';
 import { tekster } from './context-tekster';
 import { fetchToJson } from '../utils/rest-utils';
 
 import './enhet-context.less';
+
+addLocaleData(nb);
 
 interface EnhetContextState {
     brukerModalSynlig: boolean;
@@ -45,8 +48,11 @@ export default class EnhetContext extends React.Component<{}, EnhetContextState>
     }
 
     componentDidMount() {
-        const host = erDev() ? 'app-t4.adeo.no' : window.location.hostname;
+        window.addEventListener('popstate', () => {
+            this.oppdaterAktivBrukHvisEndret();
+        });
 
+        const host = erDev() ? 'app-t4.adeo.no' : window.location.hostname;
         const uri = `wss://${host}/modiaeventdistribution/websocket`;
         this.contextListener = new EnhetContextListener(uri, this.enhetContextHandler);
 
