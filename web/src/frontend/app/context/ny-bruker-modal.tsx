@@ -2,7 +2,7 @@ import * as React from 'react';
 import { FormattedMessage } from 'react-intl';
 import NavFrontendModal from 'nav-frontend-modal';
 import { Innholdstittel, Normaltekst } from 'nav-frontend-typografi';
-import { AlertStripeAdvarselSolid } from 'nav-frontend-alertstriper';
+import { AlertStripeAdvarselSolid, AlertStripeInfoSolid } from 'nav-frontend-alertstriper';
 import Knapp, { Hovedknapp } from 'nav-frontend-knapper';
 import { tekster } from './context-tekster';
 
@@ -28,9 +28,9 @@ class NyBrukerModal extends React.Component<NyBrukerModalProps> {
                     <Innholdstittel tag="h1" className="blokk-s">
                         <FormattedMessage {...tekster.modalOverskrift} />
                     </Innholdstittel>
-                    <AlertStripeAdvarselSolid className="blokk-s">
+                    <AlertStripeInfoSolid className="blokk-s">
                         <FormattedMessage {...tekster.modalAlert} />
-                    </AlertStripeAdvarselSolid>
+                    </AlertStripeInfoSolid>
                     <Normaltekst className="blokk-s">
                         <FormattedMessage {...tekster.modalTekst} values={{bruker: this.props.fodselsnummer}} />
                     </Normaltekst>
