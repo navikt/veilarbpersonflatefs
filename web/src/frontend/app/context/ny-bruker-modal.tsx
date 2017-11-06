@@ -4,6 +4,7 @@ import NavFrontendModal from 'nav-frontend-modal';
 import { Innholdstittel, Normaltekst } from 'nav-frontend-typografi';
 import { AlertStripeAdvarselSolid } from 'nav-frontend-alertstriper';
 import Knapp, { Hovedknapp } from 'nav-frontend-knapper';
+import { tekster } from './context-tekster';
 
 interface NyBrukerModalProps {
     isOpen: boolean;
@@ -25,21 +26,20 @@ class NyBrukerModal extends React.Component<NyBrukerModalProps> {
             >
                 <div className="brukercontext__modal">
                     <Innholdstittel tag="h1" className="blokk-s">
-                        Du har endret bruker
+                        <FormattedMessage {...tekster.modalOverskrift} />
                     </Innholdstittel>
                     <AlertStripeAdvarselSolid className="blokk-s">
-                        Du har endret bruker i et annet vindu. Du kan ikke jobbe med 2 brukere samtidig.
-                        Velger du avbryt mister du arbeidet du ikke har lagret.
+                        <FormattedMessage {...tekster.modalAlert} />
                     </AlertStripeAdvarselSolid>
                     <Normaltekst className="blokk-s">
-                        { `Vil du fortsette å jobbe med bruker som har fødselsnummer ${this.props.fodselsnummer}` }
+                        <FormattedMessage {...tekster.modalTekst} values={{bruker: this.props.fodselsnummer}} />
                     </Normaltekst>
                     <div className="modal-footer" >
                         <Hovedknapp onClick={() => this.props.doFortsettSammeBruker()} spinner={this.props.isPending} autoDisableVedSpinner>
-                            Bekreft
+                            <FormattedMessage {...tekster.bekreft} />
                         </Hovedknapp>
                         <Knapp disabled={this.props.isPending} type="standard" onClick={() => this.props.doLastNyBruker()}>
-                            Avbryt
+                            <FormattedMessage {...tekster.avbryt} />
                         </Knapp>
                     </div>
                 </div>
