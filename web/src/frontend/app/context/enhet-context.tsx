@@ -11,7 +11,10 @@ import { erDev } from '../utils/utils';
 import { hentAktivBruker, hentAktivEnhet, oppdaterAktivBruker } from './context-api';
 import { hentFodselsnummerFraURL, sendEventOmPersonFraURL, settPersonIURL } from '../eventhandtering';
 import NyBrukerModal from './ny-bruker-modal';
-import {initialiserToppmeny, leggEnhetIUrl} from '../utils/meny-utils';
+import { initialiserToppmeny, leggEnhetIUrl } from '../utils/meny-utils';
+import { FormattedMessage, IntlProvider } from 'react-intl';
+import { tekster } from './context-tekster';
+import { fetchToJson } from '../utils/rest-utils';
 
 import './enhet-context.less';
 
@@ -20,6 +23,8 @@ interface EnhetContextState {
     feilmodalSynlig: boolean;
     tilkoblingState: EnhetConnectionState;
     lastBrukerPending: boolean;
+    tekster: any;
+    fnrContext: string;
 }
 
 export default class EnhetContext extends React.Component<{}, EnhetContextState> {
@@ -30,8 +35,10 @@ export default class EnhetContext extends React.Component<{}, EnhetContextState>
         this.state = {
             brukerModalSynlig: false,
             feilmodalSynlig: false,
+            fnrContext: hentFodselsnummerFraURL(),
             lastBrukerPending: false,
-            tilkoblingState: EnhetConnectionState.NOT_CONNECTED
+            tilkoblingState: EnhetConnectionState.NOT_CONNECTED,
+            tekster: {}
         };
 
         this.enhetContextHandler = this.enhetContextHandler.bind(this);
@@ -39,6 +46,7 @@ export default class EnhetContext extends React.Component<{}, EnhetContextState>
 
     componentDidMount() {
         const host = erDev() ? 'app-t4.adeo.no' : window.location.hostname;
+
         const uri = `wss://${host}/modiaeventdistribution/websocket`;
         this.contextListener = new EnhetContextListener(uri, this.enhetContextHandler);
 
@@ -48,6 +56,11 @@ export default class EnhetContext extends React.Component<{}, EnhetContextState>
         } else {
             this.oppdaterSideMedNyAktivBruker();
         }
+
+        fetchToJson('/veilarbaktivitetsplanfs/api/tekster')
+            .then((tekstFields: any) => {
+                this.setState({ tekster: tekstFields.nb });
+            });
     }
 
     componentWillUnmount() {
@@ -66,6 +79,8 @@ export default class EnhetContext extends React.Component<{}, EnhetContextState>
         const fnrFraUrl = hentFodselsnummerFraURL();
         return hentAktivBruker()
             .then((nyBruker) => {
+                this.setState({fnrContext: nyBruker});
+
                 if (nyBruker !== fnrFraUrl) {
                     oppdaterAktivBruker(fnrFraUrl);
                 }
@@ -76,6 +91,8 @@ export default class EnhetContext extends React.Component<{}, EnhetContextState>
         hentAktivBruker()
             .then((bruker) => {
                 const fnrFraUrl = hentFodselsnummerFraURL();
+                this.setState({fnrContext: bruker});
+
                 if (bruker !=  null && bruker !== fnrFraUrl) {
                     settPersonIURL(bruker);
                     sendEventOmPersonFraURL();
@@ -87,6 +104,8 @@ export default class EnhetContext extends React.Component<{}, EnhetContextState>
         hentAktivBruker()
             .then((nyBruker) => {
                 const fnrFraUrl = hentFodselsnummerFraURL();
+                this.setState({fnrContext: nyBruker});
+
                 if (fnrFraUrl == null) {
                     this.oppdaterSideMedNyAktivBruker();
                 } else if (nyBruker !== fnrFraUrl) {
@@ -136,28 +155,29 @@ export default class EnhetContext extends React.Component<{}, EnhetContextState>
     render() {
         const alertIkkeTilkoblet = (
             <AlertStripeAdvarselSolid>
-                Det er fare for at du kan ha forskjellige brukere i forskjellige flater/vinduer.
-                Systemet feiler og klarer ikke oppfatte endringer du eventuelt har gjort i andre vinuer.
+                <FormattedMessage {...tekster.wsfeilmelding} />
             </AlertStripeAdvarselSolid>
         );
 
         return (
-            <div>
-                { this.state.tilkoblingState === EnhetConnectionState.FAILED ? alertIkkeTilkoblet : null }
+            <IntlProvider locale="nb" defaultLocale="nb" messages={this.state.tekster}>
+                <div>
+                    { this.state.tilkoblingState === EnhetConnectionState.FAILED ? alertIkkeTilkoblet : null }
 
-                <NyBrukerModal
-                    isOpen={this.state.brukerModalSynlig === true}
-                    isPending={this.state.lastBrukerPending}
-                    doLastNyBruker={() => this.handleLastNyBruker()}
-                    doFortsettSammeBruker={() => this.handleFortsettSammeBruker()}
-                    fodselsnummer={hentFodselsnummerFraURL()}
-                />
+                    <NyBrukerModal
+                        isOpen={this.state.brukerModalSynlig === true}
+                        isPending={this.state.lastBrukerPending}
+                        doLastNyBruker={() => this.handleLastNyBruker()}
+                        doFortsettSammeBruker={() => this.handleFortsettSammeBruker()}
+                        fodselsnummer={this.state.fnrContext}
+                    />
 
-                <ContextFeilmodal
-                    isOpen={this.state.feilmodalSynlig}
-                    onClose={() => this.setState({ feilmodalSynlig: false })}
-                />
-            </div>
+                    <ContextFeilmodal
+                        isOpen={this.state.feilmodalSynlig}
+                        onClose={() => this.setState({ feilmodalSynlig: false })}
+                    />
+                </div>
+            </IntlProvider>
         );
     }
 }
