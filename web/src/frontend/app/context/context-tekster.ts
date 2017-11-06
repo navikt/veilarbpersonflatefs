@@ -12,19 +12,19 @@ export const tekster = defineMessages(
         },
         modalAlert: {
             id: 'context.nybruker.modal.alertmelding',
-            defaultMessage: 'Du har endret bruker i et annet vindu. Du kan ikke jobbe med 2 brukere samtidig. Velger du avbryt mister du arbeidet du ikke har lagret.'
+            defaultMessage: 'Du har endret bruker i et annet vindu. Du kan ikke jobbe med 2 brukere samtidig. Velger du å endre bruker mister du arbeidet du ikke har lagret.'
         },
         modalTekst: {
             id: 'context.nybruker.modal.sporsmal',
-            defaultMessage: 'Vil du fortsette å jobbe med bruker som har fødselsnummer {bruker}'
+            defaultMessage: 'Ønsker du å endre bruker til {bruker}?'
         },
-        bekreft: {
-            id: 'context.nybruker.modal.bekreft',
-            defaultMessage: 'Bekreft'
+        behold: {
+            id: 'context.nybruker.modal.behold',
+            defaultMessage: 'Behold'
         },
-        avbryt: {
-            id: 'context.nybruker.modal.avbryt',
-            defaultMessage: 'Avbryt'
+        endre: {
+            id: 'context.nybruker.modal.endre',
+            defaultMessage: 'Endre'
         },
         feilmodalOverskrift: {
             id: 'context.feilmodal.overskrift',

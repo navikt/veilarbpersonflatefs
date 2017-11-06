@@ -35,11 +35,11 @@ class NyBrukerModal extends React.Component<NyBrukerModalProps> {
                         <FormattedMessage {...tekster.modalTekst} values={{bruker: this.props.fodselsnummer}} />
                     </Normaltekst>
                     <div className="modal-footer" >
-                        <Hovedknapp onClick={() => this.props.doFortsettSammeBruker()} spinner={this.props.isPending} autoDisableVedSpinner>
-                            <FormattedMessage {...tekster.bekreft} />
+                        <Hovedknapp disabled={this.props.isPending} onClick={() => this.props.doLastNyBruker()}>
+                            <FormattedMessage {...tekster.endre} />
                         </Hovedknapp>
-                        <Knapp disabled={this.props.isPending} type="standard" onClick={() => this.props.doLastNyBruker()}>
-                            <FormattedMessage {...tekster.avbryt} />
+                        <Knapp type="standard" onClick={() => this.props.doFortsettSammeBruker()} spinner={this.props.isPending} autoDisableVedSpinner>
+                            <FormattedMessage {...tekster.behold} />
                         </Knapp>
                     </div>
                 </div>

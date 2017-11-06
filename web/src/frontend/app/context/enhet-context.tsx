@@ -24,6 +24,7 @@ interface EnhetContextState {
     tilkoblingState: EnhetConnectionState;
     lastBrukerPending: boolean;
     tekster: any;
+    fnrContext: string;
 }
 
 export default class EnhetContext extends React.Component<{}, EnhetContextState> {
@@ -34,6 +35,7 @@ export default class EnhetContext extends React.Component<{}, EnhetContextState>
         this.state = {
             brukerModalSynlig: false,
             feilmodalSynlig: false,
+            fnrContext: hentFodselsnummerFraURL(),
             lastBrukerPending: false,
             tilkoblingState: EnhetConnectionState.NOT_CONNECTED,
             tekster: {}
@@ -44,6 +46,7 @@ export default class EnhetContext extends React.Component<{}, EnhetContextState>
 
     componentDidMount() {
         const host = erDev() ? 'app-t4.adeo.no' : window.location.hostname;
+
         const uri = `wss://${host}/modiaeventdistribution/websocket`;
         this.contextListener = new EnhetContextListener(uri, this.enhetContextHandler);
 
@@ -76,6 +79,8 @@ export default class EnhetContext extends React.Component<{}, EnhetContextState>
         const fnrFraUrl = hentFodselsnummerFraURL();
         return hentAktivBruker()
             .then((nyBruker) => {
+                this.setState({fnrContext: nyBruker});
+
                 if (nyBruker !== fnrFraUrl) {
                     oppdaterAktivBruker(fnrFraUrl);
                 }
@@ -86,6 +91,8 @@ export default class EnhetContext extends React.Component<{}, EnhetContextState>
         hentAktivBruker()
             .then((bruker) => {
                 const fnrFraUrl = hentFodselsnummerFraURL();
+                this.setState({fnrContext: bruker});
+
                 if (bruker !=  null && bruker !== fnrFraUrl) {
                     settPersonIURL(bruker);
                     sendEventOmPersonFraURL();
@@ -97,6 +104,8 @@ export default class EnhetContext extends React.Component<{}, EnhetContextState>
         hentAktivBruker()
             .then((nyBruker) => {
                 const fnrFraUrl = hentFodselsnummerFraURL();
+                this.setState({fnrContext: nyBruker});
+
                 if (fnrFraUrl == null) {
                     this.oppdaterSideMedNyAktivBruker();
                 } else if (nyBruker !== fnrFraUrl) {
@@ -160,7 +169,7 @@ export default class EnhetContext extends React.Component<{}, EnhetContextState>
                         isPending={this.state.lastBrukerPending}
                         doLastNyBruker={() => this.handleLastNyBruker()}
                         doFortsettSammeBruker={() => this.handleFortsettSammeBruker()}
-                        fodselsnummer={hentFodselsnummerFraURL()}
+                        fodselsnummer={this.state.fnrContext}
                     />
 
                     <ContextFeilmodal
