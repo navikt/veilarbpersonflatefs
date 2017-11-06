@@ -23,7 +23,7 @@ class ContextFeilmodal extends React.Component<ContextFeilmodalProps> {
             >
                 <div className="brukercontext__modal">
                     <Innholdstittel tag="h1" className="blokk-s">
-                        <FormattedMessage {...tekster.wsfeilmelding} />
+                        <FormattedMessage {...tekster.feilmodalOverskrift} />
                     </Innholdstittel>
                     <div className="modal-content modal-test">
                         <AlertStripeAdvarselSolid className="blokk-s">
