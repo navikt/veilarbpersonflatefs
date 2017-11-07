@@ -87,11 +87,3 @@ const config = (): Config => ({
 export const initialiserToppmeny = (): void => {
     (window as any).renderDecoratorHead(config());
 };
-
-export const leggEnhetIUrl = (enhet: string) => {
-    const currentParams = queryString.parse(location.search);
-    currentParams.enhet = enhet;
-    const newParams = queryString.stringify(currentParams);
-    const newUrl = location.origin + location.pathname + '?' + newParams;
-    history.replaceState(history.state, '', newUrl);
-};

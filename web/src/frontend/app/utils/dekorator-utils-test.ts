@@ -1,5 +1,5 @@
 import { expect } from 'chai';
-import { erstattMiljoPlaceholder } from './meny-utils';
+import { erstattMiljoPlaceholder } from './dekorator-utils';
 import { modiaTemplateUrl } from '../lenker';
 
 describe('erstattMiljoPlaceholder', () => {

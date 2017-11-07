@@ -13,7 +13,8 @@ import { erDev } from '../utils/utils';
 import { hentAktivBruker, hentAktivEnhet, oppdaterAktivBruker } from './context-api';
 import { hentFodselsnummerFraURL, sendEventOmPersonFraURL, settPersonIURL } from '../eventhandtering';
 import NyBrukerModal from './ny-bruker-modal';
-import { initialiserToppmeny, leggEnhetIUrl } from '../utils/meny-utils';
+import {initialiserToppmeny} from '../utils/dekorator-utils';
+import {enhetFinnesIUrl, leggEnhetIUrl} from '../utils/url-utils';
 import { tekster } from './context-tekster';
 import { fetchToJson } from '../utils/rest-utils';
 
@@ -61,6 +62,10 @@ export default class EnhetContext extends React.Component<{}, EnhetContextState>
             this.oppdaterAktivBrukHvisEndret();
         } else {
             this.oppdaterSideMedNyAktivBruker();
+        }
+
+        if(!enhetFinnesIUrl()) {
+            this.handleNyAktivEnhet();
         }
 
         fetchToJson('/veilarbaktivitetsplanfs/api/tekster')

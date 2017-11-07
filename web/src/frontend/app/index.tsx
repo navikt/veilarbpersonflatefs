@@ -6,7 +6,7 @@ import './index.less';
 import Personoversikt from 'Personoversikt';
 import Aktivitetsplan from 'Aktivitetsplan';
 import { initialiserEventhandtering } from './eventhandtering';
-import { initialiserToppmeny } from './utils/meny-utils';
+import { initialiserToppmeny } from './utils/dekorator-utils';
 import EnhetContext from './context/enhet-context';
 
 const visFeilmelding = (): void => {
