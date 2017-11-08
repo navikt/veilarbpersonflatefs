@@ -52,6 +52,10 @@ const erstattPlaceholdersForLenker = (lenkeObjekter) => lenkeObjekter.map(erstat
 
 interface Config {
     config: {
+        dataSources: {
+            veileder: string,
+            enheter: string
+        },
         toggles: {
             visEnhet: boolean,
             visEnhetVelger: boolean,
@@ -69,6 +73,10 @@ interface Config {
 
 const config = (): Config => ({
     config: {
+        dataSources: {
+            veileder: '/veilarbveileder/api/veileder/me',
+            enheter: '/veilarbveileder/api/veileder/enheter'
+        },
         toggles: {
             visEnhet: true,
             visEnhetVelger: false,
