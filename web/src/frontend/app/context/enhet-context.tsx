@@ -14,7 +14,7 @@ import { hentAktivBruker, hentAktivEnhet, oppdaterAktivBruker } from './context-
 import { hentFodselsnummerFraURL, sendEventOmPersonFraURL, settPersonIURL } from '../eventhandtering';
 import NyBrukerModal from './ny-bruker-modal';
 import { initialiserToppmeny } from '../utils/dekorator-utils';
-import { enhetFinnesIUrl, leggEnhetIUrl } from '../utils/url-utils';
+import { enhetFinnesIUrl, leggEnhetIUrl, miljoFraUrl } from '../utils/url-utils';
 import { tekster } from './context-tekster';
 import { fetchToJson } from '../utils/rest-utils';
 
@@ -53,9 +53,7 @@ export default class EnhetContext extends React.Component<{}, EnhetContextState>
             this.oppdaterAktivBrukHvisEndret();
         });
 
-        const host = erDev() ? 'app-t4.adeo.no' : window.location.hostname;
-        const uri = `wss://${host}/modiaeventdistribution/websocket`;
-        this.contextListener = new EnhetContextListener(uri, this.enhetContextHandler);
+        this.contextListener = new EnhetContextListener(this.websocketUri(), this.enhetContextHandler);
 
         const fnrFraUrl = hentFodselsnummerFraURL();
         if(fnrFraUrl != null) {
@@ -76,6 +74,11 @@ export default class EnhetContext extends React.Component<{}, EnhetContextState>
 
     componentWillUnmount() {
         this.contextListener.close();
+    }
+
+    websocketUri() {
+        const miljo = erDev() ? '-t4' : miljoFraUrl();
+        return `wss://veilederflatehendelser${miljo}.adeo.no/modiaeventdistribution/websocket`;
     }
 
     handterFeilet() {
