@@ -15,3 +15,12 @@ export function enhetFraUrl() {
 export function enhetFinnesIUrl() {
     return !!enhetFraUrl();
 }
+
+export function miljoFraUrl() {
+    return utledMiljoFraHost(window.location.host);
+}
+
+export function utledMiljoFraHost(host) {
+    const matches = host.match(/-[a-zA-Z][0-9]+/);
+    return matches == null ? '' : matches[0];
+}
