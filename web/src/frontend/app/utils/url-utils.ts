@@ -8,8 +8,8 @@ export const leggEnhetIUrl = (enhet: string) => {
     history.replaceState(history.state, '', newUrl);
 };
 
-function enhetFraUrl() {
-    return queryString.parse(location.search).enhet;
+export function enhetFraUrl() {
+    return queryString.parse(window.location.search).enhet;
 }
 
 export function enhetFinnesIUrl() {
