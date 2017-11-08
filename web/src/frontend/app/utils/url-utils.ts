@@ -15,6 +15,3 @@ function enhetFraUrl() {
 export function enhetFinnesIUrl() {
     return !!enhetFraUrl();
 }
-
-
-
