@@ -7,7 +7,7 @@ export const veilarbpersonflatefsLenker = {
             [miaUrl, 'Arbeidsmarkedet'],
             ['/veilarbportefoljeflatefs/enhet?enhet={{enhet}}&clean', 'Enhetens oversikt'],
             ['/veilarbportefoljeflatefs/portefolje?enhet={{enhet}}&clean', 'Min oversikt'],
-            [modiaTemplateUrl, 'Modia']
+            [modiaTemplateUrl, 'Personoversikt']
         ],
     tittel: ''
 };
