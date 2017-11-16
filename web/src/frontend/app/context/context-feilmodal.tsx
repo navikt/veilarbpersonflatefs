@@ -4,7 +4,7 @@ import NavFrontendModal from 'nav-frontend-modal';
 import { Innholdstittel } from 'nav-frontend-typografi';
 import { Hovedknapp } from 'nav-frontend-knapper';
 import { tekster } from './context-tekster';
-import { AlertStripeAdvarselSolid } from 'nav-frontend-alertstriper';
+import { AlertStripeNavansatt } from 'nav-frontend-alertstriper';
 
 interface ContextFeilmodalProps {
     isOpen: boolean;
@@ -26,9 +26,9 @@ class ContextFeilmodal extends React.Component<ContextFeilmodalProps> {
                         <FormattedMessage {...tekster.feilmodalOverskrift} />
                     </Innholdstittel>
                     <div className="modal-content modal-test">
-                        <AlertStripeAdvarselSolid className="blokk-s">
+                        <AlertStripeNavansatt className="blokk-s">
                             <FormattedMessage {...tekster.feilmodalTekst} />
-                        </AlertStripeAdvarselSolid>
+                        </AlertStripeNavansatt>
                     </div>
                     <div className="modal-footer" >
                         <Hovedknapp onClick={this.props.onClose}>
