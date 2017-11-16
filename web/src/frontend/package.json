@@ -65,7 +65,7 @@
     "nav-frontend-modal": "0.2.13",
     "nav-frontend-modal-style": "0.3.6",
     "nav-frontend-paneler-style": "0.3.6",
-    "nav-frontend-typografi": "1.0.9",
+    "nav-frontend-typografi": "1.0.10",
     "nav-frontend-typografi-style": "1.0.6",
     "optimize-css-assets-webpack-plugin": "3.2.0",
     "react-intl": "2.1.5",
