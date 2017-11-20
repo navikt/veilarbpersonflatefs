@@ -5,7 +5,7 @@ import EnhetContextListener, {
     EnhetConnectionState,
     EnhetContextEvent,
     EnhetContextEventNames
-} from './enhet-context-listener';
+} from './context-listener';
 import { FormattedMessage, IntlProvider, addLocaleData } from 'react-intl';
 import * as nb from 'react-intl/locale-data/nb';
 import ContextFeilmodal from './context-feilmodal';
