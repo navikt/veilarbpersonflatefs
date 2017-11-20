@@ -81,7 +81,7 @@ export default class EnhetContext extends React.Component<{}, EnhetContextState>
         return `wss://veilederflatehendelser${miljo}.adeo.no/modiaeventdistribution/websocket`;
     }
 
-    handterFeilet() {
+    handleFeilet() {
         this.setState({
             lastBrukerPending: false,
             brukerModalSynlig: false,
@@ -98,7 +98,7 @@ export default class EnhetContext extends React.Component<{}, EnhetContextState>
                 if (nyBruker !== fnrFraUrl) {
                     oppdaterAktivBruker(fnrFraUrl);
                 }
-            }).catch(() => this.handterFeilet());
+            }).catch(() => this.handleFeilet());
     }
 
     oppdaterSideMedNyAktivBruker() {
@@ -111,7 +111,7 @@ export default class EnhetContext extends React.Component<{}, EnhetContextState>
                     settPersonIURL(bruker);
                     sendEventOmPersonFraURL();
                 }
-            }).catch(() => this.handterFeilet());
+            }).catch(() => this.handleFeilet());
     }
 
     handleNyAktivBruker() {
@@ -127,7 +127,7 @@ export default class EnhetContext extends React.Component<{}, EnhetContextState>
                         brukerModalSynlig: true
                     });
                 }
-            }).catch(() => this.handterFeilet());
+            }).catch(() => this.handleFeilet());
     }
 
     handleNyAktivEnhet() {
@@ -135,7 +135,7 @@ export default class EnhetContext extends React.Component<{}, EnhetContextState>
             .then((enhet) => {
                 leggEnhetIUrl(enhet);
                 initialiserToppmeny();
-            }).catch(() => this.handterFeilet());
+            }).catch(() => this.handleFeilet());
     }
 
     enhetContextHandler(event: EnhetContextEvent) {
