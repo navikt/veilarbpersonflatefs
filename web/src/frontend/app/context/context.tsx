@@ -137,7 +137,7 @@ export default class EnhetContext extends React.Component<{}, EnhetContextState>
             .then((enhet) => {
                 leggEnhetIUrl(enhet);
                 initialiserToppmeny();
-            }).catch(() => this.handleFeilet(tekster.wsfeilmelding));
+            }).catch(() => this.handleFeilet(tekster.feilmodalTekst));
     }
 
     enhetContextHandler(event: EnhetContextEvent) {
