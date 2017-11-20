@@ -24,16 +24,6 @@ export function hentAktivBruker(): Promise<string> {
         );
 }
 
-export function oppdaterAktivEnhet(enhet: string): Promise<Response> {
-    return fetchToJson(`/modiacontextholder/api/context`, {
-        method: 'post',
-        body: JSON.stringify({
-            verdi: enhet,
-            eventType: 'NY_AKTIV_ENHET'
-        })
-    });
-}
-
 export function oppdaterAktivBruker(bruker: string): Promise<Response> {
     return fetchToJson(`/modiacontextholder/api/context`, {
         method: 'post',
