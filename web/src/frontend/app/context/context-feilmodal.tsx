@@ -6,9 +6,15 @@ import { Hovedknapp } from 'nav-frontend-knapper';
 import { tekster } from './context-tekster';
 import { AlertStripeNavansatt } from 'nav-frontend-alertstriper';
 
+export interface tekst {
+    id: string;
+    defaultMessage: string;
+}
+
 interface ContextFeilmodalProps {
     isOpen: boolean;
     onClose: () => void;
+    feilmeldingTekst: tekst;
 }
 
 class ContextFeilmodal extends React.Component<ContextFeilmodalProps> {
@@ -27,7 +33,7 @@ class ContextFeilmodal extends React.Component<ContextFeilmodalProps> {
                     </Innholdstittel>
                     <div className="modal-content modal-test">
                         <AlertStripeNavansatt className="blokk-s">
-                            <FormattedMessage {...tekster.feilmodalTekst} />
+                            <FormattedMessage {...this.props.feilmeldingTekst} />
                         </AlertStripeNavansatt>
                     </div>
                     <div className="modal-footer" >
