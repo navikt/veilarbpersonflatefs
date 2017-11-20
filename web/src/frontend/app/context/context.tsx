@@ -18,7 +18,7 @@ import { enhetFinnesIUrl, leggEnhetIUrl, miljoFraUrl } from '../utils/url-utils'
 import { tekster } from './context-tekster';
 import { fetchToJson } from '../utils/rest-utils';
 
-import './enhet-context.less';
+import './context.less';
 
 addLocaleData(nb);
 

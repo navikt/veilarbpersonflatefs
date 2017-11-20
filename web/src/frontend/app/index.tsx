@@ -7,7 +7,7 @@ import Personoversikt from 'Personoversikt';
 import Aktivitetsplan from 'Aktivitetsplan';
 import { initialiserEventhandtering } from './eventhandtering';
 import { initialiserToppmeny } from './utils/dekorator-utils';
-import EnhetContext from './context/enhet-context';
+import EnhetContext from './context/context';
 
 const visFeilmelding = (): void => {
     (window as any).location = '/veilarbpersonflatefs/static/feilside.html';
