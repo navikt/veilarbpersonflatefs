@@ -7,7 +7,7 @@ import EnhetContextListener, {
 } from './context-listener';
 import { IntlProvider, addLocaleData } from 'react-intl';
 import * as nb from 'react-intl/locale-data/nb';
-import ContextFeilmodal, {tekst} from './context-feilmodal';
+import ContextFeilmodal, { Tekst } from './context-feilmodal';
 import { erDev } from '../utils/utils';
 import { hentAktivBruker, hentAktivEnhet, oppdaterAktivBruker } from './context-api';
 import { hentFodselsnummerFraURL, sendEventOmPersonFraURL, settPersonIURL } from '../eventhandtering';
@@ -28,7 +28,7 @@ interface EnhetContextState {
     lastBrukerPending: boolean;
     tekster: any;
     fnrContext: string;
-    feilmeldingTekst: tekst;
+    feilmeldingTekst: Tekst;
 }
 
 export default class EnhetContext extends React.Component<{}, EnhetContextState> {
@@ -82,7 +82,7 @@ export default class EnhetContext extends React.Component<{}, EnhetContextState>
         return `wss://veilederflatehendelser${miljo}.adeo.no/modiaeventdistribution/websocket`;
     }
 
-    handleFeilet(feilmelding: tekst) {
+    handleFeilet(feilmelding: Tekst) {
         this.setState({
             lastBrukerPending: false,
             brukerModalSynlig: false,
