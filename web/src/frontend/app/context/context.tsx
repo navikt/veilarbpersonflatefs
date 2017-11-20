@@ -1,14 +1,13 @@
 import * as React from 'react';
-import { AlertStripeAdvarselSolid } from 'nav-frontend-alertstriper';
 import { connect } from 'react-redux';
 import EnhetContextListener, {
     EnhetConnectionState,
     EnhetContextEvent,
     EnhetContextEventNames
-} from './enhet-context-listener';
-import { FormattedMessage, IntlProvider, addLocaleData } from 'react-intl';
+} from './context-listener';
+import { IntlProvider, addLocaleData } from 'react-intl';
 import * as nb from 'react-intl/locale-data/nb';
-import ContextFeilmodal from './context-feilmodal';
+import ContextFeilmodal, { Tekst } from './context-feilmodal';
 import { erDev } from '../utils/utils';
 import { hentAktivBruker, hentAktivEnhet, oppdaterAktivBruker } from './context-api';
 import { hentFodselsnummerFraURL, sendEventOmPersonFraURL, settPersonIURL } from '../eventhandtering';
@@ -18,7 +17,7 @@ import { enhetFinnesIUrl, leggEnhetIUrl, miljoFraUrl } from '../utils/url-utils'
 import { tekster } from './context-tekster';
 import { fetchToJson } from '../utils/rest-utils';
 
-import './enhet-context.less';
+import './context.less';
 
 addLocaleData(nb);
 
@@ -29,6 +28,7 @@ interface EnhetContextState {
     lastBrukerPending: boolean;
     tekster: any;
     fnrContext: string;
+    feilmeldingTekst: Tekst;
 }
 
 export default class EnhetContext extends React.Component<{}, EnhetContextState> {
@@ -42,7 +42,8 @@ export default class EnhetContext extends React.Component<{}, EnhetContextState>
             fnrContext: hentFodselsnummerFraURL(),
             lastBrukerPending: false,
             tilkoblingState: EnhetConnectionState.NOT_CONNECTED,
-            tekster: {}
+            tekster: {},
+            feilmeldingTekst: tekster.wsfeilmelding
         };
 
         this.enhetContextHandler = this.enhetContextHandler.bind(this);
@@ -81,11 +82,12 @@ export default class EnhetContext extends React.Component<{}, EnhetContextState>
         return `wss://veilederflatehendelser${miljo}.adeo.no/modiaeventdistribution/websocket`;
     }
 
-    handterFeilet() {
+    handleFeilet(feilmelding: Tekst) {
         this.setState({
             lastBrukerPending: false,
             brukerModalSynlig: false,
-            feilmodalSynlig: true
+            feilmodalSynlig: true,
+            feilmeldingTekst: feilmelding
         });
     }
 
@@ -98,7 +100,7 @@ export default class EnhetContext extends React.Component<{}, EnhetContextState>
                 if (nyBruker !== fnrFraUrl) {
                     oppdaterAktivBruker(fnrFraUrl);
                 }
-            }).catch(() => this.handterFeilet());
+            }).catch(() => this.handleFeilet(tekster.feilmodalTekst));
     }
 
     oppdaterSideMedNyAktivBruker() {
@@ -111,7 +113,7 @@ export default class EnhetContext extends React.Component<{}, EnhetContextState>
                     settPersonIURL(bruker);
                     sendEventOmPersonFraURL();
                 }
-            }).catch(() => this.handterFeilet());
+            }).catch(() => this.handleFeilet(tekster.feilmodalTekst));
     }
 
     handleNyAktivBruker() {
@@ -127,7 +129,7 @@ export default class EnhetContext extends React.Component<{}, EnhetContextState>
                         brukerModalSynlig: true
                     });
                 }
-            }).catch(() => this.handterFeilet());
+            }).catch(() => this.handleFeilet(tekster.feilmodalTekst));
     }
 
     handleNyAktivEnhet() {
@@ -135,12 +137,16 @@ export default class EnhetContext extends React.Component<{}, EnhetContextState>
             .then((enhet) => {
                 leggEnhetIUrl(enhet);
                 initialiserToppmeny();
-            }).catch(() => this.handterFeilet());
+            }).catch(() => this.handleFeilet(tekster.wsfeilmelding));
     }
 
     enhetContextHandler(event: EnhetContextEvent) {
         switch (event.type) {
             case EnhetContextEventNames.CONNECTION_STATE_CHANGED:
+                if(event.state === EnhetConnectionState.FAILED &&
+                    this.state.tilkoblingState === EnhetConnectionState.NOT_CONNECTED) {
+                    this.handleFeilet(tekster.wsfeilmelding);
+                }
                 this.setState({ tilkoblingState: event.state });
                 break;
             case EnhetContextEventNames.NY_AKTIV_ENHET:
@@ -167,17 +173,9 @@ export default class EnhetContext extends React.Component<{}, EnhetContextState>
     }
 
     render() {
-        const alertIkkeTilkoblet = (
-            <AlertStripeAdvarselSolid>
-                <FormattedMessage {...tekster.wsfeilmelding} />
-            </AlertStripeAdvarselSolid>
-        );
-
         return (
             <IntlProvider locale="nb" defaultLocale="nb" messages={this.state.tekster}>
                 <div>
-                    { this.state.tilkoblingState === EnhetConnectionState.FAILED ? alertIkkeTilkoblet : null }
-
                     <NyBrukerModal
                         isOpen={this.state.brukerModalSynlig === true}
                         isPending={this.state.lastBrukerPending}
@@ -185,10 +183,10 @@ export default class EnhetContext extends React.Component<{}, EnhetContextState>
                         doFortsettSammeBruker={() => this.handleFortsettSammeBruker()}
                         fodselsnummer={this.state.fnrContext}
                     />
-
                     <ContextFeilmodal
                         isOpen={this.state.feilmodalSynlig}
                         onClose={() => this.setState({ feilmodalSynlig: false })}
+                        feilmeldingTekst={this.state.feilmeldingTekst}
                     />
                 </div>
             </IntlProvider>
