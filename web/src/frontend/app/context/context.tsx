@@ -1,12 +1,11 @@
 import * as React from 'react';
-import { AlertStripeAdvarselSolid } from 'nav-frontend-alertstriper';
 import { connect } from 'react-redux';
 import EnhetContextListener, {
     EnhetConnectionState,
     EnhetContextEvent,
     EnhetContextEventNames
 } from './context-listener';
-import { FormattedMessage, IntlProvider, addLocaleData } from 'react-intl';
+import { IntlProvider, addLocaleData } from 'react-intl';
 import * as nb from 'react-intl/locale-data/nb';
 import ContextFeilmodal from './context-feilmodal';
 import { erDev } from '../utils/utils';
@@ -141,6 +140,10 @@ export default class EnhetContext extends React.Component<{}, EnhetContextState>
     enhetContextHandler(event: EnhetContextEvent) {
         switch (event.type) {
             case EnhetContextEventNames.CONNECTION_STATE_CHANGED:
+                if(event.state === EnhetConnectionState.FAILED &&
+                    this.state.tilkoblingState === EnhetConnectionState.NOT_CONNECTED) {
+                    this.handleFeilet();
+                }
                 this.setState({ tilkoblingState: event.state });
                 break;
             case EnhetContextEventNames.NY_AKTIV_ENHET:
@@ -167,17 +170,9 @@ export default class EnhetContext extends React.Component<{}, EnhetContextState>
     }
 
     render() {
-        const alertIkkeTilkoblet = (
-            <AlertStripeAdvarselSolid>
-                <FormattedMessage {...tekster.wsfeilmelding} />
-            </AlertStripeAdvarselSolid>
-        );
-
         return (
             <IntlProvider locale="nb" defaultLocale="nb" messages={this.state.tekster}>
                 <div>
-                    { this.state.tilkoblingState === EnhetConnectionState.FAILED ? alertIkkeTilkoblet : null }
-
                     <NyBrukerModal
                         isOpen={this.state.brukerModalSynlig === true}
                         isPending={this.state.lastBrukerPending}
@@ -185,7 +180,6 @@ export default class EnhetContext extends React.Component<{}, EnhetContextState>
                         doFortsettSammeBruker={() => this.handleFortsettSammeBruker()}
                         fodselsnummer={this.state.fnrContext}
                     />
-
                     <ContextFeilmodal
                         isOpen={this.state.feilmodalSynlig}
                         onClose={() => this.setState({ feilmodalSynlig: false })}
