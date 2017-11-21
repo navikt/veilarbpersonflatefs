@@ -6,7 +6,7 @@ import { Hovedknapp } from 'nav-frontend-knapper';
 import { tekster } from './context-tekster';
 import { AlertStripeNavansatt } from 'nav-frontend-alertstriper';
 
-export interface Tekst {
+export interface tekst {
     id: string;
     defaultMessage: string;
 }
@@ -14,7 +14,7 @@ export interface Tekst {
 interface ContextFeilmodalProps {
     isOpen: boolean;
     onClose: () => void;
-    feilmeldingTekst: Tekst;
+    feilmeldingTekst: tekst;
 }
 
 class ContextFeilmodal extends React.Component<ContextFeilmodalProps> {
