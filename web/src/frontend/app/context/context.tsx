@@ -183,7 +183,6 @@ export default class EnhetContext extends React.Component<{}, EnhetContextState>
                     <ContextFeilmodal
                         isOpen={this.state.feilmodalSynlig}
                         onClose={() => this.setState({ feilmodalSynlig: false })}
-                        feilmeldingTekst={tekster.feilmodalTekst}
                     />
                 </div>
             </IntlProvider>
