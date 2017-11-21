@@ -7,7 +7,7 @@ import EnhetContextListener, {
 } from './context-listener';
 import { IntlProvider, addLocaleData } from 'react-intl';
 import * as nb from 'react-intl/locale-data/nb';
-import ContextFeilmodal, {tekst} from './context-feilmodal';
+import ContextFeilmodal from './context-feilmodal';
 import { erDev } from '../utils/utils';
 import { hentAktivBruker, hentAktivEnhet, oppdaterAktivBruker } from './context-api';
 import { hentFodselsnummerFraURL, sendEventOmPersonFraURL, settPersonIURL } from '../eventhandtering';
@@ -28,7 +28,6 @@ interface EnhetContextState {
     lastBrukerPending: boolean;
     tekster: any;
     fnrContext: string;
-    feilmeldingTekst: tekst;
 }
 
 export default class EnhetContext extends React.Component<{}, EnhetContextState> {
@@ -42,8 +41,7 @@ export default class EnhetContext extends React.Component<{}, EnhetContextState>
             fnrContext: hentFodselsnummerFraURL(),
             lastBrukerPending: false,
             tilkoblingState: EnhetConnectionState.NOT_CONNECTED,
-            tekster: {},
-            feilmeldingTekst: tekster.wsfeilmelding
+            tekster: {}
         };
 
         this.enhetContextHandler = this.enhetContextHandler.bind(this);
@@ -82,12 +80,11 @@ export default class EnhetContext extends React.Component<{}, EnhetContextState>
         return `wss://veilederflatehendelser${miljo}.adeo.no/modiaeventdistribution/websocket`;
     }
 
-    handleFeilet(feilmelding: tekst) {
+    handleFeilet() {
         this.setState({
             lastBrukerPending: false,
             brukerModalSynlig: false,
-            feilmodalSynlig: true,
-            feilmeldingTekst: feilmelding
+            feilmodalSynlig: true
         });
     }
 
@@ -100,7 +97,7 @@ export default class EnhetContext extends React.Component<{}, EnhetContextState>
                 if (nyBruker !== fnrFraUrl) {
                     oppdaterAktivBruker(fnrFraUrl);
                 }
-            }).catch(() => this.handleFeilet(tekster.feilmodalTekst));
+            }).catch(() => this.handleFeilet());
     }
 
     oppdaterSideMedNyAktivBruker() {
@@ -113,7 +110,7 @@ export default class EnhetContext extends React.Component<{}, EnhetContextState>
                     settPersonIURL(bruker);
                     sendEventOmPersonFraURL();
                 }
-            }).catch(() => this.handleFeilet(tekster.feilmodalTekst));
+            }).catch(() => this.handleFeilet());
     }
 
     handleNyAktivBruker() {
@@ -129,7 +126,7 @@ export default class EnhetContext extends React.Component<{}, EnhetContextState>
                         brukerModalSynlig: true
                     });
                 }
-            }).catch(() => this.handleFeilet(tekster.feilmodalTekst));
+            }).catch(() => this.handleFeilet());
     }
 
     handleNyAktivEnhet() {
@@ -137,7 +134,7 @@ export default class EnhetContext extends React.Component<{}, EnhetContextState>
             .then((enhet) => {
                 leggEnhetIUrl(enhet);
                 initialiserToppmeny();
-            }).catch(() => this.handleFeilet(tekster.feilmodalTekst));
+            }).catch(() => this.handleFeilet());
     }
 
     enhetContextHandler(event: EnhetContextEvent) {
@@ -145,7 +142,7 @@ export default class EnhetContext extends React.Component<{}, EnhetContextState>
             case EnhetContextEventNames.CONNECTION_STATE_CHANGED:
                 if(event.state === EnhetConnectionState.FAILED &&
                     this.state.tilkoblingState === EnhetConnectionState.NOT_CONNECTED) {
-                    this.handleFeilet(tekster.wsfeilmelding);
+                    this.handleFeilet();
                 }
                 this.setState({ tilkoblingState: event.state });
                 break;
@@ -186,7 +183,7 @@ export default class EnhetContext extends React.Component<{}, EnhetContextState>
                     <ContextFeilmodal
                         isOpen={this.state.feilmodalSynlig}
                         onClose={() => this.setState({ feilmodalSynlig: false })}
-                        feilmeldingTekst={this.state.feilmeldingTekst}
+                        feilmeldingTekst={tekster.feilmodalTekst}
                     />
                 </div>
             </IntlProvider>
