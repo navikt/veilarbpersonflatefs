@@ -5,10 +5,13 @@
   "main": "index.js",
   "scripts": {
     "test": "jest",
+    "test:coverage": "nyc npm run test",
     "dev": "webpack --watch",
     "build-js": "webpack --optimize-minimize",
     "build": "cross-env NODE_ENV=production npm run build-js --silent",
-    "eslint": "tslint ./app/**/*.ts* --fix"
+    "lint": "tslint ./app/**/*.ts*",
+    "lint:fix": "tslint ./app/**/*.ts* --fix",
+    "eslint": "tslint ./app/**/*.ts*"
   },
   "author": "NAV",
   "jest": {
@@ -68,6 +71,7 @@
     "nav-frontend-paneler-style": "0.3.6",
     "nav-frontend-typografi": "1.0.10",
     "nav-frontend-typografi-style": "1.0.6",
+    "nyc": "^11.3.0",
     "optimize-css-assets-webpack-plugin": "3.2.0",
     "react-intl": "2.1.5",
     "react-modal": "2.2.4",
