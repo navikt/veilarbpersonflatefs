@@ -18,9 +18,11 @@ const visFeilmelding = (): void => {
 function FeilmeldingManglerFnr () {
     return (
         <IntlProvider locale="nb" defaultLocale="nb" messages={tekster}>
-            <AlertStripeInfoSolid>
-                <FormattedMessage {...tekster.manglerFnr} />
-            </AlertStripeInfoSolid>
+            <div className="container hovedinnhold">
+                <AlertStripeInfoSolid>
+                    <FormattedMessage {...tekster.manglerFnr} />
+                </AlertStripeInfoSolid>
+            </div>
         </IntlProvider>
     );
 }
