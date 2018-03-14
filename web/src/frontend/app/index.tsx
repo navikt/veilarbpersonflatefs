@@ -1,30 +1,28 @@
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
-import {FormattedMessage, IntlProvider} from 'react-intl'
+import { FormattedMessage, IntlProvider } from 'react-intl';
 import './index.less';
 
 import Personoversikt from 'Personoversikt';
 import Aktivitetsplan from 'Aktivitetsplan';
-import {hentFodselsnummerFraURL, initialiserEventhandtering} from './eventhandtering';
+import { hentFodselsnummerFraURL, initialiserEventhandtering } from './eventhandtering';
 import { initialiserToppmeny } from './utils/dekorator-utils';
 import EnhetContext from './context/context';
-import {AlertStripeInfoSolid} from "nav-frontend-alertstriper";
-import {tekster} from "./context/context-tekster";
+import { AlertStripeInfoSolid } from 'nav-frontend-alertstriper';
+import { tekster } from './context/context-tekster';
 
 const visFeilmelding = (): void => {
     (window as any).location = '/veilarbpersonflatefs/static/feilside.html';
 };
 
-function FeilmeldingManglerFnr () {
-    return (
-        <IntlProvider locale="nb" defaultLocale="nb" messages={tekster}>
-            <div className="container hovedinnhold">
-                <AlertStripeInfoSolid>
-                    <FormattedMessage {...tekster.manglerFnr} />
-                </AlertStripeInfoSolid>
-            </div>
-        </IntlProvider>
-    );
+function FeilmeldingManglerFnr() {
+    return <IntlProvider locale="nb" defaultLocale="nb" messages={tekster}>
+        <div className="container hovedinnhold">
+            <AlertStripeInfoSolid>
+                <FormattedMessage {...tekster.manglerFnr} />
+            </AlertStripeInfoSolid>
+        </div>
+    </IntlProvider>;
 }
 
 interface FeilProps {
