@@ -37,6 +37,10 @@ export const tekster = defineMessages(
         feilmodalBekreft: {
             id: 'context.feilmodal.bekreft',
             defaultMessage: 'Ok'
+        },
+        manglerFnr: {
+            id: 'context.mangler.fnr',
+            defaultMessage: 'Du må søke opp en person for å vise aktivitetsplanen'
         }
     }
 );

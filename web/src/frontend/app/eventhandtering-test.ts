@@ -1,5 +1,5 @@
 import { expect } from 'chai';
-import { personErSattIURL } from './eventhandtering';
+import { hentFodselsnummerFraURL } from './eventhandtering';
 
 describe('person er satt i URL', () => {
     it('fnr i URL skal gi true', () => {
@@ -9,7 +9,7 @@ describe('person er satt i URL', () => {
             }
         };
 
-        const personIUrl = personErSattIURL();
+        const personIUrl = hentFodselsnummerFraURL();
         expect(!!personIUrl).to.equal(true);
     });
 
@@ -20,7 +20,7 @@ describe('person er satt i URL', () => {
             }
         };
 
-        const personIUrl = personErSattIURL();
+        const personIUrl = hentFodselsnummerFraURL();
         expect(!!personIUrl).to.equal(false);
     });
 
@@ -31,7 +31,7 @@ describe('person er satt i URL', () => {
             }
         };
 
-        const personIUrl = personErSattIURL();
+        const personIUrl = hentFodselsnummerFraURL();
         expect(!!personIUrl).to.equal(true);
     });
 });
@@ -44,8 +44,8 @@ describe('hent Fodselsnummer Fra URL', () => {
             }
         };
 
-        const personIUrl = personErSattIURL();
-        expect(personIUrl[1]).to.equal('12345678912');
+        const personIUrl = hentFodselsnummerFraURL();
+        expect(personIUrl).to.equal('12345678912');
     });
 
     it('hente fnr fra url uten fnr', () => {
@@ -55,7 +55,7 @@ describe('hent Fodselsnummer Fra URL', () => {
             }
         };
 
-        const personIUrl = personErSattIURL();
+        const personIUrl = hentFodselsnummerFraURL();
         expect(personIUrl).to.equal(null);
     });
 
@@ -66,7 +66,7 @@ describe('hent Fodselsnummer Fra URL', () => {
             }
         };
 
-        const personIUrl = personErSattIURL();
-        expect(personIUrl[1]).to.equal('12345678912');
+        const personIUrl = hentFodselsnummerFraURL();
+        expect(personIUrl).to.equal('12345678912');
     });
 });

@@ -6,11 +6,6 @@ export const settPersonIURL = (fodselsnummer: Fnr): void => {
 
 const regex = `^${BASE_URL}(\\d+)`;
 
-export const personErSattIURL = (): RegExpMatchArray | null => {
-    const url = window.location.pathname;
-    return url.match(regex);
-};
-
 export const hentFodselsnummerFraURL = (): string | null => {
     const url = window.location.pathname;
     const match = url.match(regex);
@@ -26,7 +21,7 @@ interface PersonsokEvent extends Event {
 
 let forrigeFodselsnummer: Fnr;
 export const sendEventOmPersonFraURL = (): void => {
-    if (personErSattIURL()) {
+    if (hentFodselsnummerFraURL()) {
         const fodselsnummer = hentFodselsnummerFraURL();
         if (fodselsnummer !== forrigeFodselsnummer) {
             forrigeFodselsnummer = fodselsnummer;
