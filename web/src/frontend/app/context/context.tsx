@@ -16,7 +16,6 @@ import NyBrukerModal from './ny-bruker-modal';
 import { initialiserToppmeny } from '../utils/dekorator-utils';
 import { enhetFinnesIUrl, leggEnhetIUrl, miljoFraUrl } from '../utils/url-utils';
 import { tekster } from './context-tekster';
-import { fetchToJson } from '../utils/rest-utils';
 
 import './context.less';
 
@@ -65,11 +64,6 @@ export default class EnhetContext extends React.Component<{}, EnhetContextState>
         if(!enhetFinnesIUrl()) {
             this.handleNyAktivEnhet();
         }
-
-        fetchToJson('/veilarbaktivitetsplanfs/api/tekster')
-            .then((tekstFields: any) => {
-                this.setState({ tekster: tekstFields.nb });
-            });
     }
 
     componentWillUnmount() {
@@ -174,7 +168,7 @@ export default class EnhetContext extends React.Component<{}, EnhetContextState>
         );
 
         return (
-            <IntlProvider locale="nb" defaultLocale="nb" messages={this.state.tekster}>
+            <IntlProvider locale="nb" defaultLocale="nb">
                 <div>
                     { this.state.tilkoblingState === EnhetConnectionState.FAILED ? alertIkkeTilkoblet : null }
 
