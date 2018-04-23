@@ -10,7 +10,7 @@ import { FormattedMessage, IntlProvider, addLocaleData } from 'react-intl';
 import * as nb from 'react-intl/locale-data/nb';
 import ContextFeilmodal from './context-feilmodal';
 import { erDev } from '../utils/utils';
-import { hentAktivBruker, hentAktivEnhet, oppdaterAktivBruker } from './context-api';
+import {hentAktivBruker, hentAktivEnhet, hentIdent, oppdaterAktivBruker} from './context-api';
 import { hentFodselsnummerFraURL, sendEventOmPersonFraURL, settPersonIURL } from '../eventhandtering';
 import NyBrukerModal from './ny-bruker-modal';
 import { initialiserToppmeny } from '../utils/dekorator-utils';
@@ -28,6 +28,7 @@ interface EnhetContextState {
     lastBrukerPending: boolean;
     tekster: any;
     fnrContext: string;
+    ident: string;
 }
 
 export default class EnhetContext extends React.Component<{}, EnhetContextState> {
@@ -41,7 +42,8 @@ export default class EnhetContext extends React.Component<{}, EnhetContextState>
             fnrContext: hentFodselsnummerFraURL(),
             lastBrukerPending: false,
             tilkoblingState: EnhetConnectionState.NOT_CONNECTED,
-            tekster: {}
+            tekster: {},
+            ident: ''
         };
 
         this.enhetContextHandler = this.enhetContextHandler.bind(this);
@@ -52,7 +54,10 @@ export default class EnhetContext extends React.Component<{}, EnhetContextState>
             this.oppdaterAktivBrukHvisEndret();
         });
 
-        this.contextListener = new EnhetContextListener(this.websocketUri(), this.enhetContextHandler);
+        hentIdent()
+            .then((ident) => {
+                this.contextListener = new EnhetContextListener(this.websocketUri(ident), this.enhetContextHandler);
+            });
 
         const fnrFraUrl = hentFodselsnummerFraURL();
         if(fnrFraUrl != null) {
@@ -70,9 +75,9 @@ export default class EnhetContext extends React.Component<{}, EnhetContextState>
         this.contextListener.close();
     }
 
-    websocketUri() {
-        const miljo = erDev() ? '-t4' : miljoFraUrl();
-        return `wss://veilederflatehendelser${miljo}.adeo.no/modiaeventdistribution/websocket`;
+    websocketUri(ident) {
+        const miljo = erDev() ? '-t6' : miljoFraUrl();
+        return `wss://veilederflatehendelser${miljo}.adeo.no/modiaeventdistribution/ws/${ident}`;
     }
 
     handleFeilet() {
