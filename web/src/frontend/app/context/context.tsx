@@ -10,7 +10,7 @@ import { FormattedMessage, IntlProvider, addLocaleData } from 'react-intl';
 import * as nb from 'react-intl/locale-data/nb';
 import ContextFeilmodal from './context-feilmodal';
 import { erDev } from '../utils/utils';
-import {hentAktivBruker, hentAktivEnhet, hentIdent, oppdaterAktivBruker} from './context-api';
+import { hentAktivBruker, hentAktivEnhet, hentIdent, oppdaterAktivBruker } from './context-api';
 import { hentFodselsnummerFraURL, sendEventOmPersonFraURL, settPersonIURL } from '../eventhandtering';
 import NyBrukerModal from './ny-bruker-modal';
 import { initialiserToppmeny } from '../utils/dekorator-utils';

@@ -1,4 +1,4 @@
-import WebSocketImpl, {Status} from "./websocket-impl";
+import WebSocketImpl, { Status } from './websocket-impl';
 
 export enum EnhetConnectionState {
     CONNECTED = 'connected',
@@ -36,7 +36,6 @@ export default class EnhetContextListener {
 
     constructor(uri: string, cb: (action: EnhetContextEvent) => void) {
         this.callback = cb;
-        console.log('Using new WSImpl');
         this.connection = new WebSocketImpl(uri, {
             onOpen: this.onOpen.bind(this),
             onMessage: this.onMessage.bind(this),
