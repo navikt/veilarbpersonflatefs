@@ -28,7 +28,6 @@ interface EnhetContextState {
     lastBrukerPending: boolean;
     tekster: any;
     fnrContext: string;
-    ident: string;
 }
 
 export default class EnhetContext extends React.Component<{}, EnhetContextState> {
@@ -42,8 +41,7 @@ export default class EnhetContext extends React.Component<{}, EnhetContextState>
             fnrContext: hentFodselsnummerFraURL(),
             lastBrukerPending: false,
             tilkoblingState: EnhetConnectionState.NOT_CONNECTED,
-            tekster: {},
-            ident: ''
+            tekster: {}
         };
 
         this.enhetContextHandler = this.enhetContextHandler.bind(this);
