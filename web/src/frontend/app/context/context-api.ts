@@ -8,6 +8,18 @@ interface AktivBrukerModell {
     aktivBruker: string;
 }
 
+interface MeModell {
+    ident: string;
+    navn: string;
+    fornavn: string;
+    etternavn: string;
+}
+
+export function hentIdent(): Promise<string> {
+    return fetchToJson<MeModell>('/veilarbveileder/api/veileder/me')
+        .then((data) => data.ident);
+}
+
 export function hentAktivEnhet(): Promise<string> {
     return fetchToJson<AktivEnhetModell>(`/modiacontextholder/api/context/aktivenhet`)
         .then((data) => {
