@@ -31,7 +31,7 @@ interface EnhetContextState {
 }
 
 export default class EnhetContext extends React.Component<{}, EnhetContextState> {
-    contextListener: EnhetContextListener;
+    contextListenerPromise: Promise<EnhetContextListener>;
 
     constructor(props) {
         super(props);
@@ -52,9 +52,9 @@ export default class EnhetContext extends React.Component<{}, EnhetContextState>
             this.oppdaterAktivBrukHvisEndret();
         });
 
-        hentIdent()
+        this.contextListenerPromise = hentIdent()
             .then((ident) => {
-                this.contextListener = new EnhetContextListener(this.websocketUri(ident), this.enhetContextHandler);
+                 return new EnhetContextListener(this.websocketUri(ident), this.enhetContextHandler);
             });
 
         const fnrFraUrl = hentFodselsnummerFraURL();
@@ -70,7 +70,7 @@ export default class EnhetContext extends React.Component<{}, EnhetContextState>
     }
 
     componentWillUnmount() {
-        this.contextListener.close();
+        this.contextListenerPromise.then((contextListener) => contextListener.close());
     }
 
     websocketUri(ident) {
