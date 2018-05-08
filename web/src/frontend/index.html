@@ -6,6 +6,18 @@
     <title>Aktivitetsplan</title>
     <meta name="viewport" content="width=device-width, initial-scale=1"/>
 
+    <script>
+        window.features = {
+            timeoutbox: false,
+            navigasjonslinjemeny: true
+        };
+        window.app = "veilarbaktivitetsplanfs";
+
+        window.frontendlogger = { info: function(){}, warn: function(){}, error: function(){}};
+        window.frontendlogger.appname = 'veilarbpersonflatefs';
+    </script>
+
+    <script type="application/javascript" src="/frontendlogger/logger.js"></script>
     <script type="text/javascript" charset="UTF-8" src="/veilarbpersonflatefs/js/react.min.js?v={{fragment.versjonsnummer}}"></script>
     <script type="text/javascript" charset="UTF-8" src="/veilarbpersonflatefs/js/react-dom.min.js?v={{fragment.versjonsnummer}}"></script>
     <script type="text/javascript" charset="UTF-8" src="/veilarbpersonflatefs/js/redux.min.js?v={{fragment.versjonsnummer}}"></script>
@@ -19,13 +31,6 @@
 
     {{fragment.decoratorscript}}
 
-    <script>
-        window.features = {
-            timeoutbox: false,
-            navigasjonslinjemeny: true
-        };
-        window.app = "veilarbaktivitetsplanfs";
-    </script>
 </head>
 
 <body>
