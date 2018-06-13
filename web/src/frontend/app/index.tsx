@@ -10,6 +10,7 @@ import { initialiserToppmeny } from './utils/dekorator-utils';
 import EnhetContext from './context/context';
 import { AlertStripeInfoSolid } from 'nav-frontend-alertstriper';
 import { tekster } from './context/context-tekster';
+import NAVSPA from "./NAVSPA";
 
 const visFeilmelding = (): void => {
     (window as any).location = '/veilarbpersonflatefs/static/feilside.html';
@@ -44,6 +45,10 @@ function renderApp(AppComponent, elementId: string, appNavn: string) {
     }
 }
 
+interface MaoProps {
+    fnr: string;
+}
+
 document.addEventListener('DOMContentLoaded', () => {
     if (!(window as any).renderDecoratorHead) {
         visFeilmelding();
@@ -54,7 +59,11 @@ document.addEventListener('DOMContentLoaded', () => {
     } else {
         initialiserToppmeny();
         ReactDOM.render(<EnhetContext />, document.getElementById('context'));
+
+        const Mao: React.ComponentType<MaoProps> = NAVSPA.importer<MaoProps>('veilarbmaofs');
+
         renderApp(Personoversikt, 'app', 'personoversikt');
+        renderApp(Mao, 'mao-app', 'veilarbmaofs');
         renderApp(Aktivitetsplan, 'aktivitetsplan-app', 'aktivitetsplan');
     }
 });
