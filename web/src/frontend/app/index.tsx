@@ -35,17 +35,17 @@ function Feil({ appNavn }: FeilProps) {
     );
 }
 
-function renderApp(AppComponent, elementId: string, appNavn: string) {
+interface MaoProps {
+    fnr: string;
+}
+
+function renderApp(AppComponent, elementId: string, appNavn: string, props?: MaoProps) {
     const element = document.getElementById(elementId);
     try {
-        ReactDOM.render(<AppComponent />, element);
+        ReactDOM.render(<AppComponent {...props}/>, element);
     } catch (e) {
         ReactDOM.render(<Feil appNavn={appNavn} />, element);
     }
-}
-
-interface MaoProps {
-    fnr: string;
 }
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -61,8 +61,7 @@ document.addEventListener('DOMContentLoaded', () => {
         ReactDOM.render(<EnhetContext />, document.getElementById('context'));
 
         const Mao: React.ComponentType<MaoProps> = NAVSPA.importer<MaoProps>('veilarbmaofs');
-
-        renderApp(<Mao fnr={fnr}/>, 'mao-app', 'veilarbmaofs');
+        renderApp(Mao, 'mao-app', 'veilarbmaofs', {fnr: fnr});
         renderApp(Aktivitetsplan, 'aktivitetsplan-app', 'aktivitetsplan');
     }
 });
