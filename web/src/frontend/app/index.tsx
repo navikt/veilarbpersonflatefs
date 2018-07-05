@@ -3,7 +3,6 @@ import * as ReactDOM from 'react-dom';
 import { FormattedMessage, IntlProvider } from 'react-intl';
 import './index.less';
 
-import Personoversikt from 'Personoversikt';
 import Aktivitetsplan from 'Aktivitetsplan';
 import { hentFodselsnummerFraURL, initialiserEventhandtering } from './eventhandtering';
 import { initialiserToppmeny } from './utils/dekorator-utils';
@@ -62,7 +61,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
         const Mao: React.ComponentType<MaoProps> = NAVSPA.importer<MaoProps>('veilarbmaofs');
 
-        renderApp(Personoversikt, 'app', 'personoversikt');
         renderApp(Mao, 'mao-app', 'veilarbmaofs');
         renderApp(Aktivitetsplan, 'aktivitetsplan-app', 'aktivitetsplan');
     }
