@@ -3,13 +3,13 @@ import * as ReactDOM from 'react-dom';
 import { FormattedMessage, IntlProvider } from 'react-intl';
 import './index.less';
 
-import Personoversikt from 'Personoversikt';
 import Aktivitetsplan from 'Aktivitetsplan';
 import { hentFodselsnummerFraURL, initialiserEventhandtering } from './eventhandtering';
 import { initialiserToppmeny } from './utils/dekorator-utils';
 import EnhetContext from './context/context';
 import { AlertStripeInfoSolid } from 'nav-frontend-alertstriper';
 import { tekster } from './context/context-tekster';
+import NAVSPA from "./NAVSPA";
 
 const visFeilmelding = (): void => {
     (window as any).location = '/veilarbpersonflatefs/static/feilside.html';
@@ -44,6 +44,10 @@ function renderApp(AppComponent, elementId: string, appNavn: string) {
     }
 }
 
+interface MaoProps {
+    fnr: string;
+}
+
 document.addEventListener('DOMContentLoaded', () => {
     if (!(window as any).renderDecoratorHead) {
         visFeilmelding();
@@ -54,7 +58,10 @@ document.addEventListener('DOMContentLoaded', () => {
     } else {
         initialiserToppmeny();
         ReactDOM.render(<EnhetContext />, document.getElementById('context'));
-        renderApp(Personoversikt, 'app', 'personoversikt');
+
+        const Mao: React.ComponentType<MaoProps> = NAVSPA.importer<MaoProps>('veilarbmaofs');
+
+        renderApp(Mao, 'mao-app', 'veilarbmaofs');
         renderApp(Aktivitetsplan, 'aktivitetsplan-app', 'aktivitetsplan');
     }
 });
