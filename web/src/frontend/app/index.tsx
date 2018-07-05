@@ -35,23 +35,24 @@ function Feil({ appNavn }: FeilProps) {
     );
 }
 
-function renderApp(AppComponent, elementId: string, appNavn: string) {
+interface MaoProps {
+    fnr: string;
+}
+
+function renderApp(AppComponent, elementId: string, appNavn: string, props?: MaoProps) {
     const element = document.getElementById(elementId);
     try {
-        ReactDOM.render(<AppComponent />, element);
+        ReactDOM.render(<AppComponent {...props}/>, element);
     } catch (e) {
         ReactDOM.render(<Feil appNavn={appNavn} />, element);
     }
 }
 
-interface MaoProps {
-    fnr: string;
-}
-
 document.addEventListener('DOMContentLoaded', () => {
+    const fnr = hentFodselsnummerFraURL();
     if (!(window as any).renderDecoratorHead) {
         visFeilmelding();
-    } else if (!hentFodselsnummerFraURL()) {
+    } else if (!fnr) {
         initialiserToppmeny();
         ReactDOM.render(<EnhetContext />, document.getElementById('context'));
         ReactDOM.render(<FeilmeldingManglerFnr />, document.getElementById('context'));
@@ -60,8 +61,7 @@ document.addEventListener('DOMContentLoaded', () => {
         ReactDOM.render(<EnhetContext />, document.getElementById('context'));
 
         const Mao: React.ComponentType<MaoProps> = NAVSPA.importer<MaoProps>('veilarbmaofs');
-
-        renderApp(Mao, 'mao-app', 'veilarbmaofs');
+        renderApp(Mao, 'mao-app', 'veilarbmaofs', {fnr: fnr});
         renderApp(Aktivitetsplan, 'aktivitetsplan-app', 'aktivitetsplan');
     }
 });
