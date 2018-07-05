@@ -10,6 +10,7 @@ import EnhetContext from './context/context';
 import { AlertStripeInfoSolid } from 'nav-frontend-alertstriper';
 import { tekster } from './context/context-tekster';
 import NAVSPA from "./NAVSPA";
+import {enhetFraUrl} from "./utils/url-utils";
 
 const visFeilmelding = (): void => {
     (window as any).location = '/veilarbpersonflatefs/static/feilside.html';
@@ -37,6 +38,7 @@ function Feil({ appNavn }: FeilProps) {
 
 interface MaoProps {
     fnr: string;
+    enhet?: string;
 }
 
 function renderApp(AppComponent, elementId: string, appNavn: string, props?: MaoProps) {
@@ -61,7 +63,7 @@ document.addEventListener('DOMContentLoaded', () => {
         ReactDOM.render(<EnhetContext />, document.getElementById('context'));
 
         const Mao: React.ComponentType<MaoProps> = NAVSPA.importer<MaoProps>('veilarbmaofs');
-        renderApp(Mao, 'mao-app', 'veilarbmaofs', {fnr: fnr});
+        renderApp(Mao, 'mao-app', 'veilarbmaofs', {fnr: fnr, enhet: enhetFraUrl()});
         renderApp(Aktivitetsplan, 'aktivitetsplan-app', 'aktivitetsplan');
     }
 });
