@@ -49,9 +49,10 @@ interface MaoProps {
 }
 
 document.addEventListener('DOMContentLoaded', () => {
+    const fnr = hentFodselsnummerFraURL();
     if (!(window as any).renderDecoratorHead) {
         visFeilmelding();
-    } else if (!hentFodselsnummerFraURL()) {
+    } else if (!fnr) {
         initialiserToppmeny();
         ReactDOM.render(<EnhetContext />, document.getElementById('context'));
         ReactDOM.render(<FeilmeldingManglerFnr />, document.getElementById('context'));
@@ -61,7 +62,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         const Mao: React.ComponentType<MaoProps> = NAVSPA.importer<MaoProps>('veilarbmaofs');
 
-        renderApp(Mao, 'mao-app', 'veilarbmaofs');
+        renderApp(<Mao fnr={fnr}/>, 'mao-app', 'veilarbmaofs');
         renderApp(Aktivitetsplan, 'aktivitetsplan-app', 'aktivitetsplan');
     }
 });
