@@ -95,10 +95,7 @@ module.exports = {
     resolve: {
       extensions: ['.js', '.json', '.ts', '.tsx']
     },
-    externals: Object.assign({
-        'Personoversikt': 'PersonoversiktRoot',
-        'Aktivitetsplan': 'AktivitetsplanRoot'
-    }, LIBRARIES),
+    externals: LIBRARIES,
     output: {
         path: __dirname + '/../main/webapp/',
         filename: 'js/scripts.min.js',
