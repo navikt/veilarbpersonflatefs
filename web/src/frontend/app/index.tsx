@@ -3,7 +3,6 @@ import * as ReactDOM from 'react-dom';
 import { FormattedMessage, IntlProvider } from 'react-intl';
 import './index.less';
 
-import Aktivitetsplan from 'Aktivitetsplan';
 import { hentFodselsnummerFraURL, initialiserEventhandtering } from './eventhandtering';
 import { initialiserToppmeny } from './utils/dekorator-utils';
 import EnhetContext from './context/context';
@@ -41,6 +40,11 @@ interface MaoProps {
     enhet?: string;
 }
 
+interface AktivitetsplanProps {
+    fnr: string;
+    enhet?: string;
+}
+
 function renderApp(AppComponent, elementId: string, appNavn: string, props?: MaoProps) {
     const element = document.getElementById(elementId);
     try {
@@ -64,7 +68,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
         const Mao: React.ComponentType<MaoProps> = NAVSPA.importer<MaoProps>('veilarbmaofs');
         renderApp(Mao, 'mao-app', 'veilarbmaofs', {fnr: fnr, enhet: enhetFraUrl()});
-        renderApp(Aktivitetsplan, 'aktivitetsplan-app', 'aktivitetsplan');
+
+        const Aktivitetsplan: React.ComponentType<AktivitetsplanProps> = NAVSPA.importer<AktivitetsplanProps>('aktivitetsplan');
+        renderApp(Aktivitetsplan, 'aktivitetsplan-app', 'aktivitetsplan', {fnr: fnr, enhet: enhetFraUrl()});
     }
 });
 
