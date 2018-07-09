@@ -55,7 +55,6 @@ document.addEventListener('DOMContentLoaded', () => {
         visFeilmelding();
     } else if (!fnr) {
         initialiserToppmeny();
-        ReactDOM.render(<EnhetContext />, document.getElementById('context'));
         ReactDOM.render(<FeilmeldingManglerFnr />, document.getElementById('context'));
     } else {
         initialiserToppmeny();
