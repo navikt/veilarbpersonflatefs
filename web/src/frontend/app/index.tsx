@@ -35,17 +35,12 @@ function Feil({ appNavn }: FeilProps) {
     );
 }
 
-interface MaoProps {
+interface AppProps {
     fnr: string;
     enhet?: string;
 }
 
-interface AktivitetsplanProps {
-    fnr: string;
-    enhet?: string;
-}
-
-function renderApp(AppComponent, elementId: string, appNavn: string, props?: MaoProps) {
+function renderApp(AppComponent, elementId: string, appNavn: string, props?: AppProps) {
     const element = document.getElementById(elementId);
     try {
         ReactDOM.render(<AppComponent {...props}/>, element);
@@ -65,12 +60,13 @@ document.addEventListener('DOMContentLoaded', () => {
     } else {
         initialiserToppmeny();
         ReactDOM.render(<EnhetContext />, document.getElementById('context'));
+        const appProps = {fnr: fnr, enhet: enhetFraUrl()};
 
-        const Mao: React.ComponentType<MaoProps> = NAVSPA.importer<MaoProps>('veilarbmaofs');
-        renderApp(Mao, 'mao-app', 'veilarbmaofs', {fnr: fnr, enhet: enhetFraUrl()});
+        const Mao: React.ComponentType<AppProps> = NAVSPA.importer<AppProps>('veilarbmaofs');
+        renderApp(Mao, 'mao-app', 'veilarbmaofs', appProps);
 
-        const Aktivitetsplan: React.ComponentType<AktivitetsplanProps> = NAVSPA.importer<AktivitetsplanProps>('aktivitetsplan');
-        renderApp(Aktivitetsplan, 'aktivitetsplan-app', 'aktivitetsplan', {fnr: fnr, enhet: enhetFraUrl()});
+        const Aktivitetsplan: React.ComponentType<AppProps> = NAVSPA.importer<AppProps>('aktivitetsplan');
+        renderApp(Aktivitetsplan, 'aktivitetsplan-app', 'aktivitetsplan', appProps);
     }
 });
 
