@@ -60,14 +60,20 @@ document.addEventListener('DOMContentLoaded', () => {
     } else {
         initialiserToppmeny();
         ReactDOM.render(<EnhetContext />, document.getElementById('context'));
-        const appProps = {fnr: fnr, enhet: enhetFraUrl()};
-
-        const Mao: React.ComponentType<AppProps> = NAVSPA.importer<AppProps>('veilarbmaofs');
-        renderApp(Mao, 'mao-app', 'veilarbmaofs', appProps);
-
-        const Aktivitetsplan: React.ComponentType<AppProps> = NAVSPA.importer<AppProps>('aktivitetsplan');
-        renderApp(Aktivitetsplan, 'aktivitetsplan-app', 'aktivitetsplan', appProps);
     }
+});
+
+document.addEventListener('flate-person-endret', () => {
+    const appProps = {
+        fnr: hentFodselsnummerFraURL(),
+        enhet: enhetFraUrl()
+    };
+
+    const Mao: React.ComponentType<AppProps> = NAVSPA.importer<AppProps>('veilarbmaofs');
+    renderApp(Mao, 'mao-app', 'veilarbmaofs', appProps);
+
+    const Aktivitetsplan: React.ComponentType<AppProps> = NAVSPA.importer<AppProps>('aktivitetsplan');
+    renderApp(Aktivitetsplan, 'aktivitetsplan-app', 'aktivitetsplan', appProps);
 });
 
 initialiserEventhandtering();
