@@ -23,6 +23,7 @@ export default class NAVSPA {
 
             public componentWillUnmount() {
                 console.log('unmount SPA');
+                ReactDOM.render(null, this.el);
                 // this.el.innerHTML = '';
             }
 
