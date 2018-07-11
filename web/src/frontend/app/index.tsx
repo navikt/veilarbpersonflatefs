@@ -43,7 +43,7 @@ interface AppProps {
 function renderApp(AppComponent, elementId: string, appNavn: string, props?: AppProps) {
     const element = document.getElementById(elementId);
     try {
-        ReactDOM.render(<AppComponent {...props}/>, element);
+        ReactDOM.render(<AppComponent {...props} />, element);
     } catch (e) {
         ReactDOM.render(<Feil appNavn={appNavn} />, element);
     }

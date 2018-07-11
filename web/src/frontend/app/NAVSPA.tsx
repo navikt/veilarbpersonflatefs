@@ -21,6 +21,10 @@ export default class NAVSPA {
                 NAVSPA.scope[name](this.el, this.props);
             }
 
+            public componentWillUnmount() {
+                ReactDOM.unmountComponentAtNode(this.el);
+            }
+
             public render() {
                 return <div ref={this.saveRef}/>
             }
