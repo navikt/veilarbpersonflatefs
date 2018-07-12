@@ -61,7 +61,7 @@ const PLUGINS = [
         Object.keys(LIBRARIES).map(library => {
             return {
                 from: path.join(__dirname, `node_modules/${library}/dist/${library}.min.js`),
-                to: path.join(__dirname, `../main/webapp/js/${library}.min.js`)
+                to: path.join(__dirname, `build/js/${library}.min.js`)
             }
         }), {
             copyUnmodified: true
