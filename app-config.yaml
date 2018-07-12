@@ -38,3 +38,5 @@ fasitResources:
     resourceType: baseUrl
   - alias: veilarblogin.redirect-url
     resourceType: baseUrl
+    propertyMap:
+      url: OIDC_REDIRECT_URL
