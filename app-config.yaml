@@ -22,6 +22,8 @@ fasitResources:
   used:
   - alias: loadbalancer:veilarbpersonflatefs
     resourceType: loadbalancerconfig
+  - alias: srvveilarbpersonflatefs
+    resourceType: credential
 
   # security resources
   - alias: isso-rp-user
