@@ -9,5 +9,5 @@ RUN npm ci
 ENV NODE_ENV=production
 RUN npm run build
 
-FROM docker.adeo.no:5000/pus/fss-frontend
+FROM ${BASE_IMAGE_PREFIX}fss-frontend
 COPY --from=builder /source/build /app

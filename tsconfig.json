@@ -1,6 +1,6 @@
 {
   "compilerOptions": {
-    "outDir": "../main/webapp/js/",
+    "outDir": "./build/",
     "allowJs": true,
     "sourceMap": true,
     "noImplicitAny": false,
@@ -19,8 +19,8 @@
     ]
   },
   "include": [
-    "./app/**/*",
-    "./@types/**/*"
+    "./src/app/**/*",
+    "./src/@types/**/*"
   ],
   "exclude": [
     "node_modules",
