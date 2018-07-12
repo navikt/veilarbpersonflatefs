@@ -61,7 +61,7 @@ const PLUGINS = [
         Object.keys(LIBRARIES).map(library => {
             return {
                 from: path.join(__dirname, `node_modules/${library}/dist/${library}.min.js`),
-                to: path.join(__dirname, `../main/webapp/js/${library}.min.js`)
+                to: path.join(__dirname, `build/js/${library}.min.js`)
             }
         }), {
             copyUnmodified: true
@@ -85,7 +85,7 @@ module.exports = {
     name: 'app',
     context: __dirname,
     devtool: DEBUG ? 'inline-sourcemap' : false,
-    entry:  './app/index.tsx',
+    entry:  './src/app/index.tsx',
     stats: {
         children: false
     },
@@ -93,11 +93,11 @@ module.exports = {
         rules: RULES
     },
     resolve: {
-      extensions: ['.js', '.json', '.ts', '.tsx']
+        extensions: ['.js', '.json', '.ts', '.tsx']
     },
     externals: LIBRARIES,
     output: {
-        path: __dirname + '/../main/webapp/',
+        path: __dirname + '/build/',
         filename: 'js/scripts.min.js',
         publicPath: '/veilarbpersonflatefs/'
     },

@@ -1,3 +1,4 @@
+import {Fnr} from '../model-interfaces'
 import { hentFodselsnummerFraURL } from './../eventhandtering';
 
 const handlePersonsokSubmit = (fnr: Fnr): void => {

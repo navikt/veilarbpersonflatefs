@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="no">
+<head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta charset="UTF-8">
+    <title>Aktivitetsplan</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+
+    <script>
+        window.features = {
+            timeoutbox: false,
+            navigasjonslinjemeny: true
+        };
+        window.app = "veilarbaktivitetsplanfs";
+
+        window.frontendlogger = { info: function(){}, warn: function(){}, error: function(){}};
+        window.frontendlogger.appname = 'veilarbpersonflatefs';
+    </script>
+
+    <script type="application/javascript" src="/frontendlogger/logger.js"></script>
+    <script type="text/javascript" charset="UTF-8" src="/veilarbpersonflatefs/js/react.min.js"></script>
+    <script type="text/javascript" charset="UTF-8" src="/veilarbpersonflatefs/js/react-dom.min.js"></script>
+    <script type="text/javascript" charset="UTF-8" src="/veilarbpersonflatefs/js/redux.min.js"></script>
+    <script type="text/javascript" charset="UTF-8" src="/veilarbpersonflatefs/js/redux-thunk.min.js"></script>
+    <script type="text/javascript" charset="UTF-8" src="/veilarbpersonflatefs/js/react-redux.min.js"></script>
+
+    <script type="text/javascript" charset="UTF-8" src="/aktivitetsplan/environment.js"></script>
+    <script type="text/javascript" charset="UTF-8" src="/aktivitetsplan/aktivitetsplan.fss.min.js"></script>
+    <link type="text/css" rel="stylesheet" href="/aktivitetsplan/css/index.css">
+    <link type="text/css" rel="stylesheet" href="/veilarbmaofs/static/css/main.css">
+    <script type="text/javascript" src="/veilarbmaofs/static/js/main.js"></script>
+    <script type="text/javascript" src="/internarbeidsflatedecorator/js/head.min.js"></script>
+</head>
+
+<body>
+<div id="modal-a11y-wrapper" class="veilarbpersonflatefs">
+    <div id="header"></div>
+    <div class="pagewrapper">
+        <div id="context"></div>
+        <div class="hovedinnhold" id="mao-app"></div>
+        <div class="hovedinnhold" id="aktivitetsplan-app"></div>
+    </div>
+</div>
+</body>
+</html>

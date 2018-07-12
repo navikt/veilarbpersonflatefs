@@ -1,3 +1,5 @@
+import {Fnr} from './model-interfaces'
+
 const BASE_URL = '/veilarbpersonflatefs/';
 
 export const settPersonIURL = (fodselsnummer: Fnr): void => {

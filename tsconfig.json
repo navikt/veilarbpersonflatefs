@@ -1,15 +1,16 @@
 {
   "compilerOptions": {
-    "module": "commonjs",
-    "moduleResolution": "node",
+    "outDir": "./build/",
     "allowJs": true,
+    "sourceMap": true,
     "noImplicitAny": false,
+    "target": "es5",
+    "jsx": "react",
+    "moduleResolution": "node",
+    "module": "es2015",
     "strictNullChecks": false,
     "removeComments": true,
     "preserveConstEnums": true,
-    "sourceMap": false,
-    "outDir": "out/",
-    "jsx": "react",
     "lib": [
       "DOM",
       "es2015",
@@ -18,10 +19,12 @@
     ]
   },
   "include": [
-    "../app/**/*",
-    "../@types/*"
+    "./src/app/**/*",
+    "./src/@types/**/*"
   ],
   "exclude": [
+    "node_modules",
+    "**/*-test.js",
     "**/*.less"
   ]
 }
