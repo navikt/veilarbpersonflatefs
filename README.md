@@ -1,7 +1,22 @@
 # VeilArbPersonFlateFS
+Flate applikasjonen for veiledere som viser informasjon og aktivitetsplanen til brukerne
 
-Første gang prosjektet bygger kan det bygges med `mvn clean install` i prosjekt-rotmappen. Etter det kan prosjektet bygges ved å kjøre `npm run build` fra mappen `web/src/frontend`.
+## Kjøre appen
+```console
+$ npm install
+$ npm run dev
+```
 
-Java-klienten kjøres ved å starte filen `web/src/test/java/no/nav/fo/veilarbpersonflatefs/StartJetty.java`, da serves inneholdet som `npm` har lagt i `web/src/main/webapp/`.
+# Henvendelser
 
-For å kontinuerlig bygge javascripten kan man kjøre npm run watch. Dette bygger kun javascript, så endringer i html, css eller bilder må bygges med `npm run build` (evt. ved å kjøre `gulp`).
+Spørsmål knyttet til koden eller prosjektet kan rettes mot:
+
+* Alexander Svendsen, alexander.svendsen@nav.no
+* Nicklas Utgaar, nicklas.utgaard@nav.no
+* Håkon Holm, hakon.planke.holm@nav.no
+* Oscar Eckbo, oscar.eckbo@nav.no
+* Sneha Desai, sneha.desai@nav.no
+
+## For NAV-ansatte
+
+Interne henvendelser kan sendes via Slack i kanalen #team-oppfølging.
