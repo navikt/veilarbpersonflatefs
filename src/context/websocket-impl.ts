@@ -48,7 +48,7 @@ class WebSocketImpl {
         this.status = Status.INIT;
     }
 
-    open() {
+    public open() {
         if (this.status === Status.CLOSE) {
             this.print('Stopping creation of WS, since it is closed');
             return;
@@ -61,7 +61,7 @@ class WebSocketImpl {
         this.connection.addEventListener('close', this.onWSClose.bind(this));
     }
 
-    close() {
+    public close() {
         this.clearResetTimer();
         this.clearRetryTimer();
         this.status = Status.CLOSE;
@@ -70,11 +70,11 @@ class WebSocketImpl {
         }
     }
 
-    getStatus() {
+    public getStatus() {
         return this.status;
     }
 
-    private onWSOpen(event) {
+    private onWSOpen(event: Event) {
         this.print('open', event);
         this.clearResetTimer();
         this.clearRetryTimer();
@@ -94,19 +94,19 @@ class WebSocketImpl {
         }
     }
 
-    private onWSMessage(event) {
+    private onWSMessage(event: MessageEvent) {
         this.print('message', event);
         this.listeners.onMessage(event);
     }
 
-    private onWSError(event) {
+    private onWSError(event: Event) {
         this.print('error', event);
         if (this.listeners.onError) {
             this.listeners.onError(event);
         }
     }
 
-    private onWSClose(event) {
+    private onWSClose(event: CloseEvent) {
         this.print('close', event);
         if (this.status === Status.REFRESH) {
             this.open();
@@ -139,7 +139,7 @@ class WebSocketImpl {
         this.retryCounter = 0;
     }
 
-    private print(...args) {
+    private print(...args: any[]) {
         if (this.debug) {
             console.log(...args); // tslint:disable-line
         }

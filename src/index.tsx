@@ -1,14 +1,13 @@
+import { AlertStripeInfoSolid } from 'nav-frontend-alertstriper';
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 import { FormattedMessage, IntlProvider } from 'react-intl';
-import './index.less';
-
-import { hentFodselsnummerFraURL, initialiserEventhandtering } from './eventhandtering';
-import { initialiserToppmeny } from './utils/dekorator-utils';
 import EnhetContext from './context/context';
-import { AlertStripeInfoSolid } from 'nav-frontend-alertstriper';
 import { tekster } from './context/context-tekster';
+import { hentFodselsnummerFraURL, initialiserEventhandtering } from './eventhandtering';
+import './index.less';
 import NAVSPA from "./NAVSPA";
+import { initialiserToppmeny } from './utils/dekorator-utils';
 import {enhetFraUrl} from "./utils/url-utils";
 
 const visFeilmelding = (): void => {
@@ -36,11 +35,11 @@ function Feil({ appNavn }: FeilProps) {
 }
 
 interface AppProps {
-    fnr: string;
     enhet?: string;
+    fnr: string;
 }
 
-function renderApp(AppComponent, elementId: string, appNavn: string, props?: AppProps) {
+function renderApp(AppComponent: React.ComponentType, elementId: string, appNavn: string, props?: AppProps) {
     const element = document.getElementById(elementId);
     try {
         ReactDOM.render(<AppComponent {...props} />, element);
@@ -63,9 +62,9 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 document.addEventListener('flate-person-endret', () => {
-    const appProps = {
-        fnr: hentFodselsnummerFraURL(),
-        enhet: enhetFraUrl()
+    const appProps: AppProps = {
+        enhet: enhetFraUrl(),
+        fnr: hentFodselsnummerFraURL()!
     };
 
     const Mao: React.ComponentType<AppProps> = NAVSPA.importer<AppProps>('veilarbmaofs');

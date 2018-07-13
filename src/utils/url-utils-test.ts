@@ -1,4 +1,3 @@
-import { expect } from 'chai';
 import { enhetFinnesIUrl, enhetFraUrl, utledMiljoFraHost } from './url-utils';
 
 describe('URL utils', () => {
@@ -12,7 +11,7 @@ describe('URL utils', () => {
                 }
             };
 
-            expect(enhetFraUrl()).to.equal(enhet);
+            expect(enhetFraUrl()).toBe(enhet);
         });
     });
     describe('enhetFinnesIUrl', () =>  {
@@ -25,7 +24,7 @@ describe('URL utils', () => {
                 }
             };
 
-            expect(enhetFinnesIUrl()).to.be.true; // tslint:disable-line
+            expect(enhetFinnesIUrl()).toBeTruthy();
         });
         it('skal bekrefte at enhet IKKE finnes som query param i URL', () => {
             (global as any).window = {
@@ -34,29 +33,29 @@ describe('URL utils', () => {
                 }
             };
 
-            expect(enhetFinnesIUrl()).to.be.false; // tslint:disable-line
+            expect(enhetFinnesIUrl()).toBeFalsy()
         });
     });
     describe('utledMiljoFraHost', () => {
         it('skal returnere tom streng når miljø er produksjon', () => {
             const host = 'app.adeo.no';
-            expect(utledMiljoFraHost(host)).to.equal('');
+            expect(utledMiljoFraHost(host)).toBe('');
         });
         it('skal returnere tom streng når miljø er localhost', () => {
             const host = 'localhost:8080';
-            expect(utledMiljoFraHost(host)).to.equal('');
+            expect(utledMiljoFraHost(host)).toBe('');
         });
         it('skal returnere tom streng når miljø er 127.0.0.1', () => {
             const host = '127.0.0.1:8080';
-            expect(utledMiljoFraHost(host)).to.equal('');
+            expect(utledMiljoFraHost(host)).toBe('');
         });
         it('skal returnere \'-t4\' når miljø er t4', () => {
             const host = 'veilederflatehendelser-t4.adeo.no';
-            expect(utledMiljoFraHost(host)).to.equal('-t4');
+            expect(utledMiljoFraHost(host)).toBe('-t4');
         });
         it('skal returnere \'-q4\' når miljø er q4', () => {
             const host = 'app-q4.adeo.no';
-            expect(utledMiljoFraHost(host)).to.equal('-q4');
+            expect(utledMiljoFraHost(host)).toBe('-q4');
         });
     });
 });

@@ -1,4 +1,3 @@
-import { expect } from 'chai';
 import { hentFodselsnummerFraURL } from './eventhandtering';
 
 describe('person er satt i URL', () => {
@@ -10,7 +9,7 @@ describe('person er satt i URL', () => {
         };
 
         const personIUrl = hentFodselsnummerFraURL();
-        expect(!!personIUrl).to.equal(true);
+        expect(!!personIUrl).toBe(true);
     });
 
     it('fnr ikke i URL skal gi false', () => {
@@ -21,7 +20,7 @@ describe('person er satt i URL', () => {
         };
 
         const personIUrl = hentFodselsnummerFraURL();
-        expect(!!personIUrl).to.equal(false);
+        expect(!!personIUrl).toBe(false);
     });
 
     it('støtter å sjekke fnr i dype urls', () => {
@@ -32,7 +31,7 @@ describe('person er satt i URL', () => {
         };
 
         const personIUrl = hentFodselsnummerFraURL();
-        expect(!!personIUrl).to.equal(true);
+        expect(!!personIUrl).toBe(true);
     });
 });
 
@@ -45,7 +44,7 @@ describe('hent Fodselsnummer Fra URL', () => {
         };
 
         const personIUrl = hentFodselsnummerFraURL();
-        expect(personIUrl).to.equal('12345678912');
+        expect(personIUrl).toBe('12345678912');
     });
 
     it('hente fnr fra url uten fnr', () => {
@@ -56,7 +55,7 @@ describe('hent Fodselsnummer Fra URL', () => {
         };
 
         const personIUrl = hentFodselsnummerFraURL();
-        expect(personIUrl).to.equal(null);
+        expect(personIUrl).toBe(null);
     });
 
     it('hente fnr fra dyp url', () => {
@@ -67,6 +66,6 @@ describe('hent Fodselsnummer Fra URL', () => {
         };
 
         const personIUrl = hentFodselsnummerFraURL();
-        expect(personIUrl).to.equal('12345678912');
+        expect(personIUrl).toBe('12345678912');
     });
 });

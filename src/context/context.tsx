@@ -1,21 +1,20 @@
-import * as React from 'react';
 import { AlertStripeAdvarselSolid } from 'nav-frontend-alertstriper';
-import { connect } from 'react-redux';
+import * as React from 'react';
+import { addLocaleData, FormattedMessage, IntlProvider } from 'react-intl';
+import * as nb from 'react-intl/locale-data/nb';
+import { hentFodselsnummerFraURL, sendEventOmPersonFraURL, settPersonIURL } from '../eventhandtering';
+import { initialiserToppmeny } from '../utils/dekorator-utils';
+import { enhetFinnesIUrl, leggEnhetIUrl, miljoFraUrl } from '../utils/url-utils';
+import { erDev } from '../utils/utils';
+import { hentAktivBruker, hentAktivEnhet, hentIdent, oppdaterAktivBruker } from './context-api';
+import ContextFeilmodal from './context-feilmodal';
 import EnhetContextListener, {
     EnhetConnectionState,
     EnhetContextEvent,
     EnhetContextEventNames
 } from './context-listener';
-import { FormattedMessage, IntlProvider, addLocaleData } from 'react-intl';
-import * as nb from 'react-intl/locale-data/nb';
-import ContextFeilmodal from './context-feilmodal';
-import { erDev } from '../utils/utils';
-import { hentAktivBruker, hentAktivEnhet, hentIdent, oppdaterAktivBruker } from './context-api';
-import { hentFodselsnummerFraURL, sendEventOmPersonFraURL, settPersonIURL } from '../eventhandtering';
-import NyBrukerModal from './ny-bruker-modal';
-import { initialiserToppmeny } from '../utils/dekorator-utils';
-import { enhetFinnesIUrl, leggEnhetIUrl, miljoFraUrl } from '../utils/url-utils';
 import { tekster } from './context-tekster';
+import NyBrukerModal from './ny-bruker-modal';
 
 import './context.less';
 
@@ -27,27 +26,27 @@ interface EnhetContextState {
     tilkoblingState: EnhetConnectionState;
     lastBrukerPending: boolean;
     tekster: any;
-    fnrContext: string;
+    fnrContext?: string;
 }
 
 export default class EnhetContext extends React.Component<{}, EnhetContextState> {
-    contextListenerPromise: Promise<EnhetContextListener>;
+    public contextListenerPromise: Promise<EnhetContextListener>;
 
-    constructor(props) {
-        super(props);
+    constructor() {
+        super();
         this.state = {
             brukerModalSynlig: false,
             feilmodalSynlig: false,
             fnrContext: hentFodselsnummerFraURL(),
             lastBrukerPending: false,
-            tilkoblingState: EnhetConnectionState.NOT_CONNECTED,
-            tekster: {}
+            tekster: {},
+            tilkoblingState: EnhetConnectionState.NOT_CONNECTED
         };
 
         this.enhetContextHandler = this.enhetContextHandler.bind(this);
     }
 
-    componentDidMount() {
+    public componentDidMount() {
         window.addEventListener('popstate', () => {
             this.oppdaterAktivBrukHvisEndret();
         });
@@ -69,36 +68,36 @@ export default class EnhetContext extends React.Component<{}, EnhetContextState>
         }
     }
 
-    componentWillUnmount() {
+    public componentWillUnmount() {
         this.contextListenerPromise.then((contextListener) => contextListener.close());
     }
 
-    websocketUri(ident) {
+    public websocketUri(ident: string) {
         const miljo = erDev() ? '-t6' : miljoFraUrl();
         return `wss://veilederflatehendelser${miljo}.adeo.no/modiaeventdistribution/ws/${ident}`;
     }
 
-    handleFeilet() {
+    public handleFeilet() {
         this.setState({
-            lastBrukerPending: false,
             brukerModalSynlig: false,
-            feilmodalSynlig: true
+            feilmodalSynlig: true,
+            lastBrukerPending: false
         });
     }
 
-    oppdaterAktivBrukHvisEndret() {
+    public oppdaterAktivBrukHvisEndret() {
         const fnrFraUrl = hentFodselsnummerFraURL();
         return hentAktivBruker()
             .then((nyBruker) => {
                 this.setState({fnrContext: nyBruker});
 
                 if (nyBruker !== fnrFraUrl) {
-                    oppdaterAktivBruker(fnrFraUrl);
+                    oppdaterAktivBruker(nyBruker);
                 }
             }).catch(() => this.handleFeilet());
     }
 
-    oppdaterSideMedNyAktivBruker() {
+    public oppdaterSideMedNyAktivBruker() {
         hentAktivBruker()
             .then((bruker) => {
                 const fnrFraUrl = hentFodselsnummerFraURL();
@@ -111,7 +110,7 @@ export default class EnhetContext extends React.Component<{}, EnhetContextState>
             }).catch(() => this.handleFeilet());
     }
 
-    handleNyAktivBruker() {
+    public handleNyAktivBruker() {
         hentAktivBruker()
             .then((nyBruker) => {
                 const fnrFraUrl = hentFodselsnummerFraURL();
@@ -127,7 +126,7 @@ export default class EnhetContext extends React.Component<{}, EnhetContextState>
             }).catch(() => this.handleFeilet());
     }
 
-    handleNyAktivEnhet() {
+    public handleNyAktivEnhet() {
         hentAktivEnhet()
             .then((enhet) => {
                 leggEnhetIUrl(enhet);
@@ -135,7 +134,7 @@ export default class EnhetContext extends React.Component<{}, EnhetContextState>
             }).catch(() => this.handleFeilet());
     }
 
-    enhetContextHandler(event: EnhetContextEvent) {
+    public enhetContextHandler(event: EnhetContextEvent) {
         switch (event.type) {
             case EnhetContextEventNames.CONNECTION_STATE_CHANGED:
                 this.setState({ tilkoblingState: event.state });
@@ -149,12 +148,12 @@ export default class EnhetContext extends React.Component<{}, EnhetContextState>
         }
     }
 
-    handleLastNyBruker() {
+    public handleLastNyBruker() {
         this.oppdaterSideMedNyAktivBruker();
         this.setState({ brukerModalSynlig: false });
     }
 
-    handleFortsettSammeBruker() {
+    public handleFortsettSammeBruker() {
         this.setState({lastBrukerPending: true});
         this.oppdaterAktivBrukHvisEndret()
             .then(() => this.setState({
@@ -163,7 +162,7 @@ export default class EnhetContext extends React.Component<{}, EnhetContextState>
             }));
     }
 
-    render() {
+    public render() {
         const alertIkkeTilkoblet = (
             <AlertStripeAdvarselSolid>
                 <FormattedMessage {...tekster.wsfeilmelding} />
@@ -176,19 +175,23 @@ export default class EnhetContext extends React.Component<{}, EnhetContextState>
                     { this.state.tilkoblingState === EnhetConnectionState.FAILED ? alertIkkeTilkoblet : null }
 
                     <NyBrukerModal
-                        isOpen={this.state.brukerModalSynlig === true}
+                        isOpen={this.state.brukerModalSynlig}
                         isPending={this.state.lastBrukerPending}
-                        doLastNyBruker={() => this.handleLastNyBruker()}
-                        doFortsettSammeBruker={() => this.handleFortsettSammeBruker()}
-                        fodselsnummer={this.state.fnrContext}
+                        doLastNyBruker={this.handleLastNyBruker}
+                        doFortsettSammeBruker={this.handleFortsettSammeBruker}
+                        fodselsnummer={this.state.fnrContext!}
                     />
 
                     <ContextFeilmodal
                         isOpen={this.state.feilmodalSynlig}
-                        onClose={() => this.setState({ feilmodalSynlig: false })}
+                        onClose={this.lukkFeilmodal}
                     />
                 </div>
             </IntlProvider>
         );
+    }
+
+    private lukkFeilmodal() {
+        this.setState({feilmodalSynlig: false});
     }
 }

@@ -1,5 +1,8 @@
 import * as queryString from 'query-string';
 
+const location = (global as any).location;
+const history = (global as any).history;
+
 export const leggEnhetIUrl = (enhet: string) => {
     const currentParams = queryString.parse(location.search);
     currentParams.enhet = enhet;
@@ -9,7 +12,7 @@ export const leggEnhetIUrl = (enhet: string) => {
 };
 
 export function enhetFraUrl() {
-    return queryString.parse(window.location.search).enhet;
+    return queryString.parse(location.search).enhet;
 }
 
 export function enhetFinnesIUrl() {
@@ -17,10 +20,10 @@ export function enhetFinnesIUrl() {
 }
 
 export function miljoFraUrl() {
-    return utledMiljoFraHost(window.location.host);
+    return utledMiljoFraHost(location.host);
 }
 
-export function utledMiljoFraHost(host) {
+export function utledMiljoFraHost(host:string) {
     const matches = host.match(/-[a-zA-Z][0-9]+/);
     return matches == null ? '' : matches[0];
 }

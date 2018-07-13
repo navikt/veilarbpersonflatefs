@@ -38,10 +38,10 @@ export function hentAktivBruker(): Promise<string> {
 
 export function oppdaterAktivBruker(bruker: string): Promise<Response> {
     return fetchToJson(`/modiacontextholder/api/context`, {
-        method: 'post',
         body: JSON.stringify({
-            verdi: bruker,
-            eventType: 'NY_AKTIV_BRUKER'
-        })
+            eventType: 'NY_AKTIV_BRUKER',
+            verdi: bruker
+        }),
+        method: 'post'
     });
 }

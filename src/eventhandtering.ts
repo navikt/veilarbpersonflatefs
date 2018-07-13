@@ -1,32 +1,30 @@
-import {Fnr} from './model-interfaces'
-
 const BASE_URL = '/veilarbpersonflatefs/';
 
-export const settPersonIURL = (fodselsnummer: Fnr): void => {
+export const settPersonIURL = (fodselsnummer: string): void => {
     window.history.pushState(`Endret fodselsnummer til ${fodselsnummer}`, '', `${BASE_URL}${fodselsnummer}`);
 };
 
 const regex = `^${BASE_URL}(\\d+)`;
 
-export const hentFodselsnummerFraURL = (): string | null => {
+export const hentFodselsnummerFraURL = () : string | undefined => {
     const url = window.location.pathname;
     const match = url.match(regex);
     if (match && match.length === 2) {
         return match[1];
     }
-    return null;
+    return undefined;
 };
 
 interface PersonsokEvent extends Event {
-    fodselsnummer?: Fnr;
+    fodselsnummer?: string;
 }
 
-let forrigeFodselsnummer: Fnr;
+let forrigeFodselsnummer: string;
 export const sendEventOmPersonFraURL = (): void => {
     if (hentFodselsnummerFraURL()) {
         const fodselsnummer = hentFodselsnummerFraURL();
         if (fodselsnummer !== forrigeFodselsnummer) {
-            forrigeFodselsnummer = fodselsnummer;
+            forrigeFodselsnummer = fodselsnummer!;
             const personsokEvent: PersonsokEvent = document.createEvent('Event');
             personsokEvent.initEvent('flate-person-endret', true, true);
             personsokEvent.fodselsnummer = fodselsnummer;
@@ -40,7 +38,7 @@ export const initialiserEventhandtering = (): void => {
     window.onpopstate = sendEventOmPersonFraURL;
 
     document.addEventListener('dekorator-hode-personsok', (event: PersonsokEvent) => {
-        settPersonIURL(event.fodselsnummer);
+        settPersonIURL(event.fodselsnummer!);
         sendEventOmPersonFraURL();
     });
 };
