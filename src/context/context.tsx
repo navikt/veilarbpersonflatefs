@@ -24,6 +24,7 @@ interface EnhetContextState {
     brukerModalSynlig: boolean;
     feilmodalSynlig: boolean;
     tilkoblingState: EnhetConnectionState;
+    tilkoblingHarFeilet: boolean;
     lastBrukerPending: boolean;
     tekster: any;
     fnrContext?: string;
@@ -40,7 +41,8 @@ export default class EnhetContext extends React.Component<{}, EnhetContextState>
             fnrContext: hentFodselsnummerFraURL(),
             lastBrukerPending: false,
             tekster: {},
-            tilkoblingState: EnhetConnectionState.NOT_CONNECTED
+            tilkoblingHarFeilet: false,
+            tilkoblingState: EnhetConnectionState.NOT_CONNECTED,
         };
 
         this.enhetContextHandler = this.enhetContextHandler.bind(this);
@@ -137,7 +139,7 @@ export default class EnhetContext extends React.Component<{}, EnhetContextState>
     public enhetContextHandler(event: EnhetContextEvent) {
         switch (event.type) {
             case EnhetContextEventNames.CONNECTION_STATE_CHANGED:
-                this.setState({ tilkoblingState: event.state });
+                this.handleTilkoblingStateChange(event.state);
                 break;
             case EnhetContextEventNames.NY_AKTIV_ENHET:
                 this.handleNyAktivEnhet();
@@ -146,6 +148,14 @@ export default class EnhetContext extends React.Component<{}, EnhetContextState>
                 this.handleNyAktivBruker();
                 break;
         }
+    }
+
+    public handleTilkoblingStateChange(nyTilkoblingState: EnhetConnectionState) {
+        const fortsattFeil = this.state.tilkoblingState === EnhetConnectionState.FAILED && nyTilkoblingState !== EnhetConnectionState.CONNECTED;
+        this.setState({
+            tilkoblingHarFeilet: nyTilkoblingState === EnhetConnectionState.FAILED || fortsattFeil,
+            tilkoblingState: nyTilkoblingState
+        });
     }
 
     public handleLastNyBruker() {
@@ -172,7 +182,7 @@ export default class EnhetContext extends React.Component<{}, EnhetContextState>
         return (
             <IntlProvider locale="nb" defaultLocale="nb">
                 <div>
-                    { this.state.tilkoblingState === EnhetConnectionState.FAILED ? alertIkkeTilkoblet : null }
+                    { this.state.tilkoblingHarFeilet ? alertIkkeTilkoblet : null }
 
                     <NyBrukerModal
                         isOpen={this.state.brukerModalSynlig}
