@@ -1,6 +1,6 @@
 import { AlertStripeNavAnsatt } from 'nav-frontend-alertstriper';
 import { Hovedknapp } from 'nav-frontend-knapper';
-import ModalWrapper from 'nav-frontend-modal';
+import NavFrontendModal from 'nav-frontend-modal';
 import { Innholdstittel } from 'nav-frontend-typografi';
 import * as React from 'react';
 import { FormattedMessage } from 'react-intl';

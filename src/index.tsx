@@ -39,7 +39,7 @@ interface AppProps {
     fnr: string;
 }
 
-function renderApp(AppComponent: React.ComponentType, elementId: string, appNavn: string, props?: AppProps) {
+function renderApp(AppComponent: React.ComponentType<AppProps>, elementId: string, appNavn: string, props: AppProps) {
     const element = document.getElementById(elementId);
     try {
         ReactDOM.render(<AppComponent {...props} />, element);

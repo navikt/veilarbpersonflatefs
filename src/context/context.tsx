@@ -32,8 +32,8 @@ interface EnhetContextState {
 export default class EnhetContext extends React.Component<{}, EnhetContextState> {
     public contextListenerPromise: Promise<EnhetContextListener>;
 
-    constructor() {
-        super();
+    constructor(props: {}) {
+        super(props);
         this.state = {
             brukerModalSynlig: false,
             feilmodalSynlig: false,
