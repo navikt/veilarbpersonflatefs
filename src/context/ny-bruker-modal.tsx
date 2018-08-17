@@ -39,11 +39,11 @@ class NyBrukerModal extends React.Component<NyBrukerModalProps> {
                     </Normaltekst>
                     <div className="modal-footer" >
                         <Hovedknapp disabled={this.props.isPending}
-                                    onClick={this.lastNyBruker}>
+                                    onClick={this.props.doLastNyBruker}>
                             <FormattedMessage {...tekster.endre} />
                         </Hovedknapp>
                         <Knapp type="standard"
-                               onClick={this.fortsettABrukeSammeBruker}
+                               onClick={this.props.doFortsettSammeBruker}
                                spinner={this.props.isPending}
                                autoDisableVedSpinner={true}>
                             <FormattedMessage {...tekster.behold} />
@@ -52,14 +52,6 @@ class NyBrukerModal extends React.Component<NyBrukerModalProps> {
                 </div>
             </NavFrontendModal>
         );
-    }
-
-    private lastNyBruker(){
-        this.props.doLastNyBruker()
-    }
-
-    private fortsettABrukeSammeBruker(){
-        this.props.doFortsettSammeBruker()
     }
 }
 

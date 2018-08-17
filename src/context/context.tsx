@@ -46,6 +46,10 @@ export default class EnhetContext extends React.Component<{}, EnhetContextState>
         };
 
         this.enhetContextHandler = this.enhetContextHandler.bind(this);
+        this.lukkFeilmodal = this.lukkFeilmodal.bind(this);
+        this.handleLastNyBruker = this.handleLastNyBruker.bind(this);
+        this.handleFortsettSammeBruker = this.handleFortsettSammeBruker.bind(this);
+
     }
 
     public componentDidMount() {
@@ -72,104 +76,6 @@ export default class EnhetContext extends React.Component<{}, EnhetContextState>
 
     public componentWillUnmount() {
         this.contextListenerPromise.then((contextListener) => contextListener.close());
-    }
-
-    public websocketUri(ident: string) {
-        const miljo = erDev() ? '-t6' : miljoFraUrl();
-        return `wss://veilederflatehendelser${miljo}.adeo.no/modiaeventdistribution/ws/${ident}`;
-    }
-
-    public handleFeilet() {
-        this.setState({
-            brukerModalSynlig: false,
-            feilmodalSynlig: true,
-            lastBrukerPending: false
-        });
-    }
-
-    public oppdaterAktivBrukHvisEndret() {
-        const fnrFraUrl = hentFodselsnummerFraURL();
-        return hentAktivBruker()
-            .then((nyBruker) => {
-                this.setState({fnrContext: nyBruker});
-
-                if (nyBruker !== fnrFraUrl) {
-                    oppdaterAktivBruker(nyBruker);
-                }
-            }).catch(() => this.handleFeilet());
-    }
-
-    public oppdaterSideMedNyAktivBruker() {
-        hentAktivBruker()
-            .then((bruker) => {
-                const fnrFraUrl = hentFodselsnummerFraURL();
-                this.setState({fnrContext: bruker});
-
-                if (bruker !=  null && bruker !== fnrFraUrl) {
-                    settPersonIURL(bruker);
-                    sendEventOmPersonFraURL();
-                }
-            }).catch(() => this.handleFeilet());
-    }
-
-    public handleNyAktivBruker() {
-        hentAktivBruker()
-            .then((nyBruker) => {
-                const fnrFraUrl = hentFodselsnummerFraURL();
-                this.setState({fnrContext: nyBruker});
-
-                if (fnrFraUrl == null) {
-                    this.oppdaterSideMedNyAktivBruker();
-                } else if (nyBruker !== fnrFraUrl) {
-                    this.setState({
-                        brukerModalSynlig: true
-                    });
-                }
-            }).catch(() => this.handleFeilet());
-    }
-
-    public handleNyAktivEnhet() {
-        hentAktivEnhet()
-            .then((enhet) => {
-                leggEnhetIUrl(enhet);
-                initialiserToppmeny();
-            }).catch(() => this.handleFeilet());
-    }
-
-    public enhetContextHandler(event: EnhetContextEvent) {
-        switch (event.type) {
-            case EnhetContextEventNames.CONNECTION_STATE_CHANGED:
-                this.handleTilkoblingStateChange(event.state);
-                break;
-            case EnhetContextEventNames.NY_AKTIV_ENHET:
-                this.handleNyAktivEnhet();
-                break;
-            case EnhetContextEventNames.NY_AKTIV_BRUKER:
-                this.handleNyAktivBruker();
-                break;
-        }
-    }
-
-    public handleTilkoblingStateChange(nyTilkoblingState: EnhetConnectionState) {
-        const fortsattFeil = this.state.tilkoblingState === EnhetConnectionState.FAILED && nyTilkoblingState !== EnhetConnectionState.CONNECTED;
-        this.setState({
-            tilkoblingHarFeilet: nyTilkoblingState === EnhetConnectionState.FAILED || fortsattFeil,
-            tilkoblingState: nyTilkoblingState
-        });
-    }
-
-    public handleLastNyBruker() {
-        this.oppdaterSideMedNyAktivBruker();
-        this.setState({ brukerModalSynlig: false });
-    }
-
-    public handleFortsettSammeBruker() {
-        this.setState({lastBrukerPending: true});
-        this.oppdaterAktivBrukHvisEndret()
-            .then(() => this.setState({
-                brukerModalSynlig: false,
-                lastBrukerPending: false
-            }));
     }
 
     public render() {
@@ -199,6 +105,104 @@ export default class EnhetContext extends React.Component<{}, EnhetContextState>
                 </div>
             </IntlProvider>
         );
+    }
+
+    private websocketUri(ident: string) {
+        const miljo = erDev() ? '-q6' : miljoFraUrl();
+        return `wss://veilederflatehendelser${miljo}.adeo.no/modiaeventdistribution/ws/${ident}`;
+    }
+
+    private handleFeilet() {
+        this.setState({
+            brukerModalSynlig: false,
+            feilmodalSynlig: true,
+            lastBrukerPending: false
+        });
+    }
+
+    private oppdaterAktivBrukHvisEndret() {
+        const fnrFraUrl = hentFodselsnummerFraURL();
+        return hentAktivBruker()
+            .then((nyBruker) => {
+                this.setState({fnrContext: nyBruker});
+
+                if (nyBruker !== fnrFraUrl) {
+                    oppdaterAktivBruker(nyBruker);
+                }
+            }).catch(() => this.handleFeilet());
+    }
+
+    private oppdaterSideMedNyAktivBruker() {
+        hentAktivBruker()
+            .then((bruker) => {
+                const fnrFraUrl = hentFodselsnummerFraURL();
+                this.setState({fnrContext: bruker});
+
+                if (bruker !=  null && bruker !== fnrFraUrl) {
+                    settPersonIURL(bruker);
+                    sendEventOmPersonFraURL();
+                }
+            }).catch(() => this.handleFeilet());
+    }
+
+    private enhetContextHandler(event: EnhetContextEvent) {
+        switch (event.type) {
+            case EnhetContextEventNames.CONNECTION_STATE_CHANGED:
+                this.handleTilkoblingStateChange(event.state);
+                break;
+            case EnhetContextEventNames.NY_AKTIV_ENHET:
+                this.handleNyAktivEnhet();
+                break;
+            case EnhetContextEventNames.NY_AKTIV_BRUKER:
+                this.handleNyAktivBruker();
+                break;
+        }
+    }
+
+    private handleNyAktivBruker() {
+        hentAktivBruker()
+            .then((nyBruker) => {
+                const fnrFraUrl = hentFodselsnummerFraURL();
+                this.setState({fnrContext: nyBruker});
+
+                if (fnrFraUrl == null) {
+                    this.oppdaterSideMedNyAktivBruker();
+                } else if (nyBruker !== fnrFraUrl) {
+                    this.setState({
+                        brukerModalSynlig: true
+                    });
+                }
+            }).catch(() => this.handleFeilet());
+    }
+
+    private handleTilkoblingStateChange(nyTilkoblingState: EnhetConnectionState) {
+        const fortsattFeil = this.state.tilkoblingState === EnhetConnectionState.FAILED && nyTilkoblingState !== EnhetConnectionState.CONNECTED;
+        this.setState({
+            tilkoblingHarFeilet: nyTilkoblingState === EnhetConnectionState.FAILED || fortsattFeil,
+            tilkoblingState: nyTilkoblingState
+        });
+    }
+
+    private handleNyAktivEnhet() {
+        hentAktivEnhet()
+            .then((enhet) => {
+                leggEnhetIUrl(enhet);
+                initialiserToppmeny();
+            }).catch(() => this.handleFeilet());
+    }
+
+    private handleLastNyBruker() {
+        this.oppdaterSideMedNyAktivBruker();
+        this.setState({ brukerModalSynlig: false });
+    }
+
+    private handleFortsettSammeBruker() {
+        this.setState({lastBrukerPending: true});
+        this.oppdaterAktivBrukHvisEndret()
+            .then(() => this.setState({
+                brukerModalSynlig: false,
+                lastBrukerPending: false
+            }));
     }
 
     private lukkFeilmodal() {
