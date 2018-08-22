@@ -43,7 +43,7 @@
     "nav-frontend-typografi": "^2.0.6",
     "nav-frontend-typografi-style": "^1.0.10",
     "prop-types": "^15.6.2",
-    "query-string": "6.1.0",
+    "query-string": "5.1.1",
     "react": "^16.4.2",
     "react-dom": "16.4.2",
     "react-intl": "2.4.0",

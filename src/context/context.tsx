@@ -2,9 +2,9 @@ import { AlertStripeAdvarselSolid } from 'nav-frontend-alertstriper';
 import * as React from 'react';
 import { addLocaleData, FormattedMessage, IntlProvider } from 'react-intl';
 import * as nb from 'react-intl/locale-data/nb';
-import { hentFodselsnummerFraURL, sendEventOmPersonFraURL, settPersonIURL } from '../eventhandtering';
 import { initialiserToppmeny } from '../utils/dekorator-utils';
 import { enhetFinnesIUrl, leggEnhetIUrl, miljoFraUrl } from '../utils/url-utils';
+import { hentFodselsnummerFraURL, settPersonIURL } from '../utils/url-utils';
 import { erDev } from '../utils/utils';
 import { hentAktivBruker, hentAktivEnhet, hentIdent, oppdaterAktivBruker } from './context-api';
 import ContextFeilmodal from './context-feilmodal';
@@ -140,7 +140,6 @@ export default class EnhetContext extends React.Component<{}, EnhetContextState>
 
                 if (bruker !=  null && bruker !== fnrFraUrl) {
                     settPersonIURL(bruker);
-                    sendEventOmPersonFraURL();
                 }
             }).catch(() => this.handleFeilet());
     }

@@ -1,4 +1,4 @@
-import { hentFodselsnummerFraURL } from './../eventhandtering';
+import { hentFodselsnummerFraURL } from './url-utils';
 
 const handlePersonsokSubmit = (fnr: string): void => {
     window.location.pathname = `veilarbpersonflatefs/${fnr}`;
