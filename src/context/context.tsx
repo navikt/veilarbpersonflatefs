@@ -126,8 +126,8 @@ export default class EnhetContext extends React.Component<{}, EnhetContextState>
             .then((nyBruker) => {
                 this.setState({fnrContext: nyBruker});
 
-                if (nyBruker !== fnrFraUrl) {
-                    oppdaterAktivBruker(nyBruker);
+                if (!!fnrFraUrl && nyBruker !== fnrFraUrl) {
+                    oppdaterAktivBruker(fnrFraUrl);
                 }
             }).catch(() => this.handleFeilet());
     }

@@ -1,8 +1,5 @@
 import { hentFodselsnummerFraURL } from './url-utils';
 
-const handlePersonsokSubmit = (fnr: string): void => {
-    window.location.pathname = `veilarbpersonflatefs/${fnr}`;
-};
 interface Config {
     config: {
         dataSources: {
@@ -15,7 +12,6 @@ interface Config {
             visSokefelt: boolean,
             visVeileder: boolean,
         },
-        handlePersonsokSubmit: (fnr: string) => void,
         applicationName: string,
         initiellEnhet?: string,
         fnr?: string
@@ -30,7 +26,6 @@ const config = (): Config => ({
             veileder: '/veilarbveileder/api/veileder/me'
         },
         fnr: hentFodselsnummerFraURL(),
-        handlePersonsokSubmit,
         toggles: {
             visEnhet: true,
             visEnhetVelger: false,

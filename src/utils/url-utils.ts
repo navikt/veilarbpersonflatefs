@@ -31,7 +31,7 @@ export function utledMiljoFraHost(host:string) {
 const BASE_URL = '/veilarbpersonflatefs/';
 
 export const settPersonIURL = (fodselsnummer: string): void => {
-    window.history.pushState(`Endret fodselsnummer til ${fodselsnummer}`, '', `${BASE_URL}${fodselsnummer}`);
+    window.location.pathname = `${BASE_URL}${fodselsnummer}`;
 };
 
 const regex = `^${BASE_URL}(\\d+)`;
