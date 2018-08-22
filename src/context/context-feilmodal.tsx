@@ -1,10 +1,10 @@
-import * as React from 'react';
-import { FormattedMessage } from 'react-intl';
+import { AlertStripeNavAnsatt } from 'nav-frontend-alertstriper';
+import { Hovedknapp } from 'nav-frontend-knapper';
 import NavFrontendModal from 'nav-frontend-modal';
 import { Innholdstittel } from 'nav-frontend-typografi';
-import { Hovedknapp } from 'nav-frontend-knapper';
+import * as React from 'react';
+import { FormattedMessage } from 'react-intl';
 import { tekster } from './context-tekster';
-import { AlertStripeNavansatt } from 'nav-frontend-alertstriper';
 
 interface ContextFeilmodalProps {
     isOpen: boolean;
@@ -12,13 +12,13 @@ interface ContextFeilmodalProps {
 }
 
 class ContextFeilmodal extends React.Component<ContextFeilmodalProps> {
-    render() {
+    public render() {
         return (
             <NavFrontendModal
                 contentLabel="ContextFeilmodal"
                 shouldCloseOnOverlayClick={false}
                 isOpen={this.props.isOpen}
-                closeButton
+                closeButton={true}
                 onRequestClose={this.props.onClose}
             >
                 <div className="brukercontext__modal">
@@ -26,11 +26,11 @@ class ContextFeilmodal extends React.Component<ContextFeilmodalProps> {
                         <FormattedMessage {...tekster.feilmodalOverskrift} />
                     </Innholdstittel>
                     <div className="modal-content modal-test">
-                        <AlertStripeNavansatt className="blokk-s">
+                        <AlertStripeNavAnsatt className="blokk-s">
                             <FormattedMessage {...tekster.feilmodalTekst} />
-                        </AlertStripeNavansatt>
+                        </AlertStripeNavAnsatt>
                     </div>
-                    <div className="modal-footer" >
+                    <div className="modal-footer">
                         <Hovedknapp onClick={this.props.onClose}>
                             <FormattedMessage {...tekster.feilmodalBekreft} />
                         </Hovedknapp>

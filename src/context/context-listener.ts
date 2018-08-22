@@ -1,9 +1,9 @@
-import WebSocketImpl, { Status } from './websocket-impl';
+import WebSocketImpl from './websocket-impl';
 
 export enum EnhetConnectionState {
     CONNECTED = 'connected',
     NOT_CONNECTED = 'not_connected',
-    FAILED = 'failed'
+    FAILED = 'failed',
 }
 
 enum EventMessages {
@@ -16,7 +16,7 @@ enum EventMessages {
 export enum EnhetContextEventNames {
     CONNECTION_STATE_CHANGED = 'connection_state_changed',
     NY_AKTIV_ENHET = 'ny_aktiv_enhet',
-    NY_AKTIV_BRUKER = 'ny_aktiv_bruker'
+    NY_AKTIV_BRUKER = 'ny_aktiv_bruker',
 }
 
 interface ConnectionStateChanged {
@@ -25,22 +25,24 @@ interface ConnectionStateChanged {
 }
 
 interface NyContext {
-    type: EnhetContextEventNames.NY_AKTIV_ENHET | EnhetContextEventNames.NY_AKTIV_BRUKER;
+    type:
+        | EnhetContextEventNames.NY_AKTIV_ENHET
+        | EnhetContextEventNames.NY_AKTIV_BRUKER;
 }
 
 export type EnhetContextEvent = ConnectionStateChanged | NyContext;
 
 export default class EnhetContextListener {
-    connection: WebSocketImpl;
-    callback: (event: EnhetContextEvent) => void;
+    private connection: WebSocketImpl;
+    private callback: (event: EnhetContextEvent) => void;
 
     constructor(uri: string, cb: (action: EnhetContextEvent) => void) {
         this.callback = cb;
         this.connection = new WebSocketImpl(uri, {
-            onOpen: this.onOpen.bind(this),
-            onMessage: this.onMessage.bind(this),
+            onClose: this.onClose.bind(this),
             onError: this.onError.bind(this),
-            onClose: this.onClose.bind(this)
+            onMessage: this.onMessage.bind(this),
+            onOpen: this.onOpen.bind(this),
         });
         this.connection.open();
     }
@@ -50,22 +52,31 @@ export default class EnhetContextListener {
     }
 
     private onOpen() {
-        this.callback({type: EnhetContextEventNames.CONNECTION_STATE_CHANGED, state: EnhetConnectionState.CONNECTED});
+        this.callback({
+            state: EnhetConnectionState.CONNECTED,
+            type: EnhetContextEventNames.CONNECTION_STATE_CHANGED,
+        });
     }
 
     private onMessage(event: MessageEvent) {
         if (event.data === EventMessages.NY_AKTIV_ENHET) {
-            this.callback({type: EnhetContextEventNames.NY_AKTIV_ENHET});
+            this.callback({ type: EnhetContextEventNames.NY_AKTIV_ENHET });
         } else if (event.data === EventMessages.NY_AKTIV_BRUKER) {
-            this.callback({type: EnhetContextEventNames.NY_AKTIV_BRUKER});
+            this.callback({ type: EnhetContextEventNames.NY_AKTIV_BRUKER });
         }
     }
 
     private onError() {
-        this.callback({ type: EnhetContextEventNames.CONNECTION_STATE_CHANGED, state: EnhetConnectionState.FAILED });
+        this.callback({
+            state: EnhetConnectionState.FAILED,
+            type: EnhetContextEventNames.CONNECTION_STATE_CHANGED,
+        });
     }
 
     private onClose() {
-        this.callback({ type: EnhetContextEventNames.CONNECTION_STATE_CHANGED, state: EnhetConnectionState.NOT_CONNECTED });
+        this.callback({
+            state: EnhetConnectionState.NOT_CONNECTED,
+            type: EnhetContextEventNames.CONNECTION_STATE_CHANGED,
+        });
     }
 }
