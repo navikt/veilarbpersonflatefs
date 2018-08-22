@@ -3,7 +3,10 @@ const MINUTES: number = 60 * SECONDS;
 const MAX_RETRIES: number = 30;
 
 export enum Status {
-    INIT, OPEN, CLOSE, REFRESH
+    INIT,
+    OPEN,
+    CLOSE,
+    REFRESH,
 }
 
 export interface Listeners {
@@ -28,7 +31,7 @@ function createRetrytime(tryCount: number): number {
         return Number.MAX_SAFE_INTEGER;
     }
 
-    const basedelay = Math.min((Math.pow(2, tryCount)), 180) * SECONDS;
+    const basedelay = Math.min(Math.pow(2, tryCount), 180) * SECONDS;
     return basedelay + fuzzy(5 * SECONDS, 15 * SECONDS);
 }
 
@@ -56,7 +59,10 @@ class WebSocketImpl {
 
         this.connection = new WebSocket(this.wsUrl);
         this.connection.addEventListener('open', this.onWSOpen.bind(this));
-        this.connection.addEventListener('message', this.onWSMessage.bind(this));
+        this.connection.addEventListener(
+            'message',
+            this.onWSMessage.bind(this)
+        );
         this.connection.addEventListener('error', this.onWSError.bind(this));
         this.connection.addEventListener('close', this.onWSClose.bind(this));
     }

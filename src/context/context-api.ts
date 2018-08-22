@@ -16,32 +16,33 @@ interface MeModell {
 }
 
 export function hentIdent(): Promise<string> {
-    return fetchToJson<MeModell>('/veilarbveileder/api/veileder/me')
-        .then((data) => data.ident);
+    return fetchToJson<MeModell>('/veilarbveileder/api/veileder/me').then(
+        data => data.ident
+    );
 }
 
 export function hentAktivEnhet(): Promise<string> {
-    return fetchToJson<AktivEnhetModell>(`/modiacontextholder/api/context/aktivenhet`)
-        .then((data) => {
-                return data.aktivEnhet;
-            }
-        );
+    return fetchToJson<AktivEnhetModell>(
+        `/modiacontextholder/api/context/aktivenhet`
+    ).then(data => {
+        return data.aktivEnhet;
+    });
 }
 
 export function hentAktivBruker(): Promise<string> {
-    return fetchToJson<AktivBrukerModell>(`/modiacontextholder/api/context/aktivbruker`)
-        .then((data) => {
-                return data.aktivBruker;
-            }
-        );
+    return fetchToJson<AktivBrukerModell>(
+        `/modiacontextholder/api/context/aktivbruker`
+    ).then(data => {
+        return data.aktivBruker;
+    });
 }
 
 export function oppdaterAktivBruker(bruker: string): Promise<Response> {
     return postData(`/modiacontextholder/api/context`, {
         body: JSON.stringify({
             eventType: 'NY_AKTIV_BRUKER',
-            verdi: bruker
+            verdi: bruker,
         }),
-        method: 'post'
+        method: 'post',
     });
 }

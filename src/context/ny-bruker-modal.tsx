@@ -36,18 +36,24 @@ class NyBrukerModal extends React.Component<NyBrukerModalProps> {
                         <FormattedMessage {...tekster.modalAlert} />
                     </AlertStripeInfoSolid>
                     <Normaltekst className="blokk-s">
-                        <FormattedMessage {...tekster.modalTekst}
-                                          values={{bruker: this.props.fodselsnummer}} />
+                        <FormattedMessage
+                            {...tekster.modalTekst}
+                            values={{ bruker: this.props.fodselsnummer }}
+                        />
                     </Normaltekst>
-                    <div className="modal-footer" >
-                        <Hovedknapp disabled={this.props.isPending}
-                                    onClick={this.props.doLastNyBruker}>
+                    <div className="modal-footer">
+                        <Hovedknapp
+                            disabled={this.props.isPending}
+                            onClick={this.props.doLastNyBruker}
+                        >
                             <FormattedMessage {...tekster.endre} />
                         </Hovedknapp>
-                        <Knapp type="standard"
-                               onClick={this.props.doFortsettSammeBruker}
-                               spinner={this.props.isPending}
-                               autoDisableVedSpinner={true}>
+                        <Knapp
+                            type="standard"
+                            onClick={this.props.doFortsettSammeBruker}
+                            spinner={this.props.isPending}
+                            autoDisableVedSpinner={true}
+                        >
                             <FormattedMessage {...tekster.behold} />
                         </Knapp>
                     </div>

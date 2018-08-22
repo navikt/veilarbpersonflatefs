@@ -10,11 +10,14 @@ interface AppProps {
     fnr: string;
 }
 
-const MAO: React.ComponentType<AppProps> = NAVSPA.importer<AppProps>('veilarbmaofs');
-const Aktivitetsplan: React.ComponentType<AppProps> = NAVSPA.importer<AppProps>('aktivitetsplan');
+const MAO: React.ComponentType<AppProps> = NAVSPA.importer<AppProps>(
+    'veilarbmaofs'
+);
+const Aktivitetsplan: React.ComponentType<AppProps> = NAVSPA.importer<AppProps>(
+    'aktivitetsplan'
+);
 
 class App extends React.Component {
-
     public render() {
         const fnr = hentFodselsnummerFraURL();
         const erDecoratorenLastet = !(window as any).renderDecoratorHead;
@@ -26,25 +29,26 @@ class App extends React.Component {
         initialiserToppmeny();
 
         if (!fnr) {
-            return <FeilmeldingManglerFnr/>
+            return <FeilmeldingManglerFnr />;
         }
 
         const appProps: AppProps = {
             enhet: enhetFraUrl(),
-            fnr: hentFodselsnummerFraURL()!
+            fnr: hentFodselsnummerFraURL()!,
         };
 
-        return <div>
-            <EnhetContext/>
-            <div className="hovedinnhold">
-                <MAO {...appProps}/>
+        return (
+            <div>
+                <EnhetContext />
+                <div className="hovedinnhold">
+                    <MAO {...appProps} />
+                </div>
+                <div className="hovedinnhold">
+                    <Aktivitetsplan {...appProps} />
+                </div>
             </div>
-            <div className="hovedinnhold">
-                <Aktivitetsplan {...appProps}/>
-            </div>
-        </div>
+        );
     }
-
 }
 
 export default App;
