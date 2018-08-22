@@ -1,4 +1,9 @@
-import { enhetFinnesIUrl, enhetFraUrl, hentFodselsnummerFraURL, utledMiljoFraHost } from './url-utils';
+import {
+    enhetFinnesIUrl,
+    enhetFraUrl,
+    hentFodselsnummerFraURL,
+    utledMiljoFraHost,
+} from './url-utils';
 
 describe('URL utils', () => {
     describe('enhetFraUrl', () => {
@@ -7,21 +12,21 @@ describe('URL utils', () => {
 
             (global as any).window = {
                 location: {
-                    search: `?enhet=${enhet}&chewie=kul`
-                }
+                    search: `?enhet=${enhet}&chewie=kul`,
+                },
             };
 
             expect(enhetFraUrl()).toBe(enhet);
         });
     });
-    describe('enhetFinnesIUrl', () =>  {
+    describe('enhetFinnesIUrl', () => {
         it('skal bekrefte at enhet finnes som query param i URL', () => {
             const enhet = '0134';
 
             (global as any).window = {
                 location: {
-                    search: `?enhet=${enhet}&chewie=kul`
-                }
+                    search: `?enhet=${enhet}&chewie=kul`,
+                },
             };
 
             expect(enhetFinnesIUrl()).toBeTruthy();
@@ -29,11 +34,11 @@ describe('URL utils', () => {
         it('skal bekrefte at enhet IKKE finnes som query param i URL', () => {
             (global as any).window = {
                 location: {
-                    search: `?deathstar=round&chewie=kul`
-                }
+                    search: `?deathstar=round&chewie=kul`,
+                },
             };
 
-            expect(enhetFinnesIUrl()).toBeFalsy()
+            expect(enhetFinnesIUrl()).toBeFalsy();
         });
     });
     describe('utledMiljoFraHost', () => {
@@ -49,11 +54,11 @@ describe('URL utils', () => {
             const host = '127.0.0.1:8080';
             expect(utledMiljoFraHost(host)).toBe('');
         });
-        it('skal returnere \'-t4\' når miljø er t4', () => {
+        it("skal returnere '-t4' når miljø er t4", () => {
             const host = 'veilederflatehendelser-t4.adeo.no';
             expect(utledMiljoFraHost(host)).toBe('-t4');
         });
-        it('skal returnere \'-q4\' når miljø er q4', () => {
+        it("skal returnere '-q4' når miljø er q4", () => {
             const host = 'app-q4.adeo.no';
             expect(utledMiljoFraHost(host)).toBe('-q4');
         });
@@ -64,8 +69,8 @@ describe('person er satt i URL', () => {
     it('fnr i URL skal gi true', () => {
         (global as any).window = {
             location: {
-                pathname: '/veilarbpersonflatefs/12345678912'
-            }
+                pathname: '/veilarbpersonflatefs/12345678912',
+            },
         };
 
         const personIUrl = hentFodselsnummerFraURL();
@@ -75,8 +80,8 @@ describe('person er satt i URL', () => {
     it('fnr ikke i URL skal gi false', () => {
         (global as any).window = {
             location: {
-                pathname: '/veilarbpersonflatefs/'
-            }
+                pathname: '/veilarbpersonflatefs/',
+            },
         };
 
         const personIUrl = hentFodselsnummerFraURL();
@@ -86,8 +91,8 @@ describe('person er satt i URL', () => {
     it('støtter å sjekke fnr i dype urls', () => {
         (global as any).window = {
             location: {
-                pathname: '/veilarbpersonflatefs/12345678912/aktivitet/123'
-            }
+                pathname: '/veilarbpersonflatefs/12345678912/aktivitet/123',
+            },
         };
 
         const personIUrl = hentFodselsnummerFraURL();
@@ -99,8 +104,8 @@ describe('hent Fodselsnummer Fra URL', () => {
     it('hente fnr fra url', () => {
         (global as any).window = {
             location: {
-                pathname: '/veilarbpersonflatefs/12345678912'
-            }
+                pathname: '/veilarbpersonflatefs/12345678912',
+            },
         };
 
         const personIUrl = hentFodselsnummerFraURL();
@@ -110,8 +115,8 @@ describe('hent Fodselsnummer Fra URL', () => {
     it('hente fnr fra url uten fnr', () => {
         (global as any).window = {
             location: {
-                pathname: '/veilarbpersonflatefs/'
-            }
+                pathname: '/veilarbpersonflatefs/',
+            },
         };
 
         const personIUrl = hentFodselsnummerFraURL();
@@ -121,8 +126,8 @@ describe('hent Fodselsnummer Fra URL', () => {
     it('hente fnr fra dyp url', () => {
         (global as any).window = {
             location: {
-                pathname: '/veilarbpersonflatefs/12345678912/aktivitet/123'
-            }
+                pathname: '/veilarbpersonflatefs/12345678912/aktivitet/123',
+            },
         };
 
         const personIUrl = hentFodselsnummerFraURL();

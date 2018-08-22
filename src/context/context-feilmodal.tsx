@@ -30,7 +30,7 @@ class ContextFeilmodal extends React.Component<ContextFeilmodalProps> {
                             <FormattedMessage {...tekster.feilmodalTekst} />
                         </AlertStripeNavAnsatt>
                     </div>
-                    <div className="modal-footer" >
+                    <div className="modal-footer">
                         <Hovedknapp onClick={this.props.onClose}>
                             <FormattedMessage {...tekster.feilmodalBekreft} />
                         </Hovedknapp>

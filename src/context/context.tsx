@@ -3,15 +3,24 @@ import * as React from 'react';
 import { addLocaleData, FormattedMessage, IntlProvider } from 'react-intl';
 import * as nb from 'react-intl/locale-data/nb';
 import { initialiserToppmeny } from '../utils/dekorator-utils';
-import { enhetFinnesIUrl, leggEnhetIUrl, miljoFraUrl } from '../utils/url-utils';
+import {
+    enhetFinnesIUrl,
+    leggEnhetIUrl,
+    miljoFraUrl,
+} from '../utils/url-utils';
 import { hentFodselsnummerFraURL, settPersonIURL } from '../utils/url-utils';
 import { erDev } from '../utils/utils';
-import { hentAktivBruker, hentAktivEnhet, hentIdent, oppdaterAktivBruker } from './context-api';
+import {
+    hentAktivBruker,
+    hentAktivEnhet,
+    hentIdent,
+    oppdaterAktivBruker,
+} from './context-api';
 import ContextFeilmodal from './context-feilmodal';
 import EnhetContextListener, {
     EnhetConnectionState,
     EnhetContextEvent,
-    EnhetContextEventNames
+    EnhetContextEventNames,
 } from './context-listener';
 import { tekster } from './context-tekster';
 import NyBrukerModal from './ny-bruker-modal';
@@ -30,7 +39,10 @@ interface EnhetContextState {
     fnrContext?: string;
 }
 
-export default class EnhetContext extends React.Component<{}, EnhetContextState> {
+export default class EnhetContext extends React.Component<
+    {},
+    EnhetContextState
+> {
     public contextListenerPromise: Promise<EnhetContextListener>;
 
     constructor(props: {}) {
@@ -48,8 +60,9 @@ export default class EnhetContext extends React.Component<{}, EnhetContextState>
         this.enhetContextHandler = this.enhetContextHandler.bind(this);
         this.lukkFeilmodal = this.lukkFeilmodal.bind(this);
         this.handleLastNyBruker = this.handleLastNyBruker.bind(this);
-        this.handleFortsettSammeBruker = this.handleFortsettSammeBruker.bind(this);
-
+        this.handleFortsettSammeBruker = this.handleFortsettSammeBruker.bind(
+            this
+        );
     }
 
     public componentDidMount() {
@@ -57,25 +70,29 @@ export default class EnhetContext extends React.Component<{}, EnhetContextState>
             this.oppdaterAktivBrukHvisEndret();
         });
 
-        this.contextListenerPromise = hentIdent()
-            .then((ident) => {
-                 return new EnhetContextListener(this.websocketUri(ident), this.enhetContextHandler);
-            });
+        this.contextListenerPromise = hentIdent().then(ident => {
+            return new EnhetContextListener(
+                this.websocketUri(ident),
+                this.enhetContextHandler
+            );
+        });
 
         const fnrFraUrl = hentFodselsnummerFraURL();
-        if(fnrFraUrl != null) {
+        if (fnrFraUrl != null) {
             this.oppdaterAktivBrukHvisEndret();
         } else {
             this.oppdaterSideMedNyAktivBruker();
         }
 
-        if(!enhetFinnesIUrl()) {
+        if (!enhetFinnesIUrl()) {
             this.handleNyAktivEnhet();
         }
     }
 
     public componentWillUnmount() {
-        this.contextListenerPromise.then((contextListener) => contextListener.close());
+        this.contextListenerPromise.then(contextListener =>
+            contextListener.close()
+        );
     }
 
     public render() {
@@ -88,7 +105,7 @@ export default class EnhetContext extends React.Component<{}, EnhetContextState>
         return (
             <IntlProvider locale="nb" defaultLocale="nb">
                 <div>
-                    { this.state.tilkoblingHarFeilet ? alertIkkeTilkoblet : null }
+                    {this.state.tilkoblingHarFeilet ? alertIkkeTilkoblet : null}
 
                     <NyBrukerModal
                         isOpen={this.state.brukerModalSynlig}
@@ -116,32 +133,34 @@ export default class EnhetContext extends React.Component<{}, EnhetContextState>
         this.setState({
             brukerModalSynlig: false,
             feilmodalSynlig: true,
-            lastBrukerPending: false
+            lastBrukerPending: false,
         });
     }
 
     private oppdaterAktivBrukHvisEndret() {
         const fnrFraUrl = hentFodselsnummerFraURL();
         return hentAktivBruker()
-            .then((nyBruker) => {
-                this.setState({fnrContext: nyBruker});
+            .then(nyBruker => {
+                this.setState({ fnrContext: nyBruker });
 
                 if (nyBruker !== fnrFraUrl) {
                     oppdaterAktivBruker(nyBruker);
                 }
-            }).catch(() => this.handleFeilet());
+            })
+            .catch(() => this.handleFeilet());
     }
 
     private oppdaterSideMedNyAktivBruker() {
         hentAktivBruker()
-            .then((bruker) => {
+            .then(bruker => {
                 const fnrFraUrl = hentFodselsnummerFraURL();
-                this.setState({fnrContext: bruker});
+                this.setState({ fnrContext: bruker });
 
-                if (bruker !=  null && bruker !== fnrFraUrl) {
+                if (bruker != null && bruker !== fnrFraUrl) {
                     settPersonIURL(bruker);
                 }
-            }).catch(() => this.handleFeilet());
+            })
+            .catch(() => this.handleFeilet());
     }
 
     private enhetContextHandler(event: EnhetContextEvent) {
@@ -160,34 +179,42 @@ export default class EnhetContext extends React.Component<{}, EnhetContextState>
 
     private handleNyAktivBruker() {
         hentAktivBruker()
-            .then((nyBruker) => {
+            .then(nyBruker => {
                 const fnrFraUrl = hentFodselsnummerFraURL();
-                this.setState({fnrContext: nyBruker});
+                this.setState({ fnrContext: nyBruker });
 
                 if (fnrFraUrl == null) {
                     this.oppdaterSideMedNyAktivBruker();
                 } else if (nyBruker !== fnrFraUrl) {
                     this.setState({
-                        brukerModalSynlig: true
+                        brukerModalSynlig: true,
                     });
                 }
-            }).catch(() => this.handleFeilet());
+            })
+            .catch(() => this.handleFeilet());
     }
 
-    private handleTilkoblingStateChange(nyTilkoblingState: EnhetConnectionState) {
-        const fortsattFeil = this.state.tilkoblingState === EnhetConnectionState.FAILED && nyTilkoblingState !== EnhetConnectionState.CONNECTED;
+    private handleTilkoblingStateChange(
+        nyTilkoblingState: EnhetConnectionState
+    ) {
+        const fortsattFeil =
+            this.state.tilkoblingState === EnhetConnectionState.FAILED &&
+            nyTilkoblingState !== EnhetConnectionState.CONNECTED;
         this.setState({
-            tilkoblingHarFeilet: nyTilkoblingState === EnhetConnectionState.FAILED || fortsattFeil,
-            tilkoblingState: nyTilkoblingState
+            tilkoblingHarFeilet:
+                nyTilkoblingState === EnhetConnectionState.FAILED ||
+                fortsattFeil,
+            tilkoblingState: nyTilkoblingState,
         });
     }
 
     private handleNyAktivEnhet() {
         hentAktivEnhet()
-            .then((enhet) => {
+            .then(enhet => {
                 leggEnhetIUrl(enhet);
                 initialiserToppmeny();
-            }).catch(() => this.handleFeilet());
+            })
+            .catch(() => this.handleFeilet());
     }
 
     private handleLastNyBruker() {
@@ -196,15 +223,16 @@ export default class EnhetContext extends React.Component<{}, EnhetContextState>
     }
 
     private handleFortsettSammeBruker() {
-        this.setState({lastBrukerPending: true});
-        this.oppdaterAktivBrukHvisEndret()
-            .then(() => this.setState({
+        this.setState({ lastBrukerPending: true });
+        this.oppdaterAktivBrukHvisEndret().then(() =>
+            this.setState({
                 brukerModalSynlig: false,
-                lastBrukerPending: false
-            }));
+                lastBrukerPending: false,
+            })
+        );
     }
 
     private lukkFeilmodal() {
-        this.setState({feilmodalSynlig: false});
+        this.setState({ feilmodalSynlig: false });
     }
 }
