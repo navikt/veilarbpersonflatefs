@@ -23,7 +23,7 @@ export function miljoFraUrl() {
     return utledMiljoFraHost(location.host);
 }
 
-export function utledMiljoFraHost(host:string) {
+export function utledMiljoFraHost(host: string) {
     const matches = host.match(/-[a-zA-Z][0-9]+/);
     return matches == null ? '' : matches[0];
 }
@@ -36,7 +36,7 @@ export const settPersonIURL = (fodselsnummer: string): void => {
 
 const regex = `^${BASE_URL}(\\d+)`;
 
-export const hentFodselsnummerFraURL = () : string | undefined => {
+export const hentFodselsnummerFraURL = (): string | undefined => {
     const url = window.location.pathname;
     const match = url.match(regex);
     if (match && match.length === 2) {
@@ -44,4 +44,3 @@ export const hentFodselsnummerFraURL = () : string | undefined => {
     }
     return undefined;
 };
-

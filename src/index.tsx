@@ -6,7 +6,7 @@ import { settPersonIURL } from './utils/url-utils';
 
 // tslint:disable
 if (!(global as any)._babelPolyfill) {
-    require('babel-polyfill')
+    require('babel-polyfill');
 }
 // tslint:enable
 
@@ -14,8 +14,11 @@ interface PersonsokEvent extends Event {
     fodselsnummer: string;
 }
 
-document.addEventListener('dekorator-hode-personsok', (event: PersonsokEvent) => {
-    settPersonIURL(event.fodselsnummer);
-});
+document.addEventListener(
+    'dekorator-hode-personsok',
+    (event: PersonsokEvent) => {
+        settPersonIURL(event.fodselsnummer);
+    }
+);
 
-ReactDOM.render(<App/>, document.getElementById("pagewrapper"));
+ReactDOM.render(<App />, document.getElementById('pagewrapper'));
