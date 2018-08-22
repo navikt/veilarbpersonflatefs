@@ -1,4 +1,4 @@
-import WebSocketImpl, { Status } from './websocket-impl';
+import WebSocketImpl  from './websocket-impl';
 
 export enum EnhetConnectionState {
     CONNECTED = 'connected',
@@ -31,16 +31,16 @@ interface NyContext {
 export type EnhetContextEvent = ConnectionStateChanged | NyContext;
 
 export default class EnhetContextListener {
-    connection: WebSocketImpl;
-    callback: (event: EnhetContextEvent) => void;
+    private connection: WebSocketImpl;
+    private callback: (event: EnhetContextEvent) => void;
 
     constructor(uri: string, cb: (action: EnhetContextEvent) => void) {
         this.callback = cb;
         this.connection = new WebSocketImpl(uri, {
-            onOpen: this.onOpen.bind(this),
-            onMessage: this.onMessage.bind(this),
+            onClose: this.onClose.bind(this),
             onError: this.onError.bind(this),
-            onClose: this.onClose.bind(this)
+            onMessage: this.onMessage.bind(this),
+            onOpen: this.onOpen.bind(this)
         });
         this.connection.open();
     }

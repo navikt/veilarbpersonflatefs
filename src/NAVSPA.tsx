@@ -1,10 +1,15 @@
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
+import { Feil } from './feilmeldinger';
 
 interface INAVSPAScope {
     [name: string]: NAVSPAApp;
 }
 type NAVSPAApp = (element: HTMLElement, props: any) => void;
+
+interface State {
+    hasError: boolean;
+}
 
 export default class NAVSPA {
     public static eksporter<PROPS>(name: string, component: React.ComponentType<PROPS>) {
@@ -14,18 +19,41 @@ export default class NAVSPA {
     }
 
     public static importer<PROPS>(name: string): React.ComponentType<PROPS> {
-        class NAVSPAImporter extends React.Component<PROPS> { // tslint:disable-line
+        class NAVSPAImporter extends React.Component<PROPS, State> { // tslint:disable-line
             private el: HTMLElement;
 
+            constructor(props: PROPS){
+                super(props);
+                this.state = {
+                    hasError: false
+                }
+            }
+
+            public componentDidCatch(error: Error){
+                this.setState({hasError: true});
+                (global as any).frontendlogger.error(error);
+            }
+
             public componentDidMount() {
-                NAVSPA.scope[name](this.el, this.props);
+                try {
+                    NAVSPA.scope[name](this.el, this.props);    
+                }
+                catch (e) {
+                    this.setState({hasError: true});
+                    (global as any).frontendlogger.error(e);
+                }                
             }
 
             public componentWillUnmount() {
-                ReactDOM.unmountComponentAtNode(this.el);
+                if(this.el){
+                    ReactDOM.unmountComponentAtNode(this.el);
+                }
             }
 
             public render() {
+                if(this.state.hasError){
+                   return <Feil appNavn={name}/>
+                }
                 return <div ref={this.saveRef}/>
             }
 

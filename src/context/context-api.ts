@@ -1,4 +1,4 @@
-import { fetchToJson } from '../utils/rest-utils';
+import { fetchToJson, postData } from '../utils/rest-utils';
 
 interface AktivEnhetModell {
     aktivEnhet: string;
@@ -37,11 +37,11 @@ export function hentAktivBruker(): Promise<string> {
 }
 
 export function oppdaterAktivBruker(bruker: string): Promise<Response> {
-    return fetchToJson(`/modiacontextholder/api/context`, {
-        method: 'post',
+    return postData(`/modiacontextholder/api/context`, {
         body: JSON.stringify({
-            verdi: bruker,
-            eventType: 'NY_AKTIV_BRUKER'
-        })
+            eventType: 'NY_AKTIV_BRUKER',
+            verdi: bruker
+        }),
+        method: 'post'
     });
 }

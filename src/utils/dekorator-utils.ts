@@ -1,9 +1,5 @@
-import {Fnr} from '../model-interfaces'
-import { hentFodselsnummerFraURL } from './../eventhandtering';
+import { hentFodselsnummerFraURL } from './url-utils';
 
-const handlePersonsokSubmit = (fnr: Fnr): void => {
-    window.location.pathname = `veilarbpersonflatefs/${fnr}`;
-};
 interface Config {
     config: {
         dataSources: {
@@ -16,7 +12,6 @@ interface Config {
             visSokefelt: boolean,
             visVeileder: boolean,
         },
-        handlePersonsokSubmit: (fnr: Fnr) => void,
         applicationName: string,
         initiellEnhet?: string,
         fnr?: string
@@ -25,19 +20,18 @@ interface Config {
 
 const config = (): Config => ({
     config: {
+        applicationName: 'Arbeidsrettet oppfølging',
         dataSources: {
-            veileder: '/veilarbveileder/api/veileder/me',
-            enheter: '/veilarbveileder/api/veileder/enheter'
+            enheter: '/veilarbveileder/api/veileder/enheter',
+            veileder: '/veilarbveileder/api/veileder/me'
         },
+        fnr: hentFodselsnummerFraURL(),
         toggles: {
             visEnhet: true,
             visEnhetVelger: false,
             visSokefelt: true,
             visVeileder: true
-        },
-        handlePersonsokSubmit,
-        applicationName: 'Arbeidsrettet oppfølging',
-        fnr: hentFodselsnummerFraURL()
+        }
     }
 });
 
