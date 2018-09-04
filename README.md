@@ -6,16 +6,11 @@ Flate applikasjonen for veiledere som viser informasjon og aktivitetsplanen til 
 $ npm install
 $ npm run dev
 ```
+Bruk dev-proxyen for å få opp et miljø appen kan kjøres i
 
 # Henvendelser
 
-Spørsmål knyttet til koden eller prosjektet kan rettes mot:
-
-* Alexander Svendsen, alexander.svendsen@nav.no
-* Nicklas Utgaar, nicklas.utgaard@nav.no
-* Håkon Holm, hakon.planke.holm@nav.no
-* Oscar Eckbo, oscar.eckbo@nav.no
-* Sneha Desai, sneha.desai@nav.no
+Spørsmål knyttet til koden eller prosjektet kan stilles via issues her på github.
 
 ## For NAV-ansatte
 
