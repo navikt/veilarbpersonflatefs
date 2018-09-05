@@ -1,8 +1,9 @@
 import * as React from 'react';
 import EnhetContext from './context/context';
-import { FeilmeldingManglerFnr } from './feilmeldinger';
+import { FeilmeldingManglerFnr, IngenTilgangTilBruker } from './feilmeldinger';
 import NAVSPA from './NAVSPA';
 import { initialiserToppmeny } from './utils/dekorator-utils';
+import { harTilgangTilBruker } from "./utils/rest-utils";
 import { enhetFraUrl, hentFodselsnummerFraURL } from './utils/url-utils';
 
 interface AppProps {
@@ -30,6 +31,10 @@ class App extends React.Component {
 
         if (!fnr) {
             return <FeilmeldingManglerFnr />;
+        }
+
+        if (!harTilgangTilBruker(fnr)) {
+            return <IngenTilgangTilBruker />;
         }
 
         const appProps: AppProps = {

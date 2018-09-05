@@ -22,3 +22,15 @@ export function FeilmeldingManglerFnr() {
         </IntlProvider>
     );
 }
+
+export function IngenTilgangTilBruker() {
+    return (
+        <IntlProvider locale="nb" defaultLocale="nb" messages={tekster}>
+            <div className="container hovedinnhold">
+                <AlertStripeInfoSolid>
+                    <FormattedMessage {...tekster.ingenTilgangBruker} />
+                </AlertStripeInfoSolid>
+            </div>
+        </IntlProvider>
+    )
+}

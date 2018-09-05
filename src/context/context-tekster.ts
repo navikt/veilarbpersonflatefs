@@ -22,6 +22,11 @@ export const tekster = defineMessages({
             'Kommunikasjonen med bruker i context feilet. Dette betyr at det er fare for at du kan ha forskjellige brukere i de ulike flatene.',
         id: 'context.feilmodal.tekst',
     },
+    ingenTilgangBruker: {
+        defaultMessage:
+            'Du har ikke tilgang til å se aktivitetsplanen',
+        id: 'context.ingen.tilgang.til.bruker'
+    },
     manglerFnr: {
         defaultMessage: 'Du må søke opp en person for å vise aktivitetsplanen',
         id: 'context.mangler.fnr',
