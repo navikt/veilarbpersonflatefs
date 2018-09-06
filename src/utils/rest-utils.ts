@@ -20,13 +20,3 @@ export function postData(
 ): Promise<Response> {
     return fetch(uri, { ...MED_CREDENTIALS, ...config });
 }
-
-export function fetchToResponse(uri: string, config: RequestInit = {}): Promise<Response> {
-    return fetch(uri, {...MED_CREDENTIALS, ...config});
-}
-
-export function harTilgangTilBruker(fnr: string): Promise<boolean> {
-    return fetchToResponse(`/veilarbperson/api/person/${fnr}/tilgangTilBruker`)
-        .then(() => true)
-        .catch(() => false);
-}
