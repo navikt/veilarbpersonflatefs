@@ -24,4 +24,5 @@ yarn-error.log*
 *.css
 *.map
 
-.idea/
+.idea/*
+*.iml

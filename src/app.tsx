@@ -1,8 +1,9 @@
 import * as React from 'react';
 import EnhetContext from './context/context';
-import { FeilmeldingManglerFnr } from './feilmeldinger';
+import { FeilmeldingManglerFnr, IngenTilgangTilBruker } from './feilmeldinger';
 import NAVSPA from './NAVSPA';
 import { initialiserToppmeny } from './utils/dekorator-utils';
+import { fetchToJson } from "./utils/rest-utils";
 import { enhetFraUrl, hentFodselsnummerFraURL } from './utils/url-utils';
 
 interface AppProps {
@@ -17,7 +18,31 @@ const Aktivitetsplan: React.ComponentType<AppProps> = NAVSPA.importer<AppProps>(
     'aktivitetsplan'
 );
 
-class App extends React.Component {
+
+interface TilgangTilBrukerState {
+    tilgang?: boolean;
+}
+
+class App extends React.Component<{}, TilgangTilBrukerState> {
+    constructor(props: {}) {
+        super(props);
+        this.state = {
+            tilgang: undefined
+        }
+    }
+
+    public setHarTilgang(tilgang: boolean){
+        this.setState({ tilgang })
+    }
+
+    public componentDidMount(){
+        const fnr = hentFodselsnummerFraURL();
+        fetchToJson(`/veilarbperson/api/person/${fnr}/tilgangTilBruker`)
+            .then((value) => this.setHarTilgang(!!value))
+            .catch(() => this.setHarTilgang(false));
+    }
+
+
     public render() {
         const fnr = hentFodselsnummerFraURL();
         const erDecoratorenLastet = !(window as any).renderDecoratorHead;
@@ -30,6 +55,12 @@ class App extends React.Component {
 
         if (!fnr) {
             return <FeilmeldingManglerFnr />;
+        }
+
+        if (this.state.tilgang === undefined) {
+            return null;
+        } else if (!this.state.tilgang) {
+            return <IngenTilgangTilBruker />;
         }
 
         const appProps: AppProps = {

@@ -1,5 +1,9 @@
 import { defineMessages } from 'react-intl';
 
+export interface Tekst {
+    defaultMessage: string;
+    id: string;
+}
 export const tekster = defineMessages({
     behold: {
         defaultMessage: 'Behold',
@@ -21,6 +25,11 @@ export const tekster = defineMessages({
         defaultMessage:
             'Kommunikasjonen med bruker i context feilet. Dette betyr at det er fare for at du kan ha forskjellige brukere i de ulike flatene.',
         id: 'context.feilmodal.tekst',
+    },
+    ingenTilgangBruker: {
+        defaultMessage:
+            'Du har ikke tilgang til å se aktivitetsplanen',
+        id: 'context.ingen.tilgang.til.bruker'
     },
     manglerFnr: {
         defaultMessage: 'Du må søke opp en person for å vise aktivitetsplanen',
