@@ -6,14 +6,14 @@ import {
 } from './url-utils';
 
 function setSearch(search: string){
-    Object.defineProperty(location, "search", {
+    Object.defineProperty(location, 'search', {
         value: search,
         writable: true
     })
 }
 
 function setPath(path: string){
-    Object.defineProperty(location, "pathname", {
+    Object.defineProperty(location, 'pathname', {
         value: path,
         writable: true
     })
