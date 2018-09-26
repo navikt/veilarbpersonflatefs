@@ -4,26 +4,29 @@
   "description": "VeilArbPersonFlateFS",
   "homepage": "/veilarbpersonflatefs",
   "main": "index.js",
+  "license": "MIT",
+  "repository": "https://github.com/navikt/veilarbpersonflatefs",
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
+    "start": "react-scripts-ts start",
+    "build": "react-scripts-ts build",
     "lint": "echo not implemented, part of the build script",
-    "test": "react-scripts test --env=jsdom",
+    "test": "react-scripts-ts test --env=jsdom",
     "test:coverage": "echo not implemented",
     "eject": "react-scripts eject",
     "prettier": "prettier --write --single-quote --trailing-comma es5 --tab-width 4 src/**/*.js src/**/*.ts src/**/*.tsx src/**/*.css"
   },
   "devDependencies": {
-    "@nutgaard/react-scripts": "0.0.8-beta.4",
+    "@navikt/create-react-app-typescript-less": "1.0.0-beta.14",
     "@types/jest": "23.3.1",
     "@types/query-string": "^6.1.0",
     "@types/react": "16.4.9",
     "@types/react-dom": "16.0.7",
     "@types/react-intl": "2.3.9",
     "@types/react-modal": "^3.2.1",
+    "ajv": "^6.5.4",
     "prettier": "^1.14.2",
     "tslint": "5.11.0",
-    "typescript": "3.0.1"
+    "typescript": "3.0.3"
   },
   "dependencies": {
     "babel-polyfill": "^6.26.0",
