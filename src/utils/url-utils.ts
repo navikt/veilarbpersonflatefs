@@ -11,8 +11,14 @@ export const leggEnhetIUrl = (enhet: string) => {
     history.replaceState(history.state, '', newUrl);
 };
 
-export function enhetFraUrl() {
-    return queryString.parse(location.search).enhet;
+export function enhetFraUrl(): string | undefined {
+    const enhet = queryString.parse(location.search).enhet;
+
+    if (Array.isArray(enhet)){
+       return enhet[0]
+    }
+
+    return enhet;
 }
 
 export function enhetFinnesIUrl() {
