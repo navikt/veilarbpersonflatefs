@@ -16,14 +16,13 @@
     "prettier": "prettier --write --single-quote --trailing-comma es5 --tab-width 4 src/**/*.js src/**/*.ts src/**/*.tsx src/**/*.css"
   },
   "devDependencies": {
-    "@navikt/create-react-app-typescript-less": "1.0.0-beta.14",
+    "@navikt/create-react-app-typescript-less": "1.0.0-beta.16",
     "@types/jest": "23.3.1",
     "@types/query-string": "^6.1.0",
     "@types/react": "16.4.9",
     "@types/react-dom": "16.0.7",
     "@types/react-intl": "2.3.9",
     "@types/react-modal": "^3.2.1",
-    "ajv": "^6.5.4",
     "prettier": "^1.14.2",
     "tslint": "5.11.0",
     "typescript": "3.0.3"
