@@ -1,23 +1,19 @@
 import * as React from 'react';
 import EnhetContext from './context/context';
-import { FeilmeldingManglerFnr, IngenTilgangTilBruker } from './feilmeldinger';
-import NAVSPA from './NAVSPA';
+import NAVSPA from './utils/NAVSPA';
 import { initialiserToppmeny } from './utils/dekorator-utils';
 import { fetchToJson } from "./utils/rest-utils";
 import { enhetFraUrl, hentFodselsnummerFraURL } from './utils/url-utils';
+import getWindow from './utils/window';
+import { FeilmeldingManglerFnr, IngenTilgangTilBruker } from './components/feilmeldinger';
 
 interface AppProps {
     enhet?: string;
     fnr: string;
 }
 
-const MAO: React.ComponentType<AppProps> = NAVSPA.importer<AppProps>(
-    'veilarbmaofs'
-);
-const Aktivitetsplan: React.ComponentType<AppProps> = NAVSPA.importer<AppProps>(
-    'aktivitetsplan'
-);
-
+const MAO: React.ComponentType<AppProps> = NAVSPA.importer<AppProps>('veilarbmaofs');
+const Aktivitetsplan: React.ComponentType<AppProps> = NAVSPA.importer<AppProps>('aktivitetsplan');
 
 interface TilgangTilBrukerState {
     tilgang?: boolean;
@@ -45,9 +41,9 @@ class App extends React.Component<{}, TilgangTilBrukerState> {
 
     public render() {
         const fnr = hentFodselsnummerFraURL();
-        const erDecoratorenLastet = !(window as any).renderDecoratorHead;
+        const erDecoratorenIkkeLastet = !getWindow().renderDecoratorHead;
 
-        if (erDecoratorenLastet) {
+        if (erDecoratorenIkkeLastet) {
             return <div>500 feil: Mangler decoratøren</div>;
         }
 

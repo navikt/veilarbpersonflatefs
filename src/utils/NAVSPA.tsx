@@ -1,7 +1,7 @@
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
-import { Feil } from './feilmeldinger';
-import getWindow from './utils/window';
+import { Feil } from '../components/feilmeldinger';
+import getWindow from './window';
 
 interface INAVSPAScope {
     [name: string]: NAVSPAApp;
@@ -13,14 +13,6 @@ interface State {
 }
 
 export default class NAVSPA {
-    public static eksporter<PROPS>(
-        name: string,
-        component: React.ComponentType<PROPS>
-    ) {
-        NAVSPA.scope[name] = (element: HTMLElement, props: PROPS) => {
-            ReactDOM.render(React.createElement(component, props), element);
-        };
-    }
 
     public static importer<PROPS>(name: string): React.ComponentType<PROPS> {
         class NAVSPAImporter extends React.Component<PROPS, State> {

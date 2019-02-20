@@ -4,8 +4,12 @@ import App from './app';
 import { settPersonIURL } from './utils/url-utils';
 import getWindow from './utils/window';
 import './index.less';
+import AppMock from './app-mock';
+import { isAppMocked } from './utils/mock-utils';
 
-if (!getWindow()._babelPolyfill) {
+const window = getWindow();
+
+if (!window._babelPolyfill) {
     // @ts-ignore
     require('babel-polyfill');
 }
@@ -17,4 +21,6 @@ document.addEventListener(
     }
 );
 
-ReactDOM.render(<App />, document.getElementById('pagewrapper'));
+const app = isAppMocked() ? <AppMock /> : <App />;
+
+ReactDOM.render(app, document.getElementById('pagewrapper'));
