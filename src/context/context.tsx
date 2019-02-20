@@ -26,6 +26,7 @@ import { tekster } from './context-tekster';
 import NyBrukerModal from './ny-bruker-modal';
 
 import './context.less';
+import getWindow from '../utils/window';
 
 addLocaleData(nb);
 
@@ -63,7 +64,7 @@ export default class EnhetContext extends React.Component<{}, EnhetContextState>
     }
 
     public componentDidMount() {
-        window.addEventListener('popstate', () => {
+        getWindow().addEventListener('popstate', () => {
             this.oppdaterAktivBrukHvisEndret();
         });
 

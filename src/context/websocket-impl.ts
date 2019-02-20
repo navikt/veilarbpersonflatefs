@@ -1,3 +1,5 @@
+import getWindow from '../utils/window';
+
 const SECONDS: number = 1000;
 const MINUTES: number = 60 * SECONDS;
 const MAX_RETRIES: number = 30;
@@ -88,7 +90,7 @@ class WebSocketImpl {
         const delay = createDelay(45 * MINUTES);
         this.print('Creating resettimer', delay);
 
-        this.resettimer = window.setTimeout(() => {
+        this.resettimer = getWindow().setTimeout(() => {
             this.status = Status.REFRESH;
             if (this.connection) {
                 this.connection.close();
