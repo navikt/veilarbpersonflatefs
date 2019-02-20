@@ -1,7 +1,7 @@
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 import { Feil } from './feilmeldinger';
-import global from './utils/global';
+import getWindow from './utils/window';
 
 interface INAVSPAScope {
     [name: string]: NAVSPAApp;
@@ -36,7 +36,7 @@ export default class NAVSPA {
 
             public componentDidCatch(error: Error) {
                 this.setState({ hasError: true });
-                global.frontendlogger.error(error);
+                getWindow().frontendlogger.error(error);
             }
 
             public componentDidMount() {
@@ -46,7 +46,7 @@ export default class NAVSPA {
                     }
                 } catch (e) {
                     this.setState({ hasError: true });
-                    global.frontendlogger.error(e);
+                    getWindow().frontendlogger.error(e);
                 }
             }
 
@@ -71,6 +71,6 @@ export default class NAVSPA {
         return NAVSPAImporter;
     }
 
-    private static scope: INAVSPAScope = (global.NAVSPA = global.NAVSPA || {});
+    private static scope: INAVSPAScope = (getWindow().NAVSPA = getWindow().NAVSPA || {});
 
 }

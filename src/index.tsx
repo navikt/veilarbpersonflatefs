@@ -2,10 +2,10 @@ import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 import App from './app';
 import { settPersonIURL } from './utils/url-utils';
-import global from './utils/global';
+import getWindow from './utils/window';
 import './index.less';
 
-if (!global._babelPolyfill) {
+if (!getWindow()._babelPolyfill) {
     // @ts-ignore
     require('babel-polyfill');
 }

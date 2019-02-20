@@ -1,8 +1,8 @@
 import * as queryString from 'query-string';
-import global from './global';
+import getWindow from './window';
 
-const location = global.location;
-const history = global.history;
+const location = getWindow().location;
+const history = getWindow().history;
 
 export const leggEnhetIUrl = (enhet: string) => {
     const currentParams = queryString.parse(location.search);
@@ -38,13 +38,13 @@ export function utledMiljoFraHost(host: string) {
 const BASE_URL = '/veilarbpersonflatefs/';
 
 export const settPersonIURL = (fodselsnummer: string): void => {
-    window.location.pathname = `${BASE_URL}${fodselsnummer}`;
+    getWindow().location.pathname = `${BASE_URL}${fodselsnummer}`;
 };
 
 const regex = `^${BASE_URL}(\\d+)`;
 
 export const hentFodselsnummerFraURL = (): string | undefined => {
-    const url = window.location.pathname;
+    const url = getWindow().location.pathname;
     const match = url.match(regex);
     if (match && match.length === 2) {
         return match[1];
