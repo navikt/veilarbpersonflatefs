@@ -1,9 +1,7 @@
-import { defineMessages } from 'react-intl';
+import { defineMessages, FormattedMessage } from 'react-intl';
 
-export interface Tekst {
-    defaultMessage: string;
-    id: string;
-}
+export type Tekst = FormattedMessage.MessageDescriptor;
+
 export const tekster = defineMessages({
     behold: {
         defaultMessage: 'Behold',

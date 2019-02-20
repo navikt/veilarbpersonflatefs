@@ -1,22 +1,18 @@
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 import App from './app';
-import './index.less';
 import { settPersonIURL } from './utils/url-utils';
+import global from './utils/global';
+import './index.less';
 
-// tslint:disable
-if (!(global as any)._babelPolyfill) {
+if (!global._babelPolyfill) {
+    // @ts-ignore
     require('babel-polyfill');
-}
-// tslint:enable
-
-interface PersonsokEvent extends Event {
-    fodselsnummer: string;
 }
 
 document.addEventListener(
     'dekorator-hode-personsok',
-    (event: PersonsokEvent) => {
+    (event: any) => {
         settPersonIURL(event.fodselsnummer);
     }
 );
