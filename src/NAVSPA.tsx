@@ -1,6 +1,7 @@
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 import { Feil } from './feilmeldinger';
+import global from './utils/global';
 
 interface INAVSPAScope {
     [name: string]: NAVSPAApp;
@@ -23,8 +24,8 @@ export default class NAVSPA {
 
     public static importer<PROPS>(name: string): React.ComponentType<PROPS> {
         class NAVSPAImporter extends React.Component<PROPS, State> {
-            // tslint:disable-line
-            private el: HTMLElement;
+
+            private el?: HTMLElement;
 
             constructor(props: PROPS) {
                 super(props);
@@ -35,15 +36,17 @@ export default class NAVSPA {
 
             public componentDidCatch(error: Error) {
                 this.setState({ hasError: true });
-                (global as any).frontendlogger.error(error);
+                global.frontendlogger.error(error);
             }
 
             public componentDidMount() {
                 try {
-                    NAVSPA.scope[name](this.el, this.props);
+                    if (this.el) {
+                        NAVSPA.scope[name](this.el, this.props);
+                    }
                 } catch (e) {
                     this.setState({ hasError: true });
-                    (global as any).frontendlogger.error(e);
+                    global.frontendlogger.error(e);
                 }
             }
 
@@ -68,9 +71,6 @@ export default class NAVSPA {
         return NAVSPAImporter;
     }
 
-    // tslint:disable
-    private static scope: INAVSPAScope = ((global as any)['NAVSPA'] =
-        (global as any)['NAVSPA'] || {});
+    private static scope: INAVSPAScope = (global.NAVSPA = global.NAVSPA || {});
 
-    // tslint:enable
 }

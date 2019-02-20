@@ -39,9 +39,9 @@ class WebSocketImpl {
     private status: Status;
     private wsUrl: string;
     private listeners: Listeners;
-    private connection: WebSocket;
-    private resettimer: number | null;
-    private retrytimer: number | null;
+    private connection?: WebSocket;
+    private resettimer?: number | null;
+    private retrytimer?: number | null;
     private retryCounter: number = 0;
     private debug: boolean = false;
 
@@ -90,7 +90,9 @@ class WebSocketImpl {
 
         this.resettimer = window.setTimeout(() => {
             this.status = Status.REFRESH;
-            this.connection.close();
+            if (this.connection) {
+                this.connection.close();
+            }
         }, delay);
 
         this.status = Status.OPEN;

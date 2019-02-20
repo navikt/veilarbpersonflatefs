@@ -39,11 +39,8 @@ interface EnhetContextState {
     fnrContext?: string;
 }
 
-export default class EnhetContext extends React.Component<
-    {},
-    EnhetContextState
-> {
-    public contextListenerPromise: Promise<EnhetContextListener>;
+export default class EnhetContext extends React.Component<{}, EnhetContextState> {
+    public contextListenerPromise?: Promise<EnhetContextListener>;
 
     constructor(props: {}) {
         super(props);
@@ -90,9 +87,9 @@ export default class EnhetContext extends React.Component<
     }
 
     public componentWillUnmount() {
-        this.contextListenerPromise.then(contextListener =>
-            contextListener.close()
-        );
+        if (this.contextListenerPromise) {
+            this.contextListenerPromise.then(contextListener => contextListener.close());
+        }
     }
 
     public render() {

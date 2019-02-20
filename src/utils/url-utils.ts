@@ -1,7 +1,8 @@
 import * as queryString from 'query-string';
+import global from './global';
 
-const location = (global as any).location;
-const history = (global as any).history;
+const location = global.location;
+const history = global.history;
 
 export const leggEnhetIUrl = (enhet: string) => {
     const currentParams = queryString.parse(location.search);
