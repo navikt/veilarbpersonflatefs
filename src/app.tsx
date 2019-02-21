@@ -1,30 +1,25 @@
 import * as React from 'react';
-import EnhetContext from './context/context';
-import NAVSPA from './utils/NAVSPA';
-import { initialiserToppmeny } from './utils/dekorator-utils';
-import { fetchToJson } from "./utils/rest-utils";
+import Datalaster from './components/datalaster';
+import { Features, lagFeatureToggleUrl } from './utils/api';
 import { enhetFraUrl, hentFodselsnummerFraURL } from './utils/url-utils';
+import { fetchToJson } from './utils/rest-utils';
+import SideInnhold from './side-innhold';
+import SideInnholdNyLayout from './side-innhold-ny-layout';
+import { Aktivitetsplan, MAO, Visittkort } from './components/spa';
 import getWindow from './utils/window';
+import { initialiserToppmeny } from './utils/dekorator-utils';
 import { FeilmeldingManglerFnr, IngenTilgangTilBruker } from './components/feilmeldinger';
-
-interface AppProps {
-    enhet?: string;
-    fnr: string;
-}
-
-const MAO: React.ComponentType<AppProps> = NAVSPA.importer<AppProps>('veilarbmaofs');
-const Aktivitetsplan: React.ComponentType<AppProps> = NAVSPA.importer<AppProps>('aktivitetsplan');
+import EnhetContext from './context/context';
 
 interface TilgangTilBrukerState {
     tilgang?: boolean;
 }
 
 class App extends React.Component<{}, TilgangTilBrukerState> {
+
     constructor(props: {}) {
         super(props);
-        this.state = {
-            tilgang: undefined
-        }
+        this.state = { tilgang: undefined };
     }
 
     public setHarTilgang(tilgang: boolean){
@@ -38,8 +33,9 @@ class App extends React.Component<{}, TilgangTilBrukerState> {
             .catch(() => this.setHarTilgang(false));
     }
 
+    render() {
 
-    public render() {
+        const enhet = enhetFraUrl();
         const fnr = hentFodselsnummerFraURL();
         const erDecoratorenIkkeLastet = !getWindow().renderDecoratorHead;
 
@@ -59,23 +55,25 @@ class App extends React.Component<{}, TilgangTilBrukerState> {
             return <IngenTilgangTilBruker />;
         }
 
-        const appProps: AppProps = {
-            enhet: enhetFraUrl(),
-            fnr: hentFodselsnummerFraURL()!,
-        };
+        const visittkort = <Visittkort enhet={enhet} fnr={fnr} />;
+        const mao = <MAO enhet={enhet} fnr={fnr} />;
+        const aktivitetsplan = <Aktivitetsplan enhet={enhet} fnr={fnr} />;
 
         return (
-            <div>
+            <>
                 <EnhetContext />
-                <div className="hovedinnhold">
-                    <MAO {...appProps} />
-                </div>
-                <div className="hovedinnhold">
-                    <Aktivitetsplan {...appProps} />
-                </div>
-            </div>
+                <Datalaster<Features> url={lagFeatureToggleUrl()}>
+                    {(data: Features) =>
+                         data.NY_LAYOUT_TOGGLE ?
+                            <SideInnholdNyLayout visittkort={visittkort} mao={mao} aktivitetsplan={aktivitetsplan}/>
+                            :
+                            <SideInnhold mao={mao} aktivitetsplan={aktivitetsplan}/>
+                    }
+                </Datalaster>
+            </>
         );
     }
+
 }
 
 export default App;

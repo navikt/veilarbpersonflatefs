@@ -7,7 +7,8 @@
   "license": "MIT",
   "repository": "https://github.com/navikt/veilarbpersonflatefs",
   "scripts": {
-    "start": "cross-env REACT_APP_MOCK=true craco start",
+    "start": "craco start",
+    "start:mock": "cross-env REACT_APP_MOCK=true craco start",
     "build": "craco build",
     "lint": "echo not implemented, part of the build script",
     "test": "craco test --env=jsdom",
@@ -32,15 +33,17 @@
     "nav-frontend-modal": "1.0.26",
     "nav-frontend-modal-style": "0.3.27",
     "nav-frontend-paneler-style": "0.3.13",
+    "nav-frontend-spinner": "^1.0.16",
+    "nav-frontend-spinner-style": "^0.2.5",
     "nav-frontend-typografi": "2.0.9",
     "nav-frontend-typografi-style": "1.0.11",
-    "prop-types": "15.7.2",
     "query-string": "6.2.0",
     "react": "16.8.2",
     "react-dom": "16.8.2",
     "react-intl": "2.8.0",
     "react-modal": "3.8.1",
-    "react-scripts": "2.1.3"
+    "react-scripts": "2.1.3",
+    "yet-another-fetch-mock": "^2.4.1"
   },
   "devDependencies": {
     "@types/jest": "24.0.6",

@@ -1,11 +1,11 @@
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
-import App from './app';
 import { settPersonIURL } from './utils/url-utils';
 import getWindow from './utils/window';
+import App from './app';
 import './index.less';
-import AppMock from './app-mock';
 import { isAppMocked } from './utils/mock-utils';
+import AppMock from './app-mock';
 
 const window = getWindow();
 
