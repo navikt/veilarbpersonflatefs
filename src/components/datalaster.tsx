@@ -1,11 +1,12 @@
 import * as React from 'react';
 import NavFrontendSpinner from 'nav-frontend-spinner';
-import { fetchToJson } from '../utils/rest-utils';
 import { AlertStripeAdvarselSolid } from 'nav-frontend-alertstriper';
+import { fetchToJson } from '../utils/rest-utils';
 
 interface DatalasterProps<D> {
     url: string;
     feilmelding?: React.ReactElement;
+    spinner?: React.ReactElement;
     children: (data: D) => React.ReactElement;
 }
 
@@ -40,7 +41,7 @@ class Datalaster<D> extends React.Component<DatalasterProps<D>, DatalasterState<
     render() {
 
         const { data, harFeilet } = this.state;
-        const { children, feilmelding } = this.props;
+        const { children, feilmelding, spinner } = this.props;
 
         if (harFeilet) {
             return feilmelding ? feilmelding : (
@@ -49,7 +50,9 @@ class Datalaster<D> extends React.Component<DatalasterProps<D>, DatalasterState<
                 </AlertStripeAdvarselSolid>
             );
         } else if (data == null) {
-            return  <NavFrontendSpinner type="XL"/>;
+            return spinner ? spinner : (
+                <NavFrontendSpinner type="XL"/>
+            );
         }
 
         return children(data);

@@ -9,5 +9,5 @@ export const lagFeatureToggleUrl = () => {
 };
 
 export interface Features {
-    NY_LAYOUT_TOGGLE: boolean;
+    [NY_LAYOUT_TOGGLE]: boolean;
 }

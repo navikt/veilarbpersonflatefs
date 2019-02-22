@@ -1,15 +1,16 @@
 import * as React from 'react';
 import Datalaster from './components/datalaster';
-import { Features, lagFeatureToggleUrl } from './utils/api';
+import { Features, lagFeatureToggleUrl, NY_LAYOUT_TOGGLE } from './utils/api';
 import { enhetFraUrl, hentFodselsnummerFraURL } from './utils/url-utils';
 import { fetchToJson } from './utils/rest-utils';
-import SideInnhold from './side-innhold';
-import SideInnholdNyLayout from './side-innhold-ny-layout';
+import SideInnhold from './components/side-innhold';
+import SideInnholdNyLayout from './components/side-innhold-ny-layout';
 import { Aktivitetsplan, MAO, Visittkort } from './components/spa';
 import getWindow from './utils/window';
 import { initialiserToppmeny } from './utils/dekorator-utils';
 import { FeilmeldingManglerFnr, IngenTilgangTilBruker } from './components/feilmeldinger';
 import EnhetContext from './context/context';
+import PageSpinner from './components/page-spinner/page-spinner';
 
 interface TilgangTilBrukerState {
     tilgang?: boolean;
@@ -62,9 +63,9 @@ class App extends React.Component<{}, TilgangTilBrukerState> {
         return (
             <>
                 <EnhetContext />
-                <Datalaster<Features> url={lagFeatureToggleUrl()}>
+                <Datalaster<Features> url={lagFeatureToggleUrl()} spinner={<PageSpinner/>}>
                     {(data: Features) =>
-                         data.NY_LAYOUT_TOGGLE ?
+                         data[NY_LAYOUT_TOGGLE] ?
                             <SideInnholdNyLayout visittkort={visittkort} mao={mao} aktivitetsplan={aktivitetsplan}/>
                             :
                             <SideInnhold mao={mao} aktivitetsplan={aktivitetsplan}/>

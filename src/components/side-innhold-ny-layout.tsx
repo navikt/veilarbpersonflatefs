@@ -1,5 +1,5 @@
 import React from 'react';
-import TabMenu, { Tab } from './components/tabs/tab-menu';
+import TabMenu, { Tab } from './tabs/tab-menu';
 
 interface SideInnholdNyLayoutProps {
     visittkort: React.ReactElement;

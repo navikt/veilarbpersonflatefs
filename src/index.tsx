@@ -21,6 +21,14 @@ document.addEventListener(
     }
 );
 
-const app = isAppMocked() ? <AppMock /> : <App />;
+let app;
+
+if (isAppMocked()) {
+    app = <AppMock />;
+    // @ts-ignore
+    require('./mock');
+} else {
+    app = <App />;
+}
 
 ReactDOM.render(app, document.getElementById('pagewrapper'));
