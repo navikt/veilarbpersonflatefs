@@ -18,7 +18,7 @@
   "dependencies": {
     "@craco/craco": "3.4.1",
     "babel-polyfill": "6.26.0",
-    "classnames": "2.2.6",
+    "classnames": "^2.2.6",
     "craco-less": "1.6.0",
     "lodash.throttle": "4.1.1",
     "nav-frontend-alertstriper": "1.0.33",
@@ -46,6 +46,7 @@
     "yet-another-fetch-mock": "^2.4.1"
   },
   "devDependencies": {
+    "@types/classnames": "^2.2.7",
     "@types/jest": "24.0.6",
     "@types/query-string": "6.2.0",
     "@types/react": "16.8.4",

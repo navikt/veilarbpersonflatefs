@@ -1,4 +1,5 @@
 import React from 'react';
+import TabMenu, { Tab } from './components/tabs/tab-menu';
 
 interface SideInnholdNyLayoutProps {
     visittkort: React.ReactElement;
@@ -10,12 +11,15 @@ const SideInnholdNyLayout: React.FunctionComponent<SideInnholdNyLayoutProps> = (
 
     const { visittkort, aktivitetsplan, mao } = props;
 
+    const tabs: Tab[] = [
+        { title: 'Aktivitetsplan', content: aktivitetsplan },
+        { title: 'Detaljer', content: mao }
+    ];
+
     return (
         <>
-            <p>Ny Layout</p>
             {visittkort}
-            {mao}
-            {aktivitetsplan}
+            <TabMenu tabs={tabs}/>
         </>
     );
 
