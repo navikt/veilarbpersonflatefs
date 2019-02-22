@@ -1,5 +1,5 @@
 import React from 'react';
-import TabMenu, { Tab } from './tabs/tab-menu';
+import TabMenu, { Tab } from './tab-menu/tab-menu';
 
 interface SideInnholdNyLayoutProps {
     visittkort: React.ReactElement;
@@ -7,22 +7,35 @@ interface SideInnholdNyLayoutProps {
     aktivitetsplan: React.ReactElement;
 }
 
-const SideInnholdNyLayout: React.FunctionComponent<SideInnholdNyLayoutProps> = (props: SideInnholdNyLayoutProps) => {
+class SideInnholdNyLayout extends React.Component<SideInnholdNyLayoutProps> {
 
-    const { visittkort, aktivitetsplan, mao } = props;
+    constructor(props: SideInnholdNyLayoutProps) {
+        super(props);
+        this.setPageBackground();
+    }
 
-    const tabs: Tab[] = [
-        { title: 'Aktivitetsplan', content: aktivitetsplan },
-        { title: 'Detaljer', content: mao }
-    ];
+    setPageBackground = () => {
+        const page = document.getElementsByClassName("veilarbpersonflatefs")[0];
+        page.classList.add("grey-background");
+    };
 
-    return (
-        <>
-            {visittkort}
-            <TabMenu tabs={tabs}/>
-        </>
-    );
+    render () {
+        const { visittkort, aktivitetsplan, mao } = this.props;
 
-};
+        const tabs: Tab[] = [
+            { title: 'Aktivitetsplan', content: aktivitetsplan },
+            { title: 'Detaljer', content: mao }
+        ];
+
+        return (
+            <>
+                <div className="visittkort-wrapper">
+                    {visittkort}
+                </div>
+                <TabMenu tabs={tabs}/>
+            </>
+        );
+    }
+}
 
 export default SideInnholdNyLayout;
