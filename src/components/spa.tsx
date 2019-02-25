@@ -8,4 +8,4 @@ interface SpaProps {
 
 export const MAO: React.ComponentType<SpaProps> = NAVSPA.importer<SpaProps>('veilarbmaofs');
 export const Aktivitetsplan: React.ComponentType<SpaProps> = NAVSPA.importer<SpaProps>('aktivitetsplan');
-export const Visittkort: React.ComponentType<SpaProps> = NAVSPA.importer<SpaProps>('visittkort');
+export const Visittkort: React.ComponentType<SpaProps> = NAVSPA.importer<SpaProps>('veilarbvisittkortfs');
