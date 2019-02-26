@@ -6,7 +6,7 @@
 		display: flex;
 		flex-direction: row;
 		justify-content: flex-start;
-		max-width: 960px;
+		max-width: 1200px;
 		margin: 0 auto;
 	}
 
@@ -25,24 +25,46 @@
 }
 
 .tab {
-	margin-left: 2rem;
+	margin-left: 7px;
 	cursor: pointer;
 
 	&:first-child {
 		margin-left: 0;
 	}
 
-	&__selected--title {
-		font-weight: bold !important;
+	&__title {
+		opacity: 0.8;
+		padding: 0 1.25rem;
 	}
 
-	&__selected--bar {
+	&__title:hover {
+		opacity: 1;
+	}
+
+	&__title--selected {
+		opacity: 1;
+		font-weight: 900 !important;
+	}
+
+	&:hover {
+		.tab__bar {
+			opacity: 1;
+		}
+	}
+
+	&--selected {
+		.tab__bar {
+			opacity: 1;
+		}
+	}
+
+	&__bar {
 		position: relative;
 		width: 100%;
-		height: 4px;
-		background-color: black;
-		border-radius: 10px;
+		height: 3px;
+		background-color: @navBla;
 		top: 0.9rem;
+		opacity: 0;
 	}
 
 }

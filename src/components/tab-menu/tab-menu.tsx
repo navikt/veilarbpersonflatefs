@@ -39,13 +39,13 @@ class TabMenu extends React.Component<TabsProps, TabsState> {
             return (
                 <div
                     key={idx}
-                    className={cls("tab", {"tab__selected": isSelected(idx)})}
+                    className={cls("tab", {"tab--selected": isSelected(idx)})}
                     onClick={this.createTabClickedHandler(idx)}
                 >
-                    <Normaltekst className={cls({"tab__selected--title": isSelected(idx)})}>
+                    <Normaltekst className={cls("tab__title", {"tab__title--selected": isSelected(idx)})}>
                         {tab.title}
                     </Normaltekst>
-                    {isSelected(idx) && <div className="tab__selected--bar"/>}
+                    <div className="tab__bar"/>
                 </div>
             );
         });

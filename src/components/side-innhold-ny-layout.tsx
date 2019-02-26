@@ -1,5 +1,6 @@
 import React from 'react';
 import TabMenu, { Tab } from './tab-menu/tab-menu';
+import './side-innhold-ny-layout.less';
 
 interface SideInnholdNyLayoutProps {
     visittkort: React.ReactElement;
@@ -24,7 +25,7 @@ class SideInnholdNyLayout extends React.Component<SideInnholdNyLayoutProps> {
 
         const tabs: Tab[] = [
             { title: 'Aktivitetsplan', content: aktivitetsplan },
-            { title: 'Detaljer', content: mao }
+            { title: 'Detaljer', content: <div className="tab-content__mao">{mao}</div> }
         ];
 
         return (
