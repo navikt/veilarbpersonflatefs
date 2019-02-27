@@ -51,9 +51,25 @@ class TabMenu extends React.Component<TabsProps, TabsState> {
         });
     };
 
-    render() {
+    createTabContents = () => {
         const { tabs } = this.props;
         const { selectedTab } = this.state;
+
+        return tabs.map((tab, idx) => {
+            return (
+                <div
+                    className={cls("tab-menu__tab-content",
+                    { "no-display": (idx !== selectedTab)})}
+                    key={idx}
+                >
+                    {tabs[idx].content}
+                </div>
+            );
+        });
+    };
+
+    render() {
+        const { tabs } = this.props;
         return (
             <div className="tab-menu">
                 <div className="tab-menu__headers--wrapper">
@@ -61,9 +77,7 @@ class TabMenu extends React.Component<TabsProps, TabsState> {
                         {this.mapTabTitlesToViews(tabs)}
                     </div>
                 </div>
-                <div className="tab-menu__tab-content">
-                    {tabs[selectedTab].content}
-                </div>
+                {this.createTabContents()}
             </div>
         );
     }
