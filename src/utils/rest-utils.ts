@@ -11,7 +11,7 @@ export function fetchToJson<Modell>(
 ): Promise<Modell> {
     return fetch(uri, { ...MED_CREDENTIALS, ...config }).then(response =>
         response.json()
-    );
+    ).catch();
 }
 
 export function postData(

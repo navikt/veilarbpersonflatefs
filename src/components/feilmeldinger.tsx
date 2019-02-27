@@ -1,7 +1,7 @@
 import AlertStripeInfoSolid from 'nav-frontend-alertstriper/lib/info-solid-alertstripe';
 import * as React from 'react';
 import { FormattedMessage, IntlProvider } from 'react-intl';
-import { Tekst, tekster } from './context/context-tekster';
+import { Tekst, tekster } from '../context/context-tekster';
 
 interface FeilProps {
     appNavn: string;

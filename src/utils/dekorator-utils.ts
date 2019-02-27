@@ -1,4 +1,5 @@
 import { hentFodselsnummerFraURL } from './url-utils';
+import getWindow from './window';
 
 interface Config {
     config: {
@@ -36,5 +37,5 @@ const config = (): Config => ({
 });
 
 export const initialiserToppmeny = (): void => {
-    (window as any).renderDecoratorHead(config());
+    getWindow().renderDecoratorHead(config());
 };

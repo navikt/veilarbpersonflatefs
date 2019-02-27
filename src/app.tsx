@@ -1,34 +1,26 @@
 import * as React from 'react';
-import EnhetContext from './context/context';
-import { FeilmeldingManglerFnr, IngenTilgangTilBruker } from './feilmeldinger';
-import NAVSPA from './NAVSPA';
-import { initialiserToppmeny } from './utils/dekorator-utils';
-import { fetchToJson } from "./utils/rest-utils";
+import Datalaster from './components/datalaster';
+import { Features, lagFeatureToggleUrl, NY_LAYOUT_TOGGLE } from './utils/api';
 import { enhetFraUrl, hentFodselsnummerFraURL } from './utils/url-utils';
-
-interface AppProps {
-    enhet?: string;
-    fnr: string;
-}
-
-const MAO: React.ComponentType<AppProps> = NAVSPA.importer<AppProps>(
-    'veilarbmaofs'
-);
-const Aktivitetsplan: React.ComponentType<AppProps> = NAVSPA.importer<AppProps>(
-    'aktivitetsplan'
-);
-
+import { fetchToJson } from './utils/rest-utils';
+import SideInnhold from './components/side-innhold';
+import SideInnholdNyLayout from './components/side-innhold-ny-layout';
+import { Aktivitetsplan, MAO, Visittkort } from './components/spa';
+import getWindow from './utils/window';
+import { initialiserToppmeny } from './utils/dekorator-utils';
+import { FeilmeldingManglerFnr, IngenTilgangTilBruker } from './components/feilmeldinger';
+import EnhetContext from './context/context';
+import PageSpinner from './components/page-spinner/page-spinner';
 
 interface TilgangTilBrukerState {
     tilgang?: boolean;
 }
 
 class App extends React.Component<{}, TilgangTilBrukerState> {
+
     constructor(props: {}) {
         super(props);
-        this.state = {
-            tilgang: undefined
-        }
+        this.state = { tilgang: undefined };
     }
 
     public setHarTilgang(tilgang: boolean){
@@ -42,12 +34,13 @@ class App extends React.Component<{}, TilgangTilBrukerState> {
             .catch(() => this.setHarTilgang(false));
     }
 
+    render() {
 
-    public render() {
+        const enhet = enhetFraUrl();
         const fnr = hentFodselsnummerFraURL();
-        const erDecoratorenLastet = !(window as any).renderDecoratorHead;
+        const erDecoratorenIkkeLastet = !getWindow().renderDecoratorHead;
 
-        if (erDecoratorenLastet) {
+        if (erDecoratorenIkkeLastet) {
             return <div>500 feil: Mangler decoratøren</div>;
         }
 
@@ -63,23 +56,25 @@ class App extends React.Component<{}, TilgangTilBrukerState> {
             return <IngenTilgangTilBruker />;
         }
 
-        const appProps: AppProps = {
-            enhet: enhetFraUrl(),
-            fnr: hentFodselsnummerFraURL()!,
-        };
+        const visittkort = <Visittkort enhet={enhet} fnr={fnr} />;
+        const mao = <MAO enhet={enhet} fnr={fnr} />;
+        const aktivitetsplan = <Aktivitetsplan enhet={enhet} fnr={fnr} />;
 
         return (
-            <div>
+            <>
                 <EnhetContext />
-                <div className="hovedinnhold">
-                    <MAO {...appProps} />
-                </div>
-                <div className="hovedinnhold">
-                    <Aktivitetsplan {...appProps} />
-                </div>
-            </div>
+                <Datalaster<Features> url={lagFeatureToggleUrl()} spinner={<PageSpinner/>}>
+                    {(data: Features) =>
+                         data[NY_LAYOUT_TOGGLE] ?
+                            <SideInnholdNyLayout visittkort={visittkort} mao={mao} aktivitetsplan={aktivitetsplan}/>
+                            :
+                            <SideInnhold mao={mao} aktivitetsplan={aktivitetsplan}/>
+                    }
+                </Datalaster>
+            </>
         );
     }
+
 }
 
 export default App;
