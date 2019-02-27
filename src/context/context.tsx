@@ -58,9 +58,7 @@ export default class EnhetContext extends React.Component<{}, EnhetContextState>
         this.enhetContextHandler = this.enhetContextHandler.bind(this);
         this.lukkFeilmodal = this.lukkFeilmodal.bind(this);
         this.handleLastNyBruker = this.handleLastNyBruker.bind(this);
-        this.handleFortsettSammeBruker = this.handleFortsettSammeBruker.bind(
-            this
-        );
+        this.handleFortsettSammeBruker = this.handleFortsettSammeBruker.bind(this);
     }
 
     public componentDidMount() {
