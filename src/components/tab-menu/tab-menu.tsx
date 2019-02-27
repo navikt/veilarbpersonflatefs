@@ -37,7 +37,7 @@ class TabMenu extends React.Component<TabsProps, TabsState> {
         const isSelected = (idx: number) => idx === selectedTab;
         return tabs.map((tab, idx) => {
             return (
-                <div
+                <button
                     key={idx}
                     className={cls("tab", {"tab--selected": isSelected(idx)})}
                     onClick={this.createTabClickedHandler(idx)}
@@ -46,7 +46,7 @@ class TabMenu extends React.Component<TabsProps, TabsState> {
                         {tab.title}
                     </Normaltekst>
                     <div className="tab__bar"/>
-                </div>
+                </button>
             );
         });
     };

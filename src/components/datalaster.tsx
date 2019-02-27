@@ -5,7 +5,6 @@ import { fetchToJson } from '../utils/rest-utils';
 
 interface DatalasterProps<D> {
     url: string;
-    feilmelding?: React.ReactElement;
     spinner?: React.ReactElement;
     children: (data: D) => React.ReactElement;
 }
@@ -24,13 +23,13 @@ class Datalaster<D> extends React.Component<DatalasterProps<D>, DatalasterState<
             harFeilet: false,
         };
 
-        fetchToJson(props.url)
+        fetchToJson<D>(props.url)
             .then(this.handleDataLastet)
             .catch(this.handleDatalastFeilet);
 
     }
 
-    handleDataLastet = (data: any) => {
+    handleDataLastet = (data: D) => {
         this.setState({ data });
     };
 
@@ -41,10 +40,10 @@ class Datalaster<D> extends React.Component<DatalasterProps<D>, DatalasterState<
     render() {
 
         const { data, harFeilet } = this.state;
-        const { children, feilmelding, spinner } = this.props;
+        const { children, spinner } = this.props;
 
         if (harFeilet) {
-            return feilmelding ? feilmelding : (
+            return (
                 <AlertStripeAdvarselSolid>
                     Kunne ikke laste data, prøv på nytt ...
                 </AlertStripeAdvarselSolid>
