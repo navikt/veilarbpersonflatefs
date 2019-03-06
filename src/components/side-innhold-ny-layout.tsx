@@ -28,12 +28,15 @@ class SideInnholdNyLayout extends React.Component<SideInnholdNyLayoutProps> {
             { title: 'Detaljer', content: <div className="tab-content__mao">{mao}</div> }
         ];
 
+        const visDetaljer = window.location.search.indexOf('visRegistreringDetaljer') >= 0;
+        const defaultSelectedTab = visDetaljer ? 1 : 0;
+
         return (
             <>
                 <div className="visittkort-wrapper">
                     {visittkort}
                 </div>
-                <TabMenu tabs={tabs}/>
+                <TabMenu tabs={tabs} defaultSelectedTab={defaultSelectedTab}/>
             </>
         );
     }
