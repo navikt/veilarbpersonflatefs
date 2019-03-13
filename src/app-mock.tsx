@@ -15,7 +15,7 @@ const AppMock: React.FunctionComponent = () => {
         <Datalaster<Features> url={lagFeatureToggleUrl()} spinner={<PageSpinner/>}>
             {(data: Features) =>
                 data[NY_LAYOUT_TOGGLE] ?
-                    <SideInnholdNyLayout visittkort={visittkort} mao={mao} aktivitetsplan={aktivitetsplan}/>
+                    <SideInnholdNyLayout features={data} visittkort={visittkort} mao={mao} aktivitetsplan={aktivitetsplan}/>
                     :
                     <SideInnhold mao={mao} aktivitetsplan={aktivitetsplan}/>
             }

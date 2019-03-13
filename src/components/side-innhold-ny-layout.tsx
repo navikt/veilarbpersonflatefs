@@ -1,12 +1,14 @@
 import React from 'react';
 import TabMenu, { Tab } from './tab-menu/tab-menu';
 import TourModal from './tour-modal/tour-modal';
+import { Features, TOUR_MODAL_TOGGLE } from '../utils/api';
 import './side-innhold-ny-layout.less';
 
 interface SideInnholdNyLayoutProps {
     visittkort: React.ReactElement;
     mao: React.ReactElement;
     aktivitetsplan: React.ReactElement;
+    features: Features;
 }
 
 class SideInnholdNyLayout extends React.Component<SideInnholdNyLayoutProps> {
@@ -22,7 +24,7 @@ class SideInnholdNyLayout extends React.Component<SideInnholdNyLayoutProps> {
     };
 
     render () {
-        const { visittkort, aktivitetsplan, mao } = this.props;
+        const { visittkort, aktivitetsplan, mao, features } = this.props;
 
         const tabs: Tab[] = [
             { title: 'Aktivitetsplan', content: aktivitetsplan },
@@ -38,7 +40,7 @@ class SideInnholdNyLayout extends React.Component<SideInnholdNyLayoutProps> {
                     {visittkort}
                 </div>
                 <TabMenu tabs={tabs} defaultSelectedTab={defaultSelectedTab}/>
-                <TourModal />
+                { features[TOUR_MODAL_TOGGLE] && <TourModal /> }
             </>
         );
     }
