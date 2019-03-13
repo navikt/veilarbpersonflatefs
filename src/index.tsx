@@ -6,6 +6,7 @@ import App from './app';
 import './index.less';
 import { isAppMocked } from './utils/mock-utils';
 import AppMock from './app-mock';
+import NavFrontendModal from 'nav-frontend-modal';
 
 const window = getWindow();
 
@@ -20,6 +21,8 @@ document.addEventListener(
         settPersonIURL(event.fodselsnummer);
     }
 );
+
+NavFrontendModal.setAppElement(document.querySelector('#modal-a11y-wrapper'));
 
 let app;
 

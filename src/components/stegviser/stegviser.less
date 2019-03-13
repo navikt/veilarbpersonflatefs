@@ -1,0 +1,33 @@
+@import "~nav-frontend-core/less/_variabler";
+
+.stegviser {
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+	align-items: center;
+
+	> * {
+		margin: 0 0.4rem;
+	}
+
+	> :first-child {
+		margin-left: 0;
+	}
+
+	>:last-child {
+		margin-right: 0;
+	}
+
+	&__steg {
+		width: 0.75rem;
+		height: 0.75rem;
+		border-radius: 50%;
+		background-color: @navLysBla;
+	}
+
+	&__steg--selected {
+		background-color: @navDypBla;
+		transition: background-color 333ms linear;
+	}
+
+}

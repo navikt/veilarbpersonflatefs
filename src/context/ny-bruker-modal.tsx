@@ -16,8 +16,6 @@ interface NyBrukerModalProps {
 
 const doNothing = () => true;
 
-NavFrontendModal.setAppElement(document.querySelector('#modal-a11y-wrapper'));
-
 class NyBrukerModal extends React.Component<NyBrukerModalProps> {
     public render() {
         return (
