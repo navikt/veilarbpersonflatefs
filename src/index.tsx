@@ -3,10 +3,10 @@ import * as ReactDOM from 'react-dom';
 import { settPersonIURL } from './utils/url-utils';
 import getWindow from './utils/window';
 import App from './app';
-import './index.less';
 import { isAppMocked } from './utils/mock-utils';
 import AppMock from './app-mock';
 import NavFrontendModal from 'nav-frontend-modal';
+import './index.less';
 
 const window = getWindow();
 

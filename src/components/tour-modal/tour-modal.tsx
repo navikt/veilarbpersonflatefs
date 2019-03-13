@@ -2,10 +2,21 @@ import * as React from 'react';
 import NavFrontendModal from 'nav-frontend-modal';
 import { Innholdstittel, Normaltekst, Systemtittel } from 'nav-frontend-typografi';
 import ChevronLenke, { Retning } from '../chevron-lenke/chevron-lenke';
-import './tour-modal.less';
 import Stegviser from '../stegviser/stegviser';
+import step1Bilde from './step-1.jpg';
+import step2Bilde from './step-2.jpg';
+import step3Bilde from './step-3.jpg';
+import './tour-modal.less';
 
-export interface Step {
+const modalName = 'TOUR_MODAL-NY_LAYOUT_ENDRING';
+
+const steps: Step[] = [
+    { tittel: 'Visittkort', bilde: step1Bilde, tekst: 'tekst1'},
+    { tittel: 'Veilederverktøy', bilde: step2Bilde, tekst: 'tekst2'},
+    { tittel: 'Fane', bilde: step3Bilde, tekst: 'tekst3'},
+];
+
+interface Step {
     tittel: string;
     tekst: string;
     bilde: string;
@@ -16,30 +27,26 @@ interface TourModalState {
     modalOpen: boolean;
 }
 
-interface TourModalProps {
-    open: boolean;
-    steps: Step[];
-}
+class TourModal extends React.Component<{}, TourModalState> {
 
-class TourModal extends React.Component<TourModalProps, TourModalState> {
-
-    constructor(props: TourModalProps) {
+    constructor(props: {}) {
         super(props);
         this.state = {
-            modalOpen: props.open,
+            modalOpen: this.skalViseModal(),
             selectedStepIdx: 0
         };
     }
 
-    componentWillReceiveProps(prevProps: TourModalProps) {
-        console.log('will recieve'); // tslint:disable-line
-        if (prevProps.open !== this.props.open) {
-            this.setState({ modalOpen: this.props.open });
-        }
+    skalViseModal = (): boolean => {
+        return window.localStorage.getItem(modalName) == null;
+    };
+
+    lagreIkkeVisModal = () => {
+        window.localStorage.setItem(modalName, 'true');
     }
 
     handleOnRequestClose = () => {
-        this.setState({ modalOpen: false });
+        // Do nothing
     };
 
     handlePreviousBtnClicked = () => {
@@ -56,10 +63,10 @@ class TourModal extends React.Component<TourModalProps, TourModalState> {
 
     handleFinishBtnClicked = () => {
         this.setState({ modalOpen: false });
+        this.lagreIkkeVisModal();
     };
 
     render() {
-        const { steps } = this.props;
         const { selectedStepIdx, modalOpen } = this.state;
         const step = steps[selectedStepIdx];
         const isFinalStep = selectedStepIdx === steps.length - 1;
@@ -74,14 +81,16 @@ class TourModal extends React.Component<TourModalProps, TourModalState> {
                 contentLabel="TourModal"
                 isOpen={modalOpen}
                 closeButton={false}
-                shouldCloseOnOverlayClick={true}
+                shouldCloseOnOverlayClick={false}
                 onRequestClose={this.handleOnRequestClose}
             >
                 <header className="tour-modal__header">
                     <Innholdstittel>Ny oppdatering</Innholdstittel>
                 </header>
                 <main className="tour-modal__main">
-                    <img src={step.bilde} className="tour-modal__main--bilde"/>
+                    <div className="tour-modal__main--bilde-wrapper">
+                        <img src={step.bilde} className="tour-modal__main--bilde"/>
+                    </div>
                     <div className="tour-modal__main--beskrivelse">
                         <Systemtittel>{step.tittel}</Systemtittel>
                         <Normaltekst>{step.tekst}</Normaltekst>
