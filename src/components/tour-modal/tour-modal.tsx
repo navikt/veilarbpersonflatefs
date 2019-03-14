@@ -45,8 +45,9 @@ class TourModal extends React.Component<{}, TourModalState> {
         window.localStorage.setItem(modalName, 'true');
     }
 
-    handleOnRequestClose = () => {
-        // Do nothing
+    lukkModal = () => {
+        this.setState({ modalOpen: false });
+        this.lagreIkkeVisModal();
     };
 
     handlePreviousBtnClicked = () => {
@@ -61,11 +62,6 @@ class TourModal extends React.Component<{}, TourModalState> {
         });
     };
 
-    handleFinishBtnClicked = () => {
-        this.setState({ modalOpen: false });
-        this.lagreIkkeVisModal();
-    };
-
     render() {
         const { selectedStepIdx, modalOpen } = this.state;
         const step = steps[selectedStepIdx];
@@ -73,16 +69,16 @@ class TourModal extends React.Component<{}, TourModalState> {
 
         const hidePrevBtn = selectedStepIdx === 0;
         const nextBtnText = isFinalStep ? "Ferdig" : "Neste";
-        const nextBtnHandleClick = isFinalStep ? this.handleFinishBtnClicked : this.handleNextBtnClicked;
+        const nextBtnHandleClick = isFinalStep ? this.lukkModal : this.handleNextBtnClicked;
 
         return (
             <NavFrontendModal
                 className="tour-modal"
                 contentLabel="TourModal"
                 isOpen={modalOpen}
-                closeButton={false}
+                closeButton={true}
                 shouldCloseOnOverlayClick={false}
-                onRequestClose={this.handleOnRequestClose}
+                onRequestClose={this.lukkModal}
             >
                 <header className="tour-modal__header">
                     <Innholdstittel>Ny oppdatering</Innholdstittel>
