@@ -6,6 +6,10 @@ interface SpaProps {
     fnr: string;
 }
 
+interface VisittKortProps extends SpaProps {
+    tilbakeTilFlate: string;
+}
+
 export const MAO: React.ComponentType<SpaProps> = NAVSPA.importer<SpaProps>('veilarbmaofs');
 export const Aktivitetsplan: React.ComponentType<SpaProps> = NAVSPA.importer<SpaProps>('aktivitetsplan');
-export const Visittkort: React.ComponentType<SpaProps> = NAVSPA.importer<SpaProps>('veilarbvisittkortfs');
+export const Visittkort: React.ComponentType<VisittKortProps> = NAVSPA.importer<VisittKortProps>('veilarbvisittkortfs');
