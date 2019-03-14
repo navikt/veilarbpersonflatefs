@@ -6,6 +6,7 @@ import Stegviser from '../stegviser/stegviser';
 import step1Bilde from './step-1.jpg';
 import step2Bilde from './step-2.jpg';
 import step3Bilde from './step-3.jpg';
+import { logEvent } from '../../utils/frontend-logger';
 import './tour-modal.less';
 
 const modalName = 'TOUR_MODAL-NY_LAYOUT_ENDRING';
@@ -27,10 +28,26 @@ interface TourModalState {
     modalOpen: boolean;
 }
 
+interface TourModalMetrics {
+    timeSpentStep0: number; // sec
+    timeSpentStep1: number; // sec
+    timeSpentStep2: number; // sec
+    totalTimeSpent: number; // sec
+    canceledTour: boolean;
+    finishedTour: boolean;
+}
+
+const LOG_TAG_TOUR_MODAL_METRICS = 'veilarbpersonflatefs.metrikker.tour_modal';
+
 class TourModal extends React.Component<{}, TourModalState> {
+
+    private timeSpent: number[];
+    private timeStarted: number;
 
     constructor(props: {}) {
         super(props);
+        this.timeStarted = Date.now();
+        this.timeSpent = Array(steps.length).fill(0);
         this.state = {
             modalOpen: this.skalViseModal(),
             selectedStepIdx: 0
@@ -38,16 +55,40 @@ class TourModal extends React.Component<{}, TourModalState> {
     }
 
     skalViseModal = (): boolean => {
+        return true;
         return window.localStorage.getItem(modalName) == null;
     };
 
     lagreIkkeVisModal = () => {
         window.localStorage.setItem(modalName, 'true');
-    }
+    };
+
+    lagTourModalMetrikker = (finishedTour: boolean): TourModalMetrics => {
+        return {
+            canceledTour: !finishedTour,
+            finishedTour,
+            timeSpentStep0: this.timeSpent[0],
+            timeSpentStep1: this.timeSpent[1],
+            timeSpentStep2: this.timeSpent[2],
+            totalTimeSpent: this.timeSpent.reduce((acc, timeSpent) => acc += timeSpent)
+        };
+    };
 
     lukkModal = () => {
         this.setState({ modalOpen: false });
         this.lagreIkkeVisModal();
+    };
+
+    setTimeSpent = () => {
+        const now = Date.now();
+        this.timeSpent[this.state.selectedStepIdx] += ((now - this.timeStarted) / 1000);
+        this.timeStarted = now;
+    };
+
+    handleOnRequestClose = () => {
+        const metrics = this.lagTourModalMetrikker(false);
+        logEvent(LOG_TAG_TOUR_MODAL_METRICS, metrics);
+        this.lukkModal();
     };
 
     handlePreviousBtnClicked = () => {
@@ -58,8 +99,16 @@ class TourModal extends React.Component<{}, TourModalState> {
 
     handleNextBtnClicked = () => {
         this.setState((state: TourModalState) => {
+            this.setTimeSpent();
             return { selectedStepIdx: state.selectedStepIdx + 1 }
         });
+    };
+
+    handleFinishBtnClicked = () => {
+        this.setTimeSpent();
+        const metrics = this.lagTourModalMetrikker(true);
+        logEvent(LOG_TAG_TOUR_MODAL_METRICS, metrics);
+        this.lukkModal();
     };
 
     render() {
@@ -69,7 +118,8 @@ class TourModal extends React.Component<{}, TourModalState> {
 
         const hidePrevBtn = selectedStepIdx === 0;
         const nextBtnText = isFinalStep ? "Ferdig" : "Neste";
-        const nextBtnHandleClick = isFinalStep ? this.lukkModal : this.handleNextBtnClicked;
+        const nextBtnHandleClick = isFinalStep ?
+            this.handleFinishBtnClicked : this.handleNextBtnClicked;
 
         return (
             <NavFrontendModal
@@ -78,7 +128,7 @@ class TourModal extends React.Component<{}, TourModalState> {
                 isOpen={modalOpen}
                 closeButton={true}
                 shouldCloseOnOverlayClick={false}
-                onRequestClose={this.lukkModal}
+                onRequestClose={this.handleOnRequestClose}
             >
                 <header className="tour-modal__header">
                     <Innholdstittel>Ny oppdatering</Innholdstittel>
