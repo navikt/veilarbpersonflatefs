@@ -3,6 +3,7 @@ import TabMenu, { Tab } from './tab-menu/tab-menu';
 import TourModal from './tour-modal/tour-modal';
 import { Features, TOUR_MODAL_TOGGLE } from '../utils/api';
 import './side-innhold-ny-layout.less';
+import TilbakemeldingFab from './tilbakemelding/tilbakemelding-fab';
 
 interface SideInnholdNyLayoutProps {
     visittkort: React.ReactElement;
@@ -41,6 +42,7 @@ class SideInnholdNyLayout extends React.Component<SideInnholdNyLayoutProps> {
                 </div>
                 <TabMenu tabs={tabs} defaultSelectedTab={defaultSelectedTab}/>
                 { features[TOUR_MODAL_TOGGLE] && <TourModal /> }
+                <TilbakemeldingFab features={features} />
             </>
         );
     }
