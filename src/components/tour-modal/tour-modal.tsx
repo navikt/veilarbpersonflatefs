@@ -55,7 +55,6 @@ class TourModal extends React.Component<{}, TourModalState> {
     }
 
     skalViseModal = (): boolean => {
-        return true;
         return window.localStorage.getItem(modalName) == null;
     };
 
