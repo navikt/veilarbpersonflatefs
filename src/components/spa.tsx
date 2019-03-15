@@ -8,6 +8,7 @@ interface SpaProps {
 
 interface VisittKortProps extends SpaProps {
     tilbakeTilFlate: string;
+    visVeilederVerktoy: boolean;
 }
 
 export const MAO: React.ComponentType<SpaProps> = NAVSPA.importer<SpaProps>('veilarbmaofs');
