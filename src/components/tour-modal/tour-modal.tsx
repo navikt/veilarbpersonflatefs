@@ -6,6 +6,8 @@ import Stegviser from '../stegviser/stegviser';
 import step1Bilde from './step-1.jpg';
 import step2Bilde from './step-2.jpg';
 import step3Bilde from './step-3.jpg';
+import TourModalMetrics from './tour-modal-metrics';
+import { hasStored } from '../../utils/utils';
 import './tour-modal.less';
 
 const modalName = 'TOUR_MODAL-NY_LAYOUT_ENDRING';
@@ -29,25 +31,27 @@ interface TourModalState {
 
 class TourModal extends React.Component<{}, TourModalState> {
 
-    constructor(props: {}) {
-        super(props);
-        this.state = {
-            modalOpen: this.skalViseModal(),
-            selectedStepIdx: 0
-        };
-    }
-
-    skalViseModal = (): boolean => {
-        return window.localStorage.getItem(modalName) === null;
+    state = {
+        modalOpen: !hasStored(modalName),
+        selectedStepIdx: 0
     };
+
+    private metrics: TourModalMetrics = new TourModalMetrics(steps.length);
 
     lagreIkkeVisModal = () => {
         window.localStorage.setItem(modalName, 'true');
-    }
+    };
 
-    lukkModal = () => {
+    lukkModal = (finishedTour: boolean) => {
+        this.metrics.setTimeSpent(this.state.selectedStepIdx);
+        this.metrics.log(finishedTour);
+
         this.setState({ modalOpen: false });
         this.lagreIkkeVisModal();
+    };
+
+    handleOnRequestClose = () => {
+        this.lukkModal(false);
     };
 
     handlePreviousBtnClicked = () => {
@@ -58,8 +62,13 @@ class TourModal extends React.Component<{}, TourModalState> {
 
     handleNextBtnClicked = () => {
         this.setState((state: TourModalState) => {
+            this.metrics.setTimeSpent(state.selectedStepIdx);
             return { selectedStepIdx: state.selectedStepIdx + 1 }
         });
+    };
+
+    handleFinishBtnClicked = () => {
+        this.lukkModal(true);
     };
 
     render() {
@@ -69,7 +78,8 @@ class TourModal extends React.Component<{}, TourModalState> {
 
         const hidePrevBtn = selectedStepIdx === 0;
         const nextBtnText = isFinalStep ? "Ferdig" : "Neste";
-        const nextBtnHandleClick = isFinalStep ? this.lukkModal : this.handleNextBtnClicked;
+        const nextBtnHandleClick = isFinalStep ?
+            this.handleFinishBtnClicked : this.handleNextBtnClicked;
 
         return (
             <NavFrontendModal
@@ -78,7 +88,7 @@ class TourModal extends React.Component<{}, TourModalState> {
                 isOpen={modalOpen}
                 closeButton={true}
                 shouldCloseOnOverlayClick={false}
-                onRequestClose={this.lukkModal}
+                onRequestClose={this.handleOnRequestClose}
             >
                 <div className="tour-modal__header--wrapper">
                 <header className="tour-modal__header">
