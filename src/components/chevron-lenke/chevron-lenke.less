@@ -3,9 +3,11 @@
 .chevron-lenke {
 	background-color: white;
 	outline: none;
-	border: none;
 	cursor: pointer;
-	padding-bottom: 0.25rem;
+	box-sizing: border-box;
+	padding: 0.25rem;
+	border-radius: 5px;
+	border: 2px solid transparent; // Bruk border slik at størrelse ikke endres på :fokus
 
 	.chevronboks {
 		margin-bottom: 0.125rem;
@@ -25,6 +27,10 @@
 		.chevron-lenke__tekst {
 			border-bottom: 1px solid @navBla;
 		}
+	}
+
+	&:focus {
+		border: 2px solid @navOransje;
 	}
 
 }
