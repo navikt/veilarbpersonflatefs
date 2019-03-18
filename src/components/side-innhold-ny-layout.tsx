@@ -28,7 +28,7 @@ class SideInnholdNyLayout extends React.Component<SideInnholdNyLayoutProps> {
         const { visittkort, aktivitetsplan, mao, features } = this.props;
 
         const tabs: Tab[] = [
-            { title: 'Aktivitetsplan', content: aktivitetsplan },
+            { title: 'Aktivitetsplan og dialog', content: aktivitetsplan },
             { title: 'Detaljer', content: <div className="tab-content__mao">{mao}</div> }
         ];
 
