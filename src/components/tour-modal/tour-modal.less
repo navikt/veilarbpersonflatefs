@@ -1,17 +1,45 @@
+@import "~nav-frontend-core/less/_variabler";
+
 .tour-modal {
-	padding: 1rem 0;
+	padding: 0;
 	background-color: white;
 	display: flex;
 	flex-direction: column;
-	min-width: 700px;
+	max-width: 500px;
 	border-radius: 10px;
+
+	.lukknapp {
+		width: 24px;
+		height: 24px;
+		border: 2px solid currentColor;
+		border-radius: 3px;
+		top: 1.25rem;
+		right: 1.5rem;
+
+		&:before {
+			height: 1.5px;
+			width: 1rem;
+			top: calc(50% - 0.11rem);
+		}
+
+		&:after {
+			height: 1.5px;
+			width: 1rem;
+			top: calc(50% - 0.11rem);
+		}
+	}
 
 	&__header {
 		display: flex;
 		flex-direction: row;
 		justify-content: center;
 		align-items: center;
-		margin-bottom: 1rem;
+		padding: 1.125rem 0;
+
+		&--wrapper {
+			position: relative;
+			box-shadow: 0 2px 5px rgba(120, 112, 106, 0.5);
+		}
 	}
 
 	&__main {
@@ -21,7 +49,12 @@
 		}
 
 		&--bilde-wrapper {
-			box-shadow: 0 2px 5px rgba(183, 177, 169, 0.5), 0 -2px 5px rgba(183, 177, 169, 0.5);
+			box-shadow: 0 2px 5px rgba(120, 112, 106, 0.5);
+		}
+
+		&--tekst {
+			margin: 0 5rem;
+			text-align: center;
 		}
 
 		&--beskrivelse {
@@ -29,8 +62,8 @@
 			flex-direction: column;
 			justify-content: center;
 			align-items: center;
-			margin-top: 2.5rem;
-			margin-bottom: 1.5rem;
+			margin-top: 2rem;
+			margin-bottom: 2rem;
 		}
 
 	}
@@ -40,7 +73,7 @@
 		flex-direction: row;
 		justify-content: space-between;
 		align-items: center;
-		margin: 0 3rem 1rem 3rem;
+		margin: 2.5rem 1.5rem 1rem;
 	}
 
 }

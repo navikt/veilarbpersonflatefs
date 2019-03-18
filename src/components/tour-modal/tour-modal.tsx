@@ -1,6 +1,6 @@
 import * as React from 'react';
 import NavFrontendModal from 'nav-frontend-modal';
-import { Innholdstittel, Normaltekst, Systemtittel } from 'nav-frontend-typografi';
+import { Normaltekst, Systemtittel, Undertittel } from 'nav-frontend-typografi';
 import ChevronLenke, { Retning } from '../chevron-lenke/chevron-lenke';
 import Stegviser from '../stegviser/stegviser';
 import step1Bilde from './step-1.jpg';
@@ -11,9 +11,9 @@ import './tour-modal.less';
 const modalName = 'TOUR_MODAL-NY_LAYOUT_ENDRING';
 
 const steps: Step[] = [
-    { tittel: 'Visittkort', bilde: step1Bilde, tekst: 'tekst1'},
-    { tittel: 'Veilederverktøy', bilde: step2Bilde, tekst: 'tekst2'},
-    { tittel: 'Fane', bilde: step3Bilde, tekst: 'tekst3'},
+    { tittel: 'Visittkort', bilde: step1Bilde, tekst: 'Visittkortet øverst viser nøkkelinformasjon om brukeren.'},
+    { tittel: 'Veilederverktøy', bilde: step2Bilde, tekst: 'Her ligger funksjonene som før lå under tannhjulet i aktivitetsplanen.'},
+    { tittel: 'Faner', bilde: step3Bilde, tekst: 'Du kan veksle mellom aktivitetsplanen og detaljer ved å klikke på fanene.'},
 ];
 
 interface Step {
@@ -38,7 +38,7 @@ class TourModal extends React.Component<{}, TourModalState> {
     }
 
     skalViseModal = (): boolean => {
-        return window.localStorage.getItem(modalName) == null;
+        return window.localStorage.getItem(modalName) === null;
     };
 
     lagreIkkeVisModal = () => {
@@ -80,16 +80,18 @@ class TourModal extends React.Component<{}, TourModalState> {
                 shouldCloseOnOverlayClick={false}
                 onRequestClose={this.lukkModal}
             >
+                <div className="tour-modal__header--wrapper">
                 <header className="tour-modal__header">
-                    <Innholdstittel>Ny oppdatering</Innholdstittel>
+                    <Systemtittel>Ny oppdatering</Systemtittel>
                 </header>
+                </div>
                 <main className="tour-modal__main">
                     <div className="tour-modal__main--bilde-wrapper">
                         <img src={step.bilde} className="tour-modal__main--bilde"/>
                     </div>
                     <div className="tour-modal__main--beskrivelse">
-                        <Systemtittel>{step.tittel}</Systemtittel>
-                        <Normaltekst>{step.tekst}</Normaltekst>
+                        <Undertittel className="blokk-xxxs">{step.tittel}</Undertittel>
+                        <Normaltekst className="tour-modal__main--tekst">{step.tekst}</Normaltekst>
                     </div>
                 </main>
                 <footer className="tour-modal__footer">
