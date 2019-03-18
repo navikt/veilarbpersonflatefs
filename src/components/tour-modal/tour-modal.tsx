@@ -6,8 +6,9 @@ import Stegviser from '../stegviser/stegviser';
 import step1Bilde from './step-1.jpg';
 import step2Bilde from './step-2.jpg';
 import step3Bilde from './step-3.jpg';
-import './tour-modal.less';
 import TourModalMetrics from './tour-modal-metrics';
+import { hasStored } from '../../utils/utils';
+import './tour-modal.less';
 
 const modalName = 'TOUR_MODAL-NY_LAYOUT_ENDRING';
 
@@ -30,19 +31,12 @@ interface TourModalState {
 
 class TourModal extends React.Component<{}, TourModalState> {
 
-    private metrics: TourModalMetrics = new TourModalMetrics(steps.length);
-
-    constructor(props: {}) {
-        super(props);
-        this.state = {
-            modalOpen: this.skalViseModal(),
-            selectedStepIdx: 0
-        };
-    }
-
-    skalViseModal = (): boolean => {
-        return window.localStorage.getItem(modalName) === null;
+    state = {
+        modalOpen: !hasStored(modalName),
+        selectedStepIdx: 0
     };
+
+    private metrics: TourModalMetrics = new TourModalMetrics(steps.length);
 
     lagreIkkeVisModal = () => {
         window.localStorage.setItem(modalName, 'true');
