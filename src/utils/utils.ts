@@ -8,5 +8,5 @@ export function erDev() {
 }
 
 export function hasStored(tagName: string) {
-    return window.localStorage.getItem(tagName) === null;
+    return window.localStorage.getItem(tagName) !== null;
 }
