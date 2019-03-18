@@ -56,7 +56,7 @@ class App extends React.Component<{}, TilgangTilBrukerState> {
             return <IngenTilgangTilBruker />;
         }
 
-        const visittkort = <Visittkort enhet={enhet} fnr={fnr} />;
+        const visittkort = <Visittkort enhet={enhet} fnr={fnr} visVeilederVerktoy={true} tilbakeTilFlate="veilarbportefoljeflatefs"/>;
         const mao = <MAO enhet={enhet} fnr={fnr} />;
         const aktivitetsplan = <Aktivitetsplan enhet={enhet} fnr={fnr} />;
 
