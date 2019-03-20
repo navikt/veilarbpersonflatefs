@@ -2,8 +2,8 @@ import React from 'react';
 import TabMenu, { Tab } from './tab-menu/tab-menu';
 import TourModal from './tour-modal/tour-modal';
 import { Features, TOUR_MODAL_TOGGLE } from '../utils/api';
+import TilbakemeldingFab from './tilbakemelding/fab/tilbakemelding-fab';
 import './side-innhold-ny-layout.less';
-import TilbakemeldingFab from './tilbakemelding/tilbakemelding-fab';
 
 interface SideInnholdNyLayoutProps {
     visittkort: React.ReactElement;

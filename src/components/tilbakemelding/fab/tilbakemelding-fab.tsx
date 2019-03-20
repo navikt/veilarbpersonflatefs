@@ -1,8 +1,10 @@
 import * as React from 'react';
 import cls from 'classnames';
-import TilbakemeldingModal, { Tilbakemelding } from './tilbakemelding-modal';
-import { logEvent } from '../../utils/frontend-logger';
-import { Features, SPOR_OM_TILBAKEMELDING } from '../../utils/api';
+import TilbakemeldingModal, { Tilbakemelding } from '../tilbakemelding-modal';
+import { logEvent } from '../../../utils/frontend-logger';
+import { Features, SPOR_OM_TILBAKEMELDING } from '../../../utils/api';
+import lukkBilde from './lukk.svg';
+import tilbakemeldingBilde from './tilbakemelding.svg';
 import './tilbakemelding-fab.less';
 
 // FAB = Floating Action Button
@@ -87,9 +89,6 @@ class TilbakemeldingFab extends React.Component<TilbakemeldingFabProps, Tilbakem
             return null;
         }
 
-        const lukkeIkon = 'data:img/png;base64,iVBORw0KGgoAAAANSUhEUgAAABoAAAAaCAQAAAADQ4RFAAAABGdBTUEAALGPC/xhBQAAACBjSFJNAAB6JgAAgIQAAPoAAACA6AAAdTAAAOpgAAA6mAAAF3CculE8AAAAAmJLR0QAAKqNIzIAAAAJcEhZcwAACxIAAAsSAdLdfvwAAAAHdElNRQfjAgQNMjf0s2WWAAAAeElEQVQ4y7WUUQ6AMAhDG+/Sw3H/f/TDJW5RpDZxfxt9hHQAABCEeoaWSCRCQgKJBE9ol7AYSs6XkJAoH3qkx8pojb0mfA62pd8FkkmrSPN1EcrIjH1ALqxENjXPD+UZRhiWG59rtJHRsMZoGENojLu1WKwVZizLA5OtpXPPjPcAAAAAAElFTkSuQmCC';
-        const apneIkon = 'data:img/png;base64,iVBORw0KGgoAAAANSUhEUgAAACwAAAAkCAQAAABY3hDnAAAABGdBTUEAALGPC/xhBQAAACBjSFJNAAB6JgAAgIQAAPoAAACA6AAAdTAAAOpgAAA6mAAAF3CculE8AAAAAmJLR0QAAKqNIzIAAAAJcEhZcwAACxIAAAsSAdLdfvwAAAAHdElNRQfjAgQQGhbxeetBAAACLklEQVRIx8XWO0xUQRTG8d+urEp8xDc+OjXYiBE0kWBjIsFGYimVaEFprCy00MLORLFweyttxBg1NsTESsBHMEJMMIKxMEQhSkHh7uKOBQtBd+9F2Ztwppib+c75Z+6Zc88dYLusQQWhypE3KKtOyU6YrBq5cExqgzqTgvsOqlGtZTTqEUyqIyu4XzVyofUIsgwKGhMFNwoGyQsyiYIzgnxKQCpRMIF0jLzWE1O6K2rdpjy2Np4eIpSbpfJpKlOaSsqNaGbcjk+W5qNlytxKe3RwHHhXaZ4pU2b+8vhP8FhpHipThv7yiMpHhNIpCHorar2CoDOOGQ2mTYfaikqtjtmOEAVeljquypYBfMx3F2Njz5h2PC4flQ/vkDETDkTG7TXkk8PRzChwyhXTXtpfUd1mXM71iGNfpNxWeizvq1NlCdvtqYJH1sdlIa6OM7J+mPDAaXtssc5Wza56b8YHG+LTGwemxjl9fsr76K033vkmGNVtU0xUEFKKUtKx8I1atdtntbSCKc89NKwY6Z9SFBgR1EvS6gUjaa/RlSi4C69okPPLpYR+qCtd9ktOQwrn3ZKWM6Lwh1NRt3ul5xWuxXSzOcvYZ5WiC27PLrTol69wWXoxv4+ef7699WthYcNcrf6PdOx3x4BmrPFQqx/O+rLIjgtG5BZ7rSOCfmzUJxjXkMgZzIN3GBKM2ZMUdhY8ZlQwbGdy2FlwEAzEfrxLBj+Lv0YtxTb77K5VSw3/DdK0H6HFZvnVAAAAAElFTkSuQmCC';
-
         return (
             <div ref={(ref) => { this.wrapperRef = ref; }}>
                 <div className={cls('tilbakemelding-fab', { 'tilbakemelding-fab__trykket': isModalOpen })} onClick={this.handleFabClicked}>
@@ -98,7 +97,7 @@ class TilbakemeldingFab extends React.Component<TilbakemeldingFabProps, Tilbakem
                             'tilbakemelding-fab__ikon--apne': !isModalOpen,
                             'tilbakemelding-fab__ikon--lukke': isModalOpen
                         })}
-                        src={isModalOpen ? lukkeIkon : apneIkon}
+                        src={isModalOpen ? lukkBilde : tilbakemeldingBilde}
                     />
                 </div>
                 <TilbakemeldingModal
