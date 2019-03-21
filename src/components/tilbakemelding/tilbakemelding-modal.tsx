@@ -80,7 +80,7 @@ class TilbakemeldingModal extends React.Component<TilbakemeldingModalProps, Tilb
                     Tilbakemelding
                 </Innholdstittel>
                 <Normaltekst className="tilbakemelding-modal__ingress">
-                    Vi har nå endret design i modia arbeidsrettet oppfølging. Hvordan opplever du endringen? Svarene er anonyme.
+                    Vi har nå endret design i Modia arbeidsrettet oppfølging. Hvordan opplever du endringen? Svarene er anonyme.
                 </Normaltekst>
                 <div className="tilbakemelding-modal__tilfredshet">
                     <TilfredshetValg
