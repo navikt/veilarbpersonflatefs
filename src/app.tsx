@@ -16,6 +16,8 @@ interface TilgangTilBrukerState {
     tilgang?: boolean;
 }
 
+const enhet = enhetFraUrl();
+
 class App extends React.Component<{}, TilgangTilBrukerState> {
 
     constructor(props: {}) {
@@ -35,8 +37,6 @@ class App extends React.Component<{}, TilgangTilBrukerState> {
     }
 
     render() {
-
-        const enhet = enhetFraUrl();
         const fnr = hentFodselsnummerFraURL();
         const erDecoratorenIkkeLastet = !getWindow().renderDecoratorHead;
 
