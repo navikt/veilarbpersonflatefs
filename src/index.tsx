@@ -7,6 +7,7 @@ import { isAppMocked } from './utils/mock-utils';
 import AppMock from './app-mock';
 import NavFrontendModal from 'nav-frontend-modal';
 import './index.less';
+import { initialiserToppmeny } from './utils/dekorator-utils';
 
 const window = getWindow();
 
@@ -19,6 +20,7 @@ document.addEventListener(
     'dekorator-hode-personsok',
     (event: any) => {
         settPersonIURL(event.fodselsnummer);
+        initialiserToppmeny();
     }
 );
 
