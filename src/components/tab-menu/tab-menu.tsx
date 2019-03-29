@@ -1,20 +1,22 @@
 import React from 'react';
 import cls from 'classnames';
-import './tab-menu.less';
 import { Normaltekst } from 'nav-frontend-typografi';
+import { TAG_DETALJER } from '../side-innhold';
+import './tab-menu.less';
 
 export interface Tab {
     title: string;
+    tag: string;
     content: React.ReactElement;
 }
 
 interface TabsProps {
     tabs: Tab[];
-    defaultSelectedTab?: number;
+    defaultSelectedTab?: string; // tag
 }
 
 interface TabsState {
-    selectedTab: number;
+    selectedTabIdx: number;
 }
 
 class TabMenu extends React.Component<TabsProps, TabsState> {
@@ -22,19 +24,43 @@ class TabMenu extends React.Component<TabsProps, TabsState> {
     constructor(props: TabsProps) {
         super(props);
         this.state = {
-            selectedTab: props.defaultSelectedTab ? props.defaultSelectedTab : 0
+            selectedTabIdx: props.defaultSelectedTab ? this.getIndexOfTab(props.tabs, props.defaultSelectedTab) : 0
         };
     }
 
+    setGreyBackground = (on: boolean): void => {
+
+        const appElem = document.getElementsByClassName('veilarbpersonflatefs')[0];
+
+        if (!appElem) {
+            return;
+        }
+
+        const greyBackground = 'grey-background';
+        const hasGreyBackground = appElem.classList.contains(greyBackground);
+
+        if (on && !hasGreyBackground) {
+            appElem.classList.add(greyBackground);
+        } else if (!on && hasGreyBackground) {
+            appElem.classList.remove(greyBackground);
+        }
+
+    }
+
+    getIndexOfTab = (tabs: Tab[], tag: string): number => {
+        const idx = tabs.findIndex(tab => tab.tag === tag);
+        return idx >= 0 ? idx : 0;
+    };
+
     createTabClickedHandler = (tab: number) => {
         return () => {
-            this.setState({ selectedTab: tab });
+            this.setState({ selectedTabIdx: tab });
         };
     };
 
     mapTabTitlesToViews = (tabs: Tab[]) => {
-        const { selectedTab } = this.state;
-        const isSelected = (idx: number) => idx === selectedTab;
+        const { selectedTabIdx } = this.state;
+        const isSelected = (idx: number) => idx === selectedTabIdx;
         return tabs.map((tab, idx) => {
             return (
                 <button
@@ -53,13 +79,13 @@ class TabMenu extends React.Component<TabsProps, TabsState> {
 
     createTabContents = () => {
         const { tabs } = this.props;
-        const { selectedTab } = this.state;
+        const { selectedTabIdx } = this.state;
 
         return tabs.map((tab, idx) => {
             return (
                 <div
                     className={cls("tab-menu__tab-content",
-                    { "no-display": (idx !== selectedTab)})}
+                    { "no-display": (idx !== selectedTabIdx)})}
                     key={idx}
                 >
                     {tabs[idx].content}
@@ -70,6 +96,9 @@ class TabMenu extends React.Component<TabsProps, TabsState> {
 
     render() {
         const { tabs } = this.props;
+        const { selectedTabIdx } = this.state;
+        const isDetaljerSelected = tabs[selectedTabIdx].tag === TAG_DETALJER;
+        this.setGreyBackground(isDetaljerSelected);
         return (
             <div className="tab-menu">
                 <div className="tab-menu__headers--wrapper">

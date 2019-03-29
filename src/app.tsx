@@ -1,10 +1,9 @@
 import * as React from 'react';
 import Datalaster from './components/datalaster';
-import { Features, lagFeatureToggleUrl, NY_LAYOUT_TOGGLE } from './utils/api';
+import { Features, lagFeatureToggleUrl } from './utils/api';
 import { enhetFraUrl, hentFodselsnummerFraURL } from './utils/url-utils';
 import { fetchToJson } from './utils/rest-utils';
 import SideInnhold from './components/side-innhold';
-import SideInnholdNyLayout from './components/side-innhold-ny-layout';
 import { Aktivitetsplan, MAO, Visittkort } from './components/spa';
 import getWindow from './utils/window';
 import { initialiserToppmeny } from './utils/dekorator-utils';
@@ -56,7 +55,7 @@ class App extends React.Component<{}, TilgangTilBrukerState> {
             return <IngenTilgangTilBruker />;
         }
 
-        const visittkort = <Visittkort enhet={enhet} fnr={fnr} />;
+        const visittkort = <Visittkort enhet={enhet} fnr={fnr} visVeilederVerktoy={true} tilbakeTilFlate="veilarbportefoljeflatefs"/>;
         const mao = <MAO enhet={enhet} fnr={fnr} />;
         const aktivitetsplan = <Aktivitetsplan enhet={enhet} fnr={fnr} />;
 
@@ -65,10 +64,7 @@ class App extends React.Component<{}, TilgangTilBrukerState> {
                 <EnhetContext />
                 <Datalaster<Features> url={lagFeatureToggleUrl()} spinner={<PageSpinner/>}>
                     {(data: Features) =>
-                         data[NY_LAYOUT_TOGGLE] ?
-                            <SideInnholdNyLayout visittkort={visittkort} mao={mao} aktivitetsplan={aktivitetsplan}/>
-                            :
-                            <SideInnhold mao={mao} aktivitetsplan={aktivitetsplan}/>
+                        <SideInnhold features={data} visittkort={visittkort} mao={mao} aktivitetsplan={aktivitetsplan}/>
                     }
                 </Datalaster>
             </>
