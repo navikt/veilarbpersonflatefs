@@ -15,16 +15,16 @@ interface TilbakemeldingFabProps {
 
 interface TilbakemeldingFabState {
     isModalOpen: boolean;
-    harSendtTilbakemelding: boolean;
     ikkeVisIgjen: boolean;
+    hideFab: boolean;
 }
 
 class TilbakemeldingFab extends React.Component<TilbakemeldingFabProps, TilbakemeldingFabState> {
 
     state = {
-        harSendtTilbakemelding: false,
+        hideFab: false,
         ikkeVisIgjen: false,
-        isModalOpen: false
+        isModalOpen: false,
     };
 
     private readonly APP_NAME = 'veilarbpersonflatefs';
@@ -68,6 +68,8 @@ class TilbakemeldingFab extends React.Component<TilbakemeldingFabProps, Tilbakem
     }
 
     handleTilbakemeldingSendt = (tilbakemelding: Tilbakemelding) => {
+        this.startAutoClose();
+        this.setState({ hideFab: true });
         window.localStorage.setItem(this.tilbakemeldingLocalStorageName(), 'true');
         logEvent(`${this.APP_NAME}.tilbakemelding`,
             { feature: this.TILBAKEMELDING_FEATURE_TAG, ...tilbakemelding });
@@ -79,27 +81,29 @@ class TilbakemeldingFab extends React.Component<TilbakemeldingFabProps, Tilbakem
         this.setState({ ikkeVisIgjen: true });
     }
 
+    startAutoClose = () => {
+        setTimeout(() => {
+            this.setState({ isModalOpen: false });
+        }, 1500);
+    };
+
     render() {
-
         const { features } = this.props;
-        const { isModalOpen, harSendtTilbakemelding, ikkeVisIgjen } = this.state;
-
-        if (ikkeVisIgjen || !features[SPOR_OM_TILBAKEMELDING]
-            || harSendtTilbakemelding || this.harTidligereSendtTilbakemelding()) {
-            return null;
-        }
+        const { isModalOpen, ikkeVisIgjen, hideFab } = this.state;
+        const hide = ikkeVisIgjen || !features[SPOR_OM_TILBAKEMELDING] || this.harTidligereSendtTilbakemelding() || hideFab;
 
         return (
             <div ref={(ref) => { this.wrapperRef = ref; }}>
+                {!hide &&
                 <div className={cls('tilbakemelding-fab', { 'tilbakemelding-fab__trykket': isModalOpen })} onClick={this.handleFabClicked}>
                     <img
                         className={cls({
                             'tilbakemelding-fab__ikon--apne': !isModalOpen,
-                            'tilbakemelding-fab__ikon--lukke': isModalOpen
+                            'tilbakemelding-fab__ikon--lukke': isModalOpen,
                         })}
                         src={isModalOpen ? lukkBilde : tilbakemeldingBilde}
                     />
-                </div>
+                </div>}
                 <TilbakemeldingModal
                     open={isModalOpen}
                     onTilbakemeldingSendt={this.handleTilbakemeldingSendt}

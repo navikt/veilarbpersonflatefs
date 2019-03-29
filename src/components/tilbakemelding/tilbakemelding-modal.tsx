@@ -2,10 +2,10 @@ import * as React from 'react';
 import cls from 'classnames';
 import { Hovedknapp } from 'nav-frontend-knapper';
 import { Textarea } from 'nav-frontend-skjema';
-import { Element, Innholdstittel, Normaltekst } from 'nav-frontend-typografi';
+import { Innholdstittel, Normaltekst, Undertittel } from 'nav-frontend-typografi';
 import TilfredshetValg from './valg/tilfredshet-valg';
 import Lenke from 'nav-frontend-lenker';
-import svaertBraBilde from './valg/svaert_bra.svg';
+import hjerteIkon from './ikon_hjerte.svg';
 import './tilbakemelding-modal.less';
 
 export interface Tilbakemelding {
@@ -84,18 +84,18 @@ class TilbakemeldingModal extends React.Component<TilbakemeldingModalProps, Tilb
                 </Normaltekst>
                 <div className="tilbakemelding-modal__tilfredshet">
                     <TilfredshetValg
-                        className="blokk-xs"
+                        className="blokk-l"
                         onTilfredshetChanged={this.handleTilfredshetChanged}
                         defaultTilfredshet={tilfredshet}
                     />
-                    {!harBesvartTilfredshet && <Lenke href="" onClick={this.handleIkkeVisIgjenClicked}>Ikke vis dette igjen</Lenke>}
+                    {!harBesvartTilfredshet && <Lenke className="ikke-vis-igjen-lenke" href="" onClick={this.handleIkkeVisIgjenClicked}>Ikke vis dette igjen</Lenke>}
                 </div>
                 {harBesvartTilfredshet && (
                     <form className="tilbakemelding-modal__ekspander"  onSubmit={this.handleFormSubmitted}>
                         <div className="tilbakemelding-modal__kommentar">
                             <Textarea
                                 className="tilbakemelding-modal__kommentar-felt"
-                                label="Si gjerne litt mer om opplevelsen av endringen."
+                                label="Fortell gjerne om din opplevelse."
                                 rows={this.KOMMENTAR_ROWS}
                                 maxLength={this.KOMMENTAR_MAX_CHAR}
                                 value={kommentar}
@@ -113,15 +113,11 @@ class TilbakemeldingModal extends React.Component<TilbakemeldingModalProps, Tilb
 
     renderTakkMelding = () => {
         return (
-            <div className="tilbakemelding-modal__takk-melding">
-                <img
-                    className="tilbakemelding-modal__takk-ikon"
-                    src={svaertBraBilde}
-                />
-                <Element>
-                    Takk for at du tok deg tid til å gi tilbakemelding.
-                    Vi bruker innspillene til å forbedre løsningen.
-                </Element>
+            <div className="takk-melding__wrapper">
+                <img src={hjerteIkon} alt="Hjerte" className="takk-melding__ikon"/>
+                <Undertittel className="takk-melding__tekst">
+                    Takk for din tilbakemelding
+                </Undertittel>
             </div>
         );
     }
@@ -143,9 +139,12 @@ class TilbakemeldingModal extends React.Component<TilbakemeldingModalProps, Tilb
         }
 
         return (
-            <div className={cls('tilbakemelding-modal',
-                { 'tilbakemelding-modal--slide-in': open },
-                { 'tilbakemelding-modal--slide-out': !open })}
+            <div className={cls('tilbakemelding-modal', {
+                'tilbakemelding-modal--slide-in': open,
+                'tilbakemelding-modal--slide-out': !open && !harSendt,
+                'tilbakemelding-modal--slide-out-takk': !open && harSendt,
+                'tilbakemelding-modal--takk-posisjon': harSendt
+            })}
             >
                 <div className={cls('tilbakemelding-modal__innhold',
                     { 'tilbakemelding-modal__innhold--takk': harSendt})}>

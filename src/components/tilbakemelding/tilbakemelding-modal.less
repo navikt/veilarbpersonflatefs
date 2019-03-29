@@ -1,12 +1,24 @@
+@import "~nav-frontend-core/less/_variabler";
 
 .tilbakemelding-modal {
     width: 350px;
     position: fixed;
     right: 25px;
-    border-radius: 2.5%;
+    border-radius: 12px;
     background-color: white;
-    box-shadow: 0 6px 10px 0 #78706A;
+    box-shadow: 0 6px 15px 0 rgb(183, 177, 169);
+    border: 1px solid @navLysGra;
     z-index: 998;
+
+    .ikke-vis-igjen-lenke {
+        text-decoration: none;
+        padding-bottom: 3px;
+        border-bottom: 1px solid @navGra60;
+
+        &:hover {
+            border-bottom: 1px solid @navDypBla;
+        }
+    }
 
     &__tittel {
         font-size: 24px !important;
@@ -25,14 +37,23 @@
         animation-duration: 0.33s;
     }
 
+
+    &--slide-out-takk {
+        right: -400px;
+        animation-name: slide-out-takk;
+        animation-duration: 0.33s;
+    }
+
+    &--takk-posisjon {
+        bottom: 24px;
+    }
+
     &__innhold {
-        padding: 1rem;
+        padding: 1.25rem;
     }
 
     &__innhold--takk {
-        background-color: #98D0B0;
-        border-radius: 2.5%;
-
+        border-radius: 12px;
         animation-name: takk-transition;
         animation-duration: 0.5s;
     }
@@ -41,19 +62,21 @@
          margin: 2rem 0 0.5rem 0;
     }
 
-    &__takk-melding {
+    .takk-melding__wrapper {
         display: flex;
-        flex-direction: column;
-        justify-content: space-around;
+        flex-direction: row;
+        justify-content: space-evenly;
         align-content: center;
-        text-align: center;
-        margin: 2rem;
     }
 
-    &__takk-ikon {
-        width: 50px;
-        height: 50px;
-        margin: 0 auto 1rem auto;
+    .takk-melding__tekst {
+        margin-top: 0.4rem;
+        font-size: 1.15rem;
+    }
+
+    .takk-melding__ikon {
+        width: 40px;
+        height: 40px;
     }
 
     &__kommentar {
@@ -77,14 +100,21 @@
 
 @keyframes takk-transition {
     from {
-        background-color: white;
         opacity: 0;
         height: 365px;
     }
     to {
-        background-color: #98D0B0;
         opacity: 1;
-        height: 230px;
+        height: 80px;
+    }
+}
+
+@keyframes takk-transition-slide-down {
+    from {
+        bottom: inherit;
+    }
+    to {
+        bottom: 24px;
     }
 }
 
@@ -119,5 +149,15 @@
     100% {
         bottom: 80px;
         opacity: 0;
+    }
+}
+
+
+@keyframes slide-out-takk {
+    0% {
+        right: 25px;
+    }
+    100% {
+        right: -300px;
     }
 }
