@@ -49,6 +49,10 @@
         padding: 1.25rem;
     }
 
+    &__innhold-fade-out {
+        animation: 0.2s linear fade-out-innhold;
+    }
+
     &__innhold--takk {
         border-radius: 12px;
         animation: 0.5s linear takk-transition;
@@ -154,5 +158,14 @@
     }
     100% {
 		bottom: -100px;
+    }
+}
+
+@keyframes fade-out-innhold {
+    0% {
+        opacity: 1;
+    }
+    100% {
+        opacity: 0;
     }
 }

@@ -25,6 +25,7 @@ interface TilbakemeldingModalState {
     harSendt: boolean;
     harBlittVist: boolean;
     ikkeVisIgjen: boolean;
+    showFadeOutAnimation: boolean;
 }
 
 class TilbakemeldingModal extends React.Component<TilbakemeldingModalProps, TilbakemeldingModalState> {
@@ -40,6 +41,7 @@ class TilbakemeldingModal extends React.Component<TilbakemeldingModalProps, Tilb
             harSendt: false,
             ikkeVisIgjen: false,
             kommentar: '',
+            showFadeOutAnimation: false,
             tilfredshet: 0
         };
     }
@@ -54,10 +56,16 @@ class TilbakemeldingModal extends React.Component<TilbakemeldingModalProps, Tilb
 
     };
 
-    handleFormSubmitted = () => {
+    handleFormSubmitted = (e: any) => {
         const { tilfredshet, kommentar } = this.state;
-        this.setState({ harSendt: true });
-        this.props.onTilbakemeldingSendt({ tilfredshet, kommentar });
+
+        e.preventDefault();
+        this.setState({ showFadeOutAnimation: true });
+
+        setTimeout(() => {
+            this.setState({ harSendt: true });
+            this.props.onTilbakemeldingSendt({ tilfredshet, kommentar });
+        }, 200);
     };
 
     handleTilfredshetChanged = (tilfredshet: number) => {
@@ -71,11 +79,11 @@ class TilbakemeldingModal extends React.Component<TilbakemeldingModalProps, Tilb
 
     renderForm = () => {
 
-        const { tilfredshet, kommentar } = this.state;
+        const { tilfredshet, kommentar, showFadeOutAnimation } = this.state;
         const harBesvartTilfredshet = tilfredshet > 0;
 
         return (
-            <div>
+            <div className={cls({ 'tilbakemelding-modal__innhold-fade-out': showFadeOutAnimation })}>
                 <Innholdstittel className="blokk-xxs tilbakemelding-modal__tittel">
                     Tilbakemelding
                 </Innholdstittel>
@@ -91,7 +99,7 @@ class TilbakemeldingModal extends React.Component<TilbakemeldingModalProps, Tilb
                     {!harBesvartTilfredshet && <Lenke className="ikke-vis-igjen-lenke" href="" onClick={this.handleIkkeVisIgjenClicked}>Ikke vis dette igjen</Lenke>}
                 </div>
                 {harBesvartTilfredshet && (
-                    <form className="tilbakemelding-modal__ekspander"  onSubmit={this.handleFormSubmitted}>
+                    <form className="tilbakemelding-modal__ekspander" onSubmit={this.handleFormSubmitted}>
                         <div className="tilbakemelding-modal__kommentar">
                             <Textarea
                                 className="tilbakemelding-modal__kommentar-felt"
