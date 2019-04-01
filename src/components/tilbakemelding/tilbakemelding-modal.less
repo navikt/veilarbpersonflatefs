@@ -27,21 +27,18 @@
 
     &--slide-in {
         bottom: 100px;
-        animation-name: slide-in;
-        animation-duration: 0.33s;
+        animation: 0.33s ease-out slide-in;
     }
 
     &--slide-out {
         opacity: 0;
-        animation-name: slide-out;
-        animation-duration: 0.33s;
+        animation: 0.33s ease-out slide-out;
     }
 
 
     &--slide-out-takk {
-        right: -400px;
-        animation-name: slide-out-takk;
-        animation-duration: 0.33s;
+        bottom: -100px !important;
+		animation: 0.5s ease-in slide-out-takk;
     }
 
     &--takk-posisjon {
@@ -54,8 +51,7 @@
 
     &__innhold--takk {
         border-radius: 12px;
-        animation-name: takk-transition;
-        animation-duration: 0.5s;
+        animation: 0.5s linear takk-transition;
     }
 
     &__tilfredshet {
@@ -91,8 +87,7 @@
     }
 
     &__ekspander {
-        animation-name: ekspander;
-        animation-duration: 0.5s;
+        animation: 0.5s ekspander ease-out;
         overflow: hidden;
     }
 
@@ -155,9 +150,9 @@
 
 @keyframes slide-out-takk {
     0% {
-        right: 25px;
+		bottom: 24px;
     }
     100% {
-        right: -300px;
+		bottom: -100px;
     }
 }
