@@ -1,12 +1,24 @@
+@import "~nav-frontend-core/less/_variabler";
 
 .tilbakemelding-modal {
     width: 350px;
     position: fixed;
     right: 25px;
-    border-radius: 2.5%;
+    border-radius: 12px;
     background-color: white;
-    box-shadow: 0 6px 10px 0 #78706A;
+    box-shadow: 0 6px 15px 0 rgb(183, 177, 169);
+    border: 1px solid @navLysGra;
     z-index: 998;
+
+    .ikke-vis-igjen-lenke {
+        text-decoration: none;
+        padding-bottom: 3px;
+        border-bottom: 1px solid @navGra60;
+
+        &:hover {
+            border-bottom: 1px solid @navDypBla;
+        }
+    }
 
     &__tittel {
         font-size: 24px !important;
@@ -15,45 +27,56 @@
 
     &--slide-in {
         bottom: 100px;
-        animation-name: slide-in;
-        animation-duration: 0.33s;
+        animation: 0.33s ease-out slide-in;
     }
 
     &--slide-out {
         opacity: 0;
-        animation-name: slide-out;
-        animation-duration: 0.33s;
+        animation: 0.33s ease-out slide-out;
+    }
+
+
+    &--slide-out-takk {
+        bottom: -100px !important;
+		animation: 0.5s ease-in slide-out-takk;
+    }
+
+    &--takk-posisjon {
+        bottom: 24px;
     }
 
     &__innhold {
-        padding: 1rem;
+        padding: 1.25rem;
+    }
+
+    &__innhold-fade-out {
+        animation: 0.2s linear fade-out-innhold;
     }
 
     &__innhold--takk {
-        background-color: #98D0B0;
-        border-radius: 2.5%;
-
-        animation-name: takk-transition;
-        animation-duration: 0.5s;
+        border-radius: 12px;
+        animation: 0.5s linear takk-transition;
     }
 
     &__tilfredshet {
          margin: 2rem 0 0.5rem 0;
     }
 
-    &__takk-melding {
+    .takk-melding__wrapper {
         display: flex;
-        flex-direction: column;
-        justify-content: space-around;
+        flex-direction: row;
+        justify-content: space-evenly;
         align-content: center;
-        text-align: center;
-        margin: 2rem;
     }
 
-    &__takk-ikon {
-        width: 50px;
-        height: 50px;
-        margin: 0 auto 1rem auto;
+    .takk-melding__tekst {
+        margin-top: 0.4rem;
+        font-size: 1.15rem;
+    }
+
+    .takk-melding__ikon {
+        width: 40px;
+        height: 40px;
     }
 
     &__kommentar {
@@ -68,8 +91,7 @@
     }
 
     &__ekspander {
-        animation-name: ekspander;
-        animation-duration: 0.5s;
+        animation: 0.5s ekspander ease-out;
         overflow: hidden;
     }
 
@@ -77,14 +99,21 @@
 
 @keyframes takk-transition {
     from {
-        background-color: white;
         opacity: 0;
         height: 365px;
     }
     to {
-        background-color: #98D0B0;
         opacity: 1;
-        height: 230px;
+        height: 80px;
+    }
+}
+
+@keyframes takk-transition-slide-down {
+    from {
+        bottom: inherit;
+    }
+    to {
+        bottom: 24px;
     }
 }
 
@@ -118,6 +147,25 @@
     }
     100% {
         bottom: 80px;
+        opacity: 0;
+    }
+}
+
+
+@keyframes slide-out-takk {
+    0% {
+		bottom: 24px;
+    }
+    100% {
+		bottom: -100px;
+    }
+}
+
+@keyframes fade-out-innhold {
+    0% {
+        opacity: 1;
+    }
+    100% {
         opacity: 0;
     }
 }
