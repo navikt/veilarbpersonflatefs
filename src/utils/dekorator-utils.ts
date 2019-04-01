@@ -1,4 +1,4 @@
-import { hentFodselsnummerFraURL } from './url-utils';
+import { enhetFraUrl, hentFodselsnummerFraURL } from './url-utils';
 import getWindow from './window';
 
 interface Config {
@@ -27,6 +27,7 @@ const config = (): Config => ({
             veileder: '/veilarbveileder/api/veileder/me',
         },
         fnr: hentFodselsnummerFraURL(),
+        initiellEnhet: enhetFraUrl(),
         toggles: {
             visEnhet: true,
             visEnhetVelger: false,

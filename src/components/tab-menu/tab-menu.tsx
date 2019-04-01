@@ -1,7 +1,7 @@
 import React from 'react';
 import cls from 'classnames';
 import { Normaltekst } from 'nav-frontend-typografi';
-import { TAG_AKTIVITETSPLAN } from '../side-innhold';
+import { TAG_DETALJER } from '../side-innhold';
 import './tab-menu.less';
 
 export interface Tab {
@@ -97,8 +97,8 @@ class TabMenu extends React.Component<TabsProps, TabsState> {
     render() {
         const { tabs } = this.props;
         const { selectedTabIdx } = this.state;
-        const isAktivitetsplanSelected = tabs[selectedTabIdx].tag === TAG_AKTIVITETSPLAN;
-        this.setGreyBackground(isAktivitetsplanSelected);
+        const isDetaljerSelected = tabs[selectedTabIdx].tag === TAG_DETALJER;
+        this.setGreyBackground(isDetaljerSelected);
         return (
             <div className="tab-menu">
                 <div className="tab-menu__headers--wrapper">
