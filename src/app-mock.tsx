@@ -9,11 +9,18 @@ const AppMock: React.FunctionComponent = () => {
     const visittkort        = <SpaMock name="Visittkort" className="spa-mock__visitt-kort"/>;
     const mao               = <SpaMock name="MAO" className="spa-mock__mao"/>;
     const aktivitetsplan    = <SpaMock name="Aktivitetsplan" className="spa-mock__aktivitetsplan"/>;
+    const vedtaksstotte     = <SpaMock name="Vedtaksstøtte" className="spa-mock__vedtaksstotte"/>;
 
     return (
         <Datalaster<Features> url={lagFeatureToggleUrl()} spinner={<PageSpinner/>}>
             {(data: Features) =>
-                <SideInnhold features={data} visittkort={visittkort} mao={mao} aktivitetsplan={aktivitetsplan}/>
+                <SideInnhold
+                    features={data}
+                    visittkort={visittkort}
+                    mao={mao}
+                    aktivitetsplan={aktivitetsplan}
+                    vedtaksstotte={vedtaksstotte}
+                />
             }
         </Datalaster>
     );
