@@ -4,7 +4,7 @@ export const FEATURE_TOGGLE_URL = '/veilarbpersonflatefs/api/feature';
 export const TOUR_MODAL_TOGGLE = 'veilarbpersonflatefs.tour_modal';
 export const SPOR_OM_TILBAKEMELDING = 'veilarbpersonflatefs.spor_om_tilbakemelding';
 export const VIS_VEDTAKSSTOTTE = 'veilarbpersonflatefs.vis_vedtaksstotte';
-export const ALL_TOGGLES = [TOUR_MODAL_TOGGLE, SPOR_OM_TILBAKEMELDING];
+export const ALL_TOGGLES = [TOUR_MODAL_TOGGLE, SPOR_OM_TILBAKEMELDING, VIS_VEDTAKSSTOTTE];
 
 export const lagFeatureToggleUrl = () => {
     const toggles = ALL_TOGGLES.map(element => 'feature=' + element).join('&');
