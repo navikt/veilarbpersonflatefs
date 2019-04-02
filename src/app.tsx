@@ -1,10 +1,10 @@
 import * as React from 'react';
 import Datalaster from './components/datalaster';
-import { Features, lagFeatureToggleUrl } from './utils/api';
+import { Features, lagFeatureToggleUrl, VIS_VEDTAKSSTOTTE } from './utils/api';
 import { enhetFraUrl, hentFodselsnummerFraURL } from './utils/url-utils';
 import { fetchToJson } from './utils/rest-utils';
 import SideInnhold from './components/side-innhold';
-import { Aktivitetsplan, MAO, Visittkort } from './components/spa';
+import { Aktivitetsplan, MAO, Vedtaksstotte, Visittkort } from './components/spa';
 import getWindow from './utils/window';
 import { initialiserToppmeny } from './utils/dekorator-utils';
 import { FeilmeldingManglerFnr, IngenTilgangTilBruker } from './components/feilmeldinger';
@@ -63,9 +63,20 @@ class App extends React.Component<{}, TilgangTilBrukerState> {
             <>
                 <EnhetContext />
                 <Datalaster<Features> url={lagFeatureToggleUrl()} spinner={<PageSpinner/>}>
-                    {(data: Features) =>
-                        <SideInnhold features={data} visittkort={visittkort} mao={mao} aktivitetsplan={aktivitetsplan}/>
-                    }
+                    {(data: Features) => {
+                        const vedtaksstotte = data[VIS_VEDTAKSSTOTTE] ?
+                            <Vedtaksstotte enhet={enhet} fnr={fnr} /> : undefined;
+
+                        return (
+                            <SideInnhold
+                                features={data}
+                                visittkort={visittkort}
+                                mao={mao}
+                                aktivitetsplan={aktivitetsplan}
+                                vedtaksstotte={vedtaksstotte}
+                            />
+                        );
+                    }}
                 </Datalaster>
             </>
         );
