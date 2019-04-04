@@ -36,4 +36,4 @@ if (isAppMocked()) {
     app = <App />;
 }
 
-ReactDOM.render(app, document.getElementById('pagewrapper'));
+ReactDOM.render(app, document.getElementById('app'));
