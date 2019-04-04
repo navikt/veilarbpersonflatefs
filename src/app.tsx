@@ -13,18 +13,40 @@ import PageSpinner from './components/page-spinner/page-spinner';
 
 interface TilgangTilBrukerState {
     tilgang?: boolean;
+    key: number;
 }
 
 class App extends React.Component<{}, TilgangTilBrukerState> {
-
     constructor(props: {}) {
         super(props);
-        this.state = { tilgang: undefined };
+        this.state = {
+            key: 0,
+            tilgang: undefined,
+        };
+        this.stopEventListening = this.stopEventListening.bind(this);
+        this.startEventListening = this.startEventListening.bind(this);
     }
+
 
     public setHarTilgang(tilgang: boolean){
         this.setState({ tilgang })
     }
+
+
+    public componentWillUnmount(){
+        this.stopEventListening();
+    }
+
+
+    startEventListening() {
+        getWindow().addEventListener('rerenderAktivitetsplan', this.setState({key: this.state.key + 1}))
+    }
+
+    stopEventListening() {
+        getWindow().removeEventListener('rerenderAktivitetsplan', this.setState({key: 0}))
+    }
+
+
 
     public componentDidMount(){
         const fnr = hentFodselsnummerFraURL();
@@ -57,7 +79,7 @@ class App extends React.Component<{}, TilgangTilBrukerState> {
 
         const visittkort = <Visittkort enhet={enhet} fnr={fnr} visVeilederVerktoy={true} tilbakeTilFlate="veilarbportefoljeflatefs"/>;
         const mao = <MAO enhet={enhet} fnr={fnr} />;
-        const aktivitetsplan = <Aktivitetsplan enhet={enhet} fnr={fnr} />;
+        const aktivitetsplan = <Aktivitetsplan key={this.state.key} enhet={enhet} fnr={fnr} />;
 
         return (
             <>
