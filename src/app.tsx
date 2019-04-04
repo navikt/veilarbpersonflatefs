@@ -39,11 +39,11 @@ class App extends React.Component<{}, TilgangTilBrukerState> {
 
 
     startEventListening() {
-        getWindow().addEventListener('rerenderAktivitetsplan', this.setState({key: this.state.key + 1}))
+        getWindow().addEventListener('rerenderAktivitetsplan', () => this.setState({key: this.state.key + 1}))
     }
 
     stopEventListening() {
-        getWindow().removeEventListener('rerenderAktivitetsplan', this.setState({key: 0}))
+        getWindow().removeEventListener('rerenderAktivitetsplan', () => this.setState({key: 0}))
     }
 
 
