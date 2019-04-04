@@ -27,6 +27,9 @@ class App extends React.Component<{}, TilgangTilBrukerState> {
         this.startEventListening = this.startEventListening.bind(this);
     }
 
+    componentWillMount(){
+        this.startEventListening();
+    }
 
     public setHarTilgang(tilgang: boolean){
         this.setState({ tilgang })
