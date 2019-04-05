@@ -1,4 +1,4 @@
-import { Features, SPOR_OM_TILBAKEMELDING, TOUR_MODAL_TOGGLE, VIS_VEDTAKSSTOTTE } from '../utils/api';
+import { Features, SPOR_OM_TILBAKEMELDING, TOUR_MODAL_TOGGLE, VIS_VEDTAKSSTOTTE } from '../utils/featue-utils';
 import { JSONObject } from 'yet-another-fetch-mock';
 
 export default {

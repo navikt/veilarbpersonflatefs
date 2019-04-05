@@ -1,5 +1,7 @@
 import FetchMock, { Middleware, MiddlewareUtils } from 'yet-another-fetch-mock';
-import features from './features';
+import { FEATURE_TOGGLE_URL, ULESTE_DIALOGER_URL } from '../utils/api';
+import features from './features-mock';
+import ulesteDialoger from './uleste-dialoger-mock';
 
 const loggingMiddleware: Middleware = (request, response) => {
     // tslint:disable
@@ -30,4 +32,6 @@ const mock = FetchMock.configure({
     )
 });
 
-mock.get('/veilarbpersonflatefs/api/feature', features);
+mock.get(FEATURE_TOGGLE_URL, features);
+
+mock.get(ULESTE_DIALOGER_URL, ulesteDialoger);
