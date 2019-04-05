@@ -5,6 +5,7 @@ import dialogRegular from './dialog-regular.svg';
 import dialogHover from './dialog-hover.svg';
 import './dialog-tab.less';
 import getWindow from '../../../utils/window';
+import { hentFodselsnummerFraURL } from '../../../utils/url-utils';
 
 interface DialogTabState {
     isHovering: boolean;
@@ -19,9 +20,12 @@ class DialogTab extends React.Component<{}, DialogTabState> {
     };
 
     componentDidMount() {
-        fetchUlesteDialoger()
-            .then(this.handleOnUlesteDialogerUpdated)
-            .catch(); // Squelch errors
+        const fnr = hentFodselsnummerFraURL();
+        if (fnr) {
+           fetchUlesteDialoger(fnr)
+               .then(this.handleOnUlesteDialogerUpdated)
+               .catch(); // Squelch errors
+       }
     }
 
     handleOnUlesteDialogerUpdated = (ulesteDialoger: UlesteDialoger): void => {

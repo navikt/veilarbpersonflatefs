@@ -7,6 +7,6 @@ export interface UlesteDialoger {
     antallUleste: number;
 }
 
-export function fetchUlesteDialoger(): Promise<UlesteDialoger> {
-    return fetchToJson<UlesteDialoger>(ULESTE_DIALOGER_URL);
+export function fetchUlesteDialoger(fnr: string): Promise<UlesteDialoger> {
+    return fetchToJson<UlesteDialoger>(`${ULESTE_DIALOGER_URL}/?fnr=${fnr}`);
 }
