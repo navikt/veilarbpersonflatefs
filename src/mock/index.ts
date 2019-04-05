@@ -32,6 +32,8 @@ const mock = FetchMock.configure({
     )
 });
 
+history.replaceState('', '', '/veilarbpersonflatefs/00123456789');
+
 mock.get(FEATURE_TOGGLE_URL, features);
 
 mock.get(ULESTE_DIALOGER_URL, ulesteDialoger);
