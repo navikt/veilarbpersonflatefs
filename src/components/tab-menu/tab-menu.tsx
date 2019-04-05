@@ -2,6 +2,7 @@ import React from 'react';
 import cls from 'classnames';
 import { Normaltekst } from 'nav-frontend-typografi';
 import { TAG_DETALJER } from '../side-innhold';
+import DialogTab from './dialog-tab/dialog-tab';
 import './tab-menu.less';
 
 export interface Tab {
@@ -103,7 +104,10 @@ class TabMenu extends React.Component<TabsProps, TabsState> {
             <div className="tab-menu">
                 <div className="tab-menu__headers--wrapper">
                     <div className="tab-menu__headers">
-                        {this.mapTabTitlesToViews(tabs)}
+                        <div>
+                            {this.mapTabTitlesToViews(tabs)}
+                        </div>
+                        <DialogTab/>
                     </div>
                 </div>
                 {this.createTabContents()}

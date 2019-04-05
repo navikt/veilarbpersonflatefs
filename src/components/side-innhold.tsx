@@ -1,7 +1,7 @@
 import React from 'react';
 import TabMenu, { Tab } from './tab-menu/tab-menu';
 import TourModal from './tour-modal/tour-modal';
-import { Features, TOUR_MODAL_TOGGLE, VIS_VEDTAKSSTOTTE } from '../utils/api';
+import { Features, TOUR_MODAL_TOGGLE, VIS_VEDTAKSSTOTTE } from '../utils/featue-utils';
 import TilbakemeldingFab from './tilbakemelding/fab/tilbakemelding-fab';
 import './side-innhold.less';
 

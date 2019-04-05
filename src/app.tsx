@@ -1,6 +1,6 @@
 import * as React from 'react';
 import Datalaster from './components/datalaster';
-import { Features, lagFeatureToggleUrl, VIS_VEDTAKSSTOTTE } from './utils/api';
+import { Features, lagFeatureToggleUrl, VIS_VEDTAKSSTOTTE } from './utils/featue-utils';
 import { enhetFraUrl, hentFodselsnummerFraURL } from './utils/url-utils';
 import { fetchToJson } from './utils/rest-utils';
 import SideInnhold from './components/side-innhold';
