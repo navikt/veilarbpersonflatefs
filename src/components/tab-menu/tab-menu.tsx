@@ -1,7 +1,7 @@
 import React from 'react';
 import cls from 'classnames';
 import { Normaltekst } from 'nav-frontend-typografi';
-import { TAG_DETALJER } from '../side-innhold';
+import { TAG_DETALJER, TAG_VEDTAKSSTOTTE } from '../side-innhold';
 import DialogTab from './dialog-tab/dialog-tab';
 import './tab-menu.less';
 
@@ -29,7 +29,11 @@ class TabMenu extends React.Component<TabsProps, TabsState> {
         };
     }
 
-    setGreyBackground = (on: boolean): void => {
+    setBackground = (): void => {
+        const { tabs } = this.props;
+        const { selectedTabIdx } = this.state;
+        const selectedTabTag = tabs[selectedTabIdx].tag;
+        const showGreyBackground = (selectedTabTag === TAG_DETALJER) || (selectedTabTag === TAG_VEDTAKSSTOTTE);
 
         const appElem = document.getElementsByClassName('veilarbpersonflatefs')[0];
 
@@ -40,9 +44,9 @@ class TabMenu extends React.Component<TabsProps, TabsState> {
         const greyBackground = 'grey-background';
         const hasGreyBackground = appElem.classList.contains(greyBackground);
 
-        if (on && !hasGreyBackground) {
+        if (showGreyBackground && !hasGreyBackground) {
             appElem.classList.add(greyBackground);
-        } else if (!on && hasGreyBackground) {
+        } else if (!showGreyBackground && hasGreyBackground) {
             appElem.classList.remove(greyBackground);
         }
 
@@ -95,11 +99,13 @@ class TabMenu extends React.Component<TabsProps, TabsState> {
         });
     };
 
+
+    componentDidUpdate() {
+        this.setBackground();
+    }
+
     render() {
         const { tabs } = this.props;
-        const { selectedTabIdx } = this.state;
-        const isDetaljerSelected = tabs[selectedTabIdx].tag === TAG_DETALJER;
-        this.setGreyBackground(isDetaljerSelected);
         return (
             <div className="tab-menu">
                 <div className="tab-menu__headers--wrapper">
@@ -114,6 +120,7 @@ class TabMenu extends React.Component<TabsProps, TabsState> {
             </div>
         );
     }
+
 }
 
 export default TabMenu;
