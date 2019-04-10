@@ -7,8 +7,7 @@
   "license": "MIT",
   "repository": "https://github.com/navikt/veilarbpersonflatefs",
   "scripts": {
-    "start": "craco start",
-    "start:mock": "cross-env REACT_APP_MOCK=true craco start",
+    "start": "cross-env REACT_APP_MOCK=true craco start",
     "build": "craco build",
     "lint": "echo not implemented, part of the build script",
     "test": "craco test --env=jsdom",

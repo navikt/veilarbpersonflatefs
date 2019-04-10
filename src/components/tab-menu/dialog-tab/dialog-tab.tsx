@@ -82,7 +82,7 @@ class DialogTab extends React.Component<{}, DialogTabState> {
                     { 'dialog-tab__antall-meldinger--hide': !harUlesteMeldinger,
                     'dialog-tab__antall-meldinger--to-siffer': harUlesteMeldingerToSiffer})}
                 >
-                    <span className="dialog-tab__antall-meldinger">
+                    <span aria-hidden={true} className="dialog-tab__antall-meldinger">
                         {antallUleste}
                     </span>
                 </span>
