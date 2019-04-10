@@ -10,13 +10,17 @@ import { hentFodselsnummerFraURL } from '../../../utils/url-utils';
 interface DialogTabState {
     isHovering: boolean;
     antallUleste: number;
+    nyligLest: number;
 }
+
+const DIALOG_LEST_EVENT = 'aktivitetsplan.dialog.lest';
 
 class DialogTab extends React.Component<{}, DialogTabState> {
 
     state = {
         antallUleste: -1,
-        isHovering: false
+        isHovering: false,
+        nyligLest: 0
     };
 
     componentDidMount() {
@@ -25,8 +29,23 @@ class DialogTab extends React.Component<{}, DialogTabState> {
            fetchUlesteDialoger(fnr)
                .then(this.handleOnUlesteDialogerUpdated)
                .catch(); // Squelch errors
+
+            window.addEventListener(DIALOG_LEST_EVENT, this.handleDialogLestEvent, false);
        }
     }
+
+    componentWillUnmount() {
+        window.removeEventListener(DIALOG_LEST_EVENT, this.handleDialogLestEvent);
+    }
+
+    hentAntallUleste = (): number => {
+        const { antallUleste, nyligLest } = this.state;
+        return Math.min((antallUleste - nyligLest), 99);
+    };
+
+    handleDialogLestEvent = () => {
+        this.setState(prevState => ({ nyligLest: prevState.nyligLest + 1 }));
+    };
 
     handleOnUlesteDialogerUpdated = (ulesteDialoger: UlesteDialoger): void => {
         this.setState({ antallUleste: ulesteDialoger.antallUleste });
@@ -48,8 +67,8 @@ class DialogTab extends React.Component<{}, DialogTabState> {
     };
 
     render() {
-        const { isHovering, antallUleste } = this.state;
-        const begrensetAntallUleste = Math.min(antallUleste, 99);
+        const { isHovering } = this.state;
+        const antallUleste = this.hentAntallUleste();
         const harUlesteMeldinger = antallUleste > 0;
         const harUlesteMeldingerToSiffer = antallUleste >= 10;
         return (
@@ -64,7 +83,7 @@ class DialogTab extends React.Component<{}, DialogTabState> {
                     'dialog-tab__antall-meldinger--to-siffer': harUlesteMeldingerToSiffer})}
                 >
                     <span className="dialog-tab__antall-meldinger">
-                        {begrensetAntallUleste}
+                        {antallUleste}
                     </span>
                 </span>
                 <img
