@@ -27,6 +27,7 @@ class TabMenu extends React.Component<TabsProps, TabsState> {
         this.state = {
             selectedTabIdx: props.defaultSelectedTab ? this.getIndexOfTab(props.tabs, props.defaultSelectedTab) : 0
         };
+        this.setBackground();
     }
 
     setBackground = (): void => {
