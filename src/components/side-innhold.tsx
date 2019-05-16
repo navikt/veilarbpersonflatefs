@@ -26,11 +26,11 @@ class SideInnhold extends React.Component<SideInnholdLayoutProps> {
             { tag: TAG_AKTIVITETSPLAN, title: 'Aktivitetsplan og dialog', content: aktivitetsplan },
         ];
 
-        if (vedtaksstotte && features[VIS_VEDTAKSSTOTTE]) {
-            tabs.push({ tag: TAG_VEDTAKSSTOTTE, title: 'Muligheter og behov', content: vedtaksstotte });
-        }
-
         tabs.push({ tag: TAG_DETALJER, title: 'Detaljer', content: <div className="tab-content__mao">{mao}</div> });
+
+        if (vedtaksstotte && features[VIS_VEDTAKSSTOTTE]) {
+            tabs.push({ tag: TAG_VEDTAKSSTOTTE, title: 'Oppfølgingsvedtak', content: vedtaksstotte });
+        }
 
         const visDetaljer = window.location.search.indexOf('visRegistreringDetaljer') >= 0;
         const defaultSelectedTab = visDetaljer ? TAG_DETALJER : TAG_AKTIVITETSPLAN;
