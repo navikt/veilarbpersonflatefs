@@ -25,6 +25,11 @@ class App extends React.Component<{}, TilgangTilBrukerState> {
             maoKey: 0,
             tilgang: undefined,
         };
+
+        this.stopAktivitetsplanEventListening = this.stopAktivitetsplanEventListening.bind(this);
+        this.startAktivitetsplanEventListening = this.startAktivitetsplanEventListening.bind(this);
+        this.startMaoEventListening = this.startMaoEventListening.bind(this);
+        this.stopMaoEventListening = this.stopMaoEventListening.bind(this);
     }
 
     componentWillMount() {
