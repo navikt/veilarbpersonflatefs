@@ -1,7 +1,7 @@
 import React from 'react';
 import cls from 'classnames';
 import { Normaltekst } from 'nav-frontend-typografi';
-import { TAG_DETALJER, TAG_VEDTAKSSTOTTE } from '../side-innhold';
+import { TAG_DETALJER } from '../side-innhold';
 import DialogTab from './dialog-tab/dialog-tab';
 import './tab-menu.less';
 
@@ -34,7 +34,7 @@ class TabMenu extends React.Component<TabsProps, TabsState> {
         const { tabs } = this.props;
         const { selectedTabIdx } = this.state;
         const selectedTabTag = tabs[selectedTabIdx].tag;
-        const showGreyBackground = (selectedTabTag === TAG_DETALJER) || (selectedTabTag === TAG_VEDTAKSSTOTTE);
+        const showGreyBackground = (selectedTabTag === TAG_DETALJER);
 
         const appElem = document.getElementsByClassName('veilarbpersonflatefs')[0];
 
