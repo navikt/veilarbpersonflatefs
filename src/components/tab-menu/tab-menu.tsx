@@ -4,6 +4,7 @@ import { Normaltekst } from 'nav-frontend-typografi';
 import { TAG_DETALJER } from '../side-innhold';
 import DialogTab from './dialog-tab/dialog-tab';
 import './tab-menu.less';
+import { lagreSistBesokteTab } from './siste-tab';
 
 export interface Tab {
     title: string;
@@ -12,6 +13,7 @@ export interface Tab {
 }
 
 interface TabsProps {
+    fnr: string;
     tabs: Tab[];
     defaultSelectedTab?: string; // tag
 }
@@ -60,6 +62,8 @@ class TabMenu extends React.Component<TabsProps, TabsState> {
 
     createTabClickedHandler = (tab: number) => {
         return () => {
+            const { tabs, fnr } = this.props;
+            lagreSistBesokteTab({ fnr, tab: tabs[tab].tag});
             this.setState({ selectedTabIdx: tab });
         };
     };

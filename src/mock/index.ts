@@ -2,6 +2,7 @@ import FetchMock, { Middleware, MiddlewareUtils } from 'yet-another-fetch-mock';
 import { FEATURE_TOGGLE_URL, ULESTE_DIALOGER_URL } from '../utils/api';
 import features from './features-mock';
 import ulesteDialoger from './uleste-dialoger-mock';
+import brukerFnr from './bruker-fnr';
 
 const loggingMiddleware: Middleware = (request, response) => {
     // tslint:disable
@@ -32,7 +33,7 @@ const mock = FetchMock.configure({
     )
 });
 
-history.replaceState('', '', '/veilarbpersonflatefs/00123456789');
+history.replaceState('', '', '/veilarbpersonflatefs/' + brukerFnr);
 
 mock.get(FEATURE_TOGGLE_URL, features);
 
