@@ -4,6 +4,7 @@ import SideInnhold from './components/side-innhold';
 import { Features, lagFeatureToggleUrl } from './utils/featue-utils';
 import Datalaster from './components/datalaster';
 import PageSpinner from './components/page-spinner/page-spinner';
+import brukerFnr from './mock/bruker-fnr';
 
 const AppMock: React.FunctionComponent = () => {
     const visittkort        = <SpaMock name="Visittkort" className="spa-mock__visitt-kort"/>;
@@ -15,6 +16,7 @@ const AppMock: React.FunctionComponent = () => {
         <Datalaster<Features> url={lagFeatureToggleUrl()} spinner={<PageSpinner/>}>
             {(data: Features) =>
                 <SideInnhold
+                    fnr={brukerFnr}
                     features={data}
                     visittkort={visittkort}
                     mao={mao}

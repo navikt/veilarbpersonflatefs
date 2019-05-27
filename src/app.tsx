@@ -103,6 +103,7 @@ class App extends React.Component<{}, TilgangTilBrukerState> {
 
                         return (
                             <SideInnhold
+                                fnr={fnr}
                                 features={data}
                                 visittkort={visittkort}
                                 mao={mao}
