@@ -23,6 +23,12 @@ class App extends React.Component<{}, TilgangTilBrukerState> {
             aktivitetsplanKey: 0,
             tilgang: undefined,
         };
+
+        this.incrementKey = this.incrementKey.bind(this);
+    }
+
+    public incrementKey() {
+        this.setState({aktivitetsplanKey: this.state.aktivitetsplanKey + 1});
     }
 
     public componentWillMount() {
@@ -38,12 +44,12 @@ class App extends React.Component<{}, TilgangTilBrukerState> {
     }
 
     startAktivitetsplanEventListening() {
-        getWindow().addEventListener('rerenderAktivitetsplan', () => this.setState({aktivitetsplanKey: this.state.aktivitetsplanKey + 1}))
+        getWindow().addEventListener('rerenderAktivitetsplan', this.incrementKey);
     }
 
 
     stopAktivitetsplanEventListening() {
-        getWindow().removeEventListener('rerenderAktivitetsplan', () => this.setState({aktivitetsplanKey: 0}))
+        getWindow().removeEventListener('rerenderAktivitetsplan', this.incrementKey);
     }
 
     public componentDidMount(){
