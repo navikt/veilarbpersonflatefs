@@ -1,7 +1,7 @@
 import React from 'react';
 import cls from 'classnames';
 import { Normaltekst } from 'nav-frontend-typografi';
-import { TAG_DETALJER } from '../side-innhold';
+import { TAG_DETALJER } from '../side-innhold/side-innhold';
 import DialogTab from './dialog-tab/dialog-tab';
 import './tab-menu.less';
 import { lagreSistBesokteTab } from './siste-tab';
@@ -10,6 +10,7 @@ export interface Tab {
     title: string;
     tag: string;
     content: React.ReactElement;
+    className?: string;
 }
 
 interface TabsProps {
@@ -94,7 +95,7 @@ class TabMenu extends React.Component<TabsProps, TabsState> {
         return tabs.map((tab, idx) => {
             return (
                 <div
-                    className={cls("tab-menu__tab-content",
+                    className={cls("tab-menu__tab-content", tab.className,
                     { "no-display": (idx !== selectedTabIdx)})}
                     key={idx}
                 >
