@@ -14,6 +14,7 @@ import PageSpinner from './components/page-spinner/page-spinner';
 interface TilgangTilBrukerState {
     tilgang?: boolean;
     aktivitetsplanKey: number;
+    maoKey: number;
 }
 
 class App extends React.Component<{}, TilgangTilBrukerState> {
@@ -21,18 +22,25 @@ class App extends React.Component<{}, TilgangTilBrukerState> {
         super(props);
         this.state = {
             aktivitetsplanKey: 0,
+            maoKey: 0,
             tilgang: undefined,
         };
 
         this.incrementKey = this.incrementKey.bind(this);
+        this.incrementMaoKey = this.incrementMaoKey.bind(this);
     }
 
     public incrementKey() {
         this.setState({aktivitetsplanKey: this.state.aktivitetsplanKey + 1});
     }
 
+    public incrementMaoKey() {
+        this.setState({maoKey: this.state.maoKey + 1});
+    }
+
     public componentWillMount() {
         this.startAktivitetsplanEventListening();
+        this.startMaoEventListening();
     }
 
     public setHarTilgang(tilgang: boolean){
@@ -41,15 +49,23 @@ class App extends React.Component<{}, TilgangTilBrukerState> {
 
     public componentWillUnmount(){
         this.stopAktivitetsplanEventListening();
+        this.stoppMaoEventListening();
     }
 
     startAktivitetsplanEventListening() {
         getWindow().addEventListener('rerenderAktivitetsplan', this.incrementKey);
     }
 
+    startMaoEventListening() {
+        getWindow().addEventListener('rerenderMao', this.incrementMaoKey);
+    }
 
     stopAktivitetsplanEventListening() {
         getWindow().removeEventListener('rerenderAktivitetsplan', this.incrementKey);
+    }
+
+    stoppMaoEventListening() {
+        getWindow().removeEventListener('rerenderMao', this.incrementMaoKey);
     }
 
     public componentDidMount(){
@@ -82,7 +98,7 @@ class App extends React.Component<{}, TilgangTilBrukerState> {
         }
 
         const visittkort = <Visittkort enhet={enhet} fnr={fnr} visVeilederVerktoy={true} tilbakeTilFlate="veilarbportefoljeflatefs"/>;
-        const mao = <MAO enhet={enhet} fnr={fnr}/>;
+        const mao = <MAO enhet={enhet} fnr={fnr} key={this.state.maoKey}/>;
         const aktivitetsplan = <Aktivitetsplan key={this.state.aktivitetsplanKey} enhet={enhet} fnr={fnr} />;
 
         return (
