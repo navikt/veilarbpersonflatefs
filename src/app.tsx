@@ -25,9 +25,20 @@ class App extends React.Component<{}, TilgangTilBrukerState> {
             maoKey: 0,
             tilgang: undefined,
         };
+
+        this.incrementKey = this.incrementKey.bind(this);
+        this.incrementMaoKey = this.incrementMaoKey.bind(this);
     }
 
-    componentWillMount() {
+    public incrementKey() {
+        this.setState({aktivitetsplanKey: this.state.aktivitetsplanKey + 1});
+    }
+
+    public incrementMaoKey() {
+        this.setState({maoKey: this.state.maoKey + 1});
+    }
+
+    public componentWillMount() {
         this.startAktivitetsplanEventListening();
         this.startMaoEventListening();
     }
@@ -36,29 +47,26 @@ class App extends React.Component<{}, TilgangTilBrukerState> {
         this.setState({ tilgang })
     }
 
-
     public componentWillUnmount(){
         this.stopAktivitetsplanEventListening();
-        this.stopMaoEventListening();
-    }
-
-    startMaoEventListening() {
-        getWindow().addEventListener('rerenderMao', () => this.setState({maoKey: this.state.maoKey + 1}))
+        this.stoppMaoEventListening();
     }
 
     startAktivitetsplanEventListening() {
-        getWindow().addEventListener('rerenderAktivitetsplan', () => this.setState({aktivitetsplanKey: this.state.aktivitetsplanKey + 1}))
+        getWindow().addEventListener('rerenderAktivitetsplan', this.incrementKey);
     }
 
+    startMaoEventListening() {
+        getWindow().addEventListener('rerenderMao', this.incrementMaoKey);
+    }
 
     stopAktivitetsplanEventListening() {
-        getWindow().removeEventListener('rerenderAktivitetsplan', () => this.setState({aktivitetsplanKey: 0}))
+        getWindow().removeEventListener('rerenderAktivitetsplan', this.incrementKey);
     }
 
-    stopMaoEventListening () {
-        getWindow().removeEventListener('rerenderMao', () => this.setState({maoKey: 0}))
+    stoppMaoEventListening() {
+        getWindow().removeEventListener('rerenderMao', this.incrementMaoKey);
     }
-
 
     public componentDidMount(){
         const fnr = hentFodselsnummerFraURL();
