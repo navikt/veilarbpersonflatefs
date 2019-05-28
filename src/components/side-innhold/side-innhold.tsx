@@ -1,10 +1,10 @@
 import React from 'react';
-import TabMenu, { Tab } from './tab-menu/tab-menu';
-import TourModal from './tour-modal/tour-modal';
-import { Features, TOUR_MODAL_TOGGLE, VIS_VEDTAKSSTOTTE } from '../utils/featue-utils';
-import TilbakemeldingFab from './tilbakemelding/fab/tilbakemelding-fab';
+import TabMenu, { Tab } from '../tab-menu/tab-menu';
+import TourModal from '../tour-modal/tour-modal';
+import { Features, TOUR_MODAL_TOGGLE, VIS_VEDTAKSSTOTTE } from '../../utils/featue-utils';
+import TilbakemeldingFab from '../tilbakemelding/fab/tilbakemelding-fab';
+import { hentSistBesokteTab } from '../tab-menu/siste-tab';
 import './side-innhold.less';
-import { hentSistBesokteTab } from './tab-menu/siste-tab';
 
 interface SideInnholdLayoutProps {
     visittkort: React.ReactElement;
@@ -28,10 +28,10 @@ class SideInnhold extends React.Component<SideInnholdLayoutProps> {
             { tag: TAG_AKTIVITETSPLAN, title: 'Aktivitetsplan og dialog', content: aktivitetsplan },
         ];
 
-        tabs.push({ tag: TAG_DETALJER, title: 'Detaljer', content: <div className="tab-content__mao">{mao}</div> });
+        tabs.push({ tag: TAG_DETALJER, title: 'Detaljer', className: "tab-content__mao", content: mao});
 
         if (vedtaksstotte && features[VIS_VEDTAKSSTOTTE]) {
-            tabs.push({ tag: TAG_VEDTAKSSTOTTE, title: 'Oppfølgingsvedtak', content: vedtaksstotte });
+            tabs.push({ tag: TAG_VEDTAKSSTOTTE, title: 'Oppfølgingsvedtak', className: "tab-content__vedtaksstotte", content: vedtaksstotte });
         }
 
         const visDetaljer = window.location.search.indexOf('visRegistreringDetaljer') >= 0;
