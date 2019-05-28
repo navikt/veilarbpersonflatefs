@@ -28,7 +28,7 @@ class SideInnhold extends React.Component<SideInnholdLayoutProps> {
             { tag: TAG_AKTIVITETSPLAN, title: 'Aktivitetsplan og dialog', content: aktivitetsplan },
         ];
 
-        tabs.push({ tag: TAG_DETALJER, title: 'Detaljer', content: <div className="tab-content__mao">{mao}</div> });
+        tabs.push({ tag: TAG_DETALJER, title: 'Detaljer', className: "tab-content__mao", content: mao});
 
         if (vedtaksstotte && features[VIS_VEDTAKSSTOTTE]) {
             tabs.push({ tag: TAG_VEDTAKSSTOTTE, title: 'Oppfølgingsvedtak', className: "tab-content__vedtaksstotte", content: vedtaksstotte });
