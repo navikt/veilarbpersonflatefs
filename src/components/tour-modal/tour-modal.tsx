@@ -3,19 +3,19 @@ import NavFrontendModal from 'nav-frontend-modal';
 import { Normaltekst, Systemtittel, Undertittel } from 'nav-frontend-typografi';
 import ChevronLenke, { Retning } from '../chevron-lenke/chevron-lenke';
 import Stegviser from '../stegviser/stegviser';
-import step1Bilde from './step-1.jpg';
-import step2Bilde from './step-2.jpg';
-import step3Bilde from './step-3.jpg';
+import step1Bilde from './step-1.png';
 import TourModalMetrics from './tour-modal-metrics';
 import { hasStored } from '../../utils/utils';
 import './tour-modal.less';
 
-const modalName = 'TOUR_MODAL-NY_LAYOUT_ENDRING';
+const modalName = 'TOUR_MODAL-LAST_NED_CV';
 
 const steps: Step[] = [
-    { tittel: 'Visittkort', bilde: step1Bilde, tekst: 'Visittkortet øverst viser nøkkelinformasjon om brukeren.'},
-    { tittel: 'Veilederverktøy', bilde: step2Bilde, tekst: 'Her ligger funksjonene som før lå under tannhjulet i aktivitetsplanen.'},
-    { tittel: 'Faner', bilde: step3Bilde, tekst: 'Du kan veksle mellom aktivitetsplanen og detaljer ved å klikke på fanene.'},
+    {
+        tittel: 'Last ned og skriv ut CV' ,
+        bilde: step1Bilde,
+        tekst: 'Du kan nå i Detaljer laste ned brukerens CV og få en bedre utskrift.'
+    },
 ];
 
 interface Step {
