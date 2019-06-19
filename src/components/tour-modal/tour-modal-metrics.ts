@@ -7,7 +7,7 @@ interface Metrics {
     finishedTour: boolean;
 }
 
-const LOG_TAG_TOUR_MODAL_METRICS = 'veilarbpersonflatefs.metrikker.tour_modal';
+const LOG_TAG_TOUR_MODAL_METRICS = 'veilarbpersonflatefs.metrikker.tour_modal.last_ned_cv';
 
 class TourModalMetrics {
 
