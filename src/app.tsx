@@ -15,6 +15,7 @@ interface TilgangTilBrukerState {
     tilgang?: boolean;
     aktivitetsplanKey: number;
     maoKey: number;
+    vedtakstotteKey: number;
 }
 
 class App extends React.Component<{}, TilgangTilBrukerState> {
@@ -24,10 +25,12 @@ class App extends React.Component<{}, TilgangTilBrukerState> {
             aktivitetsplanKey: 0,
             maoKey: 0,
             tilgang: undefined,
+            vedtakstotteKey: 0,
         };
 
         this.incrementKey = this.incrementKey.bind(this);
         this.incrementMaoKey = this.incrementMaoKey.bind(this);
+        this.incrementAllKeys = this.incrementAllKeys.bind(this);
     }
 
     public incrementKey() {
@@ -38,9 +41,18 @@ class App extends React.Component<{}, TilgangTilBrukerState> {
         this.setState({maoKey: this.state.maoKey + 1});
     }
 
+    public incrementAllKeys() {
+        this.setState({
+            maoKey: this.state.maoKey + 1,
+            aktivitetsplanKey: this.state.aktivitetsplanKey + 1,
+            vedtakstotteKey: this.state.vedtakstotteKey + 1,
+        });
+    }
+
     public componentWillMount() {
         this.startAktivitetsplanEventListening();
         this.startMaoEventListening();
+        this.startAvsluttOppfolgingEventListening();
     }
 
     public setHarTilgang(tilgang: boolean){
@@ -50,10 +62,19 @@ class App extends React.Component<{}, TilgangTilBrukerState> {
     public componentWillUnmount(){
         this.stopAktivitetsplanEventListening();
         this.stoppMaoEventListening();
+        this.stoppAvsluttOppfolgingEventListening();
     }
 
     startAktivitetsplanEventListening() {
         getWindow().addEventListener('rerenderAktivitetsplan', this.incrementKey);
+    }
+
+    startAvsluttOppfolgingEventListening() {
+        getWindow().addEventListener('oppfolgingAvslutet', this.incrementAllKeys);
+    }
+
+    stoppAvsluttOppfolgingEventListening() {
+        getWindow().removeEventListener('oppfolgingAvslutet', this.incrementAllKeys);
     }
 
     startMaoEventListening() {
@@ -107,7 +128,7 @@ class App extends React.Component<{}, TilgangTilBrukerState> {
                 <Datalaster<Features> url={lagFeatureToggleUrl()} spinner={<PageSpinner/>}>
                     {(data: Features) => {
                         const vedtaksstotte = data[VIS_VEDTAKSSTOTTE] ?
-                            <Vedtaksstotte enhet={enhet} fnr={fnr} /> : undefined;
+                            <Vedtaksstotte enhet={enhet} fnr={fnr} key={this.state.vedtakstotteKey}/> : undefined;
 
                         return (
                             <SideInnhold
