@@ -15,7 +15,7 @@
     "prettier": "prettier --write --single-quote --trailing-comma es5 --tab-width 4 src/**/*.js src/**/*.ts src/**/*.tsx src/**/*.css"
   },
   "dependencies": {
-    "@craco/craco": "3.4.1",
+    "@craco/craco": "5.2.0",
     "babel-polyfill": "6.26.0",
     "classnames": "2.2.6",
     "craco-less": "1.6.0",
