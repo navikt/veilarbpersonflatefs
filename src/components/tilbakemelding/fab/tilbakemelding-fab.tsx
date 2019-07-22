@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React from 'react';
 import cls from 'classnames';
 import TilbakemeldingModal, { Tilbakemelding } from '../tilbakemelding-modal';
 import { logEvent } from '../../../utils/frontend-logger';
@@ -101,6 +101,7 @@ class TilbakemeldingFab extends React.Component<TilbakemeldingFabProps, Tilbakem
                             'tilbakemelding-fab__ikon--apne': !isModalOpen,
                             'tilbakemelding-fab__ikon--lukke': isModalOpen,
                         })}
+                        alt="Tilbakemelding"
                         src={isModalOpen ? lukkBilde : tilbakemeldingBilde}
                     />
                 </div>}

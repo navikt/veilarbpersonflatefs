@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React from 'react';
 import NavFrontendSpinner from 'nav-frontend-spinner';
 import './page-spinner.less';
 

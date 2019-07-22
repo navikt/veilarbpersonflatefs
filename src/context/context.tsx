@@ -1,5 +1,5 @@
-import { AlertStripeAdvarselSolid } from 'nav-frontend-alertstriper';
-import * as React from 'react';
+import React from 'react';
+import { AlertStripeAdvarsel } from 'nav-frontend-alertstriper';
 import { addLocaleData, FormattedMessage, IntlProvider } from 'react-intl';
 import * as nb from 'react-intl/locale-data/nb';
 import { initialiserToppmeny } from '../utils/dekorator-utils';
@@ -93,9 +93,9 @@ export default class EnhetContext extends React.Component<{}, EnhetContextState>
 
     public render() {
         const alertIkkeTilkoblet = (
-            <AlertStripeAdvarselSolid>
+            <AlertStripeAdvarsel>
                 <FormattedMessage {...tekster.wsfeilmelding} />
-            </AlertStripeAdvarselSolid>
+            </AlertStripeAdvarsel>
         );
 
         return (

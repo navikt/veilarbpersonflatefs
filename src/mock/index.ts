@@ -33,7 +33,7 @@ const mock = FetchMock.configure({
     )
 });
 
-history.replaceState('', '', '/veilarbpersonflatefs/' + brukerFnr);
+window.history.replaceState('', '', '/veilarbpersonflatefs/' + brukerFnr);
 
 mock.get(FEATURE_TOGGLE_URL, features);
 

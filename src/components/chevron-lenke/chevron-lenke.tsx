@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React from 'react';
 import cls from 'classnames';
 import { HoyreChevron, VenstreChevron } from 'nav-frontend-chevron';
 import './chevron-lenke.less';
