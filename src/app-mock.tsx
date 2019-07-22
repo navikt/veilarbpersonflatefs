@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React from 'react';
 import SpaMock from './components/spa-mock/spa-mock';
 import SideInnhold from './components/side-innhold/side-innhold';
 import { Features, lagFeatureToggleUrl } from './utils/featue-utils';

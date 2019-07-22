@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React from 'react';
 import cls from 'classnames';
 import svaertDarligBilde from './svaert_darlig.svg';
 import darligBilde from './darlig.svg';
@@ -47,6 +47,7 @@ class TilfredshetValg extends React.Component<TilfredshetValgProps, TilfredshetV
                 className={this.hentKlasserForIkon(tilfredshet)}
                 onClick={() => this.handleTilfredshetChanged(tilfredshet)}
                 src={bilde}
+                alt={"Tilfredshet " + tilfredshet}
             />
         );
     };

@@ -19,7 +19,7 @@ export function enhetFraUrl(): string | undefined {
        return enhet[0]
     }
 
-    return enhet;
+    return enhet ? enhet : undefined;
 }
 
 export function enhetFinnesIUrl() {

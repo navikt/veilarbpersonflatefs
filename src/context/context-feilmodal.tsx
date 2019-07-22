@@ -1,8 +1,8 @@
-import { AlertStripeNavAnsatt } from 'nav-frontend-alertstriper';
+import React from 'react';
+import { AlertStripeInfo } from 'nav-frontend-alertstriper';
 import { Hovedknapp } from 'nav-frontend-knapper';
 import NavFrontendModal from 'nav-frontend-modal';
 import { Innholdstittel } from 'nav-frontend-typografi';
-import * as React from 'react';
 import { FormattedMessage } from 'react-intl';
 import { tekster } from './context-tekster';
 
@@ -26,9 +26,9 @@ class ContextFeilmodal extends React.Component<ContextFeilmodalProps> {
                         <FormattedMessage {...tekster.feilmodalOverskrift} />
                     </Innholdstittel>
                     <div className="modal-content modal-test">
-                        <AlertStripeNavAnsatt className="blokk-s">
+                        <AlertStripeInfo className="blokk-s">
                             <FormattedMessage {...tekster.feilmodalTekst} />
-                        </AlertStripeNavAnsatt>
+                        </AlertStripeInfo>
                     </div>
                     <div className="modal-footer">
                         <Hovedknapp onClick={this.props.onClose}>

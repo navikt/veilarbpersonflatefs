@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React from 'react';
 import NavFrontendModal from 'nav-frontend-modal';
 import { Normaltekst, Systemtittel, Undertittel } from 'nav-frontend-typografi';
 import ChevronLenke, { Retning } from '../chevron-lenke/chevron-lenke';
@@ -14,6 +14,7 @@ const steps: Step[] = [
     {
         tittel: 'Last ned og skriv ut CV' ,
         bilde: step1Bilde,
+        bildeAlt: 'Skjermbilde av last ned CV lenke i detaljer',
         tekst: 'Du kan nå i Detaljer laste ned brukerens CV og få en bedre utskrift.'
     },
 ];
@@ -22,6 +23,7 @@ interface Step {
     tittel: string;
     tekst: string;
     bilde: string;
+    bildeAlt: string;
 }
 
 interface TourModalState {
@@ -97,7 +99,7 @@ class TourModal extends React.Component<{}, TourModalState> {
                 </div>
                 <main className="tour-modal__main">
                     <div className="tour-modal__main--bilde-wrapper">
-                        <img src={step.bilde} className="tour-modal__main--bilde"/>
+                        <img src={step.bilde} alt={step.bildeAlt} className="tour-modal__main--bilde"/>
                     </div>
                     <div className="tour-modal__main--beskrivelse">
                         <Undertittel className="blokk-xxxs">{step.tittel}</Undertittel>

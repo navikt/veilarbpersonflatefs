@@ -1,6 +1,6 @@
-import * as React from 'react';
+import React from 'react';
 import NavFrontendSpinner from 'nav-frontend-spinner';
-import { AlertStripeAdvarselSolid } from 'nav-frontend-alertstriper';
+import { AlertStripeAdvarsel } from 'nav-frontend-alertstriper';
 import { fetchToJson } from '../utils/rest-utils';
 
 interface DatalasterProps<D> {
@@ -44,9 +44,9 @@ class Datalaster<D> extends React.Component<DatalasterProps<D>, DatalasterState<
 
         if (harFeilet) {
             return (
-                <AlertStripeAdvarselSolid>
+                <AlertStripeAdvarsel>
                     Kunne ikke laste data, prøv på nytt ...
-                </AlertStripeAdvarselSolid>
+                </AlertStripeAdvarsel>
             );
         } else if (data == null) {
             return spinner ? spinner : (
