@@ -1,5 +1,5 @@
-import AlertStripeInfoSolid from 'nav-frontend-alertstriper/lib/info-solid-alertstripe';
-import * as React from 'react';
+import React from 'react';
+import { AlertStripeInfo } from 'nav-frontend-alertstriper';
 import { FormattedMessage, IntlProvider } from 'react-intl';
 import { Tekst, tekster } from '../context/context-tekster';
 
@@ -15,9 +15,9 @@ export function FeilmeldingMedAlertStripe(props: { tekst: Tekst }) {
     return (
         <IntlProvider locale="nb" defaultLocale="nb" messages={tekster}>
             <div className="container hovedinnhold">
-                <AlertStripeInfoSolid>
+                <AlertStripeInfo>
                     <FormattedMessage {...props.tekst} />
-                </AlertStripeInfoSolid>
+                </AlertStripeInfo>
             </div>
         </IntlProvider>
     );
