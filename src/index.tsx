@@ -8,10 +8,11 @@ import AppMock from './app-mock';
 import NavFrontendModal from 'nav-frontend-modal';
 import './index.less';
 import { initialiserToppmeny } from './utils/dekorator-utils';
+import { initDedupe } from './utils/fetch-dedupe';
 
-const window = getWindow();
+initDedupe();
 
-if (!window._babelPolyfill) {
+if (!getWindow()._babelPolyfill) {
     // @ts-ignore
     require('babel-polyfill');
 }
