@@ -1,6 +1,6 @@
 import React from 'react';
 import SpaMock from './components/spa-mock/spa-mock';
-import SideInnhold from './components/side-innhold/side-innhold';
+import SideInnhold from './components/side-innhold';
 import { Features, lagFeatureToggleUrl } from './utils/featue-utils';
 import Datalaster from './components/datalaster';
 import PageSpinner from './components/page-spinner/page-spinner';

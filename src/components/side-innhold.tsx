@@ -1,10 +1,9 @@
 import React from 'react';
-import TabMenu, { Tab } from '../tab-menu/tab-menu';
-import TourModal from '../tour-modal/tour-modal';
-import { Features, TOUR_MODAL_TOGGLE, VIS_VEDTAKSSTOTTE } from '../../utils/featue-utils';
-import TilbakemeldingFab from '../tilbakemelding/fab/tilbakemelding-fab';
-import { hentSistBesokteTab } from '../tab-menu/siste-tab';
-import './side-innhold.less';
+import TabMenu, { Tab } from './tab-menu/tab-menu';
+import TourModal from './tour-modal/tour-modal';
+import { Features, TOUR_MODAL_TOGGLE, VIS_VEDTAKSSTOTTE } from '../utils/featue-utils';
+import TilbakemeldingFab from './tilbakemelding/fab/tilbakemelding-fab';
+import { hentSistBesokteTab } from './tab-menu/siste-tab';
 
 interface SideInnholdLayoutProps {
     visittkort: React.ReactElement;
