@@ -1,7 +1,7 @@
 import React from 'react';
 import cls from 'classnames';
 import { Normaltekst } from 'nav-frontend-typografi';
-import { TAG_DETALJER, TAG_VEDTAKSSTOTTE } from '../side-innhold/side-innhold';
+import { TAG_DETALJER, TAG_VEDTAKSSTOTTE } from '../side-innhold';
 import DialogTab from './dialog-tab/dialog-tab';
 import './tab-menu.less';
 import { lagreSistBesokteTab } from './siste-tab';

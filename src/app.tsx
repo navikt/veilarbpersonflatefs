@@ -3,7 +3,7 @@ import Datalaster from './components/datalaster';
 import { Features, lagFeatureToggleUrl, VIS_VEDTAKSSTOTTE } from './utils/featue-utils';
 import { enhetFraUrl, hentFodselsnummerFraURL } from './utils/url-utils';
 import { fetchToJson } from './utils/rest-utils';
-import SideInnhold from './components/side-innhold/side-innhold';
+import SideInnhold from './components/side-innhold';
 import { Aktivitetsplan, MAO, Vedtaksstotte, Visittkort } from './components/spa';
 import getWindow from './utils/window';
 import { initialiserToppmeny } from './utils/dekorator-utils';
