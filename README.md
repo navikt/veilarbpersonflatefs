@@ -1,3 +1,5 @@
+[![CircleCI](https://circleci.com/gh/navikt/veilarbpersonflatefs.svg?style=svg)](https://circleci.com/gh/navikt/veilarbpersonflatefs)
+
 # VeilArbPersonFlateFS
 Flate applikasjonen for veiledere som viser informasjon og aktivitetsplanen til brukerne
 
