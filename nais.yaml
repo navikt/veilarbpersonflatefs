@@ -11,8 +11,8 @@ spec:
   image: docker.pkg.github.com/navikt/veilarbpersonflatefs/veilarbpersonflatefs:{{version}}
   port: 8080
   liveness:
+    path: veilarbpersonflatefs/internal/isAlive
     initialDelay: 20
-      path: veilarbpersonflatefs/internal/isAlive
   readiness:
     path: veilarbpersonflatefs/internal/selftest
     initialDelay: 20
