@@ -3,8 +3,7 @@ kind: "Application"
 metadata:
   name: veilarbpersonflatefs
   namespace: default
-  cluster:
-    - prod-fss
+  cluster: prod-fss
   labels:
     team: pto
 spec:
