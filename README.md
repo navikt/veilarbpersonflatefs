@@ -8,6 +8,7 @@ Flate applikasjonen for veiledere som viser informasjon og aktivitetsplanen til 
 $ npm install
 $ npm run dev
 ```
+
 Bruk dev-proxyen for å få opp et miljø appen kan kjøres i
 
 # Henvendelser
