@@ -8,26 +8,20 @@ workflows:
     jobs:
       - pus/test-frontend:
           context: pus
-          filters:
-            branches:
-              ignore: master
       - pus/bygg-og-deploy-frontend:
+          requires:
+            - pus/test-frontend
           context: pus
+          filepath: nais-q.yaml
           filters:
             branches:
-              only: master
-      - prodsett:
+              only: dev
+      - pus/bygg-og-deploy-frontend:
           requires:
-            - pus/bygg-og-deploy-frontend
+            - pus/test-frontend
+          context: pus
           type: approval
-          filters:
-            branches:
-              only: master
-      - pus/deploy-latest:
-          requires:
-            - prodsett
-          context: pus
-          filepath: ./nais.yaml
+          filepath: nais-q.yaml
           filters:
             branches:
               only: master
