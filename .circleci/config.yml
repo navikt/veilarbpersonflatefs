@@ -1,6 +1,6 @@
 version: 2.1
 orbs:
-  pus: navikt/pus-orb@0.0.37
+  pus: navikt/pus-orb@0.0.39
 
 workflows:
   version: 2
@@ -21,7 +21,7 @@ workflows:
             - pus/test-frontend
           context: pus
           type: approval
-          filepath: nais-q.yaml
+          filepath: nais.yaml
           filters:
             branches:
               only: master
