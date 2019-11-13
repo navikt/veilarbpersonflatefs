@@ -21,7 +21,7 @@ workflows:
             - pus/test-frontend
           context: pus
           type: approval
-          filepath: nais-q.yaml
+          filepath: nais.yaml
           filters:
             branches:
               only: master
