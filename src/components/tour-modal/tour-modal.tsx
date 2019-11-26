@@ -3,27 +3,26 @@ import NavFrontendModal from 'nav-frontend-modal';
 import { Normaltekst, Systemtittel, Undertittel } from 'nav-frontend-typografi';
 import ChevronLenke, { Retning } from '../chevron-lenke/chevron-lenke';
 import Stegviser from '../stegviser/stegviser';
-import step1Bilde from './step-1.png';
 import TourModalMetrics from './tour-modal-metrics';
 import { hasStored } from '../../utils/utils';
 import './tour-modal.less';
 
-const modalName = 'TOUR_MODAL-LAST_NED_CV';
+export interface TourModalConfig {
+    storageName: string;
+    toggleName: string;
+    metricName: string;
+    steps: Step[];
+}
 
-const steps: Step[] = [
-    {
-        tittel: 'Last ned og skriv ut CV' ,
-        bilde: step1Bilde,
-        bildeAlt: 'Skjermbilde av last ned CV lenke i detaljer',
-        tekst: 'Du kan nå i Detaljer laste ned brukerens CV og få en bedre utskrift.'
-    },
-];
-
-interface Step {
+export interface Step {
     tittel: string;
     tekst: string;
     bilde: string;
     bildeAlt: string;
+}
+
+interface TourModalProps {
+    config: TourModalConfig;
 }
 
 interface TourModalState {
@@ -31,17 +30,23 @@ interface TourModalState {
     modalOpen: boolean;
 }
 
-class TourModal extends React.Component<{}, TourModalState> {
+class TourModal extends React.Component<TourModalProps, TourModalState> {
 
-    state = {
-        modalOpen: !hasStored(modalName),
-        selectedStepIdx: 0
-    };
+    private metrics: TourModalMetrics;
 
-    private metrics: TourModalMetrics = new TourModalMetrics(steps.length);
+    constructor(props: TourModalProps) {
+        super(props);
+
+        const { steps, storageName, metricName } = props.config;
+        this.metrics = new TourModalMetrics(steps.length, metricName);
+        this.state = {
+            modalOpen: !hasStored(storageName),
+            selectedStepIdx: 0
+        }
+    }
 
     lagreIkkeVisModal = () => {
-        window.localStorage.setItem(modalName, 'true');
+        window.localStorage.setItem(this.props.config.storageName, 'true');
     };
 
     lukkModal = (finishedTour: boolean) => {
@@ -75,6 +80,7 @@ class TourModal extends React.Component<{}, TourModalState> {
 
     render() {
         const { selectedStepIdx, modalOpen } = this.state;
+        const { steps } = this.props.config;
         const step = steps[selectedStepIdx];
         const isFinalStep = selectedStepIdx === steps.length - 1;
 

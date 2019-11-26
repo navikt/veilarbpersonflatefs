@@ -7,16 +7,15 @@ interface Metrics {
     finishedTour: boolean;
 }
 
-const LOG_TAG_TOUR_MODAL_METRICS = 'veilarbpersonflatefs.metrikker.tour_modal.last_ned_cv';
-
 class TourModalMetrics {
-
     private timeSpent: number[];
     private timeStarted: number;
+    private metricName: string;
 
-    constructor(antallSteg: number) {
+    constructor(antallSteg: number, metricName: string) {
         this.timeSpent = Array(antallSteg).fill(0);
         this.timeStarted = Date.now();
+        this.metricName = metricName;
     }
 
     public setTimeSpent = (currentStepIdx: number) => {
@@ -27,7 +26,7 @@ class TourModalMetrics {
 
     public log = (finishedTour: boolean) => {
         const metrics = this.lagTourModalMetrikker(finishedTour);
-        logEvent(LOG_TAG_TOUR_MODAL_METRICS, metrics);
+        logEvent(this.metricName, metrics);
     };
 
     private lagTourModalMetrikker = (finishedTour: boolean): Metrics => {
