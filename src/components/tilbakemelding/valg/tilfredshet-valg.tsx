@@ -38,17 +38,21 @@ class TilfredshetValg extends React.Component<TilfredshetValgProps, TilfredshetV
                 'tilfredshet-valg__ikon--ikke-valgt': harValgt && !erValgt,
                 'tilfredshet-valg__ikon--valgt': erValgt
             }
-            );
+        );
     }
 
     lagValg = (bilde: string, tilfredshet: number) => {
         return (
-            <img
-                className={this.hentKlasserForIkon(tilfredshet)}
-                onClick={() => this.handleTilfredshetChanged(tilfredshet)}
-                src={bilde}
-                alt={"Tilfredshet " + tilfredshet}
-            />
+            <button
+                aria-label={"Velg tilfredshet " + tilfredshet}
+                className="tilfredshet-valg__ikon-btn"
+                onClick={() => this.handleTilfredshetChanged(tilfredshet)}>
+                <img
+                    className={this.hentKlasserForIkon(tilfredshet)}
+                    src={bilde}
+                    alt=""
+                />
+            </button>
         );
     };
 

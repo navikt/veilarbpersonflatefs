@@ -1,3 +1,5 @@
+@import "~nav-frontend-core/less/_variabler";
+
 .tilfredshet-valg__wrapper {
     width: 100%;
     display: flex;
@@ -5,6 +7,16 @@
     justify-content: space-around;
     padding-left: 0.5rem;
     padding-right: 0.5rem;
+
+    .tilfredshet-valg__ikon-btn {
+        background: none;
+        border: none;
+
+        &:focus {
+            outline: none;
+            box-shadow: 0 0 0 3px @navBlaDarken60;
+        }
+    }
 
     .tilfredshet-valg__ikon {
         width: 40px;
