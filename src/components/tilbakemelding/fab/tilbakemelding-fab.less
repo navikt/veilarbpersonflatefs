@@ -1,3 +1,5 @@
+@import "~nav-frontend-core/less/_variabler";
+
 .tilbakemelding-fab {
     width: 64px;
     height: 64px;
@@ -15,6 +17,11 @@
     position: fixed;
     right: 20px;
     bottom: 20px;
+
+    &:focus {
+        outline: none;
+        box-shadow: 0 0 0 3px @navBlaDarken60;
+    }
 
     &__ikon--apne {
         width: 40px;

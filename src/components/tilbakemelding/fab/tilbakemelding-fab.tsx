@@ -95,16 +95,16 @@ class TilbakemeldingFab extends React.Component<TilbakemeldingFabProps, Tilbakem
         return (
             <div ref={(ref) => { this.wrapperRef = ref; }}>
                 {!hide &&
-                <div className={cls('tilbakemelding-fab', { 'tilbakemelding-fab__trykket': isModalOpen })} onClick={this.handleFabClicked}>
+                <button aria-label="Åpne tilbakemeldingsmodal" className={cls('tilbakemelding-fab', { 'tilbakemelding-fab__trykket': isModalOpen })} onClick={this.handleFabClicked}>
                     <img
                         className={cls({
                             'tilbakemelding-fab__ikon--apne': !isModalOpen,
                             'tilbakemelding-fab__ikon--lukke': isModalOpen,
                         })}
-                        alt="Tilbakemelding"
                         src={isModalOpen ? lukkBilde : tilbakemeldingBilde}
+                        alt=""
                     />
-                </div>}
+                </button>}
                 <TilbakemeldingModal
                     open={isModalOpen}
                     onTilbakemeldingSendt={this.handleTilbakemeldingSendt}
