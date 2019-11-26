@@ -1,9 +1,9 @@
 import React from 'react';
 import TabMenu, { Tab } from './tab-menu/tab-menu';
-import TourModal from './tour-modal/tour-modal';
-import { Features, TOUR_MODAL_TOGGLE, VIS_VEDTAKSSTOTTE } from '../utils/featue-utils';
+import { Features, VIS_VEDTAKSSTOTTE } from '../utils/featue-utils';
 import TilbakemeldingFab from './tilbakemelding/fab/tilbakemelding-fab';
 import { hentSistBesokteTab } from './tab-menu/siste-tab';
+import { TourModalController } from './tour-modal/tour-modal-controller';
 import './side-innhold.less';
 
 interface SideInnholdLayoutProps {
@@ -53,7 +53,7 @@ class SideInnhold extends React.Component<SideInnholdLayoutProps> {
                     {visittkort}
                 </div>
                 <TabMenu fnr={fnr} tabs={tabs} defaultSelectedTab={defaultSelectedTab}/>
-                { features[TOUR_MODAL_TOGGLE] && <TourModal /> }
+                <TourModalController features={features}/>
                 <TilbakemeldingFab features={features} />
             </>
         );
