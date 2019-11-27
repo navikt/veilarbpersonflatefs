@@ -16,11 +16,17 @@ workflows:
           filters:
             branches:
               only: dev
-      - pus/bygg-og-deploy-frontend:
+      - prodsett:
           requires:
             - pus/test-frontend
-          context: pus
           type: approval
+          filters:
+            branches:
+              only: master
+      - pus/bygg-og-deploy-frontend:
+          requires:
+            - prodsett
+          context: pus
           filepath: nais.yaml
           filters:
             branches:
