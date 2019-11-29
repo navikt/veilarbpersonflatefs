@@ -11,6 +11,7 @@ import './index.less';
 import NAVSPA from './utils/navspa';
 import { SpaName } from './components/spa';
 import { SpaMockContent } from './components/spa-mock/spa-mock';
+import {AlertStripeAdvarsel} from "nav-frontend-alertstriper";
 
 const window = getWindow();
 
@@ -47,5 +48,12 @@ if (isAppMocked()) {
 } else {
 	app = <App />;
 }
+
+// TODO: Remove me!!!
+app = <div style={{paddingTop: "10px", margin: "0 auto", width: "400px"}}>
+    <AlertStripeAdvarsel>
+    Systemet er utilgjengelig mellom 27.des til 02.jan
+    </AlertStripeAdvarsel>
+</div>
 
 ReactDOM.render(app, document.getElementById('veilarbpersonflatefs-app'));
