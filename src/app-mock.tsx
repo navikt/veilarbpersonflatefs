@@ -10,6 +10,7 @@ const AppMock: React.FunctionComponent = () => {
     const visittkort        = <SpaMock name="Visittkort" className="spa-mock__visitt-kort"/>;
     const mao               = <SpaMock name="MAO" className="spa-mock__mao"/>;
     const aktivitetsplan    = <SpaMock name="Aktivitetsplan" className="spa-mock__aktivitetsplan"/>;
+    const dialog            = <SpaMock name="Dialog" className="spa-mock__dialog" />;
     const vedtaksstotte     = <SpaMock name="Vedtaksstøtte" className="spa-mock__vedtaksstotte"/>;
 
     return (
@@ -21,6 +22,7 @@ const AppMock: React.FunctionComponent = () => {
                     visittkort={visittkort}
                     mao={mao}
                     aktivitetsplan={aktivitetsplan}
+                    dialog={dialog}
                     vedtaksstotte={vedtaksstotte}
                 />
             }

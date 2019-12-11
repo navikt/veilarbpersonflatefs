@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import Datalaster from './components/datalaster';
-import { Features, lagFeatureToggleUrl, VIS_VEDTAKSSTOTTE } from './utils/featue-utils';
+import {Features, lagFeatureToggleUrl, VIS_NY_DIALOG, VIS_VEDTAKSSTOTTE} from './utils/featue-utils';
 import { enhetFraUrl, hentFodselsnummerFraURL } from './utils/url-utils';
 import { fetchToJson } from './utils/rest-utils';
 import SideInnhold from './components/side-innhold';
-import { Aktivitetsplan, MAO, Vedtaksstotte, Visittkort } from './components/spa';
+import {Aktivitetsplan, Dialog, MAO, Vedtaksstotte, Visittkort} from './components/spa';
 import getWindow from './utils/window';
 import { initialiserToppmeny } from './utils/dekorator-utils';
 import { FeilmeldingManglerFnr, IngenTilgangTilBruker } from './components/feilmeldinger';
@@ -67,6 +67,9 @@ const App = () => {
                     const vedtaksstotte = data[VIS_VEDTAKSSTOTTE] ?
                         <Vedtaksstotte enhet={enhet} fnr={fnr} key={vedtakstotteKey}/> : undefined;
 
+                    const dialog =  data[VIS_NY_DIALOG] ?
+                        <Dialog fnr={fnr} /> : undefined;
+
                     return (
                         <SideInnhold
                             fnr={fnr}
@@ -74,6 +77,7 @@ const App = () => {
                             visittkort={visittkort}
                             mao={mao}
                             aktivitetsplan={aktivitetsplan}
+                            dialog={dialog}
                             vedtaksstotte={vedtaksstotte}
                         />
                     );
