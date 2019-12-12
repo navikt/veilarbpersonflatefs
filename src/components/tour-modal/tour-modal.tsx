@@ -11,6 +11,7 @@ export interface TourModalConfig {
     storageName: string;
     toggleName: string;
     metricName: string;
+    modalName: string;
     steps: Step[];
 }
 
@@ -80,7 +81,7 @@ class TourModal extends React.Component<TourModalProps, TourModalState> {
 
     render() {
         const { selectedStepIdx, modalOpen } = this.state;
-        const { steps } = this.props.config;
+        const { steps, modalName } = this.props.config;
         const step = steps[selectedStepIdx];
         const isFinalStep = selectedStepIdx === steps.length - 1;
 
@@ -100,7 +101,7 @@ class TourModal extends React.Component<TourModalProps, TourModalState> {
             >
                 <div className="tour-modal__header--wrapper">
                 <header className="tour-modal__header">
-                    <Systemtittel>Ny oppdatering</Systemtittel>
+                    <Systemtittel>{modalName}</Systemtittel>
                 </header>
                 </div>
                 <main className="tour-modal__main">

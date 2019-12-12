@@ -5,6 +5,7 @@ export const lastNedCvModalConfig: TourModalConfig = {
 	storageName: 'TOUR_MODAL-LAST_NED_CV',
 	toggleName: 'veilarbpersonflatefs.tour_modal-last_ned_cv',
 	metricName: 'veilarbpersonflatefs.metrikker.tour_modal.last_ned_cv',
+	modalName: 'Ny oppdatering',
 	steps: [
 		{
 			tittel: 'Last ned og skriv ut CV' ,
