@@ -11,7 +11,7 @@ import './index.less';
 import NAVSPA from './utils/navspa';
 import { SpaName } from './components/spa';
 import { SpaMockContent } from './components/spa-mock/spa-mock';
-import {AlertStripeAdvarsel} from "nav-frontend-alertstriper";
+import { AlertStripeAdvarsel } from 'nav-frontend-alertstriper';
 
 const window = getWindow();
 
@@ -50,9 +50,9 @@ if (isAppMocked()) {
 }
 
 // TODO: Remove me!!!
-app = <div style={{paddingTop: "10px", margin: "0 auto", width: "400px"}}>
+app = <div style={{paddingTop: '10px', margin: '0 auto', width: '400px'}}>
     <AlertStripeAdvarsel>
-    Systemet er utilgjengelig mellom 27.des til 02.jan
+        Tjenesten er stengt på grunn av arbeid med kommunesammenslåing. Tjenesten skal etter planen åpnes igjen 2. januar.
     </AlertStripeAdvarsel>
 </div>
 
