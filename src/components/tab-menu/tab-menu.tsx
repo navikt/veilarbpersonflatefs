@@ -33,31 +33,7 @@ class TabMenu extends React.Component<TabsProps, TabsState> {
             selectedTabIdx,
             tabsSeen: [selectedTabIdx]
         };
-        this.setBackground();
     }
-
-    setBackground = (): void => {
-        const { tabs } = this.props;
-        const { selectedTabIdx } = this.state;
-        const selectedTabTag = tabs[selectedTabIdx].id;
-        const showGreyBackground = (selectedTabTag === TabId.DETALJER) || (selectedTabTag === TabId.VEDTAKSSTOTTE);
-
-        const appElem = document.getElementsByClassName('veilarbpersonflatefs')[0];
-
-        if (!appElem) {
-            return;
-        }
-
-        const greyBackground = 'grey-background';
-        const hasGreyBackground = appElem.classList.contains(greyBackground);
-
-        if (showGreyBackground && !hasGreyBackground) {
-            appElem.classList.add(greyBackground);
-        } else if (!showGreyBackground && hasGreyBackground) {
-            appElem.classList.remove(greyBackground);
-        }
-
-    };
 
     getIndexOfTab = (tabs: Tab[], tag: string): number => {
         const idx = tabs.findIndex(tab => tab.id === tag);
@@ -115,11 +91,6 @@ class TabMenu extends React.Component<TabsProps, TabsState> {
             );
         });
     };
-
-
-    componentDidUpdate() {
-        this.setBackground();
-    }
 
     render() {
         const { tabs } = this.props;

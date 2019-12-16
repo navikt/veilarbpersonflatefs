@@ -9,8 +9,10 @@ interface SpaMockProps {
 
 const SpaMock: React.FunctionComponent<SpaMockProps> = (props: SpaMockProps) => {
     return (
-        <div className={cls('spa-mock', props.className)}>
-            <h1>{props.name}</h1>
+        <div className="spa-mock">
+            <div className={cls('spa-mock__content', props.className)}>
+                <h1>{props.name}</h1>
+            </div>
         </div>
     );
 };

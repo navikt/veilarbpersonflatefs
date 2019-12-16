@@ -1,5 +1,7 @@
 @import "~nav-frontend-core/less/core";
 
+// We set 100% height on all parent elements so that the tabs can take control over all the remaining space
+
 html {
     height: 100%;
 }
@@ -11,6 +13,8 @@ body {
 }
 
 #veilarbpersonflatefs-app {
+    display: flex;
+    flex-direction: column;
     height: 100%;
 }
 
