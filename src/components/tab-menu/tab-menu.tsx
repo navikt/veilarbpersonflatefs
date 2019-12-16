@@ -1,14 +1,14 @@
 import React from 'react';
 import cls from 'classnames';
 import { Normaltekst } from 'nav-frontend-typografi';
-import { TAG_DETALJER, TAG_VEDTAKSSTOTTE } from '../side-innhold';
+import { TabId } from '../side-innhold';
 import DialogTab from './dialog-tab/dialog-tab';
 import { lagreSistBesokteTab } from './siste-tab';
 import './tab-menu.less';
 
 export interface Tab {
+    id: TabId;
     title: string;
-    tag: string;
     content: React.ReactElement;
     className?: string;
 }
@@ -39,8 +39,8 @@ class TabMenu extends React.Component<TabsProps, TabsState> {
     setBackground = (): void => {
         const { tabs } = this.props;
         const { selectedTabIdx } = this.state;
-        const selectedTabTag = tabs[selectedTabIdx].tag;
-        const showGreyBackground = (selectedTabTag === TAG_DETALJER) || (selectedTabTag === TAG_VEDTAKSSTOTTE);
+        const selectedTabTag = tabs[selectedTabIdx].id;
+        const showGreyBackground = (selectedTabTag === TabId.DETALJER) || (selectedTabTag === TabId.VEDTAKSSTOTTE);
 
         const appElem = document.getElementsByClassName('veilarbpersonflatefs')[0];
 
@@ -60,14 +60,14 @@ class TabMenu extends React.Component<TabsProps, TabsState> {
     };
 
     getIndexOfTab = (tabs: Tab[], tag: string): number => {
-        const idx = tabs.findIndex(tab => tab.tag === tag);
+        const idx = tabs.findIndex(tab => tab.id === tag);
         return idx >= 0 ? idx : 0;
     };
 
     createTabClickedHandler = (tab: number) => {
         return () => {
             const { tabs, fnr } = this.props;
-            lagreSistBesokteTab({ fnr, tab: tabs[tab].tag});
+            lagreSistBesokteTab({ fnr, tab: tabs[tab].id});
             this.setState((state) => {
                 const tabsSeen = state.tabsSeen.filter(t => t !== tab).concat(tab);
                 return { selectedTabIdx: tab, tabsSeen };

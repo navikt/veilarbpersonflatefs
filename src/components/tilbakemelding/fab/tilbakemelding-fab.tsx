@@ -2,7 +2,7 @@ import React from 'react';
 import cls from 'classnames';
 import TilbakemeldingModal, { Tilbakemelding } from '../tilbakemelding-modal';
 import { logEvent } from '../../../utils/frontend-logger';
-import { Features, SPOR_OM_TILBAKEMELDING } from '../../../utils/featue-utils';
+import { Features, SPOR_OM_TILBAKEMELDING } from '../../../utils/feature-utils';
 import lukkBilde from './lukk.svg';
 import tilbakemeldingBilde from './tilbakemelding.svg';
 import './tilbakemelding-fab.less';

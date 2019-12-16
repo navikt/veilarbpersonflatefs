@@ -1,16 +1,17 @@
+import { TabId } from '../side-innhold';
 
 export const SISTE_BESOKTE_TAB_KEY = 'SISTE_BESOKTE_TAB';
 
 interface SisteBesokteTab {
     fnr: string;
-    tab: string;
+    tab: TabId;
 }
 
 export const lagreSistBesokteTab = (sisteBesokteTab: SisteBesokteTab) => {
     window.sessionStorage.setItem(SISTE_BESOKTE_TAB_KEY, JSON.stringify(sisteBesokteTab));
 };
 
-export const hentSistBesokteTab = (fnr: string): string | null => {
+export const hentSistBesokteTab = (fnr: string): TabId | null => {
     const sisteTabStr = window.sessionStorage.getItem(SISTE_BESOKTE_TAB_KEY);
 
     if (!sisteTabStr) {

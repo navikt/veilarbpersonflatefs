@@ -1,6 +1,9 @@
 @import "~nav-frontend-core/less/_variabler";
 
 .tab-menu {
+	display: flex;
+	flex-direction: column;
+	height: 100%;
 
 	&__headers {
 		display: flex;
@@ -20,6 +23,7 @@
 
 	&__tab-content {
 		margin-top: 2rem;
+		flex-grow: 1;
 	}
 
 	.no-display {

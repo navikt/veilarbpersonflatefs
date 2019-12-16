@@ -1,5 +1,5 @@
 import React from 'react';
-import NAVSPA from '../utils/NAVSPA';
+import NAVSPA from '@navikt/navspa';
 
 interface SpaProps {
     enhet?: string;

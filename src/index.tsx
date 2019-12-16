@@ -6,8 +6,8 @@ import App from './app';
 import { isAppMocked } from './utils/mock-utils';
 import AppMock from './app-mock';
 import NavFrontendModal from 'nav-frontend-modal';
-import './index.less';
 import { initialiserToppmeny } from './utils/dekorator-utils';
+import './index.less';
 
 const window = getWindow();
 
@@ -36,4 +36,4 @@ if (isAppMocked()) {
     app = <App />;
 }
 
-ReactDOM.render(app, document.getElementById('app'));
+ReactDOM.render(app, document.getElementById('veilarbpersonflatefs-app'));

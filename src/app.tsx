@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import Datalaster from './components/datalaster';
-import {Features, lagFeatureToggleUrl, VIS_NY_DIALOG, VIS_VEDTAKSSTOTTE} from './utils/featue-utils';
+import {Features, lagFeatureToggleUrl, VIS_NY_DIALOG} from './utils/feature-utils';
 import { enhetFraUrl, hentFodselsnummerFraURL } from './utils/url-utils';
 import { fetchToJson } from './utils/rest-utils';
 import SideInnhold from './components/side-innhold';
 import {Aktivitetsplan, Dialog, MAO, Vedtaksstotte, Visittkort} from './components/spa';
 import getWindow from './utils/window';
 import { initialiserToppmeny } from './utils/dekorator-utils';
-import { FeilmeldingManglerFnr, IngenTilgangTilBruker } from './components/feilmeldinger';
+import { FeilmeldingManglerFnr, IngenTilgangTilBruker } from './components/feilmeldinger/feilmeldinger';
 import EnhetContext from './context/context';
 import PageSpinner from './components/page-spinner/page-spinner';
 import { useEventListener } from './utils/utils';
@@ -58,17 +58,16 @@ const App = () => {
     const visittkort = <Visittkort enhet={enhet} fnr={fnr} visVeilederVerktoy={true} tilbakeTilFlate="veilarbportefoljeflatefs"/>;
     const mao = <MAO enhet={enhet} fnr={fnr} key={maoKey}/>;
     const aktivitetsplan = <Aktivitetsplan key={aktivitetsplanKey} enhet={enhet} fnr={fnr} />;
+    const vedtaksstotte = <Vedtaksstotte enhet={enhet} fnr={fnr} key={vedtakstotteKey}/>;
 
     return (
         <>
             <EnhetContext />
             <Datalaster<Features> url={lagFeatureToggleUrl()} spinner={<PageSpinner/>}>
                 {(data: Features) => {
-                    const vedtaksstotte = data[VIS_VEDTAKSSTOTTE] ?
-                        <Vedtaksstotte enhet={enhet} fnr={fnr} key={vedtakstotteKey}/> : undefined;
-
-                    const dialog =  data[VIS_NY_DIALOG] ?
-                        <Dialog fnr={fnr} /> : undefined;
+                    const dialog =  data[VIS_NY_DIALOG]
+                        ? <Dialog fnr={fnr} />
+                        : undefined;
 
                     return (
                         <SideInnhold
