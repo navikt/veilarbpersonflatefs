@@ -15,7 +15,7 @@ export default class NAVSPA {
 		};
 	}
 
-	public static importer<PROPS>(name: string): React.ComponentType<PROPS> {
+	public static importer<PROPS>(name: string, wrapperClassName?: string): React.ComponentType<PROPS> {
 		// tslint:disable-next-line:max-classes-per-file
 		class NAVSPAImporter extends React.Component<PROPS, State> {
 
@@ -53,7 +53,7 @@ export default class NAVSPA {
 				if (this.state.hasError) {
 					return <div className="navspa--applikasjonsfeil">Feil i {name}</div>;
 				}
-				return <div className="veilarbpersonflatefs__spa-app" ref={this.saveRef} />;
+				return <div className={wrapperClassName} ref={this.saveRef} />;
 			}
 
 			private saveRef = (el: HTMLDivElement) => {

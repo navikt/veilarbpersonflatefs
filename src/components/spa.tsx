@@ -19,8 +19,10 @@ export enum SpaName {
 	VEILARBVISITTKORTFS = 'veilarbvisittkortfs'
 }
 
-export const MAO: React.ComponentType<SpaProps> = NAVSPA.importer<SpaProps>(SpaName.VEILARBMAOFS);
-export const Aktivitetsplan: React.ComponentType<SpaProps> = NAVSPA.importer<SpaProps>(SpaName.AKTIVITETSPLAN);
-export const Dialog: React.ComponentType<SpaProps> = NAVSPA.importer<SpaProps>(SpaName.DIALOG);
-export const Vedtaksstotte: React.ComponentType<SpaProps> = NAVSPA.importer<SpaProps>(SpaName.VEILARBVEDTAKSSTOTTEFS);
+export const tabContentSpaAppWrapperClassName = 'tab-menu__tab-content-app';
+
+export const MAO: React.ComponentType<SpaProps> = NAVSPA.importer<SpaProps>(SpaName.VEILARBMAOFS, tabContentSpaAppWrapperClassName);
+export const Aktivitetsplan: React.ComponentType<SpaProps> = NAVSPA.importer<SpaProps>(SpaName.AKTIVITETSPLAN, tabContentSpaAppWrapperClassName);
+export const Dialog: React.ComponentType<SpaProps> = NAVSPA.importer<SpaProps>(SpaName.DIALOG, tabContentSpaAppWrapperClassName);
+export const Vedtaksstotte: React.ComponentType<SpaProps> = NAVSPA.importer<SpaProps>(SpaName.VEILARBVEDTAKSSTOTTEFS, tabContentSpaAppWrapperClassName);
 export const Visittkort: React.ComponentType<VisittKortProps> = NAVSPA.importer<VisittKortProps>(SpaName.VEILARBVISITTKORTFS);

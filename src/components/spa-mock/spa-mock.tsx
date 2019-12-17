@@ -7,6 +7,7 @@ import './spa-mock.less';
 interface SpaMockProps {
 	name: SpaName;
 	tekst: string;
+	wrapperClassName?: string;
 	className?: string;
 }
 
@@ -16,7 +17,7 @@ interface SpaMockContentProps {
 }
 
 export const SpaMock: React.FunctionComponent<SpaMockProps> = (props: SpaMockProps) => {
-	const SpaMockComponent = NAVSPA.importer<SpaMockProps>(props.name);
+	const SpaMockComponent = NAVSPA.importer<SpaMockProps>(props.name, props.wrapperClassName);
 	return <SpaMockComponent name={props.name} tekst={props.tekst} className={props.className} />;
 };
 
