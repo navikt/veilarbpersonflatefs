@@ -7,7 +7,7 @@
   "repository": "https://github.com/navikt/veilarbpersonflatefs",
   "scripts": {
     "start": "cross-env REACT_APP_MOCK=true craco start",
-    "build": "craco build",
+    "build": "cross-env REACT_APP_MOCK=false craco build",
     "lint": "tslint './src/**/*.ts{,x}'",
     "lint:fix": "tslint './src/**/*.ts{,x}' --fix",
     "test": "craco test --env=jsdom",
