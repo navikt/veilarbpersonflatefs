@@ -8,6 +8,9 @@ import AppMock from './app-mock';
 import NavFrontendModal from 'nav-frontend-modal';
 import { initialiserToppmeny } from './utils/dekorator-utils';
 import './index.less';
+import NAVSPA from './utils/navspa';
+import { SpaName } from './components/spa';
+import { SpaMockContent } from './components/spa-mock/spa-mock';
 
 const window = getWindow();
 
@@ -27,6 +30,13 @@ let app;
 
 if (isAppMocked()) {
 	app = <AppMock />;
+
+	NAVSPA.eksporter(SpaName.VEILARBMAOFS, SpaMockContent);
+	NAVSPA.eksporter(SpaName.AKTIVITETSPLAN, SpaMockContent);
+	NAVSPA.eksporter(SpaName.DIALOG, SpaMockContent);
+	NAVSPA.eksporter(SpaName.VEILARBVEDTAKSSTOTTEFS, SpaMockContent);
+	NAVSPA.eksporter(SpaName.VEILARBVISITTKORTFS, SpaMockContent);
+
 	// @ts-ignore
 	require('./mock');
 } else {

@@ -15,12 +15,12 @@ interface SpaMockContentProps {
 	className?: string;
 }
 
-const SpaMock: React.FunctionComponent<SpaMockProps> = (props: SpaMockProps) => {
+export const SpaMock: React.FunctionComponent<SpaMockProps> = (props: SpaMockProps) => {
 	const SpaMockComponent = NAVSPA.importer<SpaMockProps>(props.name);
 	return <SpaMockComponent name={props.name} tekst={props.tekst} className={props.className} />;
 };
 
-const SpaMockContent: React.FunctionComponent<SpaMockProps> = (props: SpaMockContentProps) => {
+export const SpaMockContent: React.FunctionComponent<SpaMockProps> = (props: SpaMockContentProps) => {
 	return (
 		<div className="spa-mock">
 			<div className={cls('spa-mock__content', props.className)}>
@@ -29,12 +29,3 @@ const SpaMockContent: React.FunctionComponent<SpaMockProps> = (props: SpaMockCon
 		</div>
 	);
 };
-
-// Eksporter alle appene slik at vi kan importere de i <SpaMock/>
-NAVSPA.eksporter(SpaName.VEILARBMAOFS, SpaMockContent);
-NAVSPA.eksporter(SpaName.AKTIVITETSPLAN, SpaMockContent);
-NAVSPA.eksporter(SpaName.DIALOG, SpaMockContent);
-NAVSPA.eksporter(SpaName.VEILARBVEDTAKSSTOTTEFS, SpaMockContent);
-NAVSPA.eksporter(SpaName.VEILARBVISITTKORTFS, SpaMockContent);
-
-export default SpaMock;
