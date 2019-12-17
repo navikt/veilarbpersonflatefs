@@ -8,10 +8,10 @@ export const lastNedCvModalConfig: TourModalConfig = {
 	modalName: 'Ny oppdatering',
 	steps: [
 		{
-			tittel: 'Last ned og skriv ut CV' ,
+			tittel: 'Last ned og skriv ut CV',
 			bilde: step1Bilde,
 			bildeAlt: 'Skjermbilde av last ned CV lenke i detaljer',
 			tekst: 'Du kan nå i Detaljer laste ned brukerens CV og få en bedre utskrift.'
-		},
+		}
 	]
 };

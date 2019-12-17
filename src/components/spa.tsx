@@ -2,13 +2,13 @@ import React from 'react';
 import NAVSPA from '@navikt/navspa';
 
 interface SpaProps {
-    enhet?: string;
-    fnr: string;
+	enhet?: string;
+	fnr: string;
 }
 
 interface VisittKortProps extends SpaProps {
-    tilbakeTilFlate: string;
-    visVeilederVerktoy: boolean;
+	tilbakeTilFlate: string;
+	visVeilederVerktoy: boolean;
 }
 
 export const MAO: React.ComponentType<SpaProps> = NAVSPA.importer<SpaProps>('veilarbmaofs');

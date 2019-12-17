@@ -3,16 +3,16 @@
   "version": "0.0.1",
   "description": "veilarbpersonflatefs",
   "homepage": "/veilarbpersonflatefs",
-  "main": "index.js",
   "license": "MIT",
   "repository": "https://github.com/navikt/veilarbpersonflatefs",
   "scripts": {
-    "start": "cross-env REACT_APP_MOCK=true craco start",
+    "start": "craco start",
     "build": "craco build",
-    "lint": "echo not implemented, part of the build script",
+    "lint": "tslint './src/**/*.ts{,x}'",
+    "lint:fix": "tslint './src/**/*.ts{,x}' --fix",
     "test": "craco test --env=jsdom",
     "test:coverage": "echo not implemented",
-    "prettier": "prettier --write --single-quote --trailing-comma es5 --tab-width 4 src/**/*.js src/**/*.ts src/**/*.tsx src/**/*.css"
+    "prettier": "prettier --write 'src/**/*.ts{,x}'"
   },
   "resolutions": {
     "**/fsevents": "^1.2.9"
@@ -62,7 +62,6 @@
     "@types/react-dom": "^16.8.4",
     "@types/react-intl": "^2.3.18",
     "@types/react-modal": "^3.8.2",
-    "cross-env": "^5.2.0",
     "prettier": "^1.18.2",
     "tslint": "^5.18.0",
     "tslint-config-prettier": "^1.18.0",

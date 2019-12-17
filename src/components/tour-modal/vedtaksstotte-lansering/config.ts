@@ -10,13 +10,13 @@ export const vedtaksstotteLanseringConfig: TourModalConfig = {
 	modalName: 'Ny løsning for oppfølgingsvedtak',
 	steps: [
 		{
-			tittel: 'Arbeidsevnevurdering i vedtak' ,
+			tittel: 'Arbeidsevnevurdering i vedtak',
 			bilde: step1Bilde,
 			bildeAlt: 'Skjermbilde av feltet hvor begrunnelsen blir utfylt',
 			tekst: 'Vurdering av arbeidsevne skriver du i begrunnelsen i oppfølgingsvedtaket.'
 		},
 		{
-			tittel: 'Endringer lagres automatisk' ,
+			tittel: 'Endringer lagres automatisk',
 			bilde: step2Bilde,
 			bildeAlt: 'Skjermbilde av "sist endret" visning',
 			tekst: 'Det du skriver i skjemaet lagres automatisk. Du kan lagre og gå tilbake uten å miste noe.'
@@ -25,7 +25,8 @@ export const vedtaksstotteLanseringConfig: TourModalConfig = {
 			tittel: 'Vises kun for veiledere',
 			bilde: step3Bilde,
 			bildeAlt: 'Skjermbilde av den nye fanen hvor den nye løsningen ligger',
-			tekst: 'Fanen for oppfølgingsvedtak er kun synlig for veiledere. Brukerne får vedtaket som brev i posten eller digitalt.'
-		},
+			tekst:
+				'Fanen for oppfølgingsvedtak er kun synlig for veiledere. Brukerne får vedtaket som brev i posten eller digitalt.'
+		}
 	]
 };
