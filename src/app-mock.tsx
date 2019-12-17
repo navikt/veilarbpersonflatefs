@@ -5,13 +5,14 @@ import { Features, lagFeatureToggleUrl } from './utils/feature-utils';
 import Datalaster from './components/datalaster';
 import PageSpinner from './components/page-spinner/page-spinner';
 import brukerFnr from './mock/bruker-fnr';
+import { SpaName } from './components/spa';
 
 const AppMock: React.FunctionComponent = () => {
-	const visittkort = <SpaMock name="Visittkort" className="spa-mock__content--visittkort" />;
-	const mao = <SpaMock name="MAO" className="spa-mock__content--mao" />;
-	const aktivitetsplan = <SpaMock name="Aktivitetsplan" className="spa-mock__content--aktivitetsplan" />;
-	const dialog = <SpaMock name="Dialog" className="spa-mock__content--dialog" />;
-	const vedtaksstotte = <SpaMock name="Vedtaksstøtte" className="spa-mock__content--vedtaksstotte" />;
+	const visittkort = <SpaMock name={SpaName.VEILARBVISITTKORTFS} tekst="Visittkort" className="spa-mock__content--visittkort" />;
+	const mao = <SpaMock name={SpaName.VEILARBMAOFS} tekst="MAO" className="spa-mock__content--mao" />;
+	const aktivitetsplan = <SpaMock name={SpaName.AKTIVITETSPLAN} tekst="Aktivitetsplan" className="spa-mock__content--aktivitetsplan" />;
+	const dialog = <SpaMock name={SpaName.DIALOG} tekst="Dialog" className="spa-mock__content--dialog" />;
+	const vedtaksstotte = <SpaMock name={SpaName.VEILARBVEDTAKSSTOTTEFS} tekst="Vedtaksstøtte" className="spa-mock__content--vedtaksstotte" />;
 
 	return (
 		<Datalaster<Features> url={lagFeatureToggleUrl()} spinner={<PageSpinner />}>
