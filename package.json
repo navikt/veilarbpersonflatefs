@@ -6,7 +6,7 @@
   "license": "MIT",
   "repository": "https://github.com/navikt/veilarbpersonflatefs",
   "scripts": {
-    "start": "craco start",
+    "start": "cross-env REACT_APP_MOCK=true craco start",
     "build": "craco build",
     "lint": "tslint './src/**/*.ts{,x}'",
     "lint:fix": "tslint './src/**/*.ts{,x}' --fix",
@@ -61,6 +61,7 @@
     "@types/react-dom": "^16.8.4",
     "@types/react-intl": "^2.3.18",
     "@types/react-modal": "^3.8.2",
+    "cross-env": "^6.0.3",
     "prettier": "^1.18.2",
     "tslint": "^5.18.0",
     "tslint-config-prettier": "^1.18.0",
