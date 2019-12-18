@@ -37,6 +37,9 @@ if (isAppMocked()) {
 	NAVSPA.eksporter(SpaName.VEILARBVEDTAKSSTOTTEFS, SpaMockContent);
 	NAVSPA.eksporter(SpaName.VEILARBVISITTKORTFS, SpaMockContent);
 
+	// Sett farge på dekoratøren slik at den blir synlig når man kjører lokalt
+	document.getElementById('header')!.style.backgroundColor = 'black';
+
 	// @ts-ignore
 	require('./mock');
 } else {
