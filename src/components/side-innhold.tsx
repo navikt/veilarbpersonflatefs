@@ -26,7 +26,14 @@ class SideInnhold extends React.Component<SideInnholdLayoutProps> {
 	render() {
 		const { visittkort, aktivitetsplan, dialog, vedtaksstotte, mao, features, fnr } = this.props;
 
-		const tabs: Tab[] = [{ id: TabId.AKTIVITETSPLAN, title: 'Aktivitetsplan og dialog', content: aktivitetsplan }];
+		const tabs: Tab[] = [
+			{
+				id: TabId.AKTIVITETSPLAN,
+				title: 'Aktivitetsplan og dialog',
+				content: aktivitetsplan,
+				className: 'tab-menu__tab-content--aktivitetsplan' // TODO: Aktivitetsplan burde sette margin-top selv
+			}
+		];
 
 		if (dialog) {
 			tabs.push({
