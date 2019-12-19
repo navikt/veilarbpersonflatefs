@@ -1,13 +1,14 @@
 import React from 'react';
-import { Features } from '../../utils/featue-utils';
+import { Features } from '../../utils/feature-utils';
 import TourModal from './tour-modal';
 import { lastNedCvModalConfig } from './last-ned-cv/config';
+import { vedtaksstotteLanseringConfig } from './vedtaksstotte-lansering/config';
 
 interface TourModalControllerProps {
 	features: Features;
 }
 
-const tourModalConfigs = [lastNedCvModalConfig];
+const tourModalConfigs = [lastNedCvModalConfig, vedtaksstotteLanseringConfig];
 
 export const TourModalController = (props: TourModalControllerProps) => {
 	return (

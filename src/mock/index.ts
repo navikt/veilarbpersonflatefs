@@ -5,11 +5,8 @@ import ulesteDialoger from './uleste-dialoger-mock';
 import brukerFnr from './bruker-fnr';
 
 const mock = FetchMock.configure({
-    enableFallback: true,
-    middleware: MiddlewareUtils.combine(
-        MiddlewareUtils.delayMiddleware(500),
-        MiddlewareUtils.loggingMiddleware()
-    )
+	enableFallback: true,
+	middleware: MiddlewareUtils.combine(MiddlewareUtils.delayMiddleware(500), MiddlewareUtils.loggingMiddleware())
 });
 
 window.history.replaceState('', '', '/veilarbpersonflatefs/' + brukerFnr);

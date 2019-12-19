@@ -1,3 +1,3 @@
 // @ts-ignore
-const getWindow = () => (window as any);
+const getWindow = () => window as any;
 export default getWindow;

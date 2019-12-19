@@ -1,39 +1,49 @@
+@import "~nav-frontend-core/less/_variabler";
+
 .spa-mock {
-	height: auto;
 	width: 100%;
-	display: flex;
-	flex-direction: row;
-	justify-content: center;
-	align-items: center;
-	color: white;
-	max-width: 1200px;
+	flex-grow: 1;
 
-	&__visitt-kort {
-		background-color: white;
-		color: black;
-		height: 10rem;
-		min-width: 100vw;
-	}
-
-	&__mao {
-		background-color: #388e3c;
+	&__content {
+		display: flex;
+		flex-direction: row;
+		justify-content: center;
+		align-items: center;
+		color: white;
+		max-width: 1200px;
 		width: 80%;
 		height: 30rem;
-		margin: 0 auto;
+		margin: 2rem auto;
+
+		&--visittkort {
+			background-color: white;
+			color: black;
+			height: 10rem;
+			width: 100%;
+			max-width: none;
+			margin-top: 0;
+		}
+
+		&--mao {
+			background-color: #388e3c;
+            height: 800px;
+		}
+
+		&--aktivitetsplan {
+			margin-top: 0;
+			background-color: #ffa000;
+		}
+
+		&--dialog {
+			background-color: #7b0074;
+		}
+
+		&--vedtaksstotte {
+			background-color: #1e88e5;
+		}
+
 	}
 
-	&__aktivitetsplan {
-		background-color: #ffa000;
-		width: 80%;
-		height: 30rem;
-		margin: 0 auto;
-	}
-
-	&__vedtaksstotte {
-		background-color: #1e88e5;
-		width: 80%;
-		height: 30rem;
-		margin: 2rem auto 0 auto;
-	}
 
 }
+

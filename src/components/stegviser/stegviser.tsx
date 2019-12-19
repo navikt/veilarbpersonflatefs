@@ -3,34 +3,27 @@ import cls from 'classnames';
 import './stegviser.less';
 
 interface StegviserProps {
-    antallSteg: number;
-    valgtSteg: number;
+	antallSteg: number;
+	valgtSteg: number;
 }
 
 class Stegviser extends React.Component<StegviserProps> {
+	mapTilSteg = (antall: number, selectedIdx: number) => {
+		const steg = [];
 
-    mapTilSteg = (antall: number, selectedIdx: number) => {
-        const steg = [];
+		for (let i = 0; i < antall; i++) {
+			steg.push(
+				<div key={i} className={cls('stegviser__steg', { 'stegviser__steg--selected': i === selectedIdx })} />
+			);
+		}
 
-        for (let i = 0; i < antall; i++) {
-            steg.push(<div
-                key={i}
-                className={cls("stegviser__steg", {'stegviser__steg--selected': i === selectedIdx})}
-            />);
-        }
+		return steg;
+	};
 
-        return steg;
-    };
-
-    render() {
-        const { antallSteg, valgtSteg } = this.props;
-        return (
-            <div className="stegviser">
-                {this.mapTilSteg(antallSteg, valgtSteg)}
-            </div>
-        );
-    }
-
+	render() {
+		const { antallSteg, valgtSteg } = this.props;
+		return <div className="stegviser">{this.mapTilSteg(antallSteg, valgtSteg)}</div>;
+	}
 }
 
 export default Stegviser;
