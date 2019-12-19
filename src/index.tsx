@@ -38,7 +38,9 @@ if (isAppMocked()) {
 	NAVSPA.eksporter(SpaName.VEILARBVISITTKORTFS, SpaMockContent);
 
 	// Sett farge på dekoratøren slik at den blir synlig når man kjører lokalt
-	document.getElementById('header')!.style.backgroundColor = 'black';
+	const decorator = document.getElementById('header')!;
+	decorator.style.backgroundColor = 'black';
+	decorator.style.height = '65px';
 
 	// @ts-ignore
 	require('./mock');
