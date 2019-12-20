@@ -63,7 +63,7 @@ class SideInnhold extends React.Component<SideInnholdLayoutProps> {
 
 		return (
 			<>
-				<div className="visittkort-wrapper">{visittkort}</div>
+				{visittkort}
 				<TabMenu fnr={fnr} tabs={tabs} defaultSelectedTab={defaultSelectedTab} />
 				<TourModalController features={features} />
 				<TilbakemeldingFab features={features} />

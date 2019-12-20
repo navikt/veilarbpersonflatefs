@@ -7,17 +7,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1"/>
 
         <script>
-            window.features = {
-                timeoutbox: false,
-                navigasjonslinjemeny: true
-            };
-            window.app = "veilarbaktivitetsplanfs";
-
-            window.frontendlogger = {
-                info: function () {},
-                warn: function () {},
-                error: function () {}
-            };
+            window.frontendlogger = {info: function(){}, warn: function(){}, error: function(){}, event: function(){}};
             window.frontendlogger.appname = 'veilarbpersonflatefs';
         </script>
 
@@ -38,12 +28,12 @@
         <link type="text/css" rel="stylesheet" href="/veilarbvedtaksstottefs/static/css/main.css">
         <script type="text/javascript" src="/veilarbvedtaksstottefs/static/js/main.js"></script>
 
-        <script type="text/javascript" src="/internarbeidsflatedecorator/js/head.min.js"></script>
+        <link rel="stylesheet" href="/internarbeidsflatedecorator/v2/static/css/main.css" />
+        <script src="/internarbeidsflatedecorator/v2/static/js/head.v2.min.js"></script>
     </head>
     <body>
         <div id="modal-a11y-wrapper" class="veilarbpersonflatefs">
-            <div id="header"></div>
-            <div id="veilarbpersonflatefs-app"></div>
+            <div id="veilarbpersonflatefs-root"></div>
         </div>
     </body>
 </html>

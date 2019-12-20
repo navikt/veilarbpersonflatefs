@@ -1,6 +1,6 @@
 version: 2.1
 orbs:
-  pus: navikt/pus-orb@0.0.39
+  pus: navikt/pus-orb@0.0.41
 
 workflows:
   version: 2
@@ -8,6 +8,12 @@ workflows:
     jobs:
       - pus/test-frontend:
           context: pus
+      - pus/bygg-og-deploy-frontend:
+          context: pus
+          filepath: nais-q.yaml
+          filters:
+            branches:
+              only: FO-2665
       - pus/bygg-og-deploy-frontend:
           requires:
             - pus/test-frontend
