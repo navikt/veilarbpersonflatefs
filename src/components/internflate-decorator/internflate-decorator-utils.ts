@@ -32,6 +32,7 @@ export function lagDecoratorConfig(
 		appname: 'Arbeidsrettet oppfølging',
 		fnr: brukerFnr,
 		enhet: enhetId,
+		contextholder: true,
 		toggles: {
 			visEnhet: true,
 			visEnhetVelger: false,
@@ -39,17 +40,9 @@ export function lagDecoratorConfig(
 			visVeilder: true
 		},
 		onSok(fnr: string | null): void {
-			console.log('onSok', fnr); // tslint:disable-line
-			if (fnr === brukerFnr) {
-				return;
-			}
-			if (fnr && fnr.length > 0) {
+			if (fnr && fnr.length > 0 && fnr !== brukerFnr) {
 				settPersonIURL(fnr);
-			} else {
-				// fjernBrukerFraPath(history);
 			}
-		},
-		contextholder: true,
-		// autoSubmitOnMount: true
+		}
 	};
 }

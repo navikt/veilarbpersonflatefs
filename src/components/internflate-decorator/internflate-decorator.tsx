@@ -10,7 +10,7 @@ interface InternflateDecoratorProps {
 export function InternflateDecorator(props: InternflateDecoratorProps) {
     const config = lagDecoratorConfig(props.fnr, props.enhetId);
     return (
-        <nav id="header">
+        <nav>
             <Decorator {...config} />
         </nav>
     );

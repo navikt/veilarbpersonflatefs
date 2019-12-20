@@ -5,7 +5,7 @@ import { Features, lagFeatureToggleUrl } from './utils/feature-utils';
 import Datalaster from './components/datalaster';
 import PageSpinner from './components/page-spinner/page-spinner';
 import { testBrukerFnr } from './mock/kontekst';
-import { SpaName, spaWrapperTabContentClassName, spaWrapperVisittkortClassName } from './components/spa';
+import { SpaName, spaWrapperTabContentClassName } from './components/spa';
 
 const AppMock: React.FunctionComponent = () => {
 	const visittkort = (
@@ -57,7 +57,6 @@ const AppMock: React.FunctionComponent = () => {
 	        <SpaMock
 		        name={SpaName.INTERNARBEIDSFLATEFS_DECORATOR}
 		        tekst="Dekoratør"
-		        wrapperClassName={spaWrapperVisittkortClassName}
 		        className="spa-mock__content--internflatedecorator"
 	        />
 			<Datalaster<Features> url={lagFeatureToggleUrl()} spinner={<PageSpinner />}>
