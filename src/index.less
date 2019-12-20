@@ -2,29 +2,26 @@
 
 // We set 100% height on all parent elements so that the tabs can take control over all the remaining space
 
-html {
+html, body, #veilarbpersonflatefs-root, .veilarbpersonflatefs  {
     height: 100%;
 }
 
 body {
     background-color: white;
     margin: 0;
-    height: 100%;
 }
 
-#veilarbpersonflatefs-app {
+#veilarbpersonflatefs-root {
+  display: flex;
+  flex-direction: column;
+}
+
+.spa-wrapper__tab-content {
   display: flex;
   flex-direction: column;
   flex-grow: 1;
 }
 
-.veilarbpersonflatefs {
-  display: flex;
-  flex-direction: column;
-  height: 100%;
-
-  .visittkort-wrapper {
-      width: 100%;
-      background-color: white;
-  }
+.spa-wrapper__veilarbvisittkortfs {
+  width: 100%;
 }

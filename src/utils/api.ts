@@ -10,3 +10,10 @@ export interface UlesteDialoger {
 export function fetchUlesteDialoger(fnr: string): Promise<UlesteDialoger> {
 	return fetchToJson<UlesteDialoger>(`${ULESTE_DIALOGER_URL}/?fnr=${fnr}`);
 }
+
+export function fetchTilgangTilBruker(fnr: string | undefined): Promise<boolean> {
+	if (!fnr) return Promise.resolve(false);
+	return fetchToJson(`/veilarbperson/api/person/${fnr}/tilgangTilBruker`)
+		.then(value => value === 'true')
+		.catch(() => false);
+}

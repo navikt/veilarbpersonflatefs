@@ -1,4 +1,4 @@
-import { enhetFinnesIUrl, enhetFraUrl, hentFodselsnummerFraURL, utledMiljoFraHost } from './url-utils';
+import { enhetFinnesIUrl, hentEnhetIdFraUrl, hentFnrFraURL, utledMiljoFraHost } from './url-utils';
 
 describe('URL utils', () => {
 	beforeEach(() => history.replaceState({}, 'Login', '/login'));
@@ -8,7 +8,7 @@ describe('URL utils', () => {
 		it('skal hente enhet fra URL', () => {
 			const enhet = '0134';
 			history.replaceState({}, 'Test', `/test?enhet=${enhet}&chewie=kul`);
-			expect(enhetFraUrl()).toBe(enhet);
+			expect(hentEnhetIdFraUrl()).toBe(enhet);
 		});
 	});
 	describe('enhetFinnesIUrl', () => {
@@ -49,19 +49,19 @@ describe('URL utils', () => {
 describe('person er satt i URL', () => {
 	it('fnr i URL skal gi true', () => {
 		history.replaceState({}, 'Test', '/veilarbpersonflatefs/12345678912');
-		const personIUrl = hentFodselsnummerFraURL();
+		const personIUrl = hentFnrFraURL();
 		expect(!!personIUrl).toBe(true);
 	});
 
 	it('fnr ikke i URL skal gi false', () => {
 		history.replaceState({}, 'Test', '/veilarbpersonflatefs/');
-		const personIUrl = hentFodselsnummerFraURL();
+		const personIUrl = hentFnrFraURL();
 		expect(!!personIUrl).toBe(false);
 	});
 
 	it('støtter å sjekke fnr i dype urls', () => {
 		history.replaceState({}, 'Test', '/veilarbpersonflatefs/12345678912/aktivitet/123');
-		const personIUrl = hentFodselsnummerFraURL();
+		const personIUrl = hentFnrFraURL();
 		expect(!!personIUrl).toBe(true);
 	});
 });
@@ -69,19 +69,19 @@ describe('person er satt i URL', () => {
 describe('hent Fodselsnummer Fra URL', () => {
 	it('hente fnr fra url', () => {
 		history.replaceState({}, 'Test', '/veilarbpersonflatefs/12345678912');
-		const personIUrl = hentFodselsnummerFraURL();
+		const personIUrl = hentFnrFraURL();
 		expect(personIUrl).toBe('12345678912');
 	});
 
 	it('hente fnr fra url uten fnr', () => {
 		history.replaceState({}, 'Test', '/veilarbpersonflatefs/');
-		const personIUrl = hentFodselsnummerFraURL();
+		const personIUrl = hentFnrFraURL();
 		expect(personIUrl).toBe(undefined);
 	});
 
 	it('hente fnr fra dyp url', () => {
 		history.replaceState({}, 'Test', '/veilarbpersonflatefs/12345678912/aktivitet/123');
-		const personIUrl = hentFodselsnummerFraURL();
+		const personIUrl = hentFnrFraURL();
 		expect(personIUrl).toBe('12345678912');
 	});
 });

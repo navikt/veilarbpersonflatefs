@@ -25,7 +25,7 @@ export const SpaMockContent: React.FunctionComponent<SpaMockProps> = (props: Spa
 	return (
 		<div className="spa-mock">
 			<div className={cls('spa-mock__content', props.className)}>
-				<h1>{props.tekst}</h1>
+				<p className="spa-mock__title">{props.tekst}</p>
 			</div>
 		</div>
 	);

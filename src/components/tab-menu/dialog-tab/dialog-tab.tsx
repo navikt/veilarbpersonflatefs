@@ -3,9 +3,8 @@ import cls from 'classnames';
 import { fetchUlesteDialoger, UlesteDialoger } from '../../../utils/api';
 import dialogRegular from './dialog-regular.svg';
 import dialogHover from './dialog-hover.svg';
+import { hentFnrFraURL } from '../../../utils/url-utils';
 import './dialog-tab.less';
-import getWindow from '../../../utils/window';
-import { hentFodselsnummerFraURL } from '../../../utils/url-utils';
 
 interface DialogTabState {
 	isHovering: boolean;
@@ -23,7 +22,7 @@ class DialogTab extends React.Component<{}, DialogTabState> {
 	};
 
 	componentDidMount() {
-		const fnr = hentFodselsnummerFraURL();
+		const fnr = hentFnrFraURL();
 		if (fnr) {
 			fetchUlesteDialoger(fnr)
 				.then(this.handleOnUlesteDialogerUpdated)
@@ -59,7 +58,8 @@ class DialogTab extends React.Component<{}, DialogTabState> {
 	};
 
 	handleOnClick = (): void => {
-		const openDialog = getWindow().openDialog;
+		// openDialog skal bli satt av aktivitetsplanen
+		const openDialog = (window as any).openDialog;
 		if (openDialog) {
 			openDialog();
 		}
