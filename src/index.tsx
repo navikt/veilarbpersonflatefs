@@ -1,6 +1,6 @@
 import React from 'react';
 import * as ReactDOM from 'react-dom';
-import App from './app';
+import { App } from './app';
 import { isAppMocked } from './utils/mock-utils';
 import AppMock from './app-mock';
 import NavFrontendModal from 'nav-frontend-modal';

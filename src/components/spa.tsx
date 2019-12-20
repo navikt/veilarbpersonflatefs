@@ -22,10 +22,9 @@ export enum SpaName {
 }
 
 export const spaWrapperTabContentClassName = 'spa-wrapper__tab-content';
-export const spaWrapperVisittkortClassName = 'spa-wrapper__veilarbvisittkortfs';
 
 export const Decorator: React.ComponentType<DecoratorConfig> = NAVSPA.importer<DecoratorConfig>(SpaName.INTERNARBEIDSFLATEFS_DECORATOR);
-export const Visittkort: React.ComponentType<VisittKortProps> = NAVSPA.importer<VisittKortProps>(SpaName.VEILARBVISITTKORTFS, spaWrapperVisittkortClassName);
+export const Visittkort: React.ComponentType<VisittKortProps> = NAVSPA.importer<VisittKortProps>(SpaName.VEILARBVISITTKORTFS);
 
 export const MAO: React.ComponentType<SpaProps> = NAVSPA.importer<SpaProps>(SpaName.VEILARBMAOFS, spaWrapperTabContentClassName);
 export const Aktivitetsplan: React.ComponentType<SpaProps> = NAVSPA.importer<SpaProps>(SpaName.AKTIVITETSPLAN, spaWrapperTabContentClassName);
