@@ -11,6 +11,7 @@ import './index.less';
 import NAVSPA from './utils/navspa';
 import { SpaName } from './components/spa';
 import { SpaMockContent } from './components/spa-mock/spa-mock';
+import { AlertStripeAdvarsel } from 'nav-frontend-alertstriper';
 
 const window = getWindow();
 
@@ -47,5 +48,12 @@ if (isAppMocked()) {
 } else {
 	app = <App />;
 }
+
+// TODO: Remove me!!!
+app = <div style={{paddingTop: '10px', margin: '0 auto', width: '400px'}}>
+    <AlertStripeAdvarsel>
+        Tjenesten er stengt på grunn av arbeid med kommunesammenslåing. Tjenesten skal etter planen åpnes igjen 2. januar.
+    </AlertStripeAdvarsel>
+</div>
 
 ReactDOM.render(app, document.getElementById('veilarbpersonflatefs-app'));
