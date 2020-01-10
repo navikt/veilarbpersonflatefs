@@ -16,7 +16,7 @@ export interface Tab {
 interface TabsProps {
 	fnr: string;
 	tabs: Tab[];
-	defaultSelectedTab?: string; // tag
+	defaultSelectedTab?: TabId;
 }
 
 interface TabsState {
@@ -27,14 +27,16 @@ interface TabsState {
 class TabMenu extends React.Component<TabsProps, TabsState> {
 	constructor(props: TabsProps) {
 		super(props);
-		const selectedTabIdx = props.defaultSelectedTab ? this.getIndexOfTab(props.tabs, props.defaultSelectedTab) : 0;
+		const defaultSelectedTabIdx = this.getIndexOfTab(props.tabs, props.defaultSelectedTab);
+		document.title = props.tabs[defaultSelectedTabIdx].title;
+
 		this.state = {
-			selectedTabIdx,
-			tabsSeen: [selectedTabIdx]
+			selectedTabIdx: defaultSelectedTabIdx,
+			tabsSeen: [defaultSelectedTabIdx]
 		};
 	}
 
-	getIndexOfTab = (tabs: Tab[], tag: string): number => {
+	getIndexOfTab = (tabs: Tab[], tag: TabId | undefined): number => {
 		const idx = tabs.findIndex(tab => tab.id === tag);
 		return idx >= 0 ? idx : 0;
 	};
@@ -42,7 +44,11 @@ class TabMenu extends React.Component<TabsProps, TabsState> {
 	createTabClickedHandler = (tab: number) => {
 		return () => {
 			const { tabs, fnr } = this.props;
-			lagreSistBesokteTab({ fnr, tab: tabs[tab].id });
+			const clickedTab = tabs[tab];
+
+			document.title = clickedTab.title;
+			lagreSistBesokteTab({ fnr, tab: clickedTab.id });
+
 			this.setState(state => {
 				const tabsSeen = state.tabsSeen.filter(t => t !== tab).concat(tab);
 				return { selectedTabIdx: tab, tabsSeen };
