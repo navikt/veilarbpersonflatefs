@@ -10,7 +10,7 @@
     "build": "cross-env REACT_APP_MOCK=false craco build",
     "lint": "tslint './src/**/*.ts{,x}'",
     "lint:fix": "tslint './src/**/*.ts{,x}' --fix",
-    "test": "craco test --env=jsdom",
+    "test": "echo not implemented",
     "test:coverage": "echo not implemented",
     "prettier": "prettier --write 'src/**/*.ts{,x}'"
   },

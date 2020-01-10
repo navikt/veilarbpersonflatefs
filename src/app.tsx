@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import Datalaster from './components/datalaster';
 import { Features, lagFeatureToggleUrl, VIS_NY_DIALOG } from './utils/feature-utils';
-import { hentEnhetIdFraUrl, hentFnrFraURL } from './utils/url-utils';
+import { hentEnhetIdFraUrl, hentFnrFraUrl } from './utils/url-utils';
 import SideInnhold from './components/side-innhold';
 import { Aktivitetsplan, Dialog, MAO, Vedtaksstotte, Visittkort } from './components/spa';
 import { FeilmeldingManglerFnr, IngenTilgangTilBruker } from './components/feilmeldinger/feilmeldinger';
@@ -17,7 +17,7 @@ interface AppInnholdProps {
 }
 
 export const App = () => {
-	const fnr = hentFnrFraURL();
+	const fnr = hentFnrFraUrl();
 	const enhetId = hentEnhetIdFraUrl();
 
 	const [harTilgang, setHarTilgang] = useState<boolean | undefined>(undefined);

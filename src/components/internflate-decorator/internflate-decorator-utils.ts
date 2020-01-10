@@ -1,4 +1,4 @@
-import { settPersonIURL } from '../../utils/url-utils';
+import { refreshMedNyEnhetIUrl, refreshMedNyFnrIUrl } from '../../utils/url-utils';
 
 export interface Toggles {
 	visVeilder: boolean;
@@ -17,7 +17,7 @@ export interface DecoratorConfig {
 	enhet: string | undefined | null;
 	toggles: Toggles;
 
-	onEnhetChange?: (enhet: string) => void;
+	onEnhetChange: (enhet: string) => void;
 	contextholder?: true | Contextholder;
 	autoSubmitOnMount?: boolean;
 
@@ -39,9 +39,18 @@ export function lagDecoratorConfig(
 			visSokefelt: true,
 			visVeilder: true
 		},
+		onEnhetChange(enhet: string): void {
+			if (enhet !== enhetId) {
+				//  TODO: Når apper går over til å kun bruke enhet fra props og ikke henter fra URL
+				//   så burde vi ikke laste inn siden på nytt og istedenfor endre på propsene som blir sendt videre ned
+				refreshMedNyEnhetIUrl(enhet);
+			}
+		},
 		onSok(fnr: string | null): void {
 			if (fnr && fnr.length > 0 && fnr !== brukerFnr) {
-				settPersonIURL(fnr);
+				//  TODO: Når apper går over til å kun bruke fnr fra props og ikke henter fra URL
+				//   så burde vi ikke laste inn siden på nytt og istedenfor endre på propsene som blir sendt videre ned
+				refreshMedNyFnrIUrl(fnr);
 			}
 		}
 	};

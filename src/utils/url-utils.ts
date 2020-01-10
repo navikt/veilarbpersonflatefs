@@ -1,14 +1,11 @@
 import * as queryString from 'query-string';
 
 const location = window.location;
-const history = window.history;
 
-export const leggEnhetIUrl = (enhet: string) => {
+export const refreshMedNyEnhetIUrl = (enhet: string) => {
 	const currentParams = queryString.parse(location.search);
 	currentParams.enhet = enhet;
-	const newParams = queryString.stringify(currentParams);
-	const newUrl = location.origin + location.pathname + '?' + newParams;
-	history.replaceState(history.state, '', newUrl);
+	location.search = queryString.stringify(currentParams);
 };
 
 export function hentEnhetIdFraUrl(): string | undefined {
@@ -18,7 +15,7 @@ export function hentEnhetIdFraUrl(): string | undefined {
 		return enhet[0];
 	}
 
-	return enhet ? enhet : undefined;
+	return enhet || undefined;
 }
 
 export function enhetFinnesIUrl() {
@@ -36,13 +33,13 @@ export function utledMiljoFraHost(host: string) {
 
 const BASE_URL = '/veilarbpersonflatefs/';
 
-export const settPersonIURL = (fodselsnummer: string): void => {
+export const refreshMedNyFnrIUrl = (fodselsnummer: string): void => {
 	window.location.pathname = `${BASE_URL}${fodselsnummer}`;
 };
 
 const regex = `^${BASE_URL}(\\d+)`;
 
-export const hentFnrFraURL = (): string | undefined => {
+export const hentFnrFraUrl = (): string | undefined => {
 	const url = window.location.pathname;
 	const match = url.match(regex);
 	if (match && match.length === 2) {

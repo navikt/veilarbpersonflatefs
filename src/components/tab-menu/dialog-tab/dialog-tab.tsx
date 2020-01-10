@@ -3,7 +3,7 @@ import cls from 'classnames';
 import { fetchUlesteDialoger, UlesteDialoger } from '../../../utils/api';
 import dialogRegular from './dialog-regular.svg';
 import dialogHover from './dialog-hover.svg';
-import { hentFnrFraURL } from '../../../utils/url-utils';
+import { hentFnrFraUrl } from '../../../utils/url-utils';
 import './dialog-tab.less';
 
 interface DialogTabState {
@@ -22,7 +22,7 @@ class DialogTab extends React.Component<{}, DialogTabState> {
 	};
 
 	componentDidMount() {
-		const fnr = hentFnrFraURL();
+		const fnr = hentFnrFraUrl();
 		if (fnr) {
 			fetchUlesteDialoger(fnr)
 				.then(this.handleOnUlesteDialogerUpdated)
