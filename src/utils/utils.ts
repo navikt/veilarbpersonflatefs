@@ -1,9 +1,8 @@
-import getWindow from './window';
 import { useCallback, useEffect } from 'react';
 
 export function erDev() {
-	const host: string = getWindow().location.host;
-	const devMode: boolean = getWindow().location.search.includes('devmode');
+	const host: string = window.location.host;
+	const devMode: boolean = window.location.search.includes('devmode');
 
 	return host.includes('localhost') || host.includes('127.0.0.1') || devMode;
 }

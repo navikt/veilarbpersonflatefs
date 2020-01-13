@@ -13,6 +13,7 @@
     "member-access": false,
     "object-literal-sort-keys": false,
     "trailing-comma": false,
+    "no-string-literal": false,
     "quotemark": [true, "single", "jsx-double"],
     "max-line-length": false,
     "interface-name": [true, "never-prefix"],
