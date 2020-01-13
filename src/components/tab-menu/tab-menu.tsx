@@ -68,13 +68,13 @@ const Menu = (props: MenuProps) => {
     )
 };
 
-interface ContetnProps {
+interface ContentProps {
     selectedTabIdx: number,
     tabsSeen: number[],
     tabs: Tab[]
 }
 
-const Content = (props: ContetnProps) => {
+const Content = (props: ContentProps) => {
     const {selectedTabIdx, tabsSeen, tabs} = props;
 
     const content = tabs.map((tab, idx) => {
