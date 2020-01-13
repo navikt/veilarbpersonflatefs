@@ -4,6 +4,7 @@ env:
   IMAGE_TAG: ${{ github.sha }}
   IMAGE: docker.pkg.github.com/${{ github.repository }}/veilarbpersonflatefs
   PRINT_PAYLOAD: true
+  CI: true
 jobs:
   test:
     name: Run tests
