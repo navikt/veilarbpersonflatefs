@@ -28,7 +28,7 @@ const getIndexOfTab = (tabs: Tab[], tag?: TabId): number => {
 interface MenuProps {
     tabs: Tab[],
     selectedTabIdx: number,
-    createTabClickedHandler: (index: number, id: TabId) => () => void
+    createTabClickedHandler: (id: TabId) => () => void
 }
 
 interface MenuButtonProps {
@@ -56,7 +56,7 @@ const Menu = (props: MenuProps) => {
     const {tabs, selectedTabIdx, createTabClickedHandler} = props;
     const isSelected = (idx: number) => idx === selectedTabIdx;
     const buttons = tabs.map((tab, idx) => (
-        <MenuButton title={tab.title} isSelected={isSelected(idx)} onClick={createTabClickedHandler(idx, tab.id)}/>));
+        <MenuButton title={tab.title} isSelected={isSelected(idx)} onClick={createTabClickedHandler(tab.id)}/>));
 
     return (
         <div className="tab-menu__headers--wrapper">
@@ -107,22 +107,23 @@ function TabMenu(props: TabsProps) {
     }, [selectedTabIdx, tabs]);
 
     const setCurrentTab = (index: number) => {
-        setSelectedTabIdx(index);
         if (!tabsSeen.includes(index)) {
             tabsSeen.push(index);
             setTabsSeen(tabsSeen);
         }
+        setSelectedTabIdx(index);
     };
 
-    const findTabIndex = (id: TabId) => tabs.findIndex(tab => tab.id === id);
-
-    useEventListener('visAktivitetsplan', () => setCurrentTab(findTabIndex(TabId.AKTIVITETSPLAN)));
-    useEventListener('visDialog', () => setCurrentTab(findTabIndex(TabId.DIALOG)));
-
-    const createTabClickedHandler = (index: number, id: TabId) => () => {
-        lagreSistBesokteTab({fnr, tab: id});
-        setCurrentTab(index)
+    const changeTab = (id: TabId) => {
+            const index: number = tabs.findIndex(tab => tab.id === id);
+            lagreSistBesokteTab({fnr, tab: id});
+            setCurrentTab(index);
     };
+
+    const createTabClickedHandler = (id: TabId) => () => changeTab(id);
+
+    useEventListener('visAktivitetsplan', () => changeTab(TabId.AKTIVITETSPLAN));
+    useEventListener('visDialog', () => changeTab(TabId.DIALOG));
 
     return (
         <div className="tab-menu">
