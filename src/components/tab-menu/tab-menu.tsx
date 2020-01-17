@@ -108,8 +108,7 @@ function TabMenu(props: TabsProps) {
 
     const setCurrentTab = (index: number) => {
         if (!tabsSeen.includes(index)) {
-            tabsSeen.push(index);
-            setTabsSeen(tabsSeen);
+            setTabsSeen([...tabsSeen, index]);
         }
         setSelectedTabIdx(index);
     };
