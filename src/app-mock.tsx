@@ -4,8 +4,8 @@ import SideInnhold from './components/side-innhold';
 import { Features, lagFeatureToggleUrl } from './utils/feature-utils';
 import Datalaster from './components/datalaster';
 import PageSpinner from './components/page-spinner/page-spinner';
-import brukerFnr from './mock/bruker-fnr';
-import { SpaName, tabContentSpaAppWrapperClassName } from './components/spa';
+import { testBrukerFnr } from './mock/kontekst';
+import { SpaName, spaWrapperTabContentClassName } from './components/spa';
 
 const AppMock: React.FunctionComponent = () => {
 	const visittkort = (
@@ -20,7 +20,7 @@ const AppMock: React.FunctionComponent = () => {
 		<SpaMock
 			name={SpaName.VEILARBMAOFS}
 			tekst="MAO"
-			wrapperClassName={tabContentSpaAppWrapperClassName}
+			wrapperClassName={spaWrapperTabContentClassName}
 			className="spa-mock__content--mao"
 		/>
 	);
@@ -29,7 +29,7 @@ const AppMock: React.FunctionComponent = () => {
 		<SpaMock
 			name={SpaName.AKTIVITETSPLAN}
 			tekst="Aktivitetsplan"
-			wrapperClassName={tabContentSpaAppWrapperClassName}
+			wrapperClassName={spaWrapperTabContentClassName}
 			className="spa-mock__content--aktivitetsplan"
 		/>
 	);
@@ -38,7 +38,7 @@ const AppMock: React.FunctionComponent = () => {
 		<SpaMock
 			name={SpaName.DIALOG}
 			tekst="Dialog"
-			wrapperClassName={tabContentSpaAppWrapperClassName}
+			wrapperClassName={spaWrapperTabContentClassName}
 			className="spa-mock__content--dialog"
 		/>
 	);
@@ -47,25 +47,32 @@ const AppMock: React.FunctionComponent = () => {
 		<SpaMock
 			name={SpaName.VEILARBVEDTAKSSTOTTEFS}
 			tekst="Vedtaksstøtte"
-			wrapperClassName={tabContentSpaAppWrapperClassName}
+			wrapperClassName={spaWrapperTabContentClassName}
 			className="spa-mock__content--vedtaksstotte"
 		/>
 	);
 
 	return (
-		<Datalaster<Features> url={lagFeatureToggleUrl()} spinner={<PageSpinner />}>
-			{(data: Features) => (
-				<SideInnhold
-					fnr={brukerFnr}
-					features={data}
-					visittkort={visittkort}
-					mao={mao}
-					aktivitetsplan={aktivitetsplan}
-					dialog={dialog}
-					vedtaksstotte={vedtaksstotte}
-				/>
-			)}
-		</Datalaster>
+		<>
+	        <SpaMock
+		        name={SpaName.INTERNARBEIDSFLATEFS_DECORATOR}
+		        tekst="Dekoratør"
+		        className="spa-mock__content--internflatedecorator"
+	        />
+			<Datalaster<Features> url={lagFeatureToggleUrl()} spinner={<PageSpinner />}>
+				{(data: Features) => (
+					<SideInnhold
+						fnr={testBrukerFnr}
+						features={data}
+						visittkort={visittkort}
+						mao={mao}
+						aktivitetsplan={aktivitetsplan}
+						dialog={dialog}
+						vedtaksstotte={vedtaksstotte}
+					/>
+				)}
+			</Datalaster>
+		</>
 	);
 };
 

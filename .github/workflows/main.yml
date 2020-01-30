@@ -4,6 +4,7 @@ env:
   IMAGE_TAG: ${{ github.sha }}
   IMAGE: docker.pkg.github.com/${{ github.repository }}/veilarbpersonflatefs
   PRINT_PAYLOAD: true
+  CI: true
 jobs:
   test:
     name: Run tests
@@ -62,7 +63,7 @@ jobs:
   deploy-q1:
     name: Deploy application to Q1
     if: github.ref == 'refs/heads/dev'
-    needs: test-build-and-push
+    needs: deploy-q0
     runs-on: ubuntu-latest
     steps:
       - name: Checkout

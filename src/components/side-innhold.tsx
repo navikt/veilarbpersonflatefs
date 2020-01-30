@@ -26,21 +26,24 @@ class SideInnhold extends React.Component<SideInnholdLayoutProps> {
 	render() {
 		const { visittkort, aktivitetsplan, dialog, vedtaksstotte, mao, features, fnr } = this.props;
 
-		const tabs: Tab[] = [
-			{
-				id: TabId.AKTIVITETSPLAN,
-				title: 'Aktivitetsplan og dialog',
-				content: aktivitetsplan,
-				className: 'tab-menu__tab-content--aktivitetsplan' // TODO: Aktivitetsplan burde sette margin-top selv
-			}
-		];
+		const tabs: Tab[] = [];
+
+		const aktivitet = {
+			id: TabId.AKTIVITETSPLAN,
+			title: 'Aktivitetsplan',
+			content: aktivitetsplan,
+			className: 'tab-menu__tab-content--aktivitetsplan' // TODO: Aktivitetsplan burde sette margin-top selv
+		};
 
 		if (dialog) {
+			tabs.push(aktivitet);
 			tabs.push({
 				id: TabId.DIALOG,
-				title: 'Dialog',
+				title: 'Dialog (Pilot)',
 				content: dialog
 			});
+		} else {
+			tabs.push({...aktivitet, title: 'Aktivitetsplan og dialog'})
 		}
 
 		tabs.push({ id: TabId.DETALJER, title: 'Detaljer', content: mao });
@@ -63,7 +66,7 @@ class SideInnhold extends React.Component<SideInnholdLayoutProps> {
 
 		return (
 			<>
-				<div className="visittkort-wrapper">{visittkort}</div>
+				{visittkort}
 				<TabMenu fnr={fnr} tabs={tabs} defaultSelectedTab={defaultSelectedTab} />
 				<TourModalController features={features} />
 				<TilbakemeldingFab features={features} />
