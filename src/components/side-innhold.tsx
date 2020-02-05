@@ -4,6 +4,7 @@ import { Features } from '../utils/feature-utils';
 import TilbakemeldingFab from './tilbakemelding/fab/tilbakemelding-fab';
 import { hentSistBesokteTab } from './tab-menu/siste-tab';
 import { TourModalController } from './tour-modal/tour-modal-controller';
+import { hasHashParam, hasQueryParam } from '../utils/url-utils';
 
 interface SideInnholdLayoutProps {
 	visittkort: React.ReactElement;
@@ -22,10 +23,46 @@ export enum TabId {
 	DETALJER = 'DETALJER'
 }
 
+/*
+	Contains the mapping between hash param keys and the TabId that will be selected
+	Ex: http://<domain>/<path>#visDetaljer
+*/
+const showTabMap: { [k: string]: TabId } = {
+	visAktivitetsplan: TabId.AKTIVITETSPLAN,
+	visDialog: TabId.DIALOG,
+	visVedtaksstotte: TabId.VEDTAKSSTOTTE,
+	visDetaljer: TabId.DETALJER,
+};
+
 class SideInnhold extends React.Component<SideInnholdLayoutProps> {
+
+	getTabFromHashParam(): TabId | undefined {
+		const tabKey = Object.keys(showTabMap).find(key => hasHashParam(key));
+		return tabKey ? showTabMap[tabKey] : undefined;
+	}
+
+	getDefaultTab() {
+		const { fnr } = this.props;
+		const tabFromHashParam = this.getTabFromHashParam();
+		// TODO: Remove when arbeidssokerregistrering uses hash params
+		//  https://github.com/navikt/arbeidssokerregistrering/blob/208caec7acda07cf896b822edc6f466637dabd07/src/utils/url-utils.ts
+		const visDetaljer = hasQueryParam('visRegistreringDetaljer');
+		const sisteBesokteTab = hentSistBesokteTab(fnr);
+		let defaultSelectedTab = TabId.AKTIVITETSPLAN;
+
+		if (tabFromHashParam) {
+			defaultSelectedTab = tabFromHashParam;
+		} else if (visDetaljer) {
+			defaultSelectedTab = TabId.DETALJER;
+		} else if (sisteBesokteTab) {
+			defaultSelectedTab = sisteBesokteTab;
+		}
+
+		return defaultSelectedTab;
+	}
+
 	render() {
 		const { visittkort, aktivitetsplan, dialog, vedtaksstotte, mao, features, fnr } = this.props;
-
 		const tabs: Tab[] = [];
 
 		const aktivitet = {
@@ -54,20 +91,10 @@ class SideInnhold extends React.Component<SideInnholdLayoutProps> {
 			content: vedtaksstotte
 		});
 
-		const visDetaljer = window.location.search.indexOf('visRegistreringDetaljer') >= 0;
-		const sisteBesokteTab = hentSistBesokteTab(fnr);
-		let defaultSelectedTab = TabId.AKTIVITETSPLAN;
-
-		if (visDetaljer) {
-			defaultSelectedTab = TabId.DETALJER;
-		} else if (sisteBesokteTab) {
-			defaultSelectedTab = sisteBesokteTab;
-		}
-
 		return (
 			<>
 				{visittkort}
-				<TabMenu fnr={fnr} tabs={tabs} defaultSelectedTab={defaultSelectedTab} />
+				<TabMenu fnr={fnr} tabs={tabs} defaultSelectedTab={this.getDefaultTab()} />
 				<TourModalController features={features} />
 				<TilbakemeldingFab features={features} />
 			</>

@@ -9,7 +9,7 @@ const mock = FetchMock.configure({
 	middleware: MiddlewareUtils.combine(MiddlewareUtils.delayMiddleware(500), MiddlewareUtils.loggingMiddleware())
 });
 
-window.history.replaceState('', '', '/veilarbpersonflatefs/' + testBrukerFnr);
+window.history.replaceState('', '', '/veilarbpersonflatefs/' + testBrukerFnr + window.location.hash);
 
 mock.get(FEATURE_TOGGLE_URL, features);
 mock.get(ULESTE_DIALOGER_URL, ulesteDialoger);
