@@ -2,6 +2,14 @@ import * as queryString from 'query-string';
 
 const location = window.location;
 
+export const hasHashParam = (parameterName: string): boolean => {
+	return window.location.hash.includes(parameterName);
+};
+
+export const hasQueryParam = (parameterName: string): boolean => {
+	return window.location.search.includes(parameterName);
+};
+
 export const refreshMedNyEnhetIUrl = (enhet: string) => {
 	const currentParams = queryString.parse(location.search);
 	currentParams.enhet = enhet;
