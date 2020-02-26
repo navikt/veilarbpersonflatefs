@@ -11,6 +11,12 @@
 		justify-content: space-between;
 		max-width: 1200px;
 		margin: 0 auto;
+
+		&--vis-gamel-dialog {
+			.tab__bar { //TODO slett denen når vi fjerer gamel dialog for alle
+				top: 0.9rem;
+			}
+		}
 	}
 
 	&__headers--wrapper {
@@ -54,16 +60,27 @@
 	}
 
 	&__title {
-		opacity: 0.8;
+		color: @navGra80;
 		padding: 0 1.25rem;
+
+		&__notification {
+			font-size: 0.875rem;
+			background-color: @navRod;
+			color: white;
+			border-radius: 100%;
+			padding: 0 5.5px;
+			margin-left: 0.05rem;
+			top: -8px;
+			position: relative;
+		}
 	}
 
 	&__title:hover {
-		opacity: 1;
+		color: @navMorkGra;
 	}
 
 	&__title--selected {
-		opacity: 1;
+		color: @navMorkGra;
 		font-weight: 900 !important;
 	}
 
@@ -84,7 +101,7 @@
 		width: 100%;
 		height: 3px;
 		background-color: @navBla;
-		top: 0.9rem;
+		top: 0.42rem;
 		opacity: 0;
 	}
 

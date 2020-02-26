@@ -6,6 +6,7 @@ import DialogTab from './dialog-tab/dialog-tab';
 import {lagreSistBesokteTab} from './siste-tab';
 import './tab-menu.less';
 import {useEventListener} from "../../utils/utils";
+import useUlesteDialoger from "./dialog-tab/useAntalUlesteDialoger";
 
 export interface Tab {
     id: TabId;
@@ -18,6 +19,7 @@ interface TabsProps {
     fnr: string;
     tabs: Tab[];
     defaultSelectedTab?: TabId;
+    skulGammelDialog: boolean;
 }
 
 const getIndexOfTab = (tabs: Tab[], tag?: TabId): number => {
@@ -29,40 +31,60 @@ interface MenuProps {
     tabs: Tab[],
     selectedTabIdx: number,
     createTabClickedHandler: (id: TabId) => () => void
+    skulGammelDialog: boolean
 }
 
 interface MenuButtonProps {
     title: string,
+    tabId: TabId,
     isSelected: boolean,
     onClick: () => void
 }
 
+const UlesteDialoger = () => {
+    const antallUleste = useUlesteDialoger();
+
+    if (!antallUleste) {
+        return null;
+    }
+
+    return (
+        <span className="tab__title__notification">
+            {antallUleste}
+        </span>
+    );
+};
+
 const MenuButton = (props: MenuButtonProps) => {
 
-    const {title, isSelected, onClick} = props;
+    const {title, isSelected, onClick, tabId} = props;
 
     return (<button
         className={cls('tab', {'tab--selected': isSelected})}
         onClick={onClick}
     >
+
         <Normaltekst className={cls('tab__title', {'tab__title--selected': isSelected})}>
             {title}
+            {tabId === TabId.DIALOG && <UlesteDialoger />}
         </Normaltekst>
+
         <div className="tab__bar"/>
     </button>);
 };
 
 const Menu = (props: MenuProps) => {
-    const {tabs, selectedTabIdx, createTabClickedHandler} = props;
+    const {tabs, selectedTabIdx, createTabClickedHandler, skulGammelDialog} = props;
     const isSelected = (idx: number) => idx === selectedTabIdx;
     const buttons = tabs.map((tab, idx) => (
-        <MenuButton title={tab.title} isSelected={isSelected(idx)} onClick={createTabClickedHandler(tab.id)}/>));
+        <MenuButton title={tab.title} isSelected={isSelected(idx)} onClick={createTabClickedHandler(tab.id)} tabId={tab.id}/>));
 
+    const tmClassname = cls("tab-menu__headers", {"tab-menu__headers--vis-gamel-dialog": !skulGammelDialog});
     return (
         <div className="tab-menu__headers--wrapper">
-            <div className="tab-menu__headers">
+            <div className={tmClassname}>
                 <div>{buttons}</div>
-                <DialogTab/>
+                {!skulGammelDialog && <DialogTab/>}
             </div>
         </div>
     )
@@ -97,7 +119,7 @@ const Content = (props: ContentProps) => {
 };
 
 function TabMenu(props: TabsProps) {
-    const {fnr, tabs, defaultSelectedTab} = props;
+    const {fnr, tabs, defaultSelectedTab, skulGammelDialog} = props;
 
     const [selectedTabIdx, setSelectedTabIdx] = useState(getIndexOfTab(tabs, defaultSelectedTab));
     const [tabsSeen, setTabsSeen] = useState([selectedTabIdx]);
@@ -114,9 +136,9 @@ function TabMenu(props: TabsProps) {
     };
 
     const changeTab = (id: TabId) => {
-            const index: number = tabs.findIndex(tab => tab.id === id);
-            lagreSistBesokteTab({fnr, tab: id});
-            setCurrentTab(index);
+        const index: number = tabs.findIndex(tab => tab.id === id);
+        lagreSistBesokteTab({fnr, tab: id});
+        setCurrentTab(index);
     };
 
     const createTabClickedHandler = (id: TabId) => () => changeTab(id);
@@ -126,7 +148,8 @@ function TabMenu(props: TabsProps) {
 
     return (
         <div className="tab-menu">
-            <Menu tabs={tabs} selectedTabIdx={selectedTabIdx} createTabClickedHandler={createTabClickedHandler}/>
+            <Menu tabs={tabs} selectedTabIdx={selectedTabIdx} createTabClickedHandler={createTabClickedHandler}
+                  skulGammelDialog={skulGammelDialog}/>
             <Content selectedTabIdx={selectedTabIdx} tabsSeen={tabsSeen} tabs={tabs}/>
         </div>
 
