@@ -51,6 +51,7 @@ const UlesteDialoger = () => {
     return (
         <span className="tab__title__notification">
             {antallUleste}
+            <span className="sr-only"> uleste</span>
         </span>
     );
 };
@@ -62,14 +63,12 @@ const MenuButton = (props: MenuButtonProps) => {
     return (<button
         className={cls('tab', {'tab--selected': isSelected})}
         onClick={onClick}
+        aria-expanded={isSelected}
     >
-
         <Normaltekst className={cls('tab__title', {'tab__title--selected': isSelected})}>
             {title}
             {tabId === TabId.DIALOG && <UlesteDialoger />}
         </Normaltekst>
-
-        <div className="tab__bar"/>
     </button>);
 };
 
@@ -83,7 +82,7 @@ const Menu = (props: MenuProps) => {
     return (
         <div className="tab-menu__headers--wrapper">
             <div className={tmClassname}>
-                <div>{buttons}</div>
+                <div className='tab-menu__headers--hoire'>{buttons}</div>
                 {!skulGammelDialog && <DialogTab/>}
             </div>
         </div>
