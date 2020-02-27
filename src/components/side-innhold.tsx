@@ -94,7 +94,7 @@ class SideInnhold extends React.Component<SideInnholdLayoutProps> {
 		return (
 			<>
 				{visittkort}
-				<TabMenu fnr={fnr} tabs={tabs} defaultSelectedTab={this.getDefaultTab()} />
+				<TabMenu fnr={fnr} tabs={tabs} defaultSelectedTab={this.getDefaultTab()} skulGammelDialog={!!dialog}/>
 				<TourModalController features={features} />
 				<TilbakemeldingFab features={features} />
 			</>
