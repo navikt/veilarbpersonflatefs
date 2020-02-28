@@ -72,7 +72,7 @@ const AppInnhold = ({fnr, enhetId}: AppInnholdProps) => {
 		<>
 			<Datalaster<Features> url={lagFeatureToggleUrl()} spinner={<PageSpinner />}>
 				{(data: Features) => {
-					const dialog = data[VIS_NY_DIALOG] ? <Dialog fnr={fnr} /> : undefined;
+					const dialog = data[VIS_NY_DIALOG] ? <Dialog fnr={fnr} enhet={enhetId}/> : undefined;
 					return (
 						<SideInnhold
 							fnr={fnr}
