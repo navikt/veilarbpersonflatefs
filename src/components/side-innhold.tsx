@@ -76,7 +76,7 @@ class SideInnhold extends React.Component<SideInnholdLayoutProps> {
 			tabs.push(aktivitet);
 			tabs.push({
 				id: TabId.DIALOG,
-				title: 'Dialog (Pilot)',
+				title: 'Dialog',
 				content: dialog
 			});
 		} else {
