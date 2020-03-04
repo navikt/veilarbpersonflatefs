@@ -19,7 +19,7 @@ export default function useUlesteDialoger(): number | undefined {
     }, [fnr, setAntallUleste]);
 
     useEventListener(DIALOG_LEST_EVENT, () =>{
-        setAntallUleste(antallUleste ? antallUleste - 1 : 0);
+        setAntallUleste(prevState => prevState? prevState - 1 : 0);
     });
 
     return antallUleste
