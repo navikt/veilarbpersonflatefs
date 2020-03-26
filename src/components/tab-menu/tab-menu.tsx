@@ -138,6 +138,7 @@ function TabMenu(props: TabsProps) {
         const index: number = tabs.findIndex(tab => tab.id === id);
         lagreSistBesokteTab({fnr, tab: id});
         setCurrentTab(index);
+        window.dispatchEvent(new CustomEvent('veilarbpersonflatefs.tab-clicked', { detail: { tabId: id } }));
     };
 
     const createTabClickedHandler = (id: TabId) => () => changeTab(id);
@@ -151,7 +152,6 @@ function TabMenu(props: TabsProps) {
                   skulGammelDialog={skulGammelDialog}/>
             <Content selectedTabIdx={selectedTabIdx} tabsSeen={tabsSeen} tabs={tabs}/>
         </div>
-
     );
 }
 
