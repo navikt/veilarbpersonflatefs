@@ -88,7 +88,8 @@ class SideInnhold extends React.Component<SideInnholdLayoutProps> {
 		tabs.push({
 			id: TabId.VEDTAKSSTOTTE,
 			title: 'Oppfølgingsvedtak',
-			content: vedtaksstotte
+			content: vedtaksstotte,
+			className: 'tab-menu__tab-content--vedtaksstotte'
 		});
 
 		return (

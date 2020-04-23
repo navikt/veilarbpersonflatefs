@@ -35,6 +35,11 @@
 		margin-top: 2rem;
 	}
 
+	&__tab-content--vedtaksstotte {
+		position: relative;
+		z-index: 0;
+	}
+
 	.no-display {
 		display: none;
 	}
@@ -46,6 +51,7 @@
 	cursor: pointer;
 	border: 0;
 	padding: 0.4rem 0;
+	border-bottom: 3px solid transparent;
 
 	&:focus {
 		outline: none;
@@ -81,11 +87,11 @@
 		font-weight: 900 !important;
 	}
 
-	&:hover {
-		box-shadow: 0 3px @navBla;
+	&:hover:not(:focus) {
+		border-bottom: 3px solid @navBla;
 	}
 
-	&--selected {
-		box-shadow: 0 3px @navBla;
+	&--selected:not(:focus) {
+		border-bottom: 3px solid @navBla;
 	}
 }
