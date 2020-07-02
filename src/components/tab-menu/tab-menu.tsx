@@ -76,7 +76,7 @@ const Menu = (props: MenuProps) => {
     const {tabs, selectedTabIdx, createTabClickedHandler, skulGammelDialog} = props;
     const isSelected = (idx: number) => idx === selectedTabIdx;
     const buttons = tabs.map((tab, idx) => (
-        <MenuButton title={tab.title} isSelected={isSelected(idx)} onClick={createTabClickedHandler(tab.id)} tabId={tab.id}/>));
+        <MenuButton key={idx} title={tab.title} isSelected={isSelected(idx)} onClick={createTabClickedHandler(tab.id)} tabId={tab.id}/>));
 
     const tmClassname = cls("tab-menu__headers", {"tab-menu__headers--vis-gamel-dialog": !skulGammelDialog});
     return (
