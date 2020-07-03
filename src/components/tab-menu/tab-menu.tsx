@@ -2,7 +2,6 @@ import React, {useEffect, useState} from 'react';
 import cls from 'classnames';
 import {Normaltekst} from 'nav-frontend-typografi';
 import {TabId} from '../side-innhold';
-import DialogTab from './dialog-tab/dialog-tab';
 import {lagreSistBesokteTab} from './siste-tab';
 import './tab-menu.less';
 import {useEventListener} from "../../utils/utils";
@@ -31,7 +30,6 @@ interface MenuProps {
     tabs: Tab[],
     selectedTabIdx: number,
     createTabClickedHandler: (id: TabId) => () => void
-    skulGammelDialog: boolean
 }
 
 interface MenuButtonProps {
@@ -73,17 +71,15 @@ const MenuButton = (props: MenuButtonProps) => {
 };
 
 const Menu = (props: MenuProps) => {
-    const {tabs, selectedTabIdx, createTabClickedHandler, skulGammelDialog} = props;
+    const {tabs, selectedTabIdx, createTabClickedHandler} = props;
     const isSelected = (idx: number) => idx === selectedTabIdx;
     const buttons = tabs.map((tab, idx) => (
-        <MenuButton title={tab.title} isSelected={isSelected(idx)} onClick={createTabClickedHandler(tab.id)} tabId={tab.id}/>));
+        <MenuButton key={idx} title={tab.title} isSelected={isSelected(idx)} onClick={createTabClickedHandler(tab.id)} tabId={tab.id}/>));
 
-    const tmClassname = cls("tab-menu__headers", {"tab-menu__headers--vis-gamel-dialog": !skulGammelDialog});
     return (
         <div className="tab-menu__headers--wrapper">
-            <div className={tmClassname}>
+            <div className="tab-menu__headers">
                 <div className='tab-menu__headers--hoire'>{buttons}</div>
-                {!skulGammelDialog && <DialogTab/>}
             </div>
         </div>
     )
@@ -118,7 +114,7 @@ const Content = (props: ContentProps) => {
 };
 
 function TabMenu(props: TabsProps) {
-    const {fnr, tabs, defaultSelectedTab, skulGammelDialog} = props;
+    const {fnr, tabs, defaultSelectedTab} = props;
 
     const [selectedTabIdx, setSelectedTabIdx] = useState(getIndexOfTab(tabs, defaultSelectedTab));
     const [tabsSeen, setTabsSeen] = useState([selectedTabIdx]);
@@ -148,8 +144,7 @@ function TabMenu(props: TabsProps) {
 
     return (
         <div className="tab-menu">
-            <Menu tabs={tabs} selectedTabIdx={selectedTabIdx} createTabClickedHandler={createTabClickedHandler}
-                  skulGammelDialog={skulGammelDialog}/>
+            <Menu tabs={tabs} selectedTabIdx={selectedTabIdx} createTabClickedHandler={createTabClickedHandler}/>
             <Content selectedTabIdx={selectedTabIdx} tabsSeen={tabsSeen} tabs={tabs}/>
         </div>
     );
