@@ -130,12 +130,12 @@ function TabMenu(props: TabsProps) {
         setSelectedTabIdx(index);
     };
 
-    const changeTab = (id: TabId, extraDetails?: CustomEvent) => {
+    const changeTab = (id: TabId, extraDetails?: Event) => {
         const index: number = tabs.findIndex(tab => tab.id === id);
         lagreSistBesokteTab({fnr, tab: id});
         setCurrentTab(index);
 
-        const extra = !!extraDetails ? extraDetails.detail : {};
+        const extra = !!extraDetails ? (extraDetails as CustomEvent).detail : {};
         window.dispatchEvent(new CustomEvent('veilarbpersonflatefs.tab-clicked', { detail: { tabId: id, ...extra } }));
     };
 
