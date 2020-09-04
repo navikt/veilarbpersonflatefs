@@ -53,7 +53,7 @@ export default function useUlesteDialoger(): number | undefined {
 
     useEffect(() => {
         if (fnr) {
-            let interval: number;
+            let interval: NodeJS.Timeout;
             const pollForChanges = () => fetchSistOppdatert(fnr)
                 .then(oppdaterDialogDataHvisNyere);
 
