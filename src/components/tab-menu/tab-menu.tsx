@@ -130,17 +130,19 @@ function TabMenu(props: TabsProps) {
         setSelectedTabIdx(index);
     };
 
-    const changeTab = (id: TabId) => {
+    const changeTab = (id: TabId, extraDetails?: Event) => {
         const index: number = tabs.findIndex(tab => tab.id === id);
         lagreSistBesokteTab({fnr, tab: id});
         setCurrentTab(index);
-        window.dispatchEvent(new CustomEvent('veilarbpersonflatefs.tab-clicked', { detail: { tabId: id } }));
+
+        const extra = !!extraDetails ? (extraDetails as CustomEvent).detail : {};
+        window.dispatchEvent(new CustomEvent('veilarbpersonflatefs.tab-clicked', { detail: { tabId: id, ...extra } }));
     };
 
     const createTabClickedHandler = (id: TabId) => () => changeTab(id);
 
     useEventListener('visAktivitetsplan', () => changeTab(TabId.AKTIVITETSPLAN));
-    useEventListener('visDialog', () => changeTab(TabId.DIALOG));
+    useEventListener('visDialog', (event) => changeTab(TabId.DIALOG, event));
 
     return (
         <div className="tab-menu">
