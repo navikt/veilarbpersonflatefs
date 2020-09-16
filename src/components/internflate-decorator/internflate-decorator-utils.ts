@@ -1,57 +1,38 @@
-import { refreshMedNyEnhetIUrl, refreshMedNyFnrIUrl } from '../../utils/url-utils';
-
-export interface Toggles {
-	visVeilder: boolean;
-	visSokefelt: boolean;
-	visEnhetVelger: boolean;
-	visEnhet: boolean;
-}
-export interface Contextholder {
-	url: string;
-	promptBeforeEnhetChange?: boolean;
-}
-
-export interface DecoratorConfig {
-	appname: string;
-	fnr: string | undefined | null;
-	enhet: string | undefined | null;
-	toggles: Toggles;
-
-	onEnhetChange: (enhet: string) => void;
-	contextholder?: true | Contextholder;
-	autoSubmitOnMount?: boolean;
-
-	onSok(fnr: string): void;
-}
+import { refreshMedNyFnrIUrl } from '../../utils/url-utils';
+import { DecoratorConfig, EnhetDisplay, FnrDisplay } from './internflate-decorator-config';
 
 export function lagDecoratorConfig(
 	brukerFnr: string | undefined | null,
 	enhetId: string | undefined | null
 ): DecoratorConfig {
+	const fnr = brukerFnr ? brukerFnr : null;
+	const enhet = enhetId ? enhetId : null;
+
 	return {
 		appname: 'Arbeidsrettet oppfølging',
-		fnr: brukerFnr,
-		enhet: enhetId,
-		contextholder: true,
 		toggles: {
-			visEnhet: true,
-			visEnhetVelger: false,
-			visSokefelt: true,
-			visVeilder: true
+			visVeileder: true
 		},
-		onEnhetChange(enhet: string): void {
-			if (enhet !== enhetId) {
-				//  TODO: Når apper går over til å kun bruke enhet fra props og ikke henter fra URL
-				//   så burde vi ikke laste inn siden på nytt og istedenfor endre på propsene som blir sendt videre ned
-				refreshMedNyEnhetIUrl(enhet);
+		fnr: {
+			display: FnrDisplay.SOKEFELT,
+			value: fnr,
+			skipModal: false,
+			ignoreWsEvents: false,
+			onChange: (newFnr: string | null) => {
+				if (newFnr && newFnr.length > 0 && newFnr !== fnr) {
+					//  TODO: Når apper går over til å kun bruke fnr fra props og ikke henter fra URL
+					//   så burde vi ikke laste inn siden på nytt og istedenfor endre på propsene som blir sendt videre ned
+					refreshMedNyFnrIUrl(newFnr);
+				}
 			}
 		},
-		onSok(fnr: string | null): void {
-			if (fnr && fnr.length > 0 && fnr !== brukerFnr) {
-				//  TODO: Når apper går over til å kun bruke fnr fra props og ikke henter fra URL
-				//   så burde vi ikke laste inn siden på nytt og istedenfor endre på propsene som blir sendt videre ned
-				refreshMedNyFnrIUrl(fnr);
-			}
+		enhet: {
+			display: EnhetDisplay.ENHET,
+			value: enhet,
+			skipModal: true,
+			ignoreWsEvents: true,
+			// tslint:disable-next-line:no-empty
+			onChange: (newEnhet: string | null) => {}
 		}
 	};
 }
