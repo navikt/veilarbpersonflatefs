@@ -2,7 +2,7 @@ apiVersion: "nais.io/v1alpha1"
 kind: "Application"
 metadata:
   name: veilarbpersonflatefs
-  namespace: {{namespace}}
+  namespace: pto
   labels:
     team: pto
 spec:
@@ -30,7 +30,7 @@ spec:
       cpu: 200m
       memory: 512Mi
   ingresses:
-    - https://app-{{namespace}}.adeo.no/veilarbpersonflatefs
+    - https://app-q1.adeo.no/veilarbpersonflatefs
   vault:
     enabled: true
   envFrom:
