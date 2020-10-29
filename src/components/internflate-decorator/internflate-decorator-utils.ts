@@ -1,4 +1,4 @@
-import { refreshMedNyFnrIUrl } from '../../utils/url-utils';
+import { refreshMedNyEnhetIUrl, refreshMedNyFnrIUrl } from '../../utils/url-utils';
 import { DecoratorConfig, EnhetDisplay, FnrDisplay } from './internflate-decorator-config';
 
 export function lagDecoratorConfig(
@@ -31,8 +31,13 @@ export function lagDecoratorConfig(
 			value: enhet,
 			skipModal: true,
 			ignoreWsEvents: true,
-			// tslint:disable-next-line:no-empty
-			onChange: (newEnhet: string | null) => {}
+			onChange: (newEnhet: string | null) => {
+				if (enhet !== enhetId && newEnhet != null) {
+					//  TODO: Når apper går over til å kun bruke enhet fra props og ikke henter fra URL
+					//   så burde vi ikke laste inn siden på nytt og istedenfor endre på propsene som blir sendt videre ned
+					refreshMedNyEnhetIUrl(newEnhet);
+				}
+			}
 		}
 	};
 }
