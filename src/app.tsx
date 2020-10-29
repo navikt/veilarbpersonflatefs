@@ -1,52 +1,75 @@
 import React, { useEffect, useState } from 'react';
-import Datalaster from './components/datalaster';
-import { Features, lagFeatureToggleUrl } from './utils/feature-utils';
-import { hentEnhetIdFraUrl, hentFnrFraUrl } from './utils/url-utils';
+import { hentFnrFraUrl } from './utils/url-utils';
 import SideInnhold from './components/side-innhold';
 import { Aktivitetsplan, Dialog, MAO, Vedtaksstotte, Visittkort } from './components/spa';
 import { FeilmeldingManglerFnr, IngenTilgangTilBruker } from './components/feilmeldinger/feilmeldinger';
 import PageSpinner from './components/page-spinner/page-spinner';
 import { useEventListener } from './utils/utils';
 import { InternflateDecorator } from './components/internflate-decorator/internflate-decorator';
-import { fetchTilgangTilBruker } from './utils/api';
-import Spinner from './components/spinner/spinner';
+import { useFetchAktivEnhet, useFetchFeatures, useFetchTilgangTilBruker } from './api/api';
+import { hasAnyFailed, isAnyLoading } from './api/utils';
+import { AlertStripeAdvarsel } from 'nav-frontend-alertstriper';
+import { Features } from './api/features';
 
 interface AppInnholdProps {
 	fnr: string;
 	enhetId: string | undefined;
+	features: Features;
 }
 
 export const App = () => {
-	const fnr = hentFnrFraUrl();
-	const enhetId = hentEnhetIdFraUrl();
+	const [aktivBrukerFnr, setAktivBrukerFnr] = useState<string | undefined>(hentFnrFraUrl);
+	const [aktivEnhetId, setAktivEnhetId] = useState<string | undefined>();
 
-	const [harTilgang, setHarTilgang] = useState<boolean | undefined>(undefined);
+	const fetchTilgangTilBruker = useFetchTilgangTilBruker(aktivBrukerFnr || '');
+	const fetchFeature = useFetchFeatures();
+	const fetchAktivEnhet = useFetchAktivEnhet();
+
+	const onAktivBrukerChanged = (newFnr: string | null) => {
+		if (newFnr) {
+			window.history.pushState('', '', `/veilarabpersonflatefs/${newFnr}`);
+		}
+		setAktivBrukerFnr(newFnr || undefined);
+	};
+
+	const onAktivEnhetChanged = (newEnhetId: string | null) => {
+		setAktivEnhetId(newEnhetId || undefined);
+	};
 
 	useEffect(() => {
-		fetchTilgangTilBruker(fnr).then(setHarTilgang);
-	}, [fnr]);
+		if (fetchAktivEnhet.data) {
+			setAktivEnhetId(fetchAktivEnhet.data.aktivEnhet || undefined);
+		}
+	}, [fetchAktivEnhet]);
 
 	let innhold;
 
-	if (!fnr) {
+	if (!aktivBrukerFnr) {
 		innhold = <FeilmeldingManglerFnr />;
-	} else if (harTilgang === undefined) {
-		innhold = <Spinner />;
-	} else if (!harTilgang) {
+	} else if (isAnyLoading([fetchTilgangTilBruker, fetchFeature, fetchAktivEnhet])) {
+		innhold = <PageSpinner />
+	} else if (hasAnyFailed([fetchTilgangTilBruker, fetchFeature])) {
+		innhold = <AlertStripeAdvarsel>Kunne ikke laste data, prøv på nytt ...</AlertStripeAdvarsel>
+	} else if (!fetchTilgangTilBruker.data) {
 		innhold = <IngenTilgangTilBruker />;
 	} else {
-		innhold = <AppInnhold enhetId={enhetId} fnr={fnr} />;
+		innhold = <AppInnhold enhetId={aktivEnhetId} fnr={aktivBrukerFnr} features={fetchFeature.data as Features} />;
 	}
 
 	return (
 		<>
-			<InternflateDecorator enhetId={enhetId} fnr={fnr} />
+			<InternflateDecorator
+				enhetId={aktivEnhetId}
+				fnr={aktivBrukerFnr}
+				onEnhetChanged={onAktivEnhetChanged}
+				onFnrChanged={onAktivBrukerChanged}
+			/>
 			{innhold}
 		</>
 	);
 };
 
-const AppInnhold = ({fnr, enhetId}: AppInnholdProps) => {
+const AppInnhold = ({fnr, enhetId, features}: AppInnholdProps) => {
 	const [aktivitetsplanKey, setAktivitetsplanKey] = useState(0);
 	const [maoKey, setMaoKey] = useState(0);
 	const [vedtakstotteKey, setVedtakstotteKey] = useState(0);
@@ -63,31 +86,21 @@ const AppInnhold = ({fnr, enhetId}: AppInnholdProps) => {
 	useEventListener('rerenderMao', () => setMaoKey((oldKey: number) => oldKey + 1));
 	useEventListener('oppfolgingAvslutet', incrementAllKeys);
 
-	const visittkort = (
-		<Visittkort enhet={enhetId} fnr={fnr} visVeilederVerktoy={true} tilbakeTilFlate="veilarbportefoljeflatefs" />
-	);
+	const visittkort = <Visittkort enhet={enhetId} fnr={fnr} visVeilederVerktoy={true} tilbakeTilFlate="veilarbportefoljeflatefs" />;
 	const mao = <MAO enhet={enhetId} fnr={fnr} key={maoKey} />;
 	const aktivitetsplan = <Aktivitetsplan key={aktivitetsplanKey} enhet={enhetId} fnr={fnr} />;
 	const vedtaksstotte = <Vedtaksstotte enhet={enhetId} fnr={fnr} key={vedtakstotteKey} />;
 	const dialog = <Dialog key={dialogKey} fnr={fnr} enhet={enhetId}/>;
 
 	return (
-		<>
-			<Datalaster<Features> url={lagFeatureToggleUrl()} spinner={<PageSpinner />}>
-				{(data: Features) => {
-					return (
-						<SideInnhold
-							fnr={fnr}
-							features={data}
-							visittkort={visittkort}
-							mao={mao}
-							aktivitetsplan={aktivitetsplan}
-							dialog={dialog}
-							vedtaksstotte={vedtaksstotte}
-						/>
-					);
-				}}
-			</Datalaster>
-		</>
+		<SideInnhold
+			fnr={fnr}
+			features={features}
+			visittkort={visittkort}
+			mao={mao}
+			aktivitetsplan={aktivitetsplan}
+			dialog={dialog}
+			vedtaksstotte={vedtaksstotte}
+		/>
 	);
 };

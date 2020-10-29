@@ -1,6 +1,6 @@
 import React from 'react';
 import TabMenu, { Tab } from './tab-menu/tab-menu';
-import { Features } from '../utils/feature-utils';
+import { Features } from '../api/features';
 import TilbakemeldingFab from './tilbakemelding/fab/tilbakemelding-fab';
 import { hentSistBesokteTab } from './tab-menu/siste-tab';
 import { TourModalController } from './tour-modal/tour-modal-controller';

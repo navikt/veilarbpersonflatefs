@@ -1,8 +1,8 @@
 import FetchMock, { MiddlewareUtils } from 'yet-another-fetch-mock';
-import {FEATURE_TOGGLE_URL, SIST_OPPDATERT_DIALOGER_URL, ULESTE_DIALOGER_URL} from '../utils/api';
 import features from './features-mock';
-import {antallUleste, sistOppdatert} from './dialoger-mock';
+import { antallUleste, sistOppdatert } from './dialoger-mock';
 import { testBrukerFnr } from './kontekst';
+import { FEATURE_TOGGLE_URL, SIST_OPPDATERT_DIALOGER_URL, ULESTE_DIALOGER_URL } from '../api/api';
 
 const mock = FetchMock.configure({
 	enableFallback: true,
