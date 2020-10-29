@@ -1,10 +1,10 @@
+import { JSONObject } from 'yet-another-fetch-mock';
 import {
 	Features,
 	SPOR_OM_TILBAKEMELDING,
 	TOUR_MODAL_LAST_NED_CV_TOGGLE,
 	TOUR_MODAL_VEDTAKSSTOTTE_LANSERING_TOGGLE
-} from '../utils/feature-utils';
-import { JSONObject } from 'yet-another-fetch-mock';
+} from '../api/features';
 
 export default {
 	[TOUR_MODAL_VEDTAKSSTOTTE_LANSERING_TOGGLE]: true,

@@ -1,13 +1,23 @@
 import React from 'react';
 import { SpaMock } from './components/spa-mock/spa-mock';
 import SideInnhold from './components/side-innhold';
-import { Features, lagFeatureToggleUrl } from './utils/feature-utils';
-import Datalaster from './components/datalaster';
 import PageSpinner from './components/page-spinner/page-spinner';
 import { testBrukerFnr } from './mock/kontekst';
 import { SpaName, spaWrapperTabContentClassName } from './components/spa';
+import { useFetchFeatures } from './api/api';
+import { hasAnyFailed, isAnyLoading } from './api/utils';
+import { AlertStripeFeil } from 'nav-frontend-alertstriper';
+import { Features } from './api/features';
 
 const AppMock: React.FunctionComponent = () => {
+	const fetchFeature = useFetchFeatures();
+
+	if (isAnyLoading(fetchFeature)) {
+		return <PageSpinner/>;
+	} else if (hasAnyFailed(fetchFeature)) {
+		return <AlertStripeFeil>Klarte ikke å laste inn data, prøv igjen senere</AlertStripeFeil>;
+	}
+
 	const visittkort = (
 		<SpaMock
 			name={SpaName.VEILARBVISITTKORTFS}
@@ -59,19 +69,15 @@ const AppMock: React.FunctionComponent = () => {
 		        tekst="Dekoratør"
 		        className="spa-mock__content--internflatedecorator"
 	        />
-			<Datalaster<Features> url={lagFeatureToggleUrl()} spinner={<PageSpinner />}>
-				{(data: Features) => (
-					<SideInnhold
-						fnr={testBrukerFnr}
-						features={data}
-						visittkort={visittkort}
-						mao={mao}
-						aktivitetsplan={aktivitetsplan}
-						dialog={dialog}
-						vedtaksstotte={vedtaksstotte}
-					/>
-				)}
-			</Datalaster>
+			<SideInnhold
+				fnr={testBrukerFnr}
+				features={fetchFeature.data as Features}
+				visittkort={visittkort}
+				mao={mao}
+				aktivitetsplan={aktivitetsplan}
+				dialog={dialog}
+				vedtaksstotte={vedtaksstotte}
+			/>
 		</>
 	);
 };

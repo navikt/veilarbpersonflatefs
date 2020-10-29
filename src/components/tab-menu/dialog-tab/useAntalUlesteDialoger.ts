@@ -1,7 +1,7 @@
-import {useCallback, useEffect, useState} from "react";
-import {fetchSistOppdatert, fetchUlesteDialoger, SistOppdatertData} from "../../../utils/api";
-import {useEventListener} from "../../../utils/utils";
-import {hentFnrFraUrl} from "../../../utils/url-utils";
+import { useCallback, useEffect, useState } from 'react';
+import { fetchSistOppdatert, fetchUlesteDialoger, SistOppdatertData } from '../../../api/api';
+import { useEventListener } from '../../../utils/utils';
+import { hentFnrFraUrl } from '../../../utils/url-utils';
 
 export enum UpdateTypes {
     Dialog = 'DIALOG',
@@ -60,8 +60,9 @@ export default function useUlesteDialoger(): number | undefined {
             interval = setInterval(pollForChanges, 10000);
             return () => clearInterval(interval);
         }
-        return () => {
-        };
+
+        // tslint:disable-next-line:no-empty
+        return () => {};
     }, [fnr, oppdaterDialogDataHvisNyere]);
 
 

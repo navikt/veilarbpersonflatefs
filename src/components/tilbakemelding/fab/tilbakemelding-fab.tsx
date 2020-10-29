@@ -2,9 +2,9 @@ import React from 'react';
 import cls from 'classnames';
 import TilbakemeldingModal, { Tilbakemelding } from '../tilbakemelding-modal';
 import { logEvent } from '../../../utils/frontend-logger';
-import { Features, SPOR_OM_TILBAKEMELDING } from '../../../utils/feature-utils';
 import lukkBilde from './lukk.svg';
 import tilbakemeldingBilde from './tilbakemelding.svg';
+import { Features, SPOR_OM_TILBAKEMELDING } from '../../../api/features';
 import './tilbakemelding-fab.less';
 
 // FAB = Floating Action Button

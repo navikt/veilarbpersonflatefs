@@ -1,17 +1,44 @@
 import * as React from 'react';
 import { Decorator } from '../spa';
-import { lagDecoratorConfig } from './internflate-decorator-utils';
+import { DecoratorConfig, EnhetDisplay, FnrDisplay } from './internflate-decorator-config';
 
 interface InternflateDecoratorProps {
-    enhetId: string | undefined;
-    fnr: string | undefined;
+    enhetId: string | undefined | null;
+    fnr: string | undefined | null;
+    onEnhetChanged: (newEnhet: string | null) => void;
+    onFnrChanged: (newFnr: string | null) => void;
 }
 
 export function InternflateDecorator(props: InternflateDecoratorProps) {
-    const config = lagDecoratorConfig(props.fnr, props.enhetId);
     return (
         <nav>
-            <Decorator {...config} />
+            <Decorator {...lagDecoratorConfig(props)} />
         </nav>
     );
+}
+
+function lagDecoratorConfig(props: InternflateDecoratorProps): DecoratorConfig {
+    const fnr = props.fnr || null;
+    const enhetId = props.enhetId || null;
+
+    return {
+        appname: 'Arbeidsrettet oppfølging',
+        toggles: {
+            visVeileder: true
+        },
+        fnr: {
+            display: FnrDisplay.SOKEFELT,
+            value: fnr,
+            skipModal: false,
+            ignoreWsEvents: false,
+            onChange: props.onFnrChanged
+        },
+        enhet: {
+            display: EnhetDisplay.ENHET,
+            value: enhetId,
+            skipModal: true,
+            ignoreWsEvents: true,
+            onChange: props.onEnhetChanged
+        }
+    };
 }
