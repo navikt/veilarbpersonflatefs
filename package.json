@@ -50,8 +50,7 @@
     "react-dom": "^16.8.6",
     "react-fetch-hook": "^1.8.3",
     "react-modal": "^3.9.1",
-    "react-scripts": "^3.4.3",
-    "yet-another-fetch-mock": "^3.2.0"
+    "react-scripts": "^3.4.3"
   },
   "devDependencies": {
     "@types/classnames": "^2.2.9",
@@ -61,6 +60,7 @@
     "@types/react-dom": "^16.8.4",
     "@types/react-modal": "^3.8.2",
     "cross-env": "^6.0.3",
+    "msw": "^0.21.3",
     "prettier": "^1.18.2",
     "tslint": "^5.18.0",
     "tslint-config-prettier": "^1.18.0",

@@ -2,12 +2,12 @@ import React from 'react';
 import { SpaMock } from './components/spa-mock/spa-mock';
 import SideInnhold from './components/side-innhold';
 import PageSpinner from './components/page-spinner/page-spinner';
-import { testBrukerFnr } from './mock/kontekst';
 import { SpaName, spaWrapperTabContentClassName } from './components/spa';
 import { useFetchFeatures } from './api/api';
 import { hasAnyFailed, isAnyLoading } from './api/utils';
 import { AlertStripeFeil } from 'nav-frontend-alertstriper';
 import { Features } from './api/features';
+import { testBrukerFnr } from './mocks/data';
 
 const AppMock: React.FunctionComponent = () => {
 	const fetchFeature = useFetchFeatures();

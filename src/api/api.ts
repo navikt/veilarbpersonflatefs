@@ -5,6 +5,7 @@ import { useFetch } from './utils';
 export const FEATURE_TOGGLE_URL = '/veilarbpersonflatefs/api/feature';
 export const ULESTE_DIALOGER_URL = '/veilarbdialog/api/dialog/antallUleste';
 export const SIST_OPPDATERT_DIALOGER_URL = '/veilarbdialog/api/dialog/sistOppdatert';
+export const AKTIV_ENHET_URL = '/modiacontextholder/api/context/aktivenhet';
 
 const credentials = 'same-origin';
 
