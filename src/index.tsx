@@ -8,6 +8,7 @@ import NAVSPA from './utils/navspa';
 import { SpaName } from './components/spa';
 import { SpaMockContent } from './components/spa-mock/spa-mock';
 import './index.less';
+import { testBrukerFnr } from './mocks/data';
 
 if (!window['_babelPolyfill']) {
 	// @ts-ignore
@@ -19,6 +20,8 @@ NavFrontendModal.setAppElement(document.getElementById('modal-a11y-wrapper'));
 let app;
 
 if (isAppMocked()) {
+	window.history.replaceState('', '', '/veilarbpersonflatefs/' + testBrukerFnr + window.location.hash);
+
 	app = <AppMock />;
 
 	NAVSPA.eksporter(SpaName.INTERNARBEIDSFLATEFS_DECORATOR, SpaMockContent);
@@ -29,7 +32,7 @@ if (isAppMocked()) {
 	NAVSPA.eksporter(SpaName.VEILARBVISITTKORTFS, SpaMockContent);
 
 	// @ts-ignore
-	require('./mock');
+	require('./mocks/setup-worker');
 } else {
 	app = <App />;
 }
