@@ -1,37 +1,26 @@
-import { useCallback, useMemo, useState } from 'react';
-import useFetchHook from 'react-fetch-hook';
+import axios, { AxiosPromise, AxiosRequestConfig } from 'axios';
+import useAxiosHook, { configure, Options, RefetchOptions, ResponseValues } from 'axios-hooks';
 
-export interface FetchResponse<D = any> {
-	error?: any;
-	data?: D;
-	httpCode?: number;
-}
-
-export type UseFetchState<T> = useFetchHook.FetchResult<T> & { refetch: () => void}
-
-export function useFetch<T>(requestInfo: RequestInfo,
-							options?: useFetchHook.HookOptions | useFetchHook.HookOptionsWithFormatter<T>,
-							specialOptions?: useFetchHook.HookOptions): UseFetchState<T> {
-	const [trigger, setTrigger] = useState(1);
-	const dependsWithTrigger = options && options.depends ? [...options.depends, trigger] : [trigger];
-	const fetchState = useFetchHook<T>(requestInfo, Object.assign(options || {}, {depends: dependsWithTrigger}), specialOptions);
-	const refetch = useCallback(() => {
-		setTrigger(prev => ++prev);
-	}, []);
-
-	return useMemo(() => ({...fetchState, refetch}), [fetchState, refetch]);
-}
-
-export const hasAnyFailed = (state: UseFetchState<any> | Array<UseFetchState<any>>): boolean => {
-	if (Array.isArray(state)) {
-		return state.some(s => s.error !== undefined);
-	}
-	return state.error !== undefined;
+type UseAxiosResponseValue<T> = ResponseValues<T> & {
+	refetch: (config?: AxiosRequestConfig, options?: RefetchOptions) => AxiosPromise<T>;
 };
 
-export const isAnyLoading = (state: UseFetchState<any> | Array<UseFetchState<any>>): boolean => {
-	if (Array.isArray(state)) {
-		return state.some(s => s.isLoading);
-	}
-	return state.isLoading;
-};
+export const axiosInstance = axios.create({
+	withCredentials: true,
+	headers: {'X-Consumer-Id': 'veilarbpersonflatefs'}
+});
+
+configure({ axios: axiosInstance });
+
+export function useAxios<T = any>(config: AxiosRequestConfig | string, options?: Options): UseAxiosResponseValue<T> {
+	const [{ data, loading, error }, refetch] = useAxiosHook<T>(config, options);
+	return { data, loading, error, refetch };
+}
+
+export function isAnyLoading(...axiosResponseValues: Array<UseAxiosResponseValue<any>>): boolean {
+	return axiosResponseValues.some(responseValue => responseValue.loading);
+}
+
+export function hasAnyFailed(...axiosResponseValues: Array<UseAxiosResponseValue<any>>): boolean {
+	return axiosResponseValues.some(responseValue => responseValue.error);
+}

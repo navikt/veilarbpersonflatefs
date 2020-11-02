@@ -51,9 +51,9 @@ export const App = () => {
 
 	if (!aktivBrukerFnr) {
 		innhold = <FeilmeldingManglerFnr />;
-	} else if (isAnyLoading([fetchTilgangTilBruker, fetchFeature, fetchAktivEnhet])) {
+	} else if (isAnyLoading(fetchTilgangTilBruker, fetchFeature, fetchAktivEnhet)) {
 		innhold = <PageSpinner />
-	} else if (hasAnyFailed([fetchTilgangTilBruker, fetchFeature])) {
+	} else if (hasAnyFailed(fetchTilgangTilBruker, fetchFeature)) {
 		innhold = <AlertStripeAdvarsel>Kunne ikke laste data, prøv på nytt ...</AlertStripeAdvarsel>
 	} else if (!fetchTilgangTilBruker.data) {
 		innhold = <IngenTilgangTilBruker />;

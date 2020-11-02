@@ -30,7 +30,7 @@ export default function useUlesteDialoger(): number | undefined {
     const fetchAntallUlesteDialoger = useCallback(() => {
             if (fnr) {
                 fetchUlesteDialoger(fnr)
-                    .then(a => setAntallUleste(a.antallUleste))
+                    .then(res => setAntallUleste(res.data.antallUleste))
                     .catch()
             }
         },
@@ -54,8 +54,10 @@ export default function useUlesteDialoger(): number | undefined {
     useEffect(() => {
         if (fnr) {
             let interval: NodeJS.Timeout;
-            const pollForChanges = () => fetchSistOppdatert(fnr)
-                .then(oppdaterDialogDataHvisNyere);
+            const pollForChanges = () => {
+                return fetchSistOppdatert(fnr)
+                    .then(res => oppdaterDialogDataHvisNyere(res.data));
+            };
 
             interval = setInterval(pollForChanges, 10000);
             return () => clearInterval(interval);
