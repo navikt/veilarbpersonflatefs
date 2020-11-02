@@ -19,6 +19,8 @@
   },
   "dependencies": {
     "@craco/craco": "^5.2.4",
+    "axios": "^0.21.0",
+    "axios-hooks": "^2.1.0",
     "babel-polyfill": "^6.26.0",
     "classnames": "^2.2.6",
     "craco-less": "^1.17.0",
@@ -48,7 +50,6 @@
     "query-string": "^6.8.1",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
-    "react-fetch-hook": "^1.8.3",
     "react-modal": "^3.9.1",
     "react-scripts": "^3.4.3"
   },

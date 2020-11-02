@@ -1,11 +1,11 @@
-import React, {useEffect, useState} from 'react';
+import React, { useEffect, useState } from 'react';
 import cls from 'classnames';
-import {Normaltekst} from 'nav-frontend-typografi';
-import {TabId} from '../side-innhold';
-import {lagreSistBesokteTab} from './siste-tab';
+import { Normaltekst } from 'nav-frontend-typografi';
+import { TabId } from '../side-innhold';
+import { lagreSistBesokteTab } from './siste-tab';
+import { useEventListener } from '../../utils/utils';
+import useUlesteDialoger from './dialog-tab/useAntalUlesteDialoger';
 import './tab-menu.less';
-import {useEventListener} from "../../utils/utils";
-import useUlesteDialoger from "./dialog-tab/useAntalUlesteDialoger";
 
 export interface Tab {
     id: TabId;
@@ -79,7 +79,7 @@ const Menu = (props: MenuProps) => {
     return (
         <div className="tab-menu__headers--wrapper">
             <div className="tab-menu__headers">
-                <div className='tab-menu__headers--hoire'>{buttons}</div>
+                <div className="tab-menu__headers--hoire">{buttons}</div>
             </div>
         </div>
     )
