@@ -18,6 +18,7 @@ interface AppInnholdProps {
 }
 
 export const App = () => {
+	const [appInnholdKey, setAppInnholdKey] = useState<number>(0);
 	const [aktivBrukerFnr, setAktivBrukerFnr] = useState<string | undefined>(hentFnrFraUrl);
 	const [aktivEnhetId, setAktivEnhetId] = useState<string | undefined>();
 
@@ -28,12 +29,16 @@ export const App = () => {
 	const onAktivBrukerChanged = (newFnr: string | null) => {
 		if (newFnr) {
 			window.history.pushState('', '', `/veilarabpersonflatefs/${newFnr}`);
+			// TODO: Set aktiv bruker i kontekst
+			setAktivBrukerFnr(newFnr);
+			setAppInnholdKey(key => key + 1); // Forces all the micro frontends to be remounted so that their state is reset
 		}
-		setAktivBrukerFnr(newFnr || undefined);
 	};
 
 	const onAktivEnhetChanged = (newEnhetId: string | null) => {
-		setAktivEnhetId(newEnhetId || undefined);
+		if (newEnhetId) {
+			setAktivEnhetId(newEnhetId);
+		}
 	};
 
 	useEffect(() => {
@@ -53,7 +58,7 @@ export const App = () => {
 	} else if (!fetchTilgangTilBruker.data) {
 		innhold = <IngenTilgangTilBruker />;
 	} else {
-		innhold = <AppInnhold enhetId={aktivEnhetId} fnr={aktivBrukerFnr} features={fetchFeature.data as Features} />;
+		innhold = <AppInnhold key={appInnholdKey} enhetId={aktivEnhetId} fnr={aktivBrukerFnr} features={fetchFeature.data as Features} />;
 	}
 
 	return (
