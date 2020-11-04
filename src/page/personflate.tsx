@@ -5,8 +5,12 @@ import { FeilmeldingManglerFnr, IngenTilgangTilBruker } from '../component/feilm
 import PageSpinner from '../component/page-spinner/page-spinner';
 import { useEventListener } from '../util/utils';
 import { InternflateDecorator } from '../component/internflate-decorator/internflate-decorator';
-import { lagFetchTilgangTilBrukerUrl, useFetchAktivEnhet, useFetchFeatures } from '../api/api';
-import { hasAnyFailed, isAnyLoading, useAxios } from '../api/utils';
+import {
+	useFetchAktivEnhet,
+	useFetchFeatures,
+	useFetchTilgangTilBruker
+} from '../api/api';
+import { hasAnyFailed, isAnyLoading } from '../api/utils';
 import { AlertStripeAdvarsel } from 'nav-frontend-alertstriper';
 import { Features } from '../api/features';
 import { useModiaContextStore } from '../store/modia-context-store';
@@ -21,7 +25,7 @@ export const PersonflatePage = () => {
 	const [appInnholdKey, setAppInnholdKey] = useState<number>(0);
 	const { aktivBrukerFnr, setAktivBrukerFnr, aktivEnhetId, setAktivEnhetId } = useModiaContextStore();
 
-	const fetchTilgangTilBruker = useAxios<true>({}, { manual: true });
+	const fetchTilgangTilBruker = useFetchTilgangTilBruker(aktivBrukerFnr, { manual: true });
 	const fetchFeature = useFetchFeatures();
 	const fetchAktivEnhet = useFetchAktivEnhet();
 
@@ -41,7 +45,7 @@ export const PersonflatePage = () => {
 
 	useEffect(() => {
 		if (aktivBrukerFnr) {
-			fetchTilgangTilBruker.refetch({ url: lagFetchTilgangTilBrukerUrl(aktivBrukerFnr) });
+			fetchTilgangTilBruker.fetch();
 		}
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [aktivBrukerFnr]);
@@ -64,7 +68,7 @@ export const PersonflatePage = () => {
 	} else if (!fetchTilgangTilBruker.data) {
 		innhold = <IngenTilgangTilBruker />;
 	} else {
-		innhold = <AppInnhold key={appInnholdKey} enhetId={aktivEnhetId} fnr={aktivBrukerFnr} features={fetchFeature.data} />;
+		innhold = <Innhold key={appInnholdKey} enhetId={aktivEnhetId} fnr={aktivBrukerFnr} features={fetchFeature.data} />;
 	}
 
 	return (
@@ -80,7 +84,7 @@ export const PersonflatePage = () => {
 	);
 };
 
-const AppInnhold = ({fnr, enhetId, features}: AppInnholdProps) => {
+const Innhold = ({fnr, enhetId, features}: AppInnholdProps) => {
 	const [aktivitetsplanKey, setAktivitetsplanKey] = useState(0);
 	const [maoKey, setMaoKey] = useState(0);
 	const [vedtakstotteKey, setVedtakstotteKey] = useState(0);

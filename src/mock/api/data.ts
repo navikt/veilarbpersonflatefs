@@ -4,7 +4,7 @@ import {
 	TOUR_MODAL_LAST_NED_CV_TOGGLE,
 	TOUR_MODAL_VEDTAKSSTOTTE_LANSERING_TOGGLE
 } from '../../api/features';
-import { AktivEnhetResponse, SistOppdatertData, UlesteDialoger } from '../../api/api';
+import { AktivEnhetResponse, SistOppdatertData, AntallUlesteDialoger } from '../../api/api';
 
 export const testBrukerFnr = '00123456789';
 
@@ -16,7 +16,7 @@ export const mockFeatures: Features = {
 	[SPOR_OM_TILBAKEMELDING]: true
 };
 
-export const mockAntallUleste: UlesteDialoger = {
+export const mockAntallUleste: AntallUlesteDialoger = {
 	antallUleste: 1
 };
 

@@ -1,18 +1,17 @@
 import { rest } from 'msw'
-import { AKTIV_ENHET_URL, FEATURE_TOGGLE_URL, SIST_OPPDATERT_DIALOGER_URL, ULESTE_DIALOGER_URL } from '../../api/api';
 import { mockAktivEnhet, mockAntallUleste, mockFeatures, mockSistOppdatert, mockTilgangTilBruker } from './data';
 
 export const handlers = [
-	rest.get(FEATURE_TOGGLE_URL, (req, res, ctx) => {
+	rest.get('/veilarbpersonflatefs/api/feature', (req, res, ctx) => {
 		return res(ctx.delay(500), ctx.json(mockFeatures));
 	}),
-	rest.get(ULESTE_DIALOGER_URL, (req, res, ctx) => {
+	rest.get('/veilarbdialog/api/dialog/antallUleste', (req, res, ctx) => {
 		return res(ctx.delay(500), ctx.json(mockAntallUleste));
 	}),
-	rest.get(SIST_OPPDATERT_DIALOGER_URL, (req, res, ctx) => {
+	rest.get('/veilarbdialog/api/dialog/sistOppdatert', (req, res, ctx) => {
 		return res(ctx.delay(500), ctx.json(mockSistOppdatert));
 	}),
-	rest.get(AKTIV_ENHET_URL, (req, res, ctx) => {
+	rest.get('/modiacontextholder/api/context/aktivenhet', (req, res, ctx) => {
 		return res(ctx.delay(500), ctx.json(mockAktivEnhet));
 	}),
 	rest.get('/veilarbperson/api/person/:fnr/tilgangTilBruker', (req, res, ctx) => {
