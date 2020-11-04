@@ -4,7 +4,7 @@ import { Normaltekst, Systemtittel, Undertittel } from 'nav-frontend-typografi';
 import ChevronLenke, { Retning } from '../chevron-lenke/chevron-lenke';
 import Stegviser from '../stegviser/stegviser';
 import TourModalMetrics from './tour-modal-metrics';
-import { hasStored } from '../../utils/utils';
+import { hasStored } from '../../util/utils';
 import './tour-modal.less';
 
 export interface TourModalConfig {

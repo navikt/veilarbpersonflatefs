@@ -4,7 +4,7 @@ import { Features } from '../api/features';
 import TilbakemeldingFab from './tilbakemelding/fab/tilbakemelding-fab';
 import { hentSistBesokteTab } from './tab-menu/siste-tab';
 import { TourModalController } from './tour-modal/tour-modal-controller';
-import { hasHashParam, hasQueryParam } from '../utils/url-utils';
+import { hasHashParam, hasQueryParam } from '../util/url-utils';
 
 interface SideInnholdLayoutProps {
 	visittkort: React.ReactElement;

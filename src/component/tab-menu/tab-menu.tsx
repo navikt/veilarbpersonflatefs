@@ -3,9 +3,10 @@ import cls from 'classnames';
 import { Normaltekst } from 'nav-frontend-typografi';
 import { TabId } from '../side-innhold';
 import { lagreSistBesokteTab } from './siste-tab';
-import { useEventListener } from '../../utils/utils';
+import { useEventListener } from '../../util/utils';
 import useUlesteDialoger from './dialog-tab/useAntalUlesteDialoger';
 import './tab-menu.less';
+import { useModiaContextStore } from '../../store/modia-context-store';
 
 export interface Tab {
     id: TabId;
@@ -40,7 +41,8 @@ interface MenuButtonProps {
 }
 
 const UlesteDialoger = () => {
-    const antallUleste = useUlesteDialoger();
+    const { aktivBrukerFnr } = useModiaContextStore();
+    const antallUleste = useUlesteDialoger(aktivBrukerFnr);
 
     if (!antallUleste) {
         return null;
@@ -55,7 +57,6 @@ const UlesteDialoger = () => {
 };
 
 const MenuButton = (props: MenuButtonProps) => {
-
     const {title, isSelected, onClick, tabId} = props;
 
     return (<button

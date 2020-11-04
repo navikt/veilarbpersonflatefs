@@ -1,5 +1,5 @@
 import React from 'react';
-import NAVSPA from '../utils/navspa';
+import NAVSPA from '../util/navspa';
 import { DecoratorConfig } from './internflate-decorator/internflate-decorator-config';
 
 interface SpaProps {
