@@ -1,13 +1,8 @@
 import { ALL_TOGGLES, Features } from './features';
-import { AxiosResponse } from 'axios';
-import { axiosInstance, useAxios } from './utils';
+import { useAxios, UseAxiosResponseValue } from './utils';
+import { Options } from 'axios-hooks';
 
-export const FEATURE_TOGGLE_URL = '/veilarbpersonflatefs/api/feature';
-export const ULESTE_DIALOGER_URL = '/veilarbdialog/api/dialog/antallUleste';
-export const SIST_OPPDATERT_DIALOGER_URL = '/veilarbdialog/api/dialog/sistOppdatert';
-export const AKTIV_ENHET_URL = '/modiacontextholder/api/context/aktivenhet';
-
-export interface UlesteDialoger {
+export interface AntallUlesteDialoger {
 	antallUleste: number;
 }
 
@@ -19,27 +14,23 @@ export interface SistOppdatertData {
 	sistOppdatert?: string;
 }
 
-export function fetchUlesteDialoger(fnr: string): Promise<AxiosResponse<UlesteDialoger>> {
-	return axiosInstance.get<UlesteDialoger>(`${ULESTE_DIALOGER_URL}/?fnr=${fnr}`);
+export function useFetchAntallUlesteDialoger(fnr: string, options?: Options): UseAxiosResponseValue<AntallUlesteDialoger> {
+	return useAxios<AntallUlesteDialoger>(`/veilarbdialog/api/dialog/antallUleste?fnr=${fnr}`, options);
 }
 
-export function fetchSistOppdatert(fnr: string): Promise<AxiosResponse<SistOppdatertData>> {
-	return axiosInstance.get<SistOppdatertData>(`${SIST_OPPDATERT_DIALOGER_URL}/?fnr=${fnr}`);
+export function useFetchSistOppdatert(fnr: string, options?: Options): UseAxiosResponseValue<SistOppdatertData> {
+	return useAxios<SistOppdatertData>(`/veilarbdialog/api/dialog/sistOppdatert?fnr=${fnr}`, options);
 }
 
-export function useFetchFeatures() {
+export function useFetchFeatures(options?: Options): UseAxiosResponseValue<Features> {
 	const toggles = ALL_TOGGLES.map(element => 'feature=' + element).join('&');
-	return useAxios<Features>(`${FEATURE_TOGGLE_URL}/?${toggles}`);
+	return useAxios<Features>(`/veilarbpersonflatefs/api/feature?${toggles}`, options);
 }
 
-// export function useFetchTilgangTilBruker(config: AxiosRequestConfig | string, options?: Options) {
-// 	return useAxios<true>(`/veilarbperson/api/person/${fnr}/tilgangTilBruker`, { manual: true });
-// }
-
-export function useFetchAktivEnhet() {
-	return useAxios<AktivEnhetResponse>(AKTIV_ENHET_URL);
+export function useFetchAktivEnhet(options?: Options): UseAxiosResponseValue<AktivEnhetResponse>  {
+	return useAxios<AktivEnhetResponse>('/modiacontextholder/api/context/aktivenhet', options);
 }
 
-export function lagFetchTilgangTilBrukerUrl(fnr: string): string {
-	return `/veilarbperson/api/person/${fnr}/tilgangTilBruker`;
+export function useFetchTilgangTilBruker(fnr: string, options?: Options): UseAxiosResponseValue<true> {
+	return useAxios<true>({ url: `/veilarbperson/api/person/${fnr}/tilgangTilBruker` }, options);
 }
