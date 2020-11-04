@@ -7,7 +7,7 @@ type UseAxiosResponseValue<T> = ResponseValues<T> & {
 
 export const axiosInstance = axios.create({
 	withCredentials: true,
-	headers: {'X-Consumer-Id': 'veilarbpersonflatefs'}
+	headers: {'Nav-Consumer-Id': 'veilarbpersonflatefs'}
 });
 
 configure({ axios: axiosInstance });

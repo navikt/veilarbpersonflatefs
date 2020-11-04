@@ -1,7 +1,6 @@
 import { useCallback, useEffect, useState } from 'react';
 import { fetchSistOppdatert, fetchUlesteDialoger, SistOppdatertData } from '../../../api/api';
-import { useEventListener } from '../../../utils/utils';
-import { hentFnrFraUrl } from '../../../utils/url-utils';
+import { useEventListener } from '../../../util/utils';
 
 export enum UpdateTypes {
     Dialog = 'DIALOG',
@@ -22,9 +21,8 @@ export function widowEvent(update: UpdateTypes) {
 
 const DIALOG_LEST_EVENT = 'aktivitetsplan.dialog.lest';
 
-export default function useUlesteDialoger(): number | undefined {
+export default function useUlesteDialoger(fnr: string): number | undefined {
     const [antallUleste, setAntallUleste] = useState<number | undefined>(undefined);
-    const fnr = hentFnrFraUrl();
     const [localSistOppdatert, setLocalSistOppdatert] = useState(new Date());
 
     const fetchAntallUlesteDialoger = useCallback(() => {
@@ -56,7 +54,8 @@ export default function useUlesteDialoger(): number | undefined {
             let interval: NodeJS.Timeout;
             const pollForChanges = () => {
                 return fetchSistOppdatert(fnr)
-                    .then(res => oppdaterDialogDataHvisNyere(res.data));
+                    .then(res => oppdaterDialogDataHvisNyere(res.data))
+                    .catch();
             };
 
             interval = setInterval(pollForChanges, 10000);

@@ -27,15 +27,19 @@ export function fetchSistOppdatert(fnr: string): Promise<AxiosResponse<SistOppda
 	return axiosInstance.get<SistOppdatertData>(`${SIST_OPPDATERT_DIALOGER_URL}/?fnr=${fnr}`);
 }
 
-export const useFetchFeatures = () => {
+export function useFetchFeatures() {
 	const toggles = ALL_TOGGLES.map(element => 'feature=' + element).join('&');
 	return useAxios<Features>(`${FEATURE_TOGGLE_URL}/?${toggles}`);
-};
+}
 
-export const useFetchTilgangTilBruker = (fnr: string) => {
-	return useAxios<true>(`/veilarbperson/api/person/${fnr}/tilgangTilBruker`);
-};
+// export function useFetchTilgangTilBruker(config: AxiosRequestConfig | string, options?: Options) {
+// 	return useAxios<true>(`/veilarbperson/api/person/${fnr}/tilgangTilBruker`, { manual: true });
+// }
 
-export const useFetchAktivEnhet = () => {
-	return useAxios<AktivEnhetResponse>('/modiacontextholder/api/context/aktivenhet');
-};
+export function useFetchAktivEnhet() {
+	return useAxios<AktivEnhetResponse>(AKTIV_ENHET_URL);
+}
+
+export function lagFetchTilgangTilBrukerUrl(fnr: string): string {
+	return `/veilarbperson/api/person/${fnr}/tilgangTilBruker`;
+}

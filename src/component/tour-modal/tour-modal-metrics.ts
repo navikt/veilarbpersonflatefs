@@ -1,4 +1,4 @@
-import { logEvent } from '../../utils/frontend-logger';
+import { logEvent } from '../../util/frontend-logger';
 
 interface Metrics {
 	// timeSpentStep0, timeSpentStep1...

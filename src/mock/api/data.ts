@@ -3,8 +3,8 @@ import {
 	SPOR_OM_TILBAKEMELDING,
 	TOUR_MODAL_LAST_NED_CV_TOGGLE,
 	TOUR_MODAL_VEDTAKSSTOTTE_LANSERING_TOGGLE
-} from '../api/features';
-import { AktivEnhetResponse, SistOppdatertData, UlesteDialoger } from '../api/api';
+} from '../../api/features';
+import { AktivEnhetResponse, SistOppdatertData, UlesteDialoger } from '../../api/api';
 
 export const testBrukerFnr = '00123456789';
 
@@ -27,3 +27,5 @@ export const mockSistOppdatert: SistOppdatertData = {
 export const mockAktivEnhet: AktivEnhetResponse = {
 	aktivEnhet: testEnhetId
 };
+
+export const mockTilgangTilBruker = true;

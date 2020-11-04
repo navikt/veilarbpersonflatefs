@@ -14,8 +14,10 @@ const regex = `^${BASE_URL}(\\d+)`;
 export const hentFnrFraUrl = (): string | undefined => {
 	const url = window.location.pathname;
 	const match = url.match(regex);
+
 	if (match && match.length === 2) {
 		return match[1];
 	}
+
 	return undefined;
 };
