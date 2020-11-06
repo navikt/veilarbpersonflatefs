@@ -1,7 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import SideInnhold from '../component/side-innhold';
 import { Aktivitetsplan, Dialog, MAO, Vedtaksstotte, Visittkort } from '../component/spa';
-import { FeilmeldingManglerFnr, IngenTilgangTilBruker } from '../component/feilmeldinger/feilmeldinger';
+import {
+	FeilmeldingManglerFnr,
+	FeilUnderLastingAvData,
+	IngenTilgangTilBruker
+} from '../component/alertstriper/alertstriper';
 import PageSpinner from '../component/page-spinner/page-spinner';
 import { useEventListener } from '../util/utils';
 import { InternflateDecorator } from '../component/internflate-decorator/internflate-decorator';
@@ -11,7 +15,6 @@ import {
 	useFetchTilgangTilBruker
 } from '../api/api';
 import { hasAnyFailed, isAnyLoading } from '../api/utils';
-import { AlertStripeAdvarsel } from 'nav-frontend-alertstriper';
 import { Features } from '../api/features';
 import { useModiaContextStore } from '../store/modia-context-store';
 
@@ -64,7 +67,7 @@ export const PersonflatePage = () => {
 	} else if (isAnyLoading(fetchTilgangTilBruker, fetchFeature, fetchAktivEnhet)) {
 		innhold = <PageSpinner />
 	} else if (hasAnyFailed(fetchTilgangTilBruker, fetchFeature)) {
-		innhold = <AlertStripeAdvarsel>Kunne ikke laste data, prøv på nytt ...</AlertStripeAdvarsel>
+		innhold = <FeilUnderLastingAvData />
 	} else if (!fetchTilgangTilBruker.data) {
 		innhold = <IngenTilgangTilBruker />;
 	} else {

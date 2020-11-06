@@ -11,10 +11,6 @@ window.history.replaceState('', '', '/veilarbpersonflatefs/' + testBrukerFnr + w
 
 setupWorker(...handlers)
 	.start({ serviceWorker: { url: process.env.PUBLIC_URL + '/mockServiceWorker.js' } })
-	.then(() => {
-		// tslint:disable-next-line:no-console
-		console.log('Running with mocked API endpoints');
-	})
 	.catch((e) => {
 		// tslint:disable-next-line:no-console
 		console.error('Unable to setup mocked API endpoints', e)
