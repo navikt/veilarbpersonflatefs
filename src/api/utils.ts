@@ -1,3 +1,4 @@
+import { useMemo } from 'react';
 import axios, { AxiosPromise, AxiosRequestConfig } from 'axios';
 import useAxiosHook, { configure, Options, RefetchOptions, ResponseValues } from 'axios-hooks';
 
@@ -14,7 +15,7 @@ configure({ axios: axiosInstance });
 
 export function useAxios<T = any>(config: AxiosRequestConfig | string, options?: Options): UseAxiosResponseValue<T> {
 	const [{ data, loading, error }, refetch] = useAxiosHook<T>(config, options);
-	return { data, loading, error, fetch: refetch };
+	return useMemo(() => ({data, loading, error, fetch: refetch}), [data, loading, error, refetch]);
 }
 
 export function isAnyLoading(...axiosResponseValues: Array<UseAxiosResponseValue<any>>): boolean {
