@@ -9,11 +9,7 @@ import {
 import PageSpinner from '../component/page-spinner/page-spinner';
 import { useEventListener } from '../util/utils';
 import { InternflateDecorator } from '../component/internflate-decorator/internflate-decorator';
-import {
-	useFetchAktivEnhet,
-	useFetchFeatures,
-	useFetchTilgangTilBruker
-} from '../api/api';
+import { useFetchAktivEnhet, useFetchFeatures, useFetchTilgangTilBruker } from '../api/api';
 import { hasAnyFailed, isAnyLoading } from '../api/utils';
 import { Features } from '../api/features';
 import { useModiaContextStore } from '../store/modia-context-store';
@@ -34,7 +30,7 @@ export const PersonflatePage = () => {
 
 	const onAktivBrukerChanged = (newFnr: string | null) => {
 		if (newFnr && newFnr !== aktivBrukerFnr) {
-			window.history.pushState('', '', `/veilarabpersonflatefs/${newFnr}`);
+			window.history.pushState('', 'Personflate', `/veilarbpersonflatefs/${newFnr}`);
 			setAktivBrukerFnr(newFnr);
 			setAppInnholdKey(key => key + 1); // Forces all the micro frontends to be remounted so that their state is reset
 		}
