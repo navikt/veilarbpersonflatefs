@@ -30,6 +30,8 @@ spec:
       cpu: 200m
       memory: 512Mi
   ingresses:
+    - https://app.dev.adeo.no/veilarbpersonflatefs
+    - https://app-q1.dev.adeo.no/veilarbpersonflatefs
     - https://app-q1.adeo.no/veilarbpersonflatefs
   vault:
     enabled: true
