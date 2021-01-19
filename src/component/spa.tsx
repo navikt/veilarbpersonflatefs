@@ -1,6 +1,8 @@
 import React from 'react';
 import NAVSPA from '@navikt/navspa';
 import { DecoratorConfig } from './internflate-decorator/internflate-decorator-config';
+import { veilarbvedtaksstotteUrl } from '../util/url-utils';
+import Spinner from './spinner/spinner';
 
 interface SpaProps {
 	enhet?: string;
@@ -29,7 +31,12 @@ export const Visittkort: React.ComponentType<VisittKortProps> = navSpaImport<Vis
 export const MAO: React.ComponentType<SpaProps> = navSpaImport<SpaProps>(SpaName.VEILARBMAOFS, spaWrapperTabContentClassName);
 export const Aktivitetsplan: React.ComponentType<SpaProps> = navSpaImport<SpaProps>(SpaName.AKTIVITETSPLAN, spaWrapperTabContentClassName);
 export const Dialog: React.ComponentType<SpaProps> = navSpaImport<SpaProps>(SpaName.DIALOG, spaWrapperTabContentClassName);
-export const Vedtaksstotte: React.ComponentType<SpaProps> = navSpaImport<SpaProps>(SpaName.VEILARBVEDTAKSSTOTTEFS, spaWrapperTabContentClassName);
+export const Vedtaksstotte: React.ComponentType<SpaProps> = NAVSPA.importerAsync<SpaProps>({
+	appName: SpaName.VEILARBVEDTAKSSTOTTEFS,
+	appBaseUrl: veilarbvedtaksstotteUrl(),
+	wrapperClassName: spaWrapperTabContentClassName,
+	loader: <Spinner/>
+});
 
 function navSpaImport<P>(spaName: SpaName, wrapperClassName?: string): React.FunctionComponent<P> {
 	return (props: P) => {

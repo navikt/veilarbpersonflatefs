@@ -21,3 +21,17 @@ export const hentFnrFraUrl = (): string | undefined => {
 
 	return undefined;
 };
+
+const DEV_DOMAINS = ['dev', 'app-q1', 'app-q0', 'localhost'];
+
+const erITestMiljo = (): boolean => {
+	return window.location.hostname
+		.split('.')
+		.findIndex(domain => DEV_DOMAINS.includes(domain)) >= 0;
+};
+
+export const veilarbvedtaksstotteUrl = (): string => {
+	return erITestMiljo()
+		? 'https://veilarbvedtaksstottefs.dev.intern.nav.no'
+		: 'https://veilarbvedtaksstottefs.intern.nav.no';
+}
