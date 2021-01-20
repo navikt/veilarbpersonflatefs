@@ -31,12 +31,15 @@ export const Visittkort: React.ComponentType<VisittKortProps> = navSpaImport<Vis
 export const MAO: React.ComponentType<SpaProps> = navSpaImport<SpaProps>(SpaName.VEILARBMAOFS, spaWrapperTabContentClassName);
 export const Aktivitetsplan: React.ComponentType<SpaProps> = navSpaImport<SpaProps>(SpaName.AKTIVITETSPLAN, spaWrapperTabContentClassName);
 export const Dialog: React.ComponentType<SpaProps> = navSpaImport<SpaProps>(SpaName.DIALOG, spaWrapperTabContentClassName);
-export const Vedtaksstotte: React.ComponentType<SpaProps> = NAVSPA.importerAsync<SpaProps>({
+
+export const vedtaksstotteConfig = {
 	appName: SpaName.VEILARBVEDTAKSSTOTTEFS,
 	appBaseUrl: veilarbvedtaksstotteUrl(),
 	wrapperClassName: spaWrapperTabContentClassName,
 	loader: <Spinner/>
-});
+};
+
+export const Vedtaksstotte: React.ComponentType<SpaProps> = NAVSPA.importerAsync<SpaProps>(vedtaksstotteConfig);
 
 function navSpaImport<P>(spaName: SpaName, wrapperClassName?: string): React.FunctionComponent<P> {
 	return (props: P) => {
