@@ -19,8 +19,12 @@
   },
   "dependencies": {
     "@craco/craco": "^5.2.4",
+    "@navikt/navspa": "^1.1.1",
+    "axios": "^0.21.0",
+    "axios-hooks": "^2.1.0",
     "babel-polyfill": "^6.26.0",
     "classnames": "^2.2.6",
+    "constate": "^3.1.0",
     "craco-less": "^1.17.0",
     "lodash.throttle": "^4.1.1",
     "nav-frontend-alertstriper": "^3.0.3",
@@ -49,8 +53,7 @@
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
     "react-modal": "^3.9.1",
-    "react-scripts": "^3.4.3",
-    "yet-another-fetch-mock": "^3.2.0"
+    "react-scripts": "^3.4.3"
   },
   "devDependencies": {
     "@types/classnames": "^2.2.9",
@@ -60,6 +63,7 @@
     "@types/react-dom": "^16.8.4",
     "@types/react-modal": "^3.8.2",
     "cross-env": "^6.0.3",
+    "msw": "^0.21.3",
     "prettier": "^1.18.2",
     "tslint": "^5.18.0",
     "tslint-config-prettier": "^1.18.0",
