@@ -1,5 +1,5 @@
 import React from 'react';
-import NAVSPA from '@navikt/navspa';
+import { Navspa, AsyncNavspa, AsyncSpaConfig } from '@navikt/navspa';
 import { DecoratorConfig } from './internflate-decorator/internflate-decorator-config';
 import { veilarbvedtaksstotteUrl } from '../util/url-utils';
 import Spinner from './spinner/spinner';
@@ -32,18 +32,18 @@ export const MAO: React.ComponentType<SpaProps> = navSpaImport<SpaProps>(SpaName
 export const Aktivitetsplan: React.ComponentType<SpaProps> = navSpaImport<SpaProps>(SpaName.AKTIVITETSPLAN, spaWrapperTabContentClassName);
 export const Dialog: React.ComponentType<SpaProps> = navSpaImport<SpaProps>(SpaName.DIALOG, spaWrapperTabContentClassName);
 
-export const vedtaksstotteConfig = {
+export const vedtaksstotteConfig: AsyncSpaConfig = {
 	appName: SpaName.VEILARBVEDTAKSSTOTTEFS,
 	appBaseUrl: veilarbvedtaksstotteUrl(),
 	wrapperClassName: spaWrapperTabContentClassName,
 	loader: <Spinner/>
 };
 
-export const Vedtaksstotte: React.ComponentType<SpaProps> = NAVSPA.importerAsync<SpaProps>(vedtaksstotteConfig);
+export const Vedtaksstotte: React.ComponentType<SpaProps> = AsyncNavspa.importer<SpaProps>(vedtaksstotteConfig);
 
 function navSpaImport<P>(spaName: SpaName, wrapperClassName?: string): React.FunctionComponent<P> {
 	return (props: P) => {
-		const SpaApp = NAVSPA.importer<P>(spaName);
+		const SpaApp = Navspa.importer<P>(spaName);
 		return (
 			<div className={wrapperClassName}>
 				<SpaApp {...props}/>
