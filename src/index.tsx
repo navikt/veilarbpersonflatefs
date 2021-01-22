@@ -3,7 +3,7 @@ import * as ReactDOM from 'react-dom';
 import { App } from './app';
 import NavFrontendModal from 'nav-frontend-modal';
 import './index.less';
-import NAVSPA from '@navikt/navspa';
+import { AsyncNavspa } from '@navikt/navspa';
 import { vedtaksstotteConfig } from './component/spa';
 
 if (!window['_babelPolyfill']) {
@@ -19,6 +19,6 @@ if (process.env.REACT_APP_MOCK === 'true') {
 }
 
 // Preload apper async for raskere rendring
-NAVSPA.preloadAsync(vedtaksstotteConfig);
+AsyncNavspa.preload(vedtaksstotteConfig);
 
 ReactDOM.render(<App />, document.getElementById('veilarbpersonflatefs-root'));
