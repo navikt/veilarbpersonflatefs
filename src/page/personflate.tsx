@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import SideInnhold from '../component/side-innhold';
-import { Aktivitetsplan, Dialog, MAO, Vedtaksstotte, Visittkort } from '../component/spa';
+import { Aktivitetsplan, Dialog, Detaljer, Vedtaksstotte, Visittkort } from '../component/spa';
 import {
 	FeilmeldingManglerFnr,
 	FeilUnderLastingAvData,
@@ -105,7 +105,7 @@ const Innhold = ({fnr, enhetId, features}: AppInnholdProps) => {
 	useEventListener('oppfolgingAvslutet', incrementAllKeys);
 
 	const visittkort = <Visittkort enhet={enhetId} fnr={fnr} visVeilederVerktoy={true} tilbakeTilFlate="veilarbportefoljeflatefs" />;
-	const mao = <MAO enhet={enhetId} fnr={fnr} key={maoKey} />;
+	const mao = <Detaljer enhet={enhetId} fnr={fnr} key={maoKey} />;
 	const aktivitetsplan = <Aktivitetsplan key={aktivitetsplanKey} enhet={enhetId} fnr={fnr} />;
 	const vedtaksstotte = <Vedtaksstotte enhet={enhetId} fnr={fnr} key={vedtakstotteKey} />;
 	const dialog = <Dialog key={dialogKey} fnr={fnr} enhet={enhetId}/>;
