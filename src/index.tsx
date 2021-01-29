@@ -4,7 +4,7 @@ import { App } from './app';
 import NavFrontendModal from 'nav-frontend-modal';
 import './index.less';
 import { AsyncNavspa } from '@navikt/navspa';
-import { detaljerAsyncConfig } from './component/spa';
+import { detaljerAsyncConfig, visittkortAsyncConfig } from './component/spa';
 
 if (!window['_babelPolyfill']) {
 	// @ts-ignore
@@ -18,6 +18,7 @@ if (process.env.REACT_APP_MOCK === 'true') {
 	require('./mock/setup');
 }
 
+AsyncNavspa.preload(visittkortAsyncConfig);
 AsyncNavspa.preload(detaljerAsyncConfig);
 
 ReactDOM.render(<App />, document.getElementById('veilarbpersonflatefs-root'));
