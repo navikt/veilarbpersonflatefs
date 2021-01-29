@@ -35,7 +35,7 @@ export const detaljerAsyncConfig: AsyncSpaConfig = {
 export const visittkortAsyncConfig: AsyncSpaConfig = {
 	appName: SpaName.VEILARBVISITTKORTFS,
 	appBaseUrl: utledSpaUrl(SpaName.VEILARBVISITTKORTFS),
-	loader: <Spinner/>
+	loader: <Spinner type="L" className="veilarbpersonflatefs-visittkort-spinner" />
 }
 
 export const Decorator: React.ComponentType<DecoratorConfig> = navSpaImport<DecoratorConfig>(SpaName.INTERNARBEIDSFLATEFS_DECORATOR);
