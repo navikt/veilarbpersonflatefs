@@ -32,6 +32,13 @@ export const detaljerAsyncConfig: AsyncSpaConfig = {
 	loader: <Spinner/>
 }
 
+export const vedtaksstotteAsyncConfig: AsyncSpaConfig = {
+	appName: SpaName.VEILARBVEDTAKSSTOTTEFS,
+	appBaseUrl: utledSpaUrl(SpaName.VEILARBVEDTAKSSTOTTEFS),
+	wrapperClassName: spaWrapperTabContentClassName,
+	loader: <Spinner/>
+}
+
 export const visittkortAsyncConfig: AsyncSpaConfig = {
 	appName: SpaName.VEILARBVISITTKORTFS,
 	appBaseUrl: utledSpaUrl(SpaName.VEILARBVISITTKORTFS),
@@ -43,7 +50,7 @@ export const Visittkort: React.ComponentType<VisittKortProps> = AsyncNavspa.impo
 export const Aktivitetsplan: React.ComponentType<SpaProps> = navSpaImport<SpaProps>(SpaName.AKTIVITETSPLAN, spaWrapperTabContentClassName);
 export const Dialog: React.ComponentType<SpaProps> = navSpaImport<SpaProps>(SpaName.DIALOG, spaWrapperTabContentClassName);
 export const Detaljer: React.ComponentType<SpaProps> = AsyncNavspa.importer<SpaProps>(detaljerAsyncConfig);
-export const Vedtaksstotte: React.ComponentType<SpaProps> = navSpaImport<SpaProps>(SpaName.VEILARBVEDTAKSSTOTTEFS, spaWrapperTabContentClassName);
+export const Vedtaksstotte: React.ComponentType<SpaProps> = AsyncNavspa.importer<SpaProps>(vedtaksstotteAsyncConfig);
 
 function navSpaImport<P>(spaName: SpaName, wrapperClassName?: string): React.FunctionComponent<P> {
 	return (props: P) => {
