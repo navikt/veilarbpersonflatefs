@@ -24,6 +24,7 @@ export enum SpaName {
 }
 
 export const spaWrapperTabContentClassName = 'spa-wrapper__tab-content';
+export const spaWrapperTabContentClassNameDialog = 'spa-wrapper__tab-content-dialog';
 
 export const detaljerAsyncConfig: AsyncSpaConfig = {
 	appName: SpaName.VEILARBMAOFS,
@@ -48,7 +49,7 @@ export const visittkortAsyncConfig: AsyncSpaConfig = {
 export const Decorator: React.ComponentType<DecoratorConfig> = navSpaImport<DecoratorConfig>(SpaName.INTERNARBEIDSFLATEFS_DECORATOR);
 export const Visittkort: React.ComponentType<VisittKortProps> = AsyncNavspa.importer<VisittKortProps>(visittkortAsyncConfig);
 export const Aktivitetsplan: React.ComponentType<SpaProps> = navSpaImport<SpaProps>(SpaName.AKTIVITETSPLAN, spaWrapperTabContentClassName);
-export const Dialog: React.ComponentType<SpaProps> = navSpaImport<SpaProps>(SpaName.DIALOG, spaWrapperTabContentClassName);
+export const Dialog: React.ComponentType<SpaProps> = navSpaImport<SpaProps>(SpaName.DIALOG, spaWrapperTabContentClassNameDialog);
 export const Detaljer: React.ComponentType<SpaProps> = AsyncNavspa.importer<SpaProps>(detaljerAsyncConfig);
 export const Vedtaksstotte: React.ComponentType<SpaProps> = AsyncNavspa.importer<SpaProps>(vedtaksstotteAsyncConfig);
 
