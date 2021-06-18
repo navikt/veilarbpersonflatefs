@@ -1,6 +1,7 @@
 import { ALL_TOGGLES, Features } from './features';
-import { useAxios, UseAxiosResponseValue } from './utils';
+import { axiosInstance, useAxios, UseAxiosResponseValue } from './utils';
 import { Options } from 'axios-hooks';
+import { AxiosPromise } from 'axios';
 
 export interface AntallUlesteDialoger {
 	antallUleste: number;
@@ -33,4 +34,8 @@ export function useFetchAktivEnhet(options?: Options): UseAxiosResponseValue<Akt
 
 export function useFetchTilgangTilBruker(fnr: string, options?: Options): UseAxiosResponseValue<true> {
 	return useAxios<true>({ url: `/veilarbperson/api/person/${fnr}/tilgangTilBruker` }, options);
+}
+
+export function synkroniserManuellStatusMedDkif(fnr: string): AxiosPromise<null> {
+	return axiosInstance.post(`/veilarboppfolging/api/v2/manuell/synkroniser-med-dkif?fnr=${fnr}`);
 }
