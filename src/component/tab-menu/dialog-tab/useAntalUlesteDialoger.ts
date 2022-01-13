@@ -39,7 +39,8 @@ export default function useUlesteDialoger(fnr: string): number | undefined {
     });
 
     useEffect(() => {
-        const interval = setInterval(fetchSistOppdatert.fetch, 10000);
+        let interval: NodeJS.Timeout;
+        interval = setInterval( () => fetchSistOppdatert.fetch().catch(() => clearInterval(interval)), 10000);
         return () => clearInterval(interval);
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
