@@ -30,32 +30,39 @@ export const detaljerAsyncConfig: AsyncSpaConfig = {
 	appName: SpaName.VEILARBMAOFS,
 	appBaseUrl: utledSpaUrl(SpaName.VEILARBMAOFS),
 	wrapperClassName: spaWrapperTabContentClassName,
-	loader: <Spinner/>
-}
+	loader: <Spinner />
+};
 
 export const vedtaksstotteAsyncConfig: AsyncSpaConfig = {
 	appName: SpaName.VEILARBVEDTAKSSTOTTEFS,
 	appBaseUrl: utledSpaUrl(SpaName.VEILARBVEDTAKSSTOTTEFS),
 	wrapperClassName: spaWrapperTabContentClassName,
-	loader: <Spinner/>
-}
+	loader: <Spinner />
+};
 
 export const visittkortAsyncConfig: AsyncSpaConfig = {
 	appName: SpaName.VEILARBVISITTKORTFS,
 	appBaseUrl: utledSpaUrl(SpaName.VEILARBVISITTKORTFS),
 	loader: <Spinner type="L" className="veilarbpersonflatefs-visittkort-spinner" />
-}
+};
 export const aktivitetsplanAsyncConfig: AsyncSpaConfig = {
 	appName: SpaName.AKTIVITETSPLAN,
 	appBaseUrl: utledSpaUrl(SpaName.AKTIVITETSPLAN),
 	wrapperClassName: spaWrapperTabContentClassName,
 	loader: <Spinner type="L" className="veilarbpersonflatefs-visittkort-spinner" />
-}
+};
 
-export const Decorator: React.ComponentType<DecoratorConfig> = navSpaImport<DecoratorConfig>(SpaName.INTERNARBEIDSFLATEFS_DECORATOR);
-export const Visittkort: React.ComponentType<VisittKortProps> = AsyncNavspa.importer<VisittKortProps>(visittkortAsyncConfig);
+export const Decorator: React.ComponentType<DecoratorConfig> = navSpaImport<DecoratorConfig>(
+	SpaName.INTERNARBEIDSFLATEFS_DECORATOR
+);
+export const Visittkort: React.ComponentType<VisittKortProps> = AsyncNavspa.importer<VisittKortProps>(
+	visittkortAsyncConfig
+);
 export const Aktivitetsplan: React.ComponentType<SpaProps> = AsyncNavspa.importer<SpaProps>(aktivitetsplanAsyncConfig);
-export const Dialog: React.ComponentType<SpaProps> = navSpaImport<SpaProps>(SpaName.DIALOG, spaWrapperTabContentClassNameDialog);
+export const Dialog: React.ComponentType<SpaProps> = navSpaImport<SpaProps>(
+	SpaName.DIALOG,
+	spaWrapperTabContentClassNameDialog
+);
 export const Detaljer: React.ComponentType<SpaProps> = AsyncNavspa.importer<SpaProps>(detaljerAsyncConfig);
 export const Vedtaksstotte: React.ComponentType<SpaProps> = AsyncNavspa.importer<SpaProps>(vedtaksstotteAsyncConfig);
 
@@ -64,7 +71,7 @@ function navSpaImport<P>(spaName: SpaName, wrapperClassName?: string): React.Fun
 		const SpaApp = Navspa.importer<P>(spaName);
 		return (
 			<div className={wrapperClassName}>
-				<SpaApp {...props}/>
+				<SpaApp {...props} />
 			</div>
 		);
 	};

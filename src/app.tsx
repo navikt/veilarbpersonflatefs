@@ -21,8 +21,7 @@ export const App = () => {
 
 	return (
 		<StoreProvider fnr={fnr}>
-			<PersonflatePage/>
+			<PersonflatePage />
 		</StoreProvider>
 	);
 };
-

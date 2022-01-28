@@ -42,5 +42,5 @@ export const vedtaksstotteSpaMockProps: SpaMockProps = {
 export function eksporterSpaMock(props: SpaMockProps) {
 	NAVSPA.eksporter(props.name, () => {
 		return <SpaMock name={props.name} tekst={props.tekst} className={props.className} />;
-	})
+	});
 }

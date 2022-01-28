@@ -7,4 +7,3 @@ export const [ModiaContextStore, useModiaContextStore] = constate((initalValues:
 
 	return { aktivBrukerFnr, setAktivBrukerFnr, aktivEnhetId, setAktivEnhetId };
 });
-
