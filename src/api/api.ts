@@ -15,7 +15,10 @@ export interface SistOppdatertData {
 	sistOppdatert?: string;
 }
 
-export function useFetchAntallUlesteDialoger(fnr: string, options?: Options): UseAxiosResponseValue<AntallUlesteDialoger> {
+export function useFetchAntallUlesteDialoger(
+	fnr: string,
+	options?: Options
+): UseAxiosResponseValue<AntallUlesteDialoger> {
 	return useAxios<AntallUlesteDialoger>(`/veilarbdialog/api/dialog/antallUleste?fnr=${fnr}`, options);
 }
 
@@ -28,7 +31,7 @@ export function useFetchFeatures(options?: Options): UseAxiosResponseValue<Featu
 	return useAxios<Features>(`/veilarbpersonflatefs/api/feature?${toggles}`, options);
 }
 
-export function useFetchAktivEnhet(options?: Options): UseAxiosResponseValue<AktivEnhetResponse>  {
+export function useFetchAktivEnhet(options?: Options): UseAxiosResponseValue<AktivEnhetResponse> {
 	return useAxios<AktivEnhetResponse>('/modiacontextholder/api/context/aktivenhet', options);
 }
 

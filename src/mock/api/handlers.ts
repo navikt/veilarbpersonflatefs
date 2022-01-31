@@ -1,4 +1,4 @@
-import { rest } from 'msw'
+import { rest } from 'msw';
 import { mockAktivEnhet, mockAntallUleste, mockFeatures, mockSistOppdatert, mockTilgangTilBruker } from './data';
 
 export const handlers = [
@@ -19,5 +19,5 @@ export const handlers = [
 	}),
 	rest.post('/veilarboppfolging/api/v2/manuell/synkroniser-med-dkif', (req, res, ctx) => {
 		return res(ctx.delay(500), ctx.status(204));
-	}),
+	})
 ];

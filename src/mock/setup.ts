@@ -1,9 +1,13 @@
 import { setupWorker } from 'msw';
 import { handlers } from './api/handlers';
 import {
-	aktivitetsplanSpaMockProps, detaljerSpaMockProps,
-	dialogSpaMockProps, eksporterSpaMock, internflateDecoratorSpaMockProps,
-	vedtaksstotteSpaMockProps, visittkortSpaMockProps
+	aktivitetsplanSpaMockProps,
+	detaljerSpaMockProps,
+	dialogSpaMockProps,
+	eksporterSpaMock,
+	internflateDecoratorSpaMockProps,
+	vedtaksstotteSpaMockProps,
+	visittkortSpaMockProps
 } from './util/spa-mock-utils';
 import { testBrukerFnr } from './api/data';
 
@@ -11,9 +15,9 @@ window.history.replaceState('', '', '/veilarbpersonflatefs/' + testBrukerFnr + w
 
 setupWorker(...handlers)
 	.start({ serviceWorker: { url: process.env.PUBLIC_URL + '/mockServiceWorker.js' } })
-	.catch((e) => {
+	.catch(e => {
 		// tslint:disable-next-line:no-console
-		console.error('Unable to setup mocked API endpoints', e)
+		console.error('Unable to setup mocked API endpoints', e);
 	});
 
 eksporterSpaMock(internflateDecoratorSpaMockProps);

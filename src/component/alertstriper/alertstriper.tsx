@@ -2,8 +2,12 @@ import React from 'react';
 import AlertStripe, { AlertStripeType } from 'nav-frontend-alertstriper';
 import './alertstriper.less';
 
-function PersonflateAlertStripe(props: { tekst: string, type: AlertStripeType }) {
-	return <AlertStripe type={props.type} className="veilarbpersonflatefs-alertstripe">{props.tekst}</AlertStripe>;
+function PersonflateAlertStripe(props: { tekst: string; type: AlertStripeType }) {
+	return (
+		<AlertStripe type={props.type} className="veilarbpersonflatefs-alertstripe">
+			{props.tekst}
+		</AlertStripe>
+	);
 }
 
 export function FeilmeldingManglerFnr() {
@@ -11,7 +15,7 @@ export function FeilmeldingManglerFnr() {
 }
 
 export function IngenTilgangTilBruker() {
-	return <PersonflateAlertStripe type="advarsel"  tekst="Du har ikke tilgang til å se aktivitetsplanen" />;
+	return <PersonflateAlertStripe type="advarsel" tekst="Du har ikke tilgang til å se aktivitetsplanen" />;
 }
 
 export function FeilUnderLastingAvData() {

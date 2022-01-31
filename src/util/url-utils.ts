@@ -1,4 +1,3 @@
-
 export const hasHashParam = (parameterName: string): boolean => {
 	return window.location.hash.includes(parameterName);
 };
@@ -25,13 +24,9 @@ export const hentFnrFraUrl = (): string | undefined => {
 const DEV_DOMAINS = ['dev', 'app-q1', 'app-q0', 'localhost'];
 
 const erITestMiljo = (): boolean => {
-	return window.location.hostname
-		.split('.')
-		.findIndex(domain => DEV_DOMAINS.includes(domain)) >= 0;
+	return window.location.hostname.split('.').findIndex(domain => DEV_DOMAINS.includes(domain)) >= 0;
 };
 
 export const utledSpaUrl = (appName: string): string => {
-	return erITestMiljo()
-		? `https://${appName}.dev.intern.nav.no`
-		: `https://${appName}.intern.nav.no`;
+	return erITestMiljo() ? `https://${appName}.dev.intern.nav.no` : `https://${appName}.intern.nav.no`;
 };

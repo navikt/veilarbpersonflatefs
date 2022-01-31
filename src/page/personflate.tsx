@@ -9,11 +9,7 @@ import {
 import PageSpinner from '../component/page-spinner/page-spinner';
 import { useEventListener } from '../util/utils';
 import { InternflateDecorator } from '../component/internflate-decorator/internflate-decorator';
-import {
-	useFetchAktivEnhet,
-	useFetchFeatures,
-	useFetchTilgangTilBruker
-} from '../api/api';
+import { useFetchAktivEnhet, useFetchFeatures, useFetchTilgangTilBruker } from '../api/api';
 import { hasAnyFailed, isAnyLoading } from '../api/utils';
 import { Features } from '../api/features';
 import { useModiaContextStore } from '../store/modia-context-store';
@@ -69,13 +65,15 @@ export const PersonflatePage = () => {
 	if (!aktivBrukerFnr) {
 		innhold = <FeilmeldingManglerFnr />;
 	} else if (isAnyLoading(fetchTilgangTilBruker, fetchFeature, fetchAktivEnhet)) {
-		innhold = <PageSpinner />
+		innhold = <PageSpinner />;
 	} else if (hasAnyFailed(fetchTilgangTilBruker, fetchFeature)) {
-		innhold = <FeilUnderLastingAvData />
+		innhold = <FeilUnderLastingAvData />;
 	} else if (!fetchTilgangTilBruker.data) {
 		innhold = <IngenTilgangTilBruker />;
 	} else {
-		innhold = <Innhold key={appInnholdKey} enhetId={aktivEnhetId} fnr={aktivBrukerFnr} features={fetchFeature.data} />;
+		innhold = (
+			<Innhold key={appInnholdKey} enhetId={aktivEnhetId} fnr={aktivBrukerFnr} features={fetchFeature.data} />
+		);
 	}
 
 	return (
@@ -91,7 +89,7 @@ export const PersonflatePage = () => {
 	);
 };
 
-const Innhold = ({fnr, enhetId, features}: AppInnholdProps) => {
+const Innhold = ({ fnr, enhetId, features }: AppInnholdProps) => {
 	const [aktivitetsplanKey, setAktivitetsplanKey] = useState(0);
 	const [maoKey, setMaoKey] = useState(0);
 	const [vedtakstotteKey, setVedtakstotteKey] = useState(0);
@@ -108,11 +106,13 @@ const Innhold = ({fnr, enhetId, features}: AppInnholdProps) => {
 	useEventListener('rerenderMao', () => setMaoKey((oldKey: number) => oldKey + 1));
 	useEventListener('oppfolgingAvslutet', incrementAllKeys);
 
-	const visittkort = <Visittkort enhet={enhetId} fnr={fnr} visVeilederVerktoy={true} tilbakeTilFlate="veilarbportefoljeflatefs" />;
+	const visittkort = (
+		<Visittkort enhet={enhetId} fnr={fnr} visVeilederVerktoy={true} tilbakeTilFlate="veilarbportefoljeflatefs" />
+	);
 	const mao = <Detaljer enhet={enhetId} fnr={fnr} key={maoKey} />;
 	const aktivitetsplan = <Aktivitetsplan key={aktivitetsplanKey} enhet={enhetId} fnr={fnr} />;
 	const vedtaksstotte = <Vedtaksstotte enhet={enhetId} fnr={fnr} key={vedtakstotteKey} />;
-	const dialog = <Dialog key={dialogKey} fnr={fnr} enhet={enhetId}/>;
+	const dialog = <Dialog key={dialogKey} fnr={fnr} enhet={enhetId} />;
 
 	return (
 		<SideInnhold

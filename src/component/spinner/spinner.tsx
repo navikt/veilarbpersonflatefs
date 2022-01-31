@@ -3,7 +3,7 @@ import NavFrontendSpinner from 'nav-frontend-spinner';
 import './spinner.less';
 
 interface SpinnerProps {
-	type?: 'XXS'|  'XS' | 'S'|  'M' |  'L'|  'XL'|  'XXL' |  'XXXL';
+	type?: 'XXS' | 'XS' | 'S' | 'M' | 'L' | 'XL' | 'XXL' | 'XXXL';
 	className?: string;
 }
 
