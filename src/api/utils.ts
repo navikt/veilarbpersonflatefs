@@ -8,14 +8,14 @@ export type UseAxiosResponseValue<T> = ResponseValues<T> & {
 
 export const axiosInstance = axios.create({
 	withCredentials: true,
-	headers: {'Nav-Consumer-Id': 'veilarbpersonflatefs'}
+	headers: { 'Nav-Consumer-Id': 'veilarbpersonflatefs' }
 });
 
 configure({ axios: axiosInstance });
 
 export function useAxios<T = any>(config: AxiosRequestConfig | string, options?: Options): UseAxiosResponseValue<T> {
 	const [{ data, loading, error }, refetch] = useAxiosHook<T>(config, options);
-	return useMemo(() => ({data, loading, error, fetch: refetch}), [data, loading, error, refetch]);
+	return useMemo(() => ({ data, loading, error, fetch: refetch }), [data, loading, error, refetch]);
 }
 
 export function isAnyLoading(...axiosResponseValues: Array<UseAxiosResponseValue<any>>): boolean {

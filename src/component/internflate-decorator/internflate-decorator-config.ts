@@ -1,22 +1,22 @@
 // Typer er hentet fra https://github.com/navikt/internarbeidsflatedecorator/tree/dev/v2.1
 
 export interface DecoratorConfig {
-	appname: string;                // Navn på applikasjon
-	fnr?: FnrContextvalue;          // Konfigurasjon av fødselsnummer-kontekst
-	enhet?: EnhetContextvalue;      // Konfigurasjon av enhet-kontekst
-	toggles?: TogglesConfig;        // Konfigurasjon av hvilke elementer som skal vises i dekoratøren
-	markup?: Markup;                // Ekstra innhold i dekoratøren, kan brukes om man trenger å legge en knapp innenfor dekoratøren
+	appname: string; // Navn på applikasjon
+	fnr?: FnrContextvalue; // Konfigurasjon av fødselsnummer-kontekst
+	enhet?: EnhetContextvalue; // Konfigurasjon av enhet-kontekst
+	toggles?: TogglesConfig; // Konfigurasjon av hvilke elementer som skal vises i dekoratøren
+	markup?: Markup; // Ekstra innhold i dekoratøren, kan brukes om man trenger å legge en knapp innenfor dekoratøren
 
-	useProxy?: boolean;             // Manuell overstyring av urlene til BFFs. Gjør alle kall til relativt path, og trenger derfor proxy oppsett. Default: false
-	accessToken?: string;           // Manuell innsending av JWT, settes som Authorization-header. Om null sendes cookies vha credentials: 'include'
+	useProxy?: boolean; // Manuell overstyring av urlene til BFFs. Gjør alle kall til relativt path, og trenger derfor proxy oppsett. Default: false
+	accessToken?: string; // Manuell innsending av JWT, settes som Authorization-header. Om null sendes cookies vha credentials: 'include'
 }
 
 interface TogglesConfig {
-	visVeileder?: boolean;          // Styrer om man skal vise informasjon om innlogget veileder
+	visVeileder?: boolean; // Styrer om man skal vise informasjon om innlogget veileder
 }
 
 interface Markup {
-	etterSokefelt?: string;         // Gir muligheten for sende inn egen html som blir en del av dekoratøren
+	etterSokefelt?: string; // Gir muligheten for sende inn egen html som blir en del av dekoratøren
 }
 
 // Fnr/Enhet-konfiguration støttet både `Controlled` og `Uncontrolled` operasjon.

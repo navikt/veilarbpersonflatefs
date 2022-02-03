@@ -31,11 +31,10 @@ const showTabMap: { [k: string]: TabId } = {
 	visAktivitetsplan: TabId.AKTIVITETSPLAN,
 	visDialog: TabId.DIALOG,
 	visVedtaksstotte: TabId.VEDTAKSSTOTTE,
-	visDetaljer: TabId.DETALJER,
+	visDetaljer: TabId.DETALJER
 };
 
 class SideInnhold extends React.Component<SideInnholdLayoutProps> {
-
 	getTabFromHashParam(): TabId | undefined {
 		const tabKey = Object.keys(showTabMap).find(key => hasHashParam(key));
 		return tabKey ? showTabMap[tabKey] : undefined;
@@ -80,7 +79,7 @@ class SideInnhold extends React.Component<SideInnholdLayoutProps> {
 				content: dialog
 			});
 		} else {
-			tabs.push({...aktivitet, title: 'Aktivitetsplan og dialog'})
+			tabs.push({ ...aktivitet, title: 'Aktivitetsplan og dialog' });
 		}
 
 		tabs.push({ id: TabId.DETALJER, title: 'Detaljer', content: mao });
@@ -95,7 +94,7 @@ class SideInnhold extends React.Component<SideInnholdLayoutProps> {
 		return (
 			<>
 				{visittkort}
-				<TabMenu fnr={fnr} tabs={tabs} defaultSelectedTab={this.getDefaultTab()} skulGammelDialog={!!dialog}/>
+				<TabMenu fnr={fnr} tabs={tabs} defaultSelectedTab={this.getDefaultTab()} skulGammelDialog={!!dialog} />
 				<TourModalController features={features} />
 				<TilbakemeldingFab features={features} />
 			</>
