@@ -1,6 +1,6 @@
 import React from 'react';
 import TabMenu, { Tab } from './tab-menu/tab-menu';
-import { Features } from '../api/features';
+import { ARBEIDSMARKEDSTILTAK_LANSERING, Features } from '../api/features';
 import TilbakemeldingFab from './tilbakemelding/fab/tilbakemelding-fab';
 import { hentSistBesokteTab } from './tab-menu/siste-tab';
 import { TourModalController } from './tour-modal/tour-modal-controller';
@@ -64,7 +64,16 @@ class SideInnhold extends React.Component<SideInnholdLayoutProps> {
 	}
 
 	render() {
-		const { visittkort, aktivitetsplan, dialog, vedtaksstotte, arbeidsmarkedstiltak, mao, features, fnr } = this.props;
+		const {
+			visittkort,
+			aktivitetsplan,
+			dialog,
+			vedtaksstotte,
+			arbeidsmarkedstiltak,
+			mao,
+			features,
+			fnr
+		} = this.props;
 		const tabs: Tab[] = [];
 
 		const aktivitet = {
@@ -94,11 +103,13 @@ class SideInnhold extends React.Component<SideInnholdLayoutProps> {
 			className: 'tab-menu__tab-content--vedtaksstotte'
 		});
 
-		tabs.push({
-			id: TabId.ARBEIDSMARKEDSTILTAK,
-			title: 'Arbeidsmarkedstiltak',
-			content: arbeidsmarkedstiltak,
-		});
+		if (features[ARBEIDSMARKEDSTILTAK_LANSERING]) {
+			tabs.push({
+				id: TabId.ARBEIDSMARKEDSTILTAK,
+				title: 'Arbeidsmarkedstiltak',
+				content: arbeidsmarkedstiltak
+			});
+		}
 
 		return (
 			<>
