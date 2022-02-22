@@ -21,7 +21,7 @@ export enum SpaName {
 	DIALOG = 'arbeidsrettet-dialog',
 	VEILARBVEDTAKSSTOTTEFS = 'veilarbvedtaksstottefs',
 	VEILARBVISITTKORTFS = 'veilarbvisittkortfs',
-	ARBEIDSMARKEDSTILTAK = 'mulighetsrommet'
+	ARBEIDSMARKEDSTILTAK = 'mulighetsrommet-flate'
 }
 
 export const spaWrapperTabContentClassName = 'spa-wrapper__tab-content';
