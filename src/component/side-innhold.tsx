@@ -12,6 +12,7 @@ interface SideInnholdLayoutProps {
 	aktivitetsplan: React.ReactElement;
 	dialog?: React.ReactElement;
 	vedtaksstotte: React.ReactElement;
+	arbeidsmarkedstiltak: React.ReactElement;
 	features: Features;
 	fnr: string;
 }
@@ -20,7 +21,8 @@ export enum TabId {
 	AKTIVITETSPLAN = 'AKTIVITETSPLAN',
 	DIALOG = 'DIALOG',
 	VEDTAKSSTOTTE = 'VEDTAKSSTOTTE',
-	DETALJER = 'DETALJER'
+	DETALJER = 'DETALJER',
+	ARBEIDSMARKEDSTILTAK = 'ARBEIDSMARKEDSTILTAK'
 }
 
 /*
@@ -31,7 +33,8 @@ const showTabMap: { [k: string]: TabId } = {
 	visAktivitetsplan: TabId.AKTIVITETSPLAN,
 	visDialog: TabId.DIALOG,
 	visVedtaksstotte: TabId.VEDTAKSSTOTTE,
-	visDetaljer: TabId.DETALJER
+	visDetaljer: TabId.DETALJER,
+	visArbeidsmarkedstiltak: TabId.ARBEIDSMARKEDSTILTAK
 };
 
 class SideInnhold extends React.Component<SideInnholdLayoutProps> {
@@ -61,7 +64,7 @@ class SideInnhold extends React.Component<SideInnholdLayoutProps> {
 	}
 
 	render() {
-		const { visittkort, aktivitetsplan, dialog, vedtaksstotte, mao, features, fnr } = this.props;
+		const { visittkort, aktivitetsplan, dialog, vedtaksstotte, arbeidsmarkedstiltak, mao, features, fnr } = this.props;
 		const tabs: Tab[] = [];
 
 		const aktivitet = {
@@ -89,6 +92,12 @@ class SideInnhold extends React.Component<SideInnholdLayoutProps> {
 			title: 'Oppfølgingsvedtak',
 			content: vedtaksstotte,
 			className: 'tab-menu__tab-content--vedtaksstotte'
+		});
+
+		tabs.push({
+			id: TabId.ARBEIDSMARKEDSTILTAK,
+			title: 'Arbeidsmarkedstiltak',
+			content: arbeidsmarkedstiltak,
 		});
 
 		return (
