@@ -1,7 +1,8 @@
 import { setupWorker } from 'msw';
 import { handlers } from './api/handlers';
 import {
-	aktivitetsplanSpaMockProps, arbeidsmarkedstiltakSpaMockProps,
+	aktivitetsplanSpaMockProps,
+	arbeidsmarkedstiltakSpaMockProps,
 	detaljerSpaMockProps,
 	dialogSpaMockProps,
 	eksporterSpaMock,
