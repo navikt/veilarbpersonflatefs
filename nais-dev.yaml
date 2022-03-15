@@ -33,6 +33,7 @@ spec:
     - https://app.dev.adeo.no/veilarbpersonflatefs
     - https://app-q1.dev.adeo.no/veilarbpersonflatefs
     - https://app-q1.adeo.no/veilarbpersonflatefs
+    - https://app.dev.intern.nav.no/veilarbpersonflatefs
   vault:
     enabled: true
   envFrom:
