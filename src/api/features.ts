@@ -1,7 +1,7 @@
 export const TOUR_MODAL_LAST_NED_CV_TOGGLE = 'veilarbpersonflatefs.tour_modal-last_ned_cv';
 export const TOUR_MODAL_VEDTAKSSTOTTE_LANSERING_TOGGLE = 'veilarbpersonflatefs.tour_modal.vedtaksstotte_lansering';
 export const SPOR_OM_TILBAKEMELDING = 'veilarbpersonflatefs.spor_om_tilbakemelding';
-export const ARBEIDSMARKEDSTILTAK_LANSERING = 'mulighetsrommet.arbeidsmarkedstiltak-lansering';
+export const ARBEIDSMARKEDSTILTAK_LANSERING = 'mulighetsrommet-veileder-flate.lansering';
 
 export const ALL_TOGGLES = [
 	TOUR_MODAL_LAST_NED_CV_TOGGLE,

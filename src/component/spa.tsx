@@ -21,7 +21,7 @@ export enum SpaName {
 	DIALOG = 'arbeidsrettet-dialog',
 	VEILARBVEDTAKSSTOTTEFS = 'veilarbvedtaksstottefs',
 	VEILARBVISITTKORTFS = 'veilarbvisittkortfs',
-	ARBEIDSMARKEDSTILTAK = 'mulighetsrommet-flate'
+	ARBEIDSMARKEDSTILTAK = 'mulighetsrommet-veileder-flate'
 }
 
 export const spaWrapperTabContentClassName = 'spa-wrapper__tab-content';
@@ -65,20 +65,23 @@ export const arbeidsmarkedstiltakAsyncConfig: AsyncSpaConfig = {
 	appName: SpaName.ARBEIDSMARKEDSTILTAK,
 	appBaseUrl: utledSpaUrl(SpaName.ARBEIDSMARKEDSTILTAK),
 	wrapperClassName: spaWrapperTabContentClassName,
-	loader: <Spinner />
+	loader: <Spinner type="L" className="veilarbpersonflatefs-visittkort-spinner" />
 };
 
 export const Decorator: React.ComponentType<DecoratorConfig> = navSpaImport<DecoratorConfig>(
 	SpaName.INTERNARBEIDSFLATEFS_DECORATOR
 );
 
-
-export const Visittkort: React.ComponentType<VisittKortProps> = AsyncNavspa.importer<VisittKortProps>(visittkortAsyncConfig);
+export const Visittkort: React.ComponentType<VisittKortProps> = AsyncNavspa.importer<VisittKortProps>(
+	visittkortAsyncConfig
+);
 export const Aktivitetsplan: React.ComponentType<SpaProps> = AsyncNavspa.importer<SpaProps>(aktivitetsplanAsyncConfig);
 export const Dialog: React.ComponentType<SpaProps> = AsyncNavspa.importer<SpaProps>(dialogAsyncConfig);
 export const Detaljer: React.ComponentType<SpaProps> = AsyncNavspa.importer<SpaProps>(detaljerAsyncConfig);
 export const Vedtaksstotte: React.ComponentType<SpaProps> = AsyncNavspa.importer<SpaProps>(vedtaksstotteAsyncConfig);
-export const Arbeidsmarkedstiltak: React.ComponentType<SpaProps> = AsyncNavspa.importer<SpaProps>(arbeidsmarkedstiltakAsyncConfig);
+export const Arbeidsmarkedstiltak: React.ComponentType<SpaProps> = AsyncNavspa.importer<SpaProps>(
+	arbeidsmarkedstiltakAsyncConfig
+);
 
 function navSpaImport<P>(spaName: SpaName, wrapperClassName?: string): React.FunctionComponent<P> {
 	return (props: P) => {
