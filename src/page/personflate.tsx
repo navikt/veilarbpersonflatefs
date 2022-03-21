@@ -94,12 +94,14 @@ const Innhold = ({ fnr, enhetId, features }: AppInnholdProps) => {
 	const [maoKey, setMaoKey] = useState(0);
 	const [vedtakstotteKey, setVedtakstotteKey] = useState(0);
 	const [dialogKey, setDialogKey] = useState(0);
+	const [arbeidsmarkedstiltakKey, setArbeidsmarkedstiltakKey] = useState(0);
 
 	function incrementAllKeys() {
 		setAktivitetsplanKey((oldKey: number) => oldKey + 1);
 		setMaoKey((oldKey: number) => oldKey + 1);
 		setVedtakstotteKey((oldKey: number) => oldKey + 1);
 		setDialogKey((oldKey: number) => oldKey + 1);
+		setArbeidsmarkedstiltakKey((oldKey: number) => oldKey +1)
 	}
 
 	useEventListener('eskaleringsVarselSendt', () => setDialogKey((oldKey: number) => oldKey + 1));
@@ -113,7 +115,7 @@ const Innhold = ({ fnr, enhetId, features }: AppInnholdProps) => {
 	const aktivitetsplan = <Aktivitetsplan key={aktivitetsplanKey} enhet={enhetId} fnr={fnr} />;
 	const vedtaksstotte = <Vedtaksstotte enhet={enhetId} fnr={fnr} key={vedtakstotteKey} />;
 	const dialog = <Dialog key={dialogKey} fnr={fnr} enhet={enhetId} />;
-	const arbeidsmarkedstiltak = <Arbeidsmarkedstiltak fnr={fnr} enhet={enhetId}/>
+	const arbeidsmarkedstiltak = <Arbeidsmarkedstiltak key={arbeidsmarkedstiltakKey} fnr={fnr} enhet={enhetId}/>
 
 	return (
 		<SideInnhold
