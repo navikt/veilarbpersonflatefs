@@ -65,7 +65,8 @@ export const arbeidsmarkedstiltakAsyncConfig: AsyncSpaConfig = {
 	appName: SpaName.ARBEIDSMARKEDSTILTAK,
 	appBaseUrl: utledSpaUrl(SpaName.ARBEIDSMARKEDSTILTAK),
 	wrapperClassName: spaWrapperTabContentClassName,
-	loader: <Spinner type="L" className="veilarbpersonflatefs-visittkort-spinner" />
+	loader: <Spinner type="L" className="veilarbpersonflatefs-visittkort-spinner" />,
+	assetManifestParser: manifestObject => [manifestObject['index.html'].file, ...manifestObject['index.html'].css]
 };
 
 export const Decorator: React.ComponentType<DecoratorConfig> = navSpaImport<DecoratorConfig>(
