@@ -89,6 +89,10 @@ export const PersonflatePage = () => {
 	);
 };
 
+function incrementKey(oldKey: number): number {
+	return oldKey + 1
+}
+
 const Innhold = ({ fnr, enhetId, features }: AppInnholdProps) => {
 	const [aktivitetsplanKey, setAktivitetsplanKey] = useState(0);
 	const [maoKey, setMaoKey] = useState(0);
@@ -97,15 +101,18 @@ const Innhold = ({ fnr, enhetId, features }: AppInnholdProps) => {
 	const [arbeidsmarkedstiltakKey, setArbeidsmarkedstiltakKey] = useState(0);
 
 	function incrementAllKeys() {
-		setAktivitetsplanKey((oldKey: number) => oldKey + 1);
-		setMaoKey((oldKey: number) => oldKey + 1);
-		setVedtakstotteKey((oldKey: number) => oldKey + 1);
-		setDialogKey((oldKey: number) => oldKey + 1);
-		setArbeidsmarkedstiltakKey((oldKey: number) => oldKey +1)
+		setAktivitetsplanKey(incrementKey);
+		setMaoKey(incrementKey);
+		setVedtakstotteKey(incrementKey);
+		setDialogKey(incrementKey);
+		setArbeidsmarkedstiltakKey(incrementKey)
 	}
 
-	useEventListener('eskaleringsVarselSendt', () => setDialogKey((oldKey: number) => oldKey + 1));
-	useEventListener('rerenderMao', () => setMaoKey((oldKey: number) => oldKey + 1));
+	useEventListener('eskaleringsVarselSendt', () => {
+		setDialogKey(incrementKey);
+		setAktivitetsplanKey(incrementKey);
+	});
+	useEventListener('rerenderMao', () => setMaoKey(incrementKey));
 	useEventListener('oppfolgingAvslutet', incrementAllKeys);
 
 	const visittkort = (
