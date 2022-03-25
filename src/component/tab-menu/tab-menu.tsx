@@ -142,7 +142,7 @@ function TabMenu(props: TabsProps) {
 		lagreSistBesokteTab({ fnr, tab: id });
 		setCurrentTab(index);
 
-		logEvent('veilarbpersonflatefs.valgt-fane', {  tabId: id })
+		logEvent('veilarbpersonflatefs.valgt-fane', { tabId: id });
 		const extra = !!extraDetails ? (extraDetails as CustomEvent).detail : {};
 		window.dispatchEvent(new CustomEvent('veilarbpersonflatefs.tab-clicked', { detail: { tabId: id, ...extra } }));
 	};
