@@ -90,7 +90,7 @@ export const PersonflatePage = () => {
 };
 
 function incrementKey(oldKey: number): number {
-	return oldKey + 1
+	return oldKey + 1;
 }
 
 const Innhold = ({ fnr, enhetId, features }: AppInnholdProps) => {
@@ -105,7 +105,7 @@ const Innhold = ({ fnr, enhetId, features }: AppInnholdProps) => {
 		setMaoKey(incrementKey);
 		setVedtakstotteKey(incrementKey);
 		setDialogKey(incrementKey);
-		setArbeidsmarkedstiltakKey(incrementKey)
+		setArbeidsmarkedstiltakKey(incrementKey);
 	}
 
 	useEventListener('eskaleringsVarselSendt', () => {
@@ -122,7 +122,7 @@ const Innhold = ({ fnr, enhetId, features }: AppInnholdProps) => {
 	const aktivitetsplan = <Aktivitetsplan key={aktivitetsplanKey} enhet={enhetId} fnr={fnr} />;
 	const vedtaksstotte = <Vedtaksstotte enhet={enhetId} fnr={fnr} key={vedtakstotteKey} />;
 	const dialog = <Dialog key={dialogKey} fnr={fnr} enhet={enhetId} />;
-	const arbeidsmarkedstiltak = <Arbeidsmarkedstiltak key={arbeidsmarkedstiltakKey} fnr={fnr} enhet={enhetId}/>
+	const arbeidsmarkedstiltak = <Arbeidsmarkedstiltak key={arbeidsmarkedstiltakKey} fnr={fnr} enhet={enhetId} />;
 
 	return (
 		<SideInnhold
