@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import SideInnhold from '../component/side-innhold';
-import { Aktivitetsplan, Dialog, Detaljer, Vedtaksstotte, Visittkort } from '../component/spa';
+import { Aktivitetsplan, Dialog, Detaljer, Vedtaksstotte, Visittkort, Arbeidsmarkedstiltak } from '../component/spa';
 import {
 	FeilmeldingManglerFnr,
 	FeilUnderLastingAvData,
@@ -89,21 +89,30 @@ export const PersonflatePage = () => {
 	);
 };
 
+function incrementKey(oldKey: number): number {
+	return oldKey + 1;
+}
+
 const Innhold = ({ fnr, enhetId, features }: AppInnholdProps) => {
 	const [aktivitetsplanKey, setAktivitetsplanKey] = useState(0);
 	const [maoKey, setMaoKey] = useState(0);
 	const [vedtakstotteKey, setVedtakstotteKey] = useState(0);
 	const [dialogKey, setDialogKey] = useState(0);
+	const [arbeidsmarkedstiltakKey, setArbeidsmarkedstiltakKey] = useState(0);
 
 	function incrementAllKeys() {
-		setAktivitetsplanKey((oldKey: number) => oldKey + 1);
-		setMaoKey((oldKey: number) => oldKey + 1);
-		setVedtakstotteKey((oldKey: number) => oldKey + 1);
-		setDialogKey((oldKey: number) => oldKey + 1);
+		setAktivitetsplanKey(incrementKey);
+		setMaoKey(incrementKey);
+		setVedtakstotteKey(incrementKey);
+		setDialogKey(incrementKey);
+		setArbeidsmarkedstiltakKey(incrementKey);
 	}
 
-	useEventListener('eskaleringsVarselSendt', () => setDialogKey((oldKey: number) => oldKey + 1));
-	useEventListener('rerenderMao', () => setMaoKey((oldKey: number) => oldKey + 1));
+	useEventListener('eskaleringsVarselSendt', () => {
+		setDialogKey(incrementKey);
+		setAktivitetsplanKey(incrementKey);
+	});
+	useEventListener('rerenderMao', () => setMaoKey(incrementKey));
 	useEventListener('oppfolgingAvslutet', incrementAllKeys);
 
 	const visittkort = (
@@ -113,6 +122,7 @@ const Innhold = ({ fnr, enhetId, features }: AppInnholdProps) => {
 	const aktivitetsplan = <Aktivitetsplan key={aktivitetsplanKey} enhet={enhetId} fnr={fnr} />;
 	const vedtaksstotte = <Vedtaksstotte enhet={enhetId} fnr={fnr} key={vedtakstotteKey} />;
 	const dialog = <Dialog key={dialogKey} fnr={fnr} enhet={enhetId} />;
+	const arbeidsmarkedstiltak = <Arbeidsmarkedstiltak key={arbeidsmarkedstiltakKey} fnr={fnr} enhet={enhetId} />;
 
 	return (
 		<SideInnhold
@@ -123,6 +133,7 @@ const Innhold = ({ fnr, enhetId, features }: AppInnholdProps) => {
 			aktivitetsplan={aktivitetsplan}
 			dialog={dialog}
 			vedtaksstotte={vedtaksstotte}
+			arbeidsmarkedstiltak={arbeidsmarkedstiltak}
 		/>
 	);
 };

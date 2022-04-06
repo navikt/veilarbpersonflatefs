@@ -31,6 +31,7 @@ spec:
       memory: 512Mi
   ingresses:
     - https://app.adeo.no/veilarbpersonflatefs
+    - https://app.intern.nav.no/veilarbpersonflatefs
   vault:
     enabled: true
   envFrom:
