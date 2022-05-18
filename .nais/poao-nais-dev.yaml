@@ -1,0 +1,111 @@
+apiVersion: "nais.io/v1alpha1"
+kind: "Application"
+metadata:
+  name: veilarbpersonflatefs
+  namespace: poao
+  labels:
+    team: poao
+spec:
+  image: ghcr.io/navikt/poao-frontend/poao-frontend:2022.05.12_10.52-0cd5a64028b4
+  port: 8080
+  ingresses:
+    - https://veilarbpersonflatefs.dev.intern.nav.no
+  liveness:
+    path: /internal/alive
+    initialDelay: 10
+  readiness:
+    path: /internal/ready
+    initialDelay: 10
+  replicas:
+    min: 1
+    max: 2
+    cpuThresholdPercentage: 75
+  resources:
+    limits:
+      cpu: "1"
+      memory: 512Mi
+    requests:
+      cpu: 250m
+      memory: 256Mi
+  secureLogs:
+    enabled: true
+  azure:
+    application:
+      enabled: true
+    sidecar:
+      enabled: true
+      autoLogin: true
+  gcp:
+    buckets:
+      - name: poao-veilarbpersonflatefs-dev
+        cascadingDelete: false
+  env:
+    - name: JSON_CONFIG
+      value: >
+        {
+          "enableSecureLogs": true,
+          "fallbackStrategy": "SERVE_INDEX_HTML",
+          "auth": {
+            "loginProvider": "AZURE_AD"
+          },
+          "gcs": {
+            "bucketName": "poao-veilarbpersonflatefs-dev"
+          },
+          "proxies": [
+            {
+              "fromPath": "/veilarbperson",
+              "toUrl": "http://veilarbperson.pto.svc.nais.local",
+              "preserveFromPath": true,
+              "toApp": {
+                "name": "veilarbperson",
+                "namespace": "pto",
+                "cluster": "dev-fss"
+              }
+            },
+            {
+              "fromPath": "/veilarboppfolging",
+              "toUrl": "http://veilarboppfolging.pto.svc.nais.local",
+              "preserveFromPath": true,
+              "toApp": {
+                "name": "veilarboppfolging",
+                "namespace": "pto",
+                "cluster": "dev-fss"
+              }
+            },
+            {
+              "fromPath": "/veilarbdialog",
+              "toUrl": "http://veilarbdialog.pto.svc.nais.local",
+              "preserveFromPath": true,
+              "toApp": {
+                "name": "veilarbdialog",
+                "namespace": "pto",
+                "cluster": "dev-fss"
+              }
+            },
+            {
+              "fromPath": "/veilarbaktivitet",
+              "toUrl": "http://veilarbaktivitet.pto.svc.nais.local",
+              "preserveFromPath": true,
+              "toApp": {
+                "name": "veilarbaktivitet",
+                "namespace": "pto",
+                "cluster": "dev-fss"
+              }
+            },
+            {
+              "fromPath": "/veilarbpersonflatefs",
+              "toUrl": "http://pto-unleash.pto.svc.nais.local",
+              "preserveFromPath": false
+            },
+            {
+              "fromPath": "/modiacontextholder",
+              "toUrl": "http://modiacontextholder.personoversikt.svc.nais.local",
+              "preserveFromPath": true,
+              "toApp": {
+                "name": "modiacontextholder",
+                "namespace": "personoversikt",
+                "cluster": "dev-fss"
+              }
+            }
+          ]
+        }
