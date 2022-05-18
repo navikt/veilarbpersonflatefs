@@ -1,15 +1,15 @@
 apiVersion: "nais.io/v1alpha1"
 kind: "Application"
 metadata:
-  name: veilarbpersonflatefs
+  name: veilarbpersonflate
   namespace: poao
   labels:
     team: poao
 spec:
-  image: ghcr.io/navikt/poao-frontend/poao-frontend:2022.05.12_10.52-0cd5a64028b4
+  image: ghcr.io/navikt/poao-frontend/poao-frontend:2022.05.18_10.19-08a4135c0657
   port: 8080
   ingresses:
-    - https://veilarbpersonflatefs.dev.intern.nav.no
+    - https://veilarbpersonflatefs.dev.intern.nav.no # TODO: rename til https://veilarbpersonflate.dev.intern.nav.no
   liveness:
     path: /internal/alive
     initialDelay: 10
@@ -37,7 +37,7 @@ spec:
       autoLogin: true
   gcp:
     buckets:
-      - name: poao-veilarbpersonflatefs-dev
+      - name: poao-veilarbpersonflate-dev
         cascadingDelete: false
   env:
     - name: JSON_CONFIG
@@ -49,7 +49,7 @@ spec:
             "loginProvider": "AZURE_AD"
           },
           "gcs": {
-            "bucketName": "poao-veilarbpersonflatefs-dev"
+            "bucketName": "poao-veilarbpersonflate-dev"
           },
           "redirects": [
             {
@@ -61,7 +61,7 @@ spec:
           "proxies": [
             {
               "fromPath": "/veilarbperson",
-              "toUrl": "http://veilarbperson.pto.svc.nais.local",
+              "toUrl": "https://veilarbperson.dev-fss-pub.nais.io",
               "preserveFromPath": true,
               "toApp": {
                 "name": "veilarbperson",
@@ -71,7 +71,7 @@ spec:
             },
             {
               "fromPath": "/veilarboppfolging",
-              "toUrl": "http://veilarboppfolging.pto.svc.nais.local",
+              "toUrl": "https://veilarboppfolging.dev-fss-pub.nais.io",
               "preserveFromPath": true,
               "toApp": {
                 "name": "veilarboppfolging",
@@ -81,7 +81,7 @@ spec:
             },
             {
               "fromPath": "/veilarbdialog",
-              "toUrl": "http://veilarbdialog.pto.svc.nais.local",
+              "toUrl": "https://veilarbdialog.dev-fss-pub.nais.io",
               "preserveFromPath": true,
               "toApp": {
                 "name": "veilarbdialog",
@@ -91,7 +91,7 @@ spec:
             },
             {
               "fromPath": "/veilarbaktivitet",
-              "toUrl": "http://veilarbaktivitet.pto.svc.nais.local",
+              "toUrl": "https://veilarbaktivitet.dev-fss-pub.nais.io",
               "preserveFromPath": true,
               "toApp": {
                 "name": "veilarbaktivitet",
@@ -106,7 +106,7 @@ spec:
             },
             {
               "fromPath": "/modiacontextholder",
-              "toUrl": "http://modiacontextholder.personoversikt.svc.nais.local",
+              "toUrl": "https://modiacontextholder.dev-fss-pub.nais.io",
               "preserveFromPath": true,
               "toApp": {
                 "name": "modiacontextholder",
