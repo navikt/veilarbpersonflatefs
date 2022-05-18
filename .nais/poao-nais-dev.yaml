@@ -51,6 +51,13 @@ spec:
           "gcs": {
             "bucketName": "poao-veilarbpersonflatefs-dev"
           },
+          "redirects": [
+            {
+              "fromPath": "/internarbeidsflatedecorator/*",
+              "toUrl": "https://internarbeidsflatedecorator-q1.dev.intern.nav.no",
+              "preserveFromPath": true
+            }
+          ],
           "proxies": [
             {
               "fromPath": "/veilarbperson",
