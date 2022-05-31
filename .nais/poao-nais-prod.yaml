@@ -9,7 +9,7 @@ spec:
   image: ghcr.io/navikt/poao-frontend/poao-frontend:2022.05.18_10.19-08a4135c0657
   port: 8080
   ingresses:
-    - https://veilarbpersonflatefs.dev.intern.nav.no # TODO: rename til https://veilarbpersonflate.dev.intern.nav.no
+    - https://veilarbpersonflate.intern.nav.no
   liveness:
     path: /internal/alive
     initialDelay: 10
@@ -17,8 +17,8 @@ spec:
     path: /internal/ready
     initialDelay: 10
   replicas:
-    min: 1
-    max: 2
+    min: 2
+    max: 3
     cpuThresholdPercentage: 75
   resources:
     limits:
@@ -37,7 +37,7 @@ spec:
       autoLogin: true
   gcp:
     buckets:
-      - name: poao-veilarbpersonflate-dev
+      - name: poao-veilarbpersonflate-prod
         cascadingDelete: false
   env:
     - name: JSON_CONFIG
@@ -49,54 +49,54 @@ spec:
             "loginProvider": "AZURE_AD"
           },
           "gcs": {
-            "bucketName": "poao-veilarbpersonflate-dev"
+            "bucketName": "poao-veilarbpersonflate-prod"
           },
           "redirects": [
             {
               "fromPath": "/internarbeidsflatedecorator/*",
-              "toUrl": "https://internarbeidsflatedecorator-q1.dev.intern.nav.no",
+              "toUrl": "https://internarbeidsflatedecorator.intern.nav.no",
               "preserveFromPath": true
             }
           ],
           "proxies": [
             {
               "fromPath": "/veilarbperson",
-              "toUrl": "https://veilarbperson.dev-fss-pub.nais.io",
+              "toUrl": "https://veilarbperson.prod-fss-pub.nais.io",
               "preserveFromPath": true,
               "toApp": {
                 "name": "veilarbperson",
                 "namespace": "pto",
-                "cluster": "dev-fss"
+                "cluster": "prod-fss"
               }
             },
             {
               "fromPath": "/veilarboppfolging",
-              "toUrl": "https://veilarboppfolging.dev-fss-pub.nais.io",
+              "toUrl": "https://veilarboppfolging.prod-fss-pub.nais.io",
               "preserveFromPath": true,
               "toApp": {
                 "name": "veilarboppfolging",
                 "namespace": "pto",
-                "cluster": "dev-fss"
+                "cluster": "prod-fss"
               }
             },
             {
               "fromPath": "/veilarbdialog",
-              "toUrl": "https://veilarbdialog.dev-fss-pub.nais.io",
+              "toUrl": "https://veilarbdialog.prod-fss-pub.nais.io",
               "preserveFromPath": true,
               "toApp": {
                 "name": "veilarbdialog",
                 "namespace": "pto",
-                "cluster": "dev-fss"
+                "cluster": "prod-fss"
               }
             },
             {
               "fromPath": "/veilarbaktivitet",
-              "toUrl": "https://veilarbaktivitet.dev-fss-pub.nais.io",
+              "toUrl": "https://veilarbaktivitet.prod-fss-pub.nais.io",
               "preserveFromPath": true,
               "toApp": {
                 "name": "veilarbaktivitet",
                 "namespace": "pto",
-                "cluster": "dev-fss"
+                "cluster": "prod-fss"
               }
             },
             {
@@ -106,12 +106,12 @@ spec:
             },
             {
               "fromPath": "/modiacontextholder",
-              "toUrl": "https://modiacontextholder-q1.dev-fss-pub.nais.io",
+              "toUrl": "https://modiacontextholder.prod-fss-pub.nais.io",
               "preserveFromPath": true,
               "toApp": {
                 "name": "modiacontextholder",
                 "namespace": "personoversikt",
-                "cluster": "dev-fss"
+                "cluster": "prod-fss"
               }
             }
           ]
