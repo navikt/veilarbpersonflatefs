@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { Decorator } from '../spa';
 import { DecoratorConfig, EnhetDisplay, FnrDisplay } from './internflate-decorator-config';
+import { erGCP } from '../../util/utils';
 
 interface InternflateDecoratorProps {
 	enhetId: string | undefined | null;
@@ -39,6 +40,7 @@ function lagDecoratorConfig(props: InternflateDecoratorProps): DecoratorConfig {
 			skipModal: true,
 			ignoreWsEvents: true,
 			onChange: props.onEnhetChanged
-		}
+		},
+		useProxy: erGCP()
 	};
 }
