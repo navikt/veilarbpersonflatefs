@@ -25,7 +25,7 @@ jobs:
       - name: Run tests
         run: npm run test
       - name: Build application
-        run: PUBLIC_URL=/ npm run build # Overrides "homepage" in package.json
+        run: npm run build:gcp
       - name: Authenticate to Google Cloud
         uses: google-github-actions/auth@v0
         with:
