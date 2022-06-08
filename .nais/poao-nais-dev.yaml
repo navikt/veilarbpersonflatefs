@@ -39,9 +39,10 @@ spec:
     buckets:
       - name: poao-veilarbpersonflate-dev
         cascadingDelete: false
-  outbound:
-    rules:
-    - application: poao-unleash
+  accessPolicy:
+    outbound:
+      rules:
+        - application: poao-unleash
 
   env:
     - name: JSON_CONFIG
