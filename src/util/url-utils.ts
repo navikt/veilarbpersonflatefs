@@ -6,7 +6,7 @@ export const hasQueryParam = (parameterName: string): boolean => {
 	return window.location.search.includes(parameterName);
 };
 
-const regex = `(\\d{11})`;
+const regex = `\\d{11}`;
 
 export const hentFnrFraUrl = (): string | undefined => {
 	const url = window.location.pathname;
