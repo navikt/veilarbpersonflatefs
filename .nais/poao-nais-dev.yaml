@@ -61,6 +61,11 @@ spec:
               "fromPath": "/internarbeidsflatedecorator/*",
               "toUrl": "https://internarbeidsflatedecorator-q1.dev.intern.nav.no",
               "preserveFromPath": true
+            },
+            {
+              "fromPath": "/frontendlogger/*",
+              "toUrl": "https://app-q1.dev.adeo.no",
+              "preserveFromPath": true
             }
           ],
           "proxies": [

@@ -61,6 +61,11 @@ spec:
               "fromPath": "/internarbeidsflatedecorator/*",
               "toUrl": "https://internarbeidsflatedecorator.intern.nav.no",
               "preserveFromPath": true
+            },
+            {
+              "fromPath": "/frontendlogger/*",
+              "toUrl": "https://app.adeo.no",
+              "preserveFromPath": true
             }
           ],
           "proxies": [
