@@ -39,6 +39,10 @@ spec:
     buckets:
       - name: poao-veilarbpersonflate-dev
         cascadingDelete: false
+  outbound:
+    rules:
+    - application: poao-unleash
+
   env:
     - name: JSON_CONFIG
       value: >
@@ -101,7 +105,7 @@ spec:
             },
             {
               "fromPath": "/veilarbpersonflatefs",
-              "toUrl": "http://pto-unleash.pto.svc.nais.local",
+              "toUrl": "http://poao-unleash.poao.svc.cluster.local",
               "preserveFromPath": false
             },
             {
