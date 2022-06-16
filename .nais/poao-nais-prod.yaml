@@ -114,7 +114,7 @@ spec:
               "toUrl": "https://veilarblest.prod-fss-pub.nais.io",
               "preserveFromPath": true,
               "toApp": {
-                "name": "veilarbaktivitet",
+                "name": "veilarblest",
                 "namespace": "pto",
                 "cluster": "prod-fss"
               }
