@@ -43,6 +43,9 @@ spec:
     outbound:
       rules:
         - application: poao-unleash
+      external:
+        - host: veilarbdialog.dev-fss-pub.nais.io
+        - host: veilarbaktivitet.dev-fss-pub.nais.io
 
   env:
     - name: JSON_CONFIG
