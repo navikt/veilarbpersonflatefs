@@ -110,6 +110,16 @@ spec:
               }
             },
             {
+              "fromPath": "/veilarblest",
+              "toUrl": "https://veilarblest.prod-fss-pub.nais.io",
+              "preserveFromPath": true,
+              "toApp": {
+                "name": "veilarbaktivitet",
+                "namespace": "pto",
+                "cluster": "prod-fss"
+              }
+            },
+            {
               "fromPath": "/veilarbpersonflatefs",
               "toUrl": "http://pto-unleash.pto.svc.nais.local",
               "preserveFromPath": false

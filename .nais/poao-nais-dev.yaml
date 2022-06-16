@@ -46,7 +46,6 @@ spec:
       external:
         - host: veilarbdialog.dev-fss-pub.nais.io
         - host: veilarbaktivitet.dev-fss-pub.nais.io
-
   env:
     - name: JSON_CONFIG
       value: >
@@ -108,6 +107,16 @@ spec:
               "preserveFromPath": true,
               "toApp": {
                 "name": "veilarbaktivitet",
+                "namespace": "pto",
+                "cluster": "dev-fss"
+              }
+            },
+            {
+              "fromPath": "/veilarblest",
+              "toUrl": "https://veilarblest.dev-fss-pub.nais.io",
+              "preserveFromPath": true,
+              "toApp": {
+                "name": "veilarblest",
                 "namespace": "pto",
                 "cluster": "dev-fss"
               }
