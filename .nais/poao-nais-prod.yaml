@@ -100,6 +100,16 @@ spec:
               }
             },
             {
+              "fromPath": "/veilarbportefolje",
+              "toUrl": "https://veilarbportefolje.prod-fss-pub.nais.io",
+              "preserveFromPath": true,
+              "toApp": {
+                "name": "veilarbportefolje",
+                "namespace": "pto",
+                "cluster": "prod-fss"
+              }
+            },
+            {
               "fromPath": "/veilarbaktivitet",
               "toUrl": "https://veilarbaktivitet.prod-fss-pub.nais.io",
               "preserveFromPath": true,

@@ -110,6 +110,16 @@ spec:
               }
             },
             {
+              "fromPath": "/veilarbportefolje",
+              "toUrl": "https://veilarbportefolje.dev-fss-pub.nais.io",
+              "preserveFromPath": true,
+              "toApp": {
+                "name": "veilarbportefolje",
+                "namespace": "pto",
+                "cluster": "dev-fss"
+              }
+            },
+            {
               "fromPath": "/veilarbpersonflatefs",
               "toUrl": "http://poao-unleash.poao.svc.cluster.local",
               "preserveFromPath": false
