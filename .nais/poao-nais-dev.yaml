@@ -64,11 +64,6 @@ spec:
               "connectSrc": ["'self'", "wss:", "*.nav.no", "*.adeo.no"]
             }
           },
-          "header": {
-            "csp": {
-              "connectSrc": ["'self'", "wss:", "*.nav.no", "*.adeo.no"]
-            }
-          },
           "redirects": [
             {
               "fromPath": "/internarbeidsflatedecorator/*",
