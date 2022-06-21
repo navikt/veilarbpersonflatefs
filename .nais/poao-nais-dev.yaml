@@ -156,6 +156,16 @@ spec:
                 "namespace": "pto",
                 "cluster": "dev-fss"
               }
+            },
+            {
+              "fromPath": "/veilarbvedtaksstotte",
+              "toUrl": "https://veilarbvedtaksstotte.dev-fss-pub.nais.io",
+              "preserveFromPath": true,
+              "toApp": {
+                "name": "veilarbvedtaksstotte",
+                "namespace": "pto",
+                "cluster": "dev-fss"
+              }
             }
           ]
         }
