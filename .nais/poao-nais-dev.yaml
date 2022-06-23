@@ -132,6 +132,7 @@ spec:
                 "cluster": "dev-fss"
               }
             },
+            {
               "fromPath": "/veilarbportefolje",
               "toUrl": "https://veilarbportefolje.dev-fss-pub.nais.io",
               "preserveFromPath": true,
