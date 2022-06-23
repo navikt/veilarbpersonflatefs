@@ -46,6 +46,7 @@ spec:
       external:
         - host: veilarbdialog.dev-fss-pub.nais.io
         - host: veilarbaktivitet.dev-fss-pub.nais.io
+        - host: veilarblest.dev-fss-pub.nais.io
   env:
     - name: JSON_CONFIG
       value: >
