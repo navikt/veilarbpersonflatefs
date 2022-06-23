@@ -6,7 +6,7 @@ metadata:
   labels:
     team: poao
 spec:
-  image: ghcr.io/navikt/poao-frontend/poao-frontend:2022.05.18_10.19-08a4135c0657
+  image: ghcr.io/navikt/poao-frontend/poao-frontend:2022.06.21_07.33-5244a7b7ae64
   port: 8080
   ingresses:
     - https://veilarbpersonflatefs.dev.intern.nav.no # TODO: rename til https://veilarbpersonflate.dev.intern.nav.no
@@ -58,11 +58,21 @@ spec:
           "gcs": {
             "bucketName": "poao-veilarbpersonflate-dev"
           },
+          "header": {
+            "csp": {
+              "connectSrc": ["'self'", "wss:", "*.nav.no", "*.adeo.no"]
+            }
+          },
           "redirects": [
             {
               "fromPath": "/internarbeidsflatedecorator/*",
               "toUrl": "https://internarbeidsflatedecorator-q1.dev.intern.nav.no",
               "preserveFromPath": true
+            },
+            {
+              "fromPath": "/veilarbportefoljeflatefs/*",
+              "toUrl": "https://veilarbportefoljeflatefs.dev.intern.nav.no",
+              "preserveFromPath": false
             }
           ],
           "proxies": [
@@ -121,6 +131,15 @@ spec:
                 "cluster": "dev-fss"
               }
             },
+              "fromPath": "/veilarbportefolje",
+              "toUrl": "https://veilarbportefolje.dev-fss-pub.nais.io",
+              "preserveFromPath": true,
+              "toApp": {
+                "name": "veilarbportefolje",
+                "namespace": "pto",
+                "cluster": "dev-fss"
+              }
+            },
             {
               "fromPath": "/veilarbpersonflatefs",
               "toUrl": "http://poao-unleash.poao.svc.cluster.local",
@@ -133,6 +152,26 @@ spec:
               "toApp": {
                 "name": "modiacontextholder-q1",
                 "namespace": "personoversikt",
+                "cluster": "dev-fss"
+              }
+            },
+            {
+              "fromPath": "/veilarbveileder",
+              "toUrl": "https://veilarbveileder.dev-fss-pub.nais.io",
+              "preserveFromPath": true,
+              "toApp": {
+                "name": "veilarbveileder",
+                "namespace": "pto",
+                "cluster": "dev-fss"
+              }
+            },
+            {
+              "fromPath": "/veilarbvedtaksstotte",
+              "toUrl": "https://veilarbvedtaksstotte.dev-fss-pub.nais.io",
+              "preserveFromPath": true,
+              "toApp": {
+                "name": "veilarbvedtaksstotte",
+                "namespace": "pto",
                 "cluster": "dev-fss"
               }
             }
