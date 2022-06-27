@@ -68,6 +68,11 @@ spec:
               "preserveFromPath": true
             },
             {
+              "fromPath": "/registrer-tilretteleggingsbehov/*",
+              "toUrl": "https://app.adeo.no",
+              "preserveFromPath": true
+            },
+            {
               "fromPath": "/veilarbportefoljeflatefs/*",
               "toUrl": "https://veilarbportefoljeflatefs.intern.nav.no",
               "preserveFromPath": false
