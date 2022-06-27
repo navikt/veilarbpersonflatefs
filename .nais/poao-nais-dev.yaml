@@ -72,7 +72,7 @@ spec:
             },
             {
               "fromPath": "/registrer-tilretteleggingsbehov/*",
-              "toUrl": "https://app-q1.adeo.no",
+              "toUrl": "https://registrer-tilretteleggingsbehov.dev.intern.nav.no",
               "preserveFromPath": true
             },
             {
@@ -179,6 +179,16 @@ spec:
               "toApp": {
                 "name": "veilarbvedtaksstotte",
                 "namespace": "pto",
+                "cluster": "dev-fss"
+              }
+            },
+            {
+              "fromPath": "/finn-kandidat-api",
+              "toUrl": "https://finn-kandidat-api.dev-fss-pub.nais.io",
+              "preserveFromPath": true,
+              "toApp": {
+                "name": "finn-kandidat-api",
+                "namespace": "arbeidsgiver",
                 "cluster": "dev-fss"
               }
             }
