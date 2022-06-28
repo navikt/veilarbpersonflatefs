@@ -194,8 +194,8 @@ spec:
             },
             {
               "fromPath": "/mulighetsrommet-api",
-              "toUrl": "https://mulighetsrommet-veileder-flate.dev.intern.nav.no",
-              "preserveFromPath": true,
+              "toUrl": "https://mulighetsrommet-api.dev.intern.nav.no",
+              "preserveFromPath": false,
               "toApp": {
                 "name": "mulighetsrommet-veileder-flate",
                 "namespace": "team-mulighetsrommet",
