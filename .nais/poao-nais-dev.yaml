@@ -191,6 +191,16 @@ spec:
                 "namespace": "arbeidsgiver",
                 "cluster": "dev-fss"
               }
+            },
+            {
+              "fromPath": "/mulighetsrommet-api",
+              "toUrl": "https://mulighetsrommet-veileder-flate.dev.intern.nav.no",
+              "preserveFromPath": true,
+              "toApp": {
+                "name": "mulighetsrommet-veileder-flate",
+                "namespace": "team-mulighetsrommet",
+                "cluster": "dev-gcp"
+              }
             }
           ]
         }
