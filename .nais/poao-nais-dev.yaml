@@ -197,7 +197,7 @@ spec:
               "toUrl": "https://mulighetsrommet-api.dev.intern.nav.no",
               "preserveFromPath": false,
               "toApp": {
-                "name": "mulighetsrommet-veileder-flate",
+                "name": "mulighetsrommet-api",
                 "namespace": "team-mulighetsrommet",
                 "cluster": "dev-gcp"
               }
