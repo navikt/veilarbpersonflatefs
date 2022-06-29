@@ -198,6 +198,16 @@ spec:
                 "namespace": "team-mulighetsrommet",
                 "cluster": "prod-gcp"
               }
+            },
+            {
+              "fromPath": "/veilarboppgave",
+              "toUrl": "https://veilarboppgave.prod-fss-pub.nais.io",
+              "preserveFromPath": true,
+              "toApp": {
+                "name": "veilarboppgave",
+                "namespace": "pto",
+                "cluster": "prod-fss"
+              }
             }
           ]
         }

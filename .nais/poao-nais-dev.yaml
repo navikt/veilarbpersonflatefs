@@ -201,6 +201,16 @@ spec:
                 "namespace": "team-mulighetsrommet",
                 "cluster": "dev-gcp"
               }
+            },
+            {
+              "fromPath": "/veilarboppgave",
+              "toUrl": "https://veilarboppgave.dev-fss-pub.nais.io",
+              "preserveFromPath": true,
+              "toApp": {
+                "name": "veilarboppgave",
+                "namespace": "pto",
+                "cluster": "dev-fss"
+              }
             }
           ]
         }
