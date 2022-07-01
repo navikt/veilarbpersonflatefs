@@ -6,7 +6,7 @@ metadata:
   labels:
     team: pto
 spec:
-  image: docker.pkg.github.com/navikt/veilarbpersonflatefs/veilarbpersonflatefs:{{version}}
+  image: ghcr.io/navikt/veilarbpersonflatefs/veilarbpersonflatefs:{{version}}
   port: 8080
   webproxy: true
   liveness:
