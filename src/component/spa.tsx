@@ -62,7 +62,7 @@ export const aktivitetsplanAsyncConfig: AsyncSpaConfig = {
 
 export const dialogAsyncConfig: AsyncSpaConfig = {
 	appName: SpaName.DIALOG,
-	appBaseUrl: utledSpaUrl(SpaName.DIALOG) + '/arbeid/dialog',
+	appBaseUrl: utledSpaUrl(SpaName.DIALOG),
 	loader: <Spinner type="L" className="veilarbpersonflatefs-visittkort-spinner" />,
 	config: {
 		wrapperClassName: spaWrapperTabContentClassNameDialog
