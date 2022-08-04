@@ -157,7 +157,12 @@ spec:
             {
               "fromPath": "/veilarbpersonflatefs",
               "toUrl": "http://pto-unleash.pto.svc.nais.local",
-              "preserveFromPath": false
+              "preserveFromPath": false,
+               "toApp": {
+                "name": "poao-unleash",
+                "namespace": "poao",
+                "cluster": "prod-gcp"
+              }
             },
             {
               "fromPath": "/modiacontextholder",
