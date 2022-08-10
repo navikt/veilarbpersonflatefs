@@ -1,4 +1,5 @@
 import {
+	ARBEIDSMARKEDSTILTAK_LANSERING,
 	Features,
 	SPOR_OM_TILBAKEMELDING,
 	TOUR_MODAL_LAST_NED_CV_TOGGLE,
@@ -13,7 +14,8 @@ export const testEnhetId = '0123';
 export const mockFeatures: Features = {
 	[TOUR_MODAL_VEDTAKSSTOTTE_LANSERING_TOGGLE]: true,
 	[TOUR_MODAL_LAST_NED_CV_TOGGLE]: false,
-	[SPOR_OM_TILBAKEMELDING]: true
+	[SPOR_OM_TILBAKEMELDING]: true,
+	[ARBEIDSMARKEDSTILTAK_LANSERING]: true
 };
 
 export const mockAntallUleste: AntallUlesteDialoger = {
