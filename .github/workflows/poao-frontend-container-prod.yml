@@ -6,7 +6,7 @@ on:
       - 'master'
     paths:
       - '.github/workflows/poao-frontend-container-prod.yml'
-      - '.nais/poao-nais-prod.yaml.yaml'
+      - '.nais/poao-nais-prod.yaml'
 
 concurrency:
   group: pto_frontend_container_prod
@@ -24,4 +24,4 @@ jobs:
         uses: nais/deploy/actions/deploy@v1
         env:
           CLUSTER: prod-gcp
-          RESOURCE: .nais/poao-nais-prod.yaml.yaml
+          RESOURCE: .nais/poao-nais-prod.yaml
