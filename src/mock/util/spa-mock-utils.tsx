@@ -39,12 +39,6 @@ export const vedtaksstotteSpaMockProps: SpaMockProps = {
 	className: 'spa-mock__content--vedtaksstotte'
 };
 
-export const arbeidsmarkedstiltakSpaMockProps: SpaMockProps = {
-	name: SpaName.ARBEIDSMARKEDSTILTAK,
-	tekst: 'Arbeidsmarkedstiltak',
-	className: 'spa-mock__content--arbeidsmarkedstiltak'
-};
-
 export function eksporterSpaMock(props: SpaMockProps) {
 	NAVSPA.eksporter(props.name, () => {
 		return <SpaMock name={props.name} tekst={props.tekst} className={props.className} />;

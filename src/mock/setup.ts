@@ -2,7 +2,6 @@ import { setupWorker } from 'msw';
 import { handlers } from './api/handlers';
 import {
 	aktivitetsplanSpaMockProps,
-	arbeidsmarkedstiltakSpaMockProps,
 	detaljerSpaMockProps,
 	dialogSpaMockProps,
 	eksporterSpaMock,
@@ -28,4 +27,3 @@ eksporterSpaMock(aktivitetsplanSpaMockProps);
 eksporterSpaMock(dialogSpaMockProps);
 eksporterSpaMock(detaljerSpaMockProps);
 eksporterSpaMock(vedtaksstotteSpaMockProps);
-eksporterSpaMock(arbeidsmarkedstiltakSpaMockProps);

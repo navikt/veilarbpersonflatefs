@@ -7,10 +7,6 @@ export function erDev() {
 	return host.includes('localhost') || host.includes('127.0.0.1') || devMode;
 }
 
-export function erGCP(): boolean {
-	return window.location.hostname.endsWith('intern.nav.no');
-}
-
 export function hasStored(tagName: string) {
 	return window.localStorage.getItem(tagName) !== null;
 }

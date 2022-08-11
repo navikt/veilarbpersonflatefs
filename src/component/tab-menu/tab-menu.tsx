@@ -7,7 +7,6 @@ import { useEventListener } from '../../util/utils';
 import useUlesteDialoger from './dialog-tab/useAntalUlesteDialoger';
 import './tab-menu.less';
 import { useModiaContextStore } from '../../store/modia-context-store';
-import { logEvent } from '../../util/frontend-logger';
 
 export interface Tab {
 	id: TabId;
@@ -142,7 +141,6 @@ function TabMenu(props: TabsProps) {
 		lagreSistBesokteTab({ fnr, tab: id });
 		setCurrentTab(index);
 
-		logEvent('veilarbpersonflatefs.valgt-fane', { tabId: id });
 		const extra = !!extraDetails ? (extraDetails as CustomEvent).detail : {};
 		window.dispatchEvent(new CustomEvent('veilarbpersonflatefs.tab-clicked', { detail: { tabId: id, ...extra } }));
 	};
