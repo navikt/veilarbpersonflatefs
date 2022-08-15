@@ -76,6 +76,11 @@ spec:
               "fromPath": "/veilarbportefoljeflatefs/*",
               "toUrl": "https://veilarbportefoljeflatefs.intern.nav.no",
               "preserveFromPath": false
+            },
+            {
+              "fromPath": "/veilarbmalverk",
+              "toUrl": "https://app-q1.dev.adeo.no/veilarbmalverk",
+              "preserveFromPath": false
             }
           ],
           "proxies": [
@@ -130,16 +135,6 @@ spec:
               "preserveFromPath": true,
               "toApp": {
                 "name": "veilarbaktivitet",
-                "namespace": "pto",
-                "cluster": "prod-fss"
-              }
-            },
-            {
-              "fromPath": "/veilarbmalverk",
-              "toUrl": "https://veilarbmalverk.prod-fss-pub.nais.io",
-              "preserveFromPath": true,
-              "toApp": {
-                "name": "veilarbmalverk",
                 "namespace": "pto",
                 "cluster": "prod-fss"
               }
