@@ -151,7 +151,7 @@ spec:
             },
             {
               "fromPath": "/veilarbpersonflatefs",
-              "toUrl": "http://pto-unleash.pto.svc.nais.local",
+              "toUrl": "http://poao-unleash.poao.svc.cluster.local",
               "preserveFromPath": false,
                "toApp": {
                 "name": "poao-unleash",
