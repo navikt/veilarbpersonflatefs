@@ -87,12 +87,7 @@ spec:
             {
               "fromPath": "/veilarbmalverk",
               "toUrl": "https://veilarbmalverk.prod-fss-pub.nais.io",
-              "preserveFromPath": true,
-              "toApp": {
-                "name": "veilarbmalverk",
-                "namespace": "pto",
-                "cluster": "prod-fss"
-              }
+              "preserveFromPath": true
             },
             {
               "fromPath": "/veilarbperson",
