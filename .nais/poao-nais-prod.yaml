@@ -79,8 +79,8 @@ spec:
             },
             {
               "fromPath": "/veilarbmalverk",
-              "toUrl": "https://app.adeo.no/veilarbmalverk",
-              "preserveFromPath": false
+              "toUrl": "https://app.adeo.no",
+              "preserveFromPath": true
             }
           ],
           "proxies": [

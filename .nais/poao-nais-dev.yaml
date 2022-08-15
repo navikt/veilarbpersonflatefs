@@ -82,8 +82,8 @@ spec:
             },
             {
               "fromPath": "/veilarbmalverk",
-              "toUrl": "https://app-q1.dev.adeo.no/veilarbmalverk",
-              "preserveFromPath": false
+              "toUrl": "https://app-q1.dev.adeo.no",
+              "preserveFromPath": true
             }
           ],
           "proxies": [
