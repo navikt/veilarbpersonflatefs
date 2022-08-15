@@ -2,6 +2,7 @@ import { ALL_TOGGLES, Features } from './features';
 import { axiosInstance, useAxios, UseAxiosResponseValue } from './utils';
 import { Options } from 'axios-hooks';
 import { AxiosPromise } from 'axios';
+import { FrontendEvent } from '../util/frontend-logger';
 
 export interface AntallUlesteDialoger {
 	antallUleste: number;
@@ -41,4 +42,8 @@ export function useFetchTilgangTilBruker(fnr: string, options?: Options): UseAxi
 
 export function synkroniserManuellStatusMedDkif(fnr: string): AxiosPromise<null> {
 	return axiosInstance.post(`/veilarboppfolging/api/v2/manuell/synkroniser-med-dkif?fnr=${fnr}`);
+}
+
+export function sendEventTilVeilarbperson(event: FrontendEvent) {
+	return axiosInstance.post(`/veilarbperson/api/logger/event`, event);
 }

@@ -1,9 +1,16 @@
-const frontendlogger = (window as any).frontendlogger;
+import { sendEventTilVeilarbperson } from '../api/api';
 
-export const logEvent = (logTag: string, fields?: {}, tags?: {}): void => {
-	if (frontendlogger && frontendlogger.event) {
-		frontendlogger.event(logTag, fields ? fields : {}, tags ? tags : {});
+export interface FrontendEvent {
+	name: string;
+	fields?: {};
+	tags?: {};
+}
+
+export const logEvent = (metrikkNavn: string, fields?: {}, tags?: {}): void => {
+	if (process.env.REACT_APP_DEV === 'true') {
+		// tslint:disable-next-line:no-console
+		console.log('Event', metrikkNavn, 'Fields:', fields, 'Tags:', tags);
 	} else {
-		console.log('Event', logTag, 'Fields:', fields, 'Tags:', tags); // tslint:disable-line
+		sendEventTilVeilarbperson({ name: `veilarbpersonflatefs.metrikker.${metrikkNavn}`, fields, tags });
 	}
 };
