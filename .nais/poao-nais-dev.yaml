@@ -89,7 +89,7 @@ spec:
             },
             {
               "fromPath": "/veilarbmalverk",
-              "toUrl": "https://app-q1.dev.adeo.no",
+              "toUrl": "veilarbmalverk.dev-fss-pub.nais.io",
               "preserveFromPath": true
             },
             {
