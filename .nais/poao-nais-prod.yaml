@@ -85,6 +85,11 @@ spec:
               "preserveFromPath": true
             },
             {
+              "fromPath": "/veilarbmalverk",
+              "toUrl": "https://veilarbmalverk.prod-fss-pub.nais.io",
+              "preserveFromPath": true
+            },
+            {
               "fromPath": "/veilarbperson",
               "toUrl": "https://veilarbperson.prod-fss-pub.nais.io",
               "preserveFromPath": true,
@@ -130,16 +135,6 @@ spec:
               "preserveFromPath": true,
               "toApp": {
                 "name": "veilarbaktivitet",
-                "namespace": "pto",
-                "cluster": "prod-fss"
-              }
-            },
-            {
-              "fromPath": "/veilarbmalverk",
-              "toUrl": "https://veilarbmalverk.prod-fss-pub.nais.io",
-              "preserveFromPath": true,
-              "toApp": {
-                "name": "veilarbmalverk",
                 "namespace": "pto",
                 "cluster": "prod-fss"
               }
