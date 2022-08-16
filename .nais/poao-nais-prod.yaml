@@ -80,11 +80,6 @@ spec:
           ],
           "proxies": [
             {
-              "fromPath": "/frontendlogger",
-              "toUrl": "https://frontendlogger.prod-fss-pub.nais.io",
-              "preserveFromPath": true
-            },
-            {
               "fromPath": "/veilarbmalverk",
               "toUrl": "https://veilarbmalverk.prod-fss-pub.nais.io",
               "preserveFromPath": true
