@@ -80,6 +80,11 @@ spec:
           ],
           "proxies": [
             {
+              "fromPath": "/veilarbmalverk",
+              "toUrl": "https://veilarbmalverk.prod-fss-pub.nais.io",
+              "preserveFromPath": true
+            },
+            {
               "fromPath": "/veilarbperson",
               "toUrl": "https://veilarbperson.prod-fss-pub.nais.io",
               "preserveFromPath": true,
@@ -130,16 +135,6 @@ spec:
               }
             },
             {
-              "fromPath": "/veilarbmalverk",
-              "toUrl": "https://veilarbmalverk.prod-fss-pub.nais.io",
-              "preserveFromPath": true,
-              "toApp": {
-                "name": "veilarbmalverk",
-                "namespace": "pto",
-                "cluster": "prod-fss"
-              }
-            },
-            {
               "fromPath": "/veilarblest",
               "toUrl": "https://veilarblest.prod-fss-pub.nais.io",
               "preserveFromPath": true,
@@ -151,7 +146,7 @@ spec:
             },
             {
               "fromPath": "/veilarbpersonflatefs",
-              "toUrl": "http://pto-unleash.pto.svc.nais.local",
+              "toUrl": "http://poao-unleash.poao.svc.cluster.local",
               "preserveFromPath": false,
                "toApp": {
                 "name": "poao-unleash",

@@ -83,6 +83,11 @@ spec:
           ],
           "proxies": [
             {
+              "fromPath": "/veilarbmalverk",
+              "toUrl": "https://veilarbmalverk.dev-fss-pub.nais.io",
+              "preserveFromPath": true
+            },
+            {
               "fromPath": "/veilarbperson",
               "toUrl": "https://veilarbperson.dev-fss-pub.nais.io",
               "preserveFromPath": true,
@@ -118,16 +123,6 @@ spec:
               "preserveFromPath": true,
               "toApp": {
                 "name": "veilarbaktivitet",
-                "namespace": "pto",
-                "cluster": "dev-fss"
-              }
-            },
-            {
-              "fromPath": "/veilarbmalverk",
-              "toUrl": "https://veilarbmalverk.dev-fss-pub.nais.io",
-              "preserveFromPath": true,
-              "toApp": {
-                "name": "veilarbmalverk",
                 "namespace": "pto",
                 "cluster": "dev-fss"
               }
