@@ -77,7 +77,7 @@ spec:
             },
             {
               "fromPath": "/veilarbportefoljeflatefs/*",
-              "toUrl": "https://veilarbportefoljeflatefs.dev.intern.nav.no",
+              "toUrl": "https://veilarbportefoljeflate.dev.intern.nav.no",
               "preserveFromPath": false
             }
           ],
