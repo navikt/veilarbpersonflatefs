@@ -13,6 +13,7 @@ import { useFetchAktivEnhet, useFetchFeatures, useFetchTilgangTilBruker } from '
 import { hasAnyFailed, isAnyLoading } from '../api/utils';
 import { Features } from '../api/features';
 import { useModiaContextStore } from '../store/modia-context-store';
+import { SesjonNotifikasjon } from '../component/sesjon-notifikasjon';
 
 interface AppInnholdProps {
 	fnr: string;
@@ -88,6 +89,7 @@ export const PersonflatePage = () => {
 				onEnhetChanged={onAktivEnhetChanged}
 				onFnrChanged={onAktivBrukerChanged}
 			/>
+			<SesjonNotifikasjon />
 			{innhold}
 		</>
 	);
