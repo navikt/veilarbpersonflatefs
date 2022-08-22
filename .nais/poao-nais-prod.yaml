@@ -18,15 +18,15 @@ spec:
     initialDelay: 10
   replicas:
     min: 2
-    max: 3
+    max: 4
     cpuThresholdPercentage: 75
-  resources:
-    limits:
-      cpu: "1"
-      memory: 512Mi
-    requests:
-      cpu: 250m
-      memory: 256Mi
+    resources:
+      limits:
+        cpu: "2"
+        memory: 1024Mi
+      requests:
+        cpu: 200m
+        memory: 512Mi
   secureLogs:
     enabled: true
   azure:
