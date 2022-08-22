@@ -1,3 +1,5 @@
+import { erGCP } from './utils';
+
 export const hasHashParam = (parameterName: string): boolean => {
 	return window.location.hash.includes(parameterName);
 };
@@ -28,3 +30,11 @@ const erITestMiljo = (): boolean => {
 export const utledSpaUrl = (appName: string): string => {
 	return erITestMiljo() ? `https://${appName}.dev.intern.nav.no` : `https://${appName}.intern.nav.no`;
 };
+
+export const loginUrl = () => {
+    if (erGCP()) {
+        return `${window.location.origin}/oauth2/login?redirect=${window.location.href}`;
+    }
+    return '/';
+};
+
