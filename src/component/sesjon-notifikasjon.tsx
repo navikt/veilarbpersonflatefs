@@ -1,4 +1,4 @@
-import './sesjonNotifikasjon.css';
+import './sesjonNotifikasjon.less';
 
 import React, { useEffect, useRef, useState } from 'react';
 
