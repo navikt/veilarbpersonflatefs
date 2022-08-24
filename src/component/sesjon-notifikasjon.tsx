@@ -31,13 +31,20 @@ export const SesjonNotifikasjon = (): React.ReactElement | null => {
 
     useEffect(() => {
         if (!expirationTimeMs) return;
+        const sixtyMin = 60 * 68 * 1000;
         const fiveMin = 60 * 5 * 1000;
         const oneMin = 60 * 1000;
         const tenS = 10 * 1000;
 
+        const refreshTokenWorkAround  = expirationTimeMs - sixtyMin;
+
         const msTilUtloperSnartAlert = expirationTimeMs - fiveMin;
         const msTilUtloggingAlert = expirationTimeMs - oneMin;
         const msTilUtlogging = expirationTimeMs - tenS;
+
+        if(refreshTokenWorkAround < 0) {
+            window.location.href = loginUrl();
+        }
 
         setUtlopAlertOmMs(Math.max(msTilUtloperSnartAlert, 0));
         setUtloggingAlertOmMs(Math.max(msTilUtloggingAlert, 0));

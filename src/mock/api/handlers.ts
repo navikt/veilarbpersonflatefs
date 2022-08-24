@@ -25,7 +25,7 @@ export const handlers = [
             return res(ctx.delay(500), ctx.json({
                 loggedIn: true,
                 expirationTime: '2040-07-04T14:18:54.000Z',
-                remainingSeconds: 60 * 60
+                remainingSeconds: 60 * 70
             }));
         }
     )
