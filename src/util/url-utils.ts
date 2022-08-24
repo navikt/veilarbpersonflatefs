@@ -35,6 +35,6 @@ export const loginUrl = () => {
     if (erGCP()) {
         return `${window.location.origin}/oauth2/login?redirect=${window.location.href}`;
     }
-    return `${window.location.origin}/`;
+    return `${window.location.href}`;
 };
 
