@@ -11,6 +11,7 @@ import {
 	vedtaksstotteAsyncConfig,
 	visittkortAsyncConfig
 } from './component/spa';
+import { erMock } from './util/utils';
 
 if (!window['_babelPolyfill']) {
 	// @ts-ignore
@@ -19,7 +20,7 @@ if (!window['_babelPolyfill']) {
 
 NavFrontendModal.setAppElement(document.getElementById('modal-a11y-wrapper'));
 
-if (process.env.REACT_APP_MOCK === 'true') {
+if (erMock()) {
 	// @ts-ignore
 	require('./mock/setup');
 }
