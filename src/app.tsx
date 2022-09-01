@@ -12,7 +12,7 @@ if (process.env.REACT_APP_MOCK !== 'true' && process.env.REACT_APP_SENTRY_ENV) {
 		integrations: [new BrowserTracing()],
 		environment: process.env.REACT_APP_SENTRY_ENV,
 		// @ts-ignore
-		tracePropagationTargets: [],
+		// tracePropagationTargets: [],
 		// Set tracesSampleRate to 1.0 to capture 100%
 		// of transactions for performance monitoring.
 		// We recommend adjusting this value in production
