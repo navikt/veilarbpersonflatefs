@@ -6,7 +6,7 @@ import { hentFnrFraUrl } from './util/url-utils';
 import { PersonflatePage } from './page/personflate';
 import { synkroniserManuellStatusMedDkif } from './api/api';
 
-if (process.env.REACT_APP_MOCK !== 'true' && process.env.REACT_APP_SENTRY_ENV) {
+if (process.env.REACT_APP_MOCK !== 'true' && !process.env.REACT_APP_SENTRY_ENV && process.env.REACT_APP_SENTRY_ENV !== 'prod') {
 	Sentry.init({
 		dsn: 'https://82639012ef3d42aab4a8ac2d60e2c464@sentry.gc.nav.no/143',
 		integrations: [new BrowserTracing()],
