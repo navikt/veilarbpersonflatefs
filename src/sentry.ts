@@ -55,8 +55,6 @@ Sentry.init({
 	integrations: [new BrowserTracing()],
 	environment: getEnv(),
 	enabled: !erMock() && getEnv() !== Env.Prod,
-	// @ts-ignore
-	// tracePropagationTargets: [],
 	// Set tracesSampleRate to 1.0 to capture 100%
 	// of transactions for performance monitoring.
 	// We recommend adjusting this value in production
