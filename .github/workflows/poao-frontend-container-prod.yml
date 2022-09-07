@@ -25,3 +25,9 @@ jobs:
         env:
           CLUSTER: prod-gcp
           RESOURCE: .nais/poao-nais-prod.yaml
+      - name: Create release
+        uses: softprops/action-gh-release@v1
+        with:
+          name: Release to prod
+          target_commitish: master
+          tag_name: release/prod@${{ env.IMAGE_TAG }}
