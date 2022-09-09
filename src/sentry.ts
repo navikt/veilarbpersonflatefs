@@ -54,8 +54,13 @@ Sentry.init({
 	dsn: 'https://82639012ef3d42aab4a8ac2d60e2c464@sentry.gc.nav.no/143',
 	integrations: [new BrowserTracing({
 		tracingOrigins: [
+			/veilarbvisittkortfs(\.dev)?.intern.nav.no/,
+			/veilarbvedtaksstottefs(\.dev)?.intern.nav.no/,
+			/arbeidsrettet-dialog(\.dev)?.intern.nav.no/,
+			/veilarbpersonflate(\.dev)?.intern.nav.no/,
+			// /mulighetsrommet-veileder-flate(\.dev)?.intern.nav.no/,
 			// Can't trace registrer-tilretteleggingsbehov, current CORS-config does not allow tracing headers
-			/^(?!registrer-tilretteleggingsbehov(\.dev)?\.intern\.nav\.no)/,
+			// /^(?!registrer-tilretteleggingsbehov(\.dev)?\.intern\.nav\.no)/,
 		]
 	})],
 	environment: getEnv(),
