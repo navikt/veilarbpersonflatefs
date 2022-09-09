@@ -59,5 +59,9 @@ Sentry.init({
 	// of transactions for performance monitoring.
 	// We recommend adjusting this value in production
 	tracesSampleRate: 1.0,
+	tracePropagationTargets: [
+		// Can't trace registrer-tilretteleggingsbehov, current CORS-config does not allow tracing headers
+		/^(?!registrer-tilretteleggingsbehov(\.dev)?\.intern\.nav\.no)/,
+	],
 	beforeSend: fjernPersonopplysninger
 });
