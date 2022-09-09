@@ -52,16 +52,17 @@ const fjernPersonopplysninger = (event: Event): Event => {
 
 Sentry.init({
 	dsn: 'https://82639012ef3d42aab4a8ac2d60e2c464@sentry.gc.nav.no/143',
-	integrations: [new BrowserTracing()],
+	integrations: [new BrowserTracing({
+		tracingOrigins: [
+			// Can't trace registrer-tilretteleggingsbehov, current CORS-config does not allow tracing headers
+			/^(?!registrer-tilretteleggingsbehov(\.dev)?\.intern\.nav\.no)/,
+		]
+	})],
 	environment: getEnv(),
 	enabled: !erMock() && getEnv() !== Env.Prod,
 	// Set tracesSampleRate to 1.0 to capture 100%
 	// of transactions for performance monitoring.
 	// We recommend adjusting this value in production
 	tracesSampleRate: 1.0,
-	tracePropagationTargets: [
-		// Can't trace registrer-tilretteleggingsbehov, current CORS-config does not allow tracing headers
-		/^(?!registrer-tilretteleggingsbehov(\.dev)?\.intern\.nav\.no)/,
-	],
 	beforeSend: fjernPersonopplysninger
 });
