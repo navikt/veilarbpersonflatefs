@@ -1,4 +1,4 @@
-import { erGCP } from './utils';
+import { erMock } from './utils';
 
 export const hasHashParam = (parameterName: string): boolean => {
 	return window.location.hash.includes(parameterName);
@@ -32,9 +32,9 @@ export const utledSpaUrl = (appName: string): string => {
 };
 
 export const loginUrl = () => {
-    if (erGCP()) {
-        return `${window.location.origin}/oauth2/login?redirect=${window.location.href}`;
+    if (erMock()) {
+		return `${window.location.href}`;
     }
-    return `${window.location.href}`;
+	return `${window.location.origin}/oauth2/login?redirect=${window.location.href}`;
 };
 

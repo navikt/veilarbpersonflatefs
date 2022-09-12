@@ -102,7 +102,7 @@ export const Arbeidsmarkedstiltak: React.ComponentType<SpaProps> = AsyncNavspa.i
 	arbeidsmarkedstiltakAsyncConfig
 );
 
-function navSpaImport<P>(spaName: SpaName, wrapperClassName?: string): React.FunctionComponent<P> {
+function navSpaImport<P extends {}>(spaName: SpaName, wrapperClassName?: string): React.FunctionComponent<P> {
 	return (props: P) => {
 		const SpaApp = Navspa.importer<P>(spaName);
 		return (

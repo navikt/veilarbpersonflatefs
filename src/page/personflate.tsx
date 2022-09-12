@@ -7,7 +7,7 @@ import {
 	IngenTilgangTilBruker
 } from '../component/alertstriper/alertstriper';
 import PageSpinner from '../component/page-spinner/page-spinner';
-import { erGCP, useEventListener } from '../util/utils';
+import { useEventListener } from '../util/utils';
 import { InternflateDecorator } from '../component/internflate-decorator/internflate-decorator';
 import { useFetchAktivEnhet, useFetchFeatures, useFetchTilgangTilBruker } from '../api/api';
 import { hasAnyFailed, isAnyLoading } from '../api/utils';
@@ -31,11 +31,7 @@ export const PersonflatePage = () => {
 
 	const onAktivBrukerChanged = (newFnr: string | null) => {
 		if (newFnr && newFnr !== aktivBrukerFnr) {
-			if (erGCP()) {
-				window.location.href = `/${newFnr}${window.location.search}`;
-			} else {
-				window.location.href = `/veilarbpersonflatefs/${newFnr}${window.location.search}`;
-			}
+			window.location.href = `/${newFnr}${window.location.search}`;
 
 			// TODO: When all micro frontends use a version of navspa that supports unmounting
 			//  then we dont need to refresh the entire page, and can instead only update the micro frontends with new fnr

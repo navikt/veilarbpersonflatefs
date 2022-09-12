@@ -3,6 +3,7 @@ import StoreProvider from './store/store-provider';
 import { hentFnrFraUrl } from './util/url-utils';
 import { PersonflatePage } from './page/personflate';
 import { synkroniserManuellStatusMedDkif } from './api/api';
+import './sentry'
 
 export const App = () => {
 	const fnr = hentFnrFraUrl() || '';
