@@ -202,7 +202,7 @@ spec:
             },
             {
               "fromPath": "/mulighetsrommet-api",
-              "toUrl": "https://mulighetsrommet-api.dev.intern.nav.no",
+              "toUrl": "http://mulighetsrommet-api.team-mulighetsrommet.svc.cluster.local",
               "preserveFromPath": false,
               "toApp": {
                 "name": "mulighetsrommet-api",
