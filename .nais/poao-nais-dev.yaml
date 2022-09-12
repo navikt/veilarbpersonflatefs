@@ -45,6 +45,8 @@ spec:
     outbound:
       rules:
         - application: poao-unleash
+        - application: mulighetsrommet-api
+          namespace: team-mulighetsrommet
       external:
         - host: veilarbdialog.dev-fss-pub.nais.io
         - host: veilarbaktivitet.dev-fss-pub.nais.io
