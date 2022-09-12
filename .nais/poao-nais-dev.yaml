@@ -63,7 +63,8 @@ spec:
           },
           "header": {
             "csp": {
-              "connectSrc": ["'self'", "wss:", "*.nav.no", "*.adeo.no", "cdn.sanity.io"]
+              "connectSrc": ["'self'", "wss:", "*.nav.no", "*.adeo.no", "cdn.sanity.io"],
+              "frameSrc": ["vars.hotjar.com", "video.qbrick.com"]
             }
           },
           "redirects": [
