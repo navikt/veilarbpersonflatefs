@@ -43,6 +43,8 @@ spec:
     outbound:
       rules:
         - application: poao-unleash
+        - application: mulighetsrommet-api
+          namespace: team-mulighetsrommet
 
   env:
     - name: JSON_CONFIG
@@ -197,7 +199,7 @@ spec:
             },
             {
               "fromPath": "/mulighetsrommet-api",
-              "toUrl": "https://mulighetsrommet-api.intern.nav.no",
+              "toUrl": "http://mulighetsrommet-api.team-mulighetsrommet",
               "preserveFromPath": false,
               "toApp": {
                 "name": "mulighetsrommet-api",
