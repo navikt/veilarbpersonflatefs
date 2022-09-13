@@ -18,7 +18,7 @@ export const getEnv = (): string => {
 
 const fnrRegexRegel = {
 	regex: /[0-9]{11}/g,
-	erstatning: '<fnr>',
+	erstatning: '&lt;fnr&gt;',
 }
 
 const maskerPersonopplysninger = (tekst?: string) => {
@@ -27,7 +27,7 @@ const maskerPersonopplysninger = (tekst?: string) => {
 };
 
 const toRoute = (route: string) => {
-	return route.replace(fnrRegexRegel.regex, ':fnr')
+	return route.replace(fnrRegexRegel.regex, '&#58;fnr')
 }
 
 const tagsFilter = (tags: Event['tags']): Event['tags'] => {
