@@ -31,7 +31,7 @@ const toRoute = (route: string) => {
 }
 
 const tagsFilter = (tags: Event['tags']): Event['tags'] => {
-	if (typeof tags === 'object' && 'transaction' !in tags && tags.transaction) return tags
+	if (typeof tags !== 'object' || !('transaction' in tags) || !tags.transaction) return tags
 	return {
 		...tags,
 		transaction: toRoute(tags?.transaction as unknown as string)
