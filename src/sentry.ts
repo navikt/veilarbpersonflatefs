@@ -18,13 +18,25 @@ export const getEnv = (): string => {
 
 const fnrRegexRegel = {
 	regex: /[0-9]{11}/g,
-	erstatning: '<fnr>',
+	erstatning: ':fnr',
 }
 
 const maskerPersonopplysninger = (tekst?: string) => {
 	if (!tekst) return undefined;
 	return tekst.replace(fnrRegexRegel.regex, fnrRegexRegel.erstatning)
 };
+
+const toRoute = (route: string) => {
+	return route.replace(fnrRegexRegel.regex, ':fnr')
+}
+
+const tagsFilter = (tags: Event['tags']): Event['tags'] => {
+	if (typeof tags === 'object' && 'transaction' !in tags && tags.transaction) return tags
+	return {
+		...tags,
+		transaction: toRoute(tags?.transaction as unknown as string)
+	}
+}
 
 const fjernPersonopplysninger = (event: Event): Event => {
 	const url = event.request?.url ? maskerPersonopplysninger(event.request.url) : '';
@@ -37,6 +49,7 @@ const fjernPersonopplysninger = (event: Event): Event => {
 				Referer: maskerPersonopplysninger(event.request?.headers?.Referer) || '',
 			},
 		},
+		tags: tagsFilter(event.tags),
 		breadcrumbs: (event.breadcrumbs || []).map((breadcrumb: Breadcrumb) => ({
 			...breadcrumb,
 			message: maskerPersonopplysninger(breadcrumb.message),
