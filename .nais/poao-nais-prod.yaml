@@ -43,6 +43,8 @@ spec:
     outbound:
       rules:
         - application: poao-unleash
+        - application: mulighetsrommet-api
+          namespace: team-mulighetsrommet
 
   env:
     - name: JSON_CONFIG
@@ -58,7 +60,8 @@ spec:
           },
           "header": {
             "csp": {
-              "connectSrc": ["'self'", "wss:", "*.nav.no", "*.adeo.no", "cdn.sanity.io"]
+              "connectSrc": ["'self'", "wss:", "*.nav.no", "*.adeo.no", "cdn.sanity.io"],
+              "frameSrc": ["vars.hotjar.com", "video.qbrick.com"]
             }
           },
           "redirects": [
@@ -196,7 +199,7 @@ spec:
             },
             {
               "fromPath": "/mulighetsrommet-api",
-              "toUrl": "https://mulighetsrommet-api.intern.nav.no",
+              "toUrl": "http://mulighetsrommet-api.team-mulighetsrommet",
               "preserveFromPath": false,
               "toApp": {
                 "name": "mulighetsrommet-api",
