@@ -18,7 +18,7 @@ export const getEnv = (): string => {
 
 const fnrRegexRegel = {
 	regex: /[0-9]{11}/g,
-	erstatning: ':fnr',
+	erstatning: '<fnr>',
 }
 
 const maskerPersonopplysninger = (tekst?: string) => {
