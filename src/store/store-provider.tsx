@@ -7,11 +7,7 @@ interface StoreProviderProps {
 }
 
 const StoreProvider = (props: StoreProviderProps) => {
-	return (
-		<ModiaContextStore fnr={props.fnr}>
-			{props.children}
-		</ModiaContextStore>
-	);
+	return <ModiaContextStore fnr={props.fnr}>{props.children}</ModiaContextStore>;
 };
 
 export default StoreProvider;

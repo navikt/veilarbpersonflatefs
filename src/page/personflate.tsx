@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import SideInnhold from '../component/side-innhold';
-import { Aktivitetsplan, Dialog, Detaljer, Vedtaksstotte, Visittkort } from '../component/spa';
+import { Aktivitetsplan, Dialog, Detaljer, Vedtaksstotte, Visittkort, Arbeidsmarkedstiltak } from '../component/spa';
 import {
 	FeilmeldingManglerFnr,
 	FeilUnderLastingAvData,
@@ -9,14 +9,11 @@ import {
 import PageSpinner from '../component/page-spinner/page-spinner';
 import { useEventListener } from '../util/utils';
 import { InternflateDecorator } from '../component/internflate-decorator/internflate-decorator';
-import {
-	useFetchAktivEnhet,
-	useFetchFeatures,
-	useFetchTilgangTilBruker
-} from '../api/api';
+import { useFetchAktivEnhet, useFetchFeatures, useFetchTilgangTilBruker } from '../api/api';
 import { hasAnyFailed, isAnyLoading } from '../api/utils';
 import { Features } from '../api/features';
 import { useModiaContextStore } from '../store/modia-context-store';
+import { SesjonNotifikasjon } from '../component/sesjon-notifikasjon';
 
 interface AppInnholdProps {
 	fnr: string;
@@ -34,7 +31,7 @@ export const PersonflatePage = () => {
 
 	const onAktivBrukerChanged = (newFnr: string | null) => {
 		if (newFnr && newFnr !== aktivBrukerFnr) {
-			window.location.href = `/veilarbpersonflatefs/${newFnr}${window.location.search}`;
+			window.location.href = `/${newFnr}${window.location.search}`;
 
 			// TODO: When all micro frontends use a version of navspa that supports unmounting
 			//  then we dont need to refresh the entire page, and can instead only update the micro frontends with new fnr
@@ -69,13 +66,15 @@ export const PersonflatePage = () => {
 	if (!aktivBrukerFnr) {
 		innhold = <FeilmeldingManglerFnr />;
 	} else if (isAnyLoading(fetchTilgangTilBruker, fetchFeature, fetchAktivEnhet)) {
-		innhold = <PageSpinner />
+		innhold = <PageSpinner />;
 	} else if (hasAnyFailed(fetchTilgangTilBruker, fetchFeature)) {
-		innhold = <FeilUnderLastingAvData />
+		innhold = <FeilUnderLastingAvData />;
 	} else if (!fetchTilgangTilBruker.data) {
 		innhold = <IngenTilgangTilBruker />;
 	} else {
-		innhold = <Innhold key={appInnholdKey} enhetId={aktivEnhetId} fnr={aktivBrukerFnr} features={fetchFeature.data} />;
+		innhold = (
+			<Innhold key={appInnholdKey} enhetId={aktivEnhetId} fnr={aktivBrukerFnr} features={fetchFeature.data} />
+		);
 	}
 
 	return (
@@ -86,33 +85,46 @@ export const PersonflatePage = () => {
 				onEnhetChanged={onAktivEnhetChanged}
 				onFnrChanged={onAktivBrukerChanged}
 			/>
+			<SesjonNotifikasjon />
 			{innhold}
 		</>
 	);
 };
 
-const Innhold = ({fnr, enhetId, features}: AppInnholdProps) => {
+function incrementKey(oldKey: number): number {
+	return oldKey + 1;
+}
+
+const Innhold = ({ fnr, enhetId, features }: AppInnholdProps) => {
 	const [aktivitetsplanKey, setAktivitetsplanKey] = useState(0);
 	const [maoKey, setMaoKey] = useState(0);
 	const [vedtakstotteKey, setVedtakstotteKey] = useState(0);
 	const [dialogKey, setDialogKey] = useState(0);
+	const [arbeidsmarkedstiltakKey, setArbeidsmarkedstiltakKey] = useState(0);
 
 	function incrementAllKeys() {
-		setAktivitetsplanKey((oldKey: number) => oldKey + 1);
-		setMaoKey((oldKey: number) => oldKey + 1);
-		setVedtakstotteKey((oldKey: number) => oldKey + 1);
-		setDialogKey((oldKey: number) => oldKey + 1);
+		setAktivitetsplanKey(incrementKey);
+		setMaoKey(incrementKey);
+		setVedtakstotteKey(incrementKey);
+		setDialogKey(incrementKey);
+		setArbeidsmarkedstiltakKey(incrementKey);
 	}
 
-	useEventListener('eskaleringsVarselSendt', () => setDialogKey((oldKey: number) => oldKey + 1));
-	useEventListener('rerenderMao', () => setMaoKey((oldKey: number) => oldKey + 1));
+	useEventListener('eskaleringsVarselSendt', () => {
+		setDialogKey(incrementKey);
+		setAktivitetsplanKey(incrementKey);
+	});
+	useEventListener('rerenderMao', () => setMaoKey(incrementKey));
 	useEventListener('oppfolgingAvslutet', incrementAllKeys);
 
-	const visittkort = <Visittkort enhet={enhetId} fnr={fnr} visVeilederVerktoy={true} tilbakeTilFlate="veilarbportefoljeflatefs" />;
+	const visittkort = (
+		<Visittkort enhet={enhetId} fnr={fnr} visVeilederVerktoy={true} tilbakeTilFlate="veilarbportefoljeflatefs" />
+	);
 	const mao = <Detaljer enhet={enhetId} fnr={fnr} key={maoKey} />;
 	const aktivitetsplan = <Aktivitetsplan key={aktivitetsplanKey} enhet={enhetId} fnr={fnr} />;
 	const vedtaksstotte = <Vedtaksstotte enhet={enhetId} fnr={fnr} key={vedtakstotteKey} />;
-	const dialog = <Dialog key={dialogKey} fnr={fnr} enhet={enhetId}/>;
+	const dialog = <Dialog key={dialogKey} fnr={fnr} enhet={enhetId} />;
+	const arbeidsmarkedstiltak = <Arbeidsmarkedstiltak key={arbeidsmarkedstiltakKey} fnr={fnr} enhet={enhetId} />;
 
 	return (
 		<SideInnhold
@@ -123,6 +135,7 @@ const Innhold = ({fnr, enhetId, features}: AppInnholdProps) => {
 			aktivitetsplan={aktivitetsplan}
 			dialog={dialog}
 			vedtaksstotte={vedtaksstotte}
+			arbeidsmarkedstiltak={arbeidsmarkedstiltak}
 		/>
 	);
 };

@@ -1,46 +1,53 @@
-@import "~nav-frontend-core/less/core";
+@import '~nav-frontend-core/less/core';
 
 // We set 100% height on all parent elements so that the tabs can take control over all the remaining space
 
-html, body, #veilarbpersonflatefs-root, .veilarbpersonflatefs  {
-    height: 100%;
+html,
+body,
+#veilarbpersonflatefs-root,
+.veilarbpersonflatefs {
+	height: 100%;
 }
 
 body {
-    background-color: white;
-    margin: 0;
+	background-color: white;
+	margin: 0;
+}
+
+header.dekorator {
+	font-size: 1rem;
 }
 
 #veilarbpersonflatefs-root {
-  display: flex;
-  flex-direction: column;
+	display: flex;
+	flex-direction: column;
 }
 
 .spa-wrapper__tab-content {
-  display: flex;
-  flex-direction: column;
-  flex-grow: 1;
+	display: flex;
+	flex-direction: column;
+	flex-grow: 1;
 
-  // NAVSPA mounts a micro frontend wrapped with a <div>
-  > div {
-    display: flex;
-    flex-direction: column;
-    flex-grow: 1;
-  }
+	// NAVSPA mounts a micro frontend wrapped with a <div>
+	> div {
+		display: flex;
+		flex-direction: column;
+		flex-grow: 1;
+	}
 }
 
 .spa-wrapper__tab-content-dialog {
-  display: flex;
-  flex-direction: column;
-  flex-grow: 1;
-  overflow: hidden;
-  min-height: 30rem;
+	display: flex;
+	flex-direction: column;
+	flex-grow: 1;
+	overflow: hidden;
+	min-height: 30rem;
 
-  // NAVSPA mounts a micro frontend wrapped with a <div>
-  > div {
-    display: flex;
-    flex-direction: column;
-    flex-grow: 1;
-    overflow: hidden;
-  }
+	// NAVSPA mounts a micro frontend wrapped with a <div>
+	> div {
+		display: flex;
+		flex-direction: column;
+		flex-grow: 1;
+		overflow: hidden;
+	}
 }
