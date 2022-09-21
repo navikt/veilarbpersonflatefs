@@ -1,10 +1,7 @@
 import { useCallback, useEffect } from 'react';
 
-export function erDev() {
-	const host: string = window.location.host;
-	const devMode: boolean = window.location.search.includes('devmode');
-
-	return host.includes('localhost') || host.includes('127.0.0.1') || devMode;
+export function erMock() {
+	return process.env.REACT_APP_MOCK === 'true';
 }
 
 export function hasStored(tagName: string) {

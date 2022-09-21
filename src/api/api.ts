@@ -2,6 +2,7 @@ import { ALL_TOGGLES, Features } from './features';
 import { axiosInstance, useAxios, UseAxiosResponseValue } from './utils';
 import { Options } from 'axios-hooks';
 import { AxiosPromise } from 'axios';
+import { FrontendEvent } from '../util/frontend-logger';
 
 export interface AntallUlesteDialoger {
 	antallUleste: number;
@@ -13,6 +14,13 @@ export interface AktivEnhetResponse {
 
 export interface SistOppdatertData {
 	sistOppdatert?: string;
+}
+
+export interface AuthInfo {
+	loggedIn: boolean,
+	remainingSeconds: number,
+	expirationTime: string,
+	securityLevel?: string,
 }
 
 export function useFetchAntallUlesteDialoger(
@@ -41,4 +49,21 @@ export function useFetchTilgangTilBruker(fnr: string, options?: Options): UseAxi
 
 export function synkroniserManuellStatusMedDkif(fnr: string): AxiosPromise<null> {
 	return axiosInstance.post(`/veilarboppfolging/api/v2/manuell/synkroniser-med-dkif?fnr=${fnr}`);
+}
+
+export function sendEventTilVeilarbperson(event: FrontendEvent) {
+	return axiosInstance.post(`/veilarbperson/api/logger/event`, event);
+}
+
+export async function hentResterendeSekunder(): Promise<number> {
+	return axiosInstance.get<AuthInfo>(`/auth/info`)
+		.then(respons => {
+			const remainingSeconds = respons.data.remainingSeconds;
+			if (remainingSeconds && remainingSeconds > 0) {
+				return remainingSeconds;
+			}
+			return Promise.reject('Fant ikke forventet verdi av remainingSeconds på /auth/info');
+		}).catch(() => {
+			return Promise.reject('Fant ikke forventet verdi av remainingSeconds på /auth/info');
+		});
 }

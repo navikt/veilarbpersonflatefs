@@ -39,6 +39,7 @@ function lagDecoratorConfig(props: InternflateDecoratorProps): DecoratorConfig {
 			skipModal: true,
 			ignoreWsEvents: true,
 			onChange: props.onEnhetChanged
-		}
+		},
+		useProxy: true
 	};
 }

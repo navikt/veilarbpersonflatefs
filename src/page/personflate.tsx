@@ -13,6 +13,7 @@ import { useFetchAktivEnhet, useFetchFeatures, useFetchTilgangTilBruker } from '
 import { hasAnyFailed, isAnyLoading } from '../api/utils';
 import { Features } from '../api/features';
 import { useModiaContextStore } from '../store/modia-context-store';
+import { SesjonNotifikasjon } from '../component/sesjon-notifikasjon';
 
 interface AppInnholdProps {
 	fnr: string;
@@ -30,7 +31,7 @@ export const PersonflatePage = () => {
 
 	const onAktivBrukerChanged = (newFnr: string | null) => {
 		if (newFnr && newFnr !== aktivBrukerFnr) {
-			window.location.href = `/veilarbpersonflatefs/${newFnr}${window.location.search}`;
+			window.location.href = `/${newFnr}${window.location.search}`;
 
 			// TODO: When all micro frontends use a version of navspa that supports unmounting
 			//  then we dont need to refresh the entire page, and can instead only update the micro frontends with new fnr
@@ -84,6 +85,7 @@ export const PersonflatePage = () => {
 				onEnhetChanged={onAktivEnhetChanged}
 				onFnrChanged={onAktivBrukerChanged}
 			/>
+			<SesjonNotifikasjon />
 			{innhold}
 		</>
 	);
