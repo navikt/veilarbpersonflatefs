@@ -29,7 +29,7 @@
     "babel-polyfill": "^6.26.0",
     "classnames": "^2.2.6",
     "constate": "^3.1.0",
-    "craco-less": "^1.17.0",
+    "craco-less": "^2.0.0",
     "lodash.throttle": "^4.1.1",
     "nav-frontend-alertstriper": "^3.0.3",
     "nav-frontend-alertstriper-style": "^2.0.2",
