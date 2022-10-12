@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import SideInnhold from '../component/side-innhold';
-import { Aktivitetsplan, Dialog, Detaljer, Vedtaksstotte, Visittkort, Arbeidsmarkedstiltak } from '../component/spa';
+import { Aktivitetsplan, Arbeidsmarkedstiltak, Detaljer, Dialog, Vedtaksstotte, Visittkort } from '../component/spa';
 import {
 	FeilmeldingManglerFnr,
 	FeilUnderLastingAvData,
@@ -13,7 +13,8 @@ import { useFetchAktivEnhet, useFetchFeatures, useFetchTilgangTilBruker } from '
 import { hasAnyFailed, isAnyLoading } from '../api/utils';
 import { Features } from '../api/features';
 import { useModiaContextStore } from '../store/modia-context-store';
-import { SesjonNotifikasjon } from '../component/sesjon-notifikasjon';
+import { UtloptSesjonAdvarsel } from '../component/utlopt-sesjon-advarsel/utlopt-sesjon-advarsel';
+import { SesjonStatus, useSesjonStatus } from '../hooks/use-sesjon-status';
 
 interface AppInnholdProps {
 	fnr: string;
@@ -24,6 +25,7 @@ interface AppInnholdProps {
 export const PersonflatePage = () => {
 	const [appInnholdKey] = useState<number>(0);
 	const { aktivBrukerFnr, aktivEnhetId, setAktivEnhetId } = useModiaContextStore();
+	const { sesjonStatus } = useSesjonStatus();
 
 	const fetchTilgangTilBruker = useFetchTilgangTilBruker(aktivBrukerFnr, { manual: true });
 	const fetchFeature = useFetchFeatures();
@@ -85,7 +87,7 @@ export const PersonflatePage = () => {
 				onEnhetChanged={onAktivEnhetChanged}
 				onFnrChanged={onAktivBrukerChanged}
 			/>
-			<SesjonNotifikasjon />
+			{sesjonStatus === SesjonStatus.UTLOPT && <UtloptSesjonAdvarsel />}
 			{innhold}
 		</>
 	);

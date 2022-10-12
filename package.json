@@ -67,7 +67,7 @@
     "@types/react-dom": "^16.8.4",
     "@types/react-modal": "^3.8.2",
     "cross-env": "^6.0.3",
-    "msw": "^0.21.3",
+    "msw": "0.47.4",
     "prettier": "2.7.1",
     "tslint": "^5.18.0",
     "tslint-config-prettier": "^1.18.0",
@@ -79,5 +79,8 @@
     "not dead",
     "not ie <= 11",
     "not op_mini all"
-  ]
+  ],
+  "msw": {
+    "workerDirectory": "public"
+  }
 }
