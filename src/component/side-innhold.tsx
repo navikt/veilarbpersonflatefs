@@ -64,16 +64,8 @@ class SideInnhold extends React.Component<SideInnholdLayoutProps> {
 	}
 
 	render() {
-		const {
-			visittkort,
-			aktivitetsplan,
-			dialog,
-			vedtaksstotte,
-			arbeidsmarkedstiltak,
-			mao,
-			features,
-			fnr
-		} = this.props;
+		const { visittkort, aktivitetsplan, dialog, vedtaksstotte, arbeidsmarkedstiltak, mao, features, fnr } =
+			this.props;
 		const tabs: Tab[] = [];
 
 		const aktivitet = {

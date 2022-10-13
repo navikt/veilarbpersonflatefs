@@ -17,10 +17,10 @@ export interface SistOppdatertData {
 }
 
 export interface AuthInfo {
-	loggedIn: boolean,
-	remainingSeconds: number,
-	expirationTime: string,
-	securityLevel?: string,
+	loggedIn: boolean;
+	remainingSeconds: number;
+	expirationTime: string;
+	securityLevel?: string;
 }
 
 export function useFetchAntallUlesteDialoger(
@@ -56,14 +56,16 @@ export function sendEventTilVeilarbperson(event: FrontendEvent) {
 }
 
 export async function hentResterendeSekunder(): Promise<number> {
-	return axiosInstance.get<AuthInfo>(`/auth/info`)
+	return axiosInstance
+		.get<AuthInfo>(`/auth/info`)
 		.then(respons => {
 			const remainingSeconds = respons.data.remainingSeconds;
 			if (remainingSeconds && remainingSeconds > 0) {
 				return remainingSeconds;
 			}
 			return Promise.reject('Fant ikke forventet verdi av remainingSeconds på /auth/info');
-		}).catch(() => {
+		})
+		.catch(() => {
 			return Promise.reject('Fant ikke forventet verdi av remainingSeconds på /auth/info');
 		});
 }
