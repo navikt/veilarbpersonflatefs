@@ -40,8 +40,6 @@ type SessionDataMockConfig = {
 	tokensRefreshedAt?: string;
 };
 
-export const DEFAULT_SESSION_LIFETIME_IN_SECONDS = 10 * 60; // 10 minutes
-
 export const sessionData = ({
 	createdAt,
 	tokensExpireTimestamp,
@@ -77,9 +75,7 @@ export const defaultSessionDataMockConfig = (
 	baseTimestamp: number,
 	extendSessionWithSeconds?: number
 ): SessionDataMockConfig => {
-	const timeLeftInSessionSeconds = extendSessionWithSeconds
-		? extendSessionWithSeconds
-		: DEFAULT_SESSION_LIFETIME_IN_SECONDS;
+	const timeLeftInSessionSeconds = extendSessionWithSeconds ? extendSessionWithSeconds : 10 * 60; // 10 minutes
 	const timeLeftInTokensSeconds = timeLeftInSessionSeconds;
 	const sessionLifetimeSeconds = 10 * 60 * 60;
 	const tokensLifetimeSeconds = 60 * 60;
