@@ -9,7 +9,7 @@ export type UseAxiosResponseValue<T> = ResponseValues<T> & {
 export const axiosInstance = axios.create({
 	withCredentials: true,
 	headers: { 'Nav-Consumer-Id': 'veilarbpersonflatefs' },
-	timeout: 5000,
+	timeout: 5000
 });
 
 configure({ axios: axiosInstance });

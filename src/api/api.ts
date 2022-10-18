@@ -1,7 +1,7 @@
 import { ALL_TOGGLES, Features } from './features';
 import { axiosInstance, useAxios, UseAxiosResponseValue } from './utils';
 import { Options } from 'axios-hooks';
-import { AxiosPromise } from 'axios';
+import { AxiosPromise, AxiosResponse } from 'axios';
 import { FrontendEvent } from '../util/frontend-logger';
 
 export interface AntallUlesteDialoger {
@@ -17,10 +17,30 @@ export interface SistOppdatertData {
 }
 
 export interface AuthInfo {
-	loggedIn: boolean,
-	remainingSeconds: number,
-	expirationTime: string,
-	securityLevel?: string,
+	loggedIn: boolean;
+	remainingSeconds: number;
+	expirationTime: string;
+	securityLevel?: string;
+}
+
+export interface Session {
+	created_at?: string;
+	ends_at?: string;
+	ends_in_seconds?: number;
+}
+
+export interface Tokens {
+	expire_at?: string;
+	expire_in_seconds?: number;
+	next_auto_refresh_in_seconds?: number;
+	refresh_cooldown?: boolean;
+	refresh_cooldown_seconds?: number;
+	refreshed_at?: string;
+}
+
+export interface SessionMeta {
+	session?: Session;
+	tokens?: Tokens;
 }
 
 export function useFetchAntallUlesteDialoger(
@@ -55,15 +75,6 @@ export function sendEventTilVeilarbperson(event: FrontendEvent) {
 	return axiosInstance.post(`/veilarbperson/api/logger/event`, event);
 }
 
-export async function hentResterendeSekunder(): Promise<number> {
-	return axiosInstance.get<AuthInfo>(`/auth/info`)
-		.then(respons => {
-			const remainingSeconds = respons.data.remainingSeconds;
-			if (remainingSeconds && remainingSeconds > 0) {
-				return remainingSeconds;
-			}
-			return Promise.reject('Fant ikke forventet verdi av remainingSeconds på /auth/info');
-		}).catch(() => {
-			return Promise.reject('Fant ikke forventet verdi av remainingSeconds på /auth/info');
-		});
+export function hentSesjonMetadata(): Promise<SessionMeta> {
+	return axiosInstance.get('/oauth2/session').then((res: AxiosResponse<SessionMeta>) => Promise.resolve(res.data));
 }

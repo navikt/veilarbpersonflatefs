@@ -25,8 +25,7 @@ export const vedtaksstotteLanseringConfig: TourModalConfig = {
 			tittel: 'Vises kun for veiledere',
 			bilde: step3Bilde,
 			bildeAlt: 'Skjermbilde av den nye fanen hvor den nye løsningen ligger',
-			tekst:
-				'Fanen for oppfølgingsvedtak er kun synlig for veiledere. Brukerne får vedtaket som brev i posten eller digitalt.'
+			tekst: 'Fanen for oppfølgingsvedtak er kun synlig for veiledere. Brukerne får vedtaket som brev i posten eller digitalt.'
 		}
 	]
 };
