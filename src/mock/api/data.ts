@@ -52,7 +52,7 @@ export const sessionData = ({
 	return {
 		session: {
 			created_at: createdAt,
-			ends_at: new Date(Math.floor(sessionExpireTimestamp)).toISOString(),
+			ends_at: new Date(sessionExpireTimestamp).toISOString(),
 			ends_in_seconds:
 				nowTimestamp >= sessionExpireTimestamp ? 0 : Math.floor((sessionExpireTimestamp - nowTimestamp) / 1000)
 		},
