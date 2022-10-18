@@ -14,16 +14,19 @@ export const useSesjonStatus = (): { sesjonStatus: SesjonStatus } => {
 	const [teller, setTeller] = useState<number>(0);
 
 	const oppdaterSesjonStatus = (sesjonMetadata: SessionMeta) => {
-		const _sekunderTilSesjonUtloper = sesjonMetadata?.tokens?.expire_in_seconds;
+		const tokensUtloperOmSekunder = sesjonMetadata?.tokens?.expire_in_seconds;
+		const sesjonUtloperOmSekunder = sesjonMetadata?.session?.ends_in_seconds;
 
-		if (!isDefined(_sekunderTilSesjonUtloper)) {
-			console.error('Forsøkte å hente sesjonsmetadata men expire_in_seconds var null eller undefined.');
+		if (!isDefined(tokensUtloperOmSekunder) || !isDefined(sesjonUtloperOmSekunder)) {
+			console.error(
+				'Forsøkte å hente sesjonsmetadata men expire_in_seconds/ends_in_seconds var null eller undefined.'
+			);
 			return;
 		}
 
 		setTeller((prevState: number) => prevState + 1);
 		setSesjonStatus(SesjonStatus.AKTIV);
-		setSekunderTilSesjonUtloper(_sekunderTilSesjonUtloper);
+		setSekunderTilSesjonUtloper(Math.min(tokensUtloperOmSekunder, sesjonUtloperOmSekunder));
 	};
 
 	useEffect(() => {

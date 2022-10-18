@@ -16,8 +16,8 @@ let sessionDataMockConfig = defaultSessionDataMockConfig(Date.now());
 let sessionData: SessionMeta = getSessionData(sessionDataMockConfig);
 
 export const sesjonUtlopt = (): boolean => {
-	if (sessionData && sessionData.tokens && sessionData.tokens.expire_at) {
-		return Date.now() >= new Date(sessionData?.tokens?.expire_at).getTime();
+	if (sessionData?.tokens?.expire_at && sessionData?.session?.ends_at) {
+		return Date.now() >= Math.min(new Date(sessionData.tokens.expire_at).getTime(), new Date(sessionData.session.ends_at).getTime());
 	}
 
 	return false;

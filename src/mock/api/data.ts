@@ -40,7 +40,7 @@ type SessionDataMockConfig = {
 	tokensRefreshedAt?: string;
 };
 
-export const DEFAULT_SESSION_LIFETIME_IN_SECONDS = 10; // 10 minutes
+export const DEFAULT_SESSION_LIFETIME_IN_SECONDS = 10 * 60; // 10 minutes
 
 export const sessionData = ({
 	createdAt,
