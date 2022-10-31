@@ -63,6 +63,9 @@ spec:
           "gcs": {
             "bucketName": "poao-veilarbpersonflate-dev"
           },
+          "cors": {
+            "origin": "https://mulighetsrommet-veileder-flate.dev.intern.nav.no"
+          },
           "header": {
             "csp": {
               "connectSrc": ["'self'", "wss:", "*.nav.no", "*.adeo.no", "cdn.sanity.io"],
