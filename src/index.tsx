@@ -5,7 +5,7 @@ import NavFrontendModal from 'nav-frontend-modal';
 import './index.less';
 import { AsyncNavspa } from '@navikt/navspa';
 import {
-	arbeidsmarkedstiltakAsyncConfig,
+	// arbeidsmarkedstiltakAsyncConfig,
 	detaljerAsyncConfig,
 	dialogAsyncConfig,
 	vedtaksstotteAsyncConfig,
@@ -29,6 +29,6 @@ AsyncNavspa.preload(visittkortAsyncConfig);
 AsyncNavspa.preload(detaljerAsyncConfig);
 AsyncNavspa.preload(vedtaksstotteAsyncConfig);
 AsyncNavspa.preload(dialogAsyncConfig);
-AsyncNavspa.preload(arbeidsmarkedstiltakAsyncConfig);
+// AsyncNavspa.preload(arbeidsmarkedstiltakAsyncConfig);
 
 ReactDOM.render(<App />, document.getElementById('veilarbpersonflatefs-root'));

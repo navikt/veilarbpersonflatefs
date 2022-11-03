@@ -1,6 +1,6 @@
 import React from 'react';
 import TabMenu, { Tab } from './tab-menu/tab-menu';
-import { ARBEIDSMARKEDSTILTAK_LANSERING, Features } from '../api/features';
+import { Features } from '../api/features';
 import TilbakemeldingFab from './tilbakemelding/fab/tilbakemelding-fab';
 import { hentSistBesokteTab } from './tab-menu/siste-tab';
 import { TourModalController } from './tour-modal/tour-modal-controller';
@@ -12,7 +12,7 @@ interface SideInnholdLayoutProps {
 	aktivitetsplan: React.ReactElement;
 	dialog?: React.ReactElement;
 	vedtaksstotte: React.ReactElement;
-	arbeidsmarkedstiltak: React.ReactElement;
+	// arbeidsmarkedstiltak: React.ReactElement;
 	features: Features;
 	fnr: string;
 }
@@ -34,7 +34,7 @@ const showTabMap: { [k: string]: TabId } = {
 	visDialog: TabId.DIALOG,
 	visVedtaksstotte: TabId.VEDTAKSSTOTTE,
 	visDetaljer: TabId.DETALJER,
-	visArbeidsmarkedstiltak: TabId.ARBEIDSMARKEDSTILTAK
+	// visArbeidsmarkedstiltak: TabId.ARBEIDSMARKEDSTILTAK
 };
 
 class SideInnhold extends React.Component<SideInnholdLayoutProps> {
@@ -64,7 +64,7 @@ class SideInnhold extends React.Component<SideInnholdLayoutProps> {
 	}
 
 	render() {
-		const { visittkort, aktivitetsplan, dialog, vedtaksstotte, arbeidsmarkedstiltak, mao, features, fnr } =
+		const { visittkort, aktivitetsplan, dialog, vedtaksstotte, /*arbeidsmarkedstiltak,*/ mao, features, fnr } =
 			this.props;
 		const tabs: Tab[] = [];
 
@@ -95,13 +95,14 @@ class SideInnhold extends React.Component<SideInnholdLayoutProps> {
 			className: 'tab-menu__tab-content--vedtaksstotte'
 		});
 
+		/*
 		if (features[ARBEIDSMARKEDSTILTAK_LANSERING]) {
 			tabs.push({
 				id: TabId.ARBEIDSMARKEDSTILTAK,
 				title: 'Arbeidsmarkedstiltak',
 				content: arbeidsmarkedstiltak
 			});
-		}
+		}*/
 
 		return (
 			<>

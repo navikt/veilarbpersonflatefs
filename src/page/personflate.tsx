@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import SideInnhold from '../component/side-innhold';
-import { Aktivitetsplan, Arbeidsmarkedstiltak, Detaljer, Dialog, Vedtaksstotte, Visittkort } from '../component/spa';
+import { Aktivitetsplan, Detaljer, Dialog, Vedtaksstotte, Visittkort } from '../component/spa';
 import {
 	FeilmeldingManglerFnr,
 	FeilUnderLastingAvData,
@@ -102,14 +102,14 @@ const Innhold = ({ fnr, enhetId, features }: AppInnholdProps) => {
 	const [maoKey, setMaoKey] = useState(0);
 	const [vedtakstotteKey, setVedtakstotteKey] = useState(0);
 	const [dialogKey, setDialogKey] = useState(0);
-	const [arbeidsmarkedstiltakKey, setArbeidsmarkedstiltakKey] = useState(0);
+	// const [arbeidsmarkedstiltakKey, setArbeidsmarkedstiltakKey] = useState(0);
 
 	function incrementAllKeys() {
 		setAktivitetsplanKey(incrementKey);
 		setMaoKey(incrementKey);
 		setVedtakstotteKey(incrementKey);
 		setDialogKey(incrementKey);
-		setArbeidsmarkedstiltakKey(incrementKey);
+		// setArbeidsmarkedstiltakKey(incrementKey);
 	}
 
 	useEventListener('eskaleringsVarselSendt', () => {
@@ -126,7 +126,7 @@ const Innhold = ({ fnr, enhetId, features }: AppInnholdProps) => {
 	const aktivitetsplan = <Aktivitetsplan key={aktivitetsplanKey} enhet={enhetId} fnr={fnr} />;
 	const vedtaksstotte = <Vedtaksstotte enhet={enhetId} fnr={fnr} key={vedtakstotteKey} />;
 	const dialog = <Dialog key={dialogKey} fnr={fnr} enhet={enhetId} />;
-	const arbeidsmarkedstiltak = <Arbeidsmarkedstiltak key={arbeidsmarkedstiltakKey} fnr={fnr} enhet={enhetId} />;
+	// const arbeidsmarkedstiltak = <Arbeidsmarkedstiltak key={arbeidsmarkedstiltakKey} fnr={fnr} enhet={enhetId} />;
 
 	return (
 		<SideInnhold
@@ -137,7 +137,7 @@ const Innhold = ({ fnr, enhetId, features }: AppInnholdProps) => {
 			aktivitetsplan={aktivitetsplan}
 			dialog={dialog}
 			vedtaksstotte={vedtaksstotte}
-			arbeidsmarkedstiltak={arbeidsmarkedstiltak}
+			// arbeidsmarkedstiltak={arbeidsmarkedstiltak}
 		/>
 	);
 };
