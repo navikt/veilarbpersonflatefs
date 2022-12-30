@@ -5,7 +5,7 @@ import { SpaMock, SpaMockProps } from '../component/spa-mock';
 
 export const internflateDecoratorSpaMockProps: SpaMockProps = {
 	name: SpaName.INTERNARBEIDSFLATEFS_DECORATOR,
-	tekst: 'Dekoratør',
+	tekst: 'NAV',
 	className: 'spa-mock__content--internflatedecorator'
 };
 
