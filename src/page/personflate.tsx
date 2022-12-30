@@ -23,8 +23,8 @@ interface AppInnholdProps {
 }
 
 export const PersonflatePage = () => {
-	const [appInnholdKey] = useState<number>(0);
-	const { aktivBrukerFnr, aktivEnhetId, setAktivEnhetId } = useModiaContextStore();
+	const [appInnholdKey, setAppInnholdKey] = useState<number>(0);
+	const { aktivBrukerFnr, aktivEnhetId, setAktivEnhetId, setAktivBrukerFnr } = useModiaContextStore();
 	const { sesjonStatus } = useSesjonStatus();
 
 	const fetchTilgangTilBruker = useFetchTilgangTilBruker(aktivBrukerFnr, { manual: true });
@@ -33,13 +33,12 @@ export const PersonflatePage = () => {
 
 	const onAktivBrukerChanged = (newFnr: string | null) => {
 		if (newFnr && newFnr !== aktivBrukerFnr) {
-			window.location.href = `/${newFnr}${window.location.search}`;
-
+			//window.location.href = `/${newFnr}${window.location.search}`;
 			// TODO: When all micro frontends use a version of navspa that supports unmounting
 			//  then we dont need to refresh the entire page, and can instead only update the micro frontends with new fnr
-			// window.history.pushState('', 'Personflate', `/veilarbpersonflatefs/${newFnr}`);
-			// setAktivBrukerFnr(newFnr);
-			// setAppInnholdKey(key => key + 1); // Forces all the micro frontends to be remounted so that their state is reset
+			window.history.pushState('', 'Personflate', `/veilarbpersonflatefs/${newFnr}`);
+			setAktivBrukerFnr(newFnr);
+			setAppInnholdKey(key => key + 1); // Forces all the micro frontends to be remounted so that their state is reset
 		}
 	};
 
