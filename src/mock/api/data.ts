@@ -144,4 +144,6 @@ export const mockAktorFnrMappingMockData = {"fnr":"28877798234","aktorId":"26186
 
 export const contextMock = {"ident":"Z994381","navn":"F_Z994381 E_Z994381","fornavn":"F_Z994381","etternavn":"E_Z994381","enheter":[{"enhetId":"0219","navn":"NAV Bærum"},{"enhetId":"0501","navn":"NAV Lillehammer-Gausdal"},{"enhetId":"1101","navn":"NAV Dalane"}]}
 
+export const malMockData = {"mal":null,"endretAv":"VEILEDER","dato":null}
+
 export default sessionData;

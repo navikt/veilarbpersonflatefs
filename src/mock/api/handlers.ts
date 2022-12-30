@@ -2,7 +2,7 @@ import { ResponseComposition, rest, RestContext, RestRequest } from 'msw';
 import {
 	aktivBrukerMock,
 	aktiviteterMockdata, contextMock,
-	defaultSessionDataMockConfig, harniva4MockData, lesMockData, meMockData,
+	defaultSessionDataMockConfig, harniva4MockData, lesMockData, malMockData, meMockData,
 	mockAktivEnhet, mockAktorFnrMappingMockData,
 	mockAntallUleste,
 	mockFeatures,
@@ -73,7 +73,7 @@ export const handlers = [
 	rest.get('/veilarboppfolging/api/oppfolging/veilederTilgang', responseResolver({ json: veilederHarTilgangMockData })),
 	rest.get('/veilarboppfolging/api/oppfolging/me', responseResolver({ json: meMockData })),
 	rest.get('/veilarboppfolging/api/oppfolging/harFlereAktorIderMedOppfolging', responseResolver({  json: false })),
-	rest.get('/veilarboppfolging/api/oppfolging/mal', responseResolver({ status: 200  })),
+	rest.get('/veilarboppfolging/api/oppfolging/mal', responseResolver({ json: malMockData  })),
 	rest.post('veilarboppfolging/api/:fnr/lestaktivitetsplan', responseResolver({ status: 204 })),
 
 	rest.get('/veilarbveileder/api/veileder/me', responseResolver({ json: veilederMeMockData })),
