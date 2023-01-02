@@ -29,7 +29,7 @@
     "babel-polyfill": "^6.26.0",
     "classnames": "^2.2.6",
     "constate": "^3.1.0",
-    "craco-less": "^1.17.0",
+    "craco-less": "^1.20.0",
     "lodash.throttle": "^4.1.1",
     "nav-frontend-alertstriper": "^3.0.3",
     "nav-frontend-alertstriper-style": "^2.0.2",
@@ -57,7 +57,7 @@
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
     "react-modal": "^3.9.1",
-    "react-scripts": "^3.4.3"
+    "react-scripts": "^5.0.1"
   },
   "devDependencies": {
     "@types/classnames": "^2.2.9",
