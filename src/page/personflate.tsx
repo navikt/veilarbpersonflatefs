@@ -34,7 +34,7 @@ export const PersonflatePage = () => {
 
 	const onAktivBrukerChanged = (newFnr: string | null) => {
 		if (newFnr && newFnr !== mutableFnr) {
-			window.history.pushState('', 'Personflate', `/veilarbpersonflatefs/${newFnr}`);
+			window.history.pushState('', 'Personflate', `/${newFnr}`);
 			mutableFnr = newFnr
 			setAktivBrukerFnr(newFnr);
 			setAppInnholdKey(key => key + 1); // Forces all the micro frontends to be remounted so that their state is reset
