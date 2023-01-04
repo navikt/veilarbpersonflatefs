@@ -122,7 +122,7 @@ export const oppfolgingMockData = {
 	"erIkkeArbeidssokerUtenOppfolging":false
 }
 
-export const oppfolgingsStatusMockData = {"oppfolgingsenhet":{"navn":"NAV Alta-Kvænangen-Loppa","enhetId":"2012"},"veilederId":null,"formidlingsgruppe":"ARBS","servicegruppe":"IVURD","hovedmaalkode":"SKAFFEA"};
+export const oppfolgingsStatusMockData = {"oppfolgingsenhet":{"navn":"NAV Alta-Kvænangen-Loppa","enhetId":testEnhetId},"veilederId":null,"formidlingsgruppe":"ARBS","servicegruppe":"IVURD","hovedmaalkode":"SKAFFEA"};
 
 export const veilederHarTilgangMockData = {"tilgangTilBrukersKontor":true}
 
@@ -142,7 +142,7 @@ export const aktivBrukerMock = {"aktivBruker":testBrukerFnr,"aktivEnhet":null}
 
 export const mockAktorFnrMappingMockData = {"fnr":"28877798234","aktorId":"2618633343329"}
 
-export const contextMock = {"ident":"Z994381","navn":"F_Z994381 E_Z994381","fornavn":"F_Z994381","etternavn":"E_Z994381","enheter":[{"enhetId":"0219","navn":"NAV Bærum"},{"enhetId":"0501","navn":"NAV Lillehammer-Gausdal"},{"enhetId":"1101","navn":"NAV Dalane"}]}
+export const contextMock = {"ident":"Z994381","navn":"F_Z994381 E_Z994381","fornavn":"F_Z994381","etternavn":"E_Z994381","enheter":[{"enhetId":"0219","navn":"NAV Bærum"},{"enhetId":"0501","navn":"NAV Lillehammer-Gausdal"},{"enhetId":testEnhetId,"navn":"NAV Dalane"}]}
 
 export const malMockData = {"mal":null,"endretAv":"VEILEDER","dato":null}
 
