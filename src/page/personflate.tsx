@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect, useMemo, useState} from 'react';
 import SideInnhold from '../component/side-innhold';
 import { Aktivitetsplan, Arbeidsmarkedstiltak, Detaljer, Dialog, Vedtaksstotte, Visittkort } from '../component/spa';
 import {
@@ -24,7 +24,7 @@ interface AppInnholdProps {
 
 let mutableFnr: undefined | string
 export const PersonflatePage = () => {
-	const [appInnholdKey, setAppInnholdKey] = useState<number>(0);
+	const [hasSeenContent, setHasSeenContent] = useState(false);
 	const { aktivBrukerFnr, aktivEnhetId, setAktivEnhetId, setAktivBrukerFnr } = useModiaContextStore();
 	const { sesjonStatus } = useSesjonStatus();
 
@@ -37,7 +37,6 @@ export const PersonflatePage = () => {
 			window.history.pushState('', 'Personflate', `/${newFnr}`);
 			mutableFnr = newFnr
 			setAktivBrukerFnr(newFnr);
-			setAppInnholdKey(key => key + 1); // Forces all the micro frontends to be remounted so that their state is reset
 		}
 	};
 
@@ -61,21 +60,24 @@ export const PersonflatePage = () => {
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [fetchAktivEnhet]);
 
-	let innhold;
+	const innhold = useMemo(() => {
+		if (!aktivBrukerFnr) {
+			return <FeilmeldingManglerFnr />;
+		// Dont re-render whole app when re-fetching data, only do it on inital load
+		} else if (!hasSeenContent && isAnyLoading(fetchTilgangTilBruker, fetchFeature, fetchAktivEnhet)) {
+			return <PageSpinner />;
+		} else if (hasAnyFailed(fetchTilgangTilBruker, fetchFeature)) {
+			return <FeilUnderLastingAvData />;
+		} else if (!fetchTilgangTilBruker.data) {
+			return <IngenTilgangTilBruker />;
+		} else {
+			setHasSeenContent(true)
+			return (
+				<Innhold enhetId={aktivEnhetId} fnr={aktivBrukerFnr} features={fetchFeature.data} />
+			);
+		}
+	}, [aktivBrukerFnr, aktivEnhetId, aktivBrukerFnr, fetchFeature, fetchTilgangTilBruker, fetchAktivEnhet])
 
-	if (!aktivBrukerFnr) {
-		innhold = <FeilmeldingManglerFnr />;
-	} else if (isAnyLoading(fetchTilgangTilBruker, fetchFeature, fetchAktivEnhet)) {
-		innhold = <PageSpinner />;
-	} else if (hasAnyFailed(fetchTilgangTilBruker, fetchFeature)) {
-		innhold = <FeilUnderLastingAvData />;
-	} else if (!fetchTilgangTilBruker.data) {
-		innhold = <IngenTilgangTilBruker />;
-	} else {
-		innhold = (
-			<Innhold key={appInnholdKey} enhetId={aktivEnhetId} fnr={aktivBrukerFnr} features={fetchFeature.data} />
-		);
-	}
 
 	return (
 		<>
@@ -102,6 +104,7 @@ const Innhold = ({ fnr, enhetId, features }: AppInnholdProps) => {
 	const [dialogKey, setDialogKey] = useState(0);
 	const [arbeidsmarkedstiltakKey, setArbeidsmarkedstiltakKey] = useState(0);
 
+	// Forces all the micro frontends to be remounted so that their state is reset
 	function incrementAllKeys() {
 		setAktivitetsplanKey(incrementKey);
 		setMaoKey(incrementKey);
@@ -110,15 +113,18 @@ const Innhold = ({ fnr, enhetId, features }: AppInnholdProps) => {
 		setArbeidsmarkedstiltakKey(incrementKey);
 	}
 
+	useEffect(() => {
+		incrementAllKeys();
+	}, [fnr])
+
 	useEventListener('eskaleringsVarselSendt', () => {
 		setDialogKey(incrementKey);
 		setAktivitetsplanKey(incrementKey);
 	});
-	useEventListener('rerenderMao', () => setMaoKey(incrementKey));
 	useEventListener('oppfolgingAvslutet', incrementAllKeys);
 
 	const visittkort = (
-		<Visittkort enhet={enhetId} fnr={fnr} visVeilederVerktoy={true} tilbakeTilFlate="veilarbportefoljeflatefs" />
+		<Visittkort enhet={enhetId} key={fnr} fnr={fnr} visVeilederVerktoy={true} tilbakeTilFlate="veilarbportefoljeflatefs" />
 	);
 	const mao = <Detaljer enhet={enhetId} fnr={fnr} key={maoKey} />;
 	const aktivitetsplan = <Aktivitetsplan key={aktivitetsplanKey} enhet={enhetId} fnr={fnr} />;
