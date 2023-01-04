@@ -76,7 +76,7 @@ export const PersonflatePage = () => {
 				<Innhold enhetId={aktivEnhetId} fnr={aktivBrukerFnr} features={fetchFeature.data} />
 			);
 		}
-	}, [aktivBrukerFnr, aktivEnhetId, aktivBrukerFnr, fetchFeature, fetchTilgangTilBruker, fetchAktivEnhet, hasSeenContent])
+	}, [aktivBrukerFnr, aktivEnhetId, fetchFeature, fetchTilgangTilBruker, fetchAktivEnhet, hasSeenContent])
 
 
 	return (
