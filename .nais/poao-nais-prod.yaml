@@ -32,6 +32,7 @@ spec:
   azure:
     application:
       enabled: true
+      allowAllUsers: true #todo burde vi legge inn noen roller her?
     sidecar:
       enabled: true
       autoLogin: true
