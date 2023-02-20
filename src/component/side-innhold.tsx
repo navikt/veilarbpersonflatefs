@@ -37,6 +37,13 @@ const showTabMap: { [k: string]: TabId } = {
 	visArbeidsmarkedstiltak: TabId.ARBEIDSMARKEDSTILTAK
 };
 
+declare global {
+	interface Window {
+		defaultSelectedTab?: string;
+	}
+}
+
+
 class SideInnhold extends React.Component<SideInnholdLayoutProps> {
 	getTabFromHashParam(): TabId | undefined {
 		const tabKey = Object.keys(showTabMap).find(key => hasHashParam(key));
@@ -59,6 +66,8 @@ class SideInnhold extends React.Component<SideInnholdLayoutProps> {
 		} else if (sisteBesokteTab) {
 			defaultSelectedTab = sisteBesokteTab;
 		}
+
+		window.defaultSelectedTab = defaultSelectedTab;
 
 		return defaultSelectedTab;
 	}
