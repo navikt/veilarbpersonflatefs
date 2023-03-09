@@ -57,6 +57,22 @@ export const aktivitetsplanAsyncConfig: AsyncSpaConfig = {
 	loader: <Spinner type="L" className="veilarbpersonflatefs-visittkort-spinner" />,
 	config: {
 		wrapperClassName: spaWrapperTabContentClassName
+	},
+	assetManifestParser: manifest => {
+		const isWebpackManifeset = 'entrypoints' in manifest
+		if (isWebpackManifeset) {
+			const files = Object.entries(manifest['files'])
+				.map(([name, path]) => ({ name, path }) as { name: string, path: string })
+			return manifest['entrypoints']
+				.map((entrypoint: string) => files.find(({ path }) => path.endsWith(entrypoint))?.path)
+				.filter((filePath: string | undefined) => filePath)
+		} else { // Vitejs manifest
+			const { file, css } = manifest['index.html'];
+			const baseUrl = utledSpaUrl(SpaName.ARBEIDSMARKEDSTILTAK);
+			const entry = { type: 'module', path: `${baseUrl}/${file}` };
+			const styles = css.map((path: string) => ({ path: `${baseUrl}/${path}` }));
+			return [entry, ...styles];
+		}
 	}
 };
 
