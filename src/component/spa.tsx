@@ -68,7 +68,7 @@ export const aktivitetsplanAsyncConfig: AsyncSpaConfig = {
 				.filter((filePath: string | undefined) => filePath)
 		} else { // Vitejs manifest
 			const { file, css } = manifest['index.html'];
-			const baseUrl = utledSpaUrl(SpaName.ARBEIDSMARKEDSTILTAK);
+			const baseUrl = utledSpaUrl(SpaName.AKTIVITETSPLAN);
 			const entry = { type: 'module', path: `${baseUrl}/${file}` };
 			const styles = css.map((path: string) => ({ path: `${baseUrl}/${path}` }));
 			return [entry, ...styles];
