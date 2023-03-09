@@ -78,7 +78,7 @@ spec:
             },
             {
               "fromPath": "/registrer-tilretteleggingsbehov/*",
-              "toUrl": "https://registrer-tilretteleggingsbehov.dev.intern.nav.no",
+              "toUrl": "https://registrer-tilretteleggingsbehov.intern.dev.nav.no",
               "preserveFromPath": true
             },
             {
