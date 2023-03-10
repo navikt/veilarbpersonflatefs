@@ -3,6 +3,7 @@ import React from 'react';
 import { utledSpaUrl } from '../util/url-utils';
 import { DecoratorConfig } from './internflate-decorator/internflate-decorator-config';
 import Spinner from './spinner/spinner';
+import {createAssetManifestParser} from "@navikt/navspa/dist/async/utils";
 
 interface SpaProps {
 	enhet?: string;
@@ -60,15 +61,11 @@ export const aktivitetsplanAsyncConfig: AsyncSpaConfig = {
 	},
 	assetManifestParser: manifest => {
 		const isWebpackManifeset = 'entrypoints' in manifest
+		const baseUrl = utledSpaUrl(SpaName.AKTIVITETSPLAN)
 		if (isWebpackManifeset) {
-			const files = Object.entries(manifest['files'])
-				.map(([name, path]) => ({ name, path }) as { name: string, path: string })
-			return manifest['entrypoints']
-				.map((entrypoint: string) => files.find(({ path }) => path.endsWith(entrypoint))?.path)
-				.filter((filePath: string | undefined) => filePath)
+			return createAssetManifestParser(baseUrl)(manifest)
 		} else { // Vitejs manifest
 			const { file, css } = manifest['index.html'];
-			const baseUrl = utledSpaUrl(SpaName.AKTIVITETSPLAN);
 			const entry = { type: 'module', path: `${baseUrl}/${file}` };
 			const styles = css.map((path: string) => ({ path: `${baseUrl}/${path}` }));
 			return [entry, ...styles];
