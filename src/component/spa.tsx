@@ -3,6 +3,7 @@ import React from 'react';
 import { utledSpaUrl } from '../util/url-utils';
 import { DecoratorConfig } from './internflate-decorator/internflate-decorator-config';
 import Spinner from './spinner/spinner';
+import {createAssetManifestParser} from "@navikt/navspa/dist/async/utils";
 
 interface SpaProps {
 	enhet?: string;
@@ -57,6 +58,18 @@ export const aktivitetsplanAsyncConfig: AsyncSpaConfig = {
 	loader: <Spinner type="L" className="veilarbpersonflatefs-visittkort-spinner" />,
 	config: {
 		wrapperClassName: spaWrapperTabContentClassName
+	},
+	assetManifestParser: manifest => {
+		const isWebpackManifeset = 'entrypoints' in manifest
+		const baseUrl = utledSpaUrl(SpaName.AKTIVITETSPLAN)
+		if (isWebpackManifeset) {
+			return createAssetManifestParser(baseUrl)(manifest)
+		} else { // Vitejs manifest
+			const { file, css } = manifest['index.html'];
+			const entry = { type: 'module', path: `${baseUrl}/${file}` };
+			const styles = css.map((path: string) => ({ path: `${baseUrl}/${path}` }));
+			return [entry, ...styles];
+		}
 	}
 };
 
