@@ -116,6 +116,7 @@ const AktivitetsplanWebcomponent = ({ fnr }: SpaProps) => {
 		hasLoadedAssets = true
 	}, [])
 	return React.createElement('dab-aktivitetsplan', {
+		// eslint-disable-next-line
 		['data-fnr']: fnr
 	})
 }
