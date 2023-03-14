@@ -81,7 +81,6 @@ class SideInnhold extends React.Component<SideInnholdLayoutProps> {
 			id: TabId.AKTIVITETSPLAN,
 			title: 'Aktivitetsplan',
 			content: aktivitetsplan,
-			className: 'tab-menu__tab-content--aktivitetsplan' // TODO: Aktivitetsplan burde sette margin-top selv
 		};
 
 		if (dialog) {
