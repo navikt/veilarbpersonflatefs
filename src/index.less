@@ -18,6 +18,20 @@ header.dekorator {
 	font-size: 1rem;
 }
 
+@media print {
+	header.dekorator {
+		display: none;
+	}
+
+	div.visittkortfs {
+		display: none;
+	}
+
+	.tab-menu__headers--wrapper {
+		display: none;
+	}
+}
+
 #veilarbpersonflatefs-root {
 	display: flex;
 	flex-direction: column;
