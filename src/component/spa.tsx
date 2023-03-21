@@ -67,7 +67,7 @@ export const aktivitetsplanAsyncConfig: AsyncSpaConfig = {
 		} else { // Vitejs manifest
 			const { file } = manifest['index.html'];
 			const otherJs = Object.entries(manifest)
-				.filter(([name, fileMeta]) => name.endsWith('.js'))
+				.filter(([name, fileMeta]) => fileMeta.path.endsWith('.js'))
 				.map (([name, fileMeta]) => {
 				return {
 					type: 'module',
