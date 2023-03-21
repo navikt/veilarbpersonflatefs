@@ -66,10 +66,9 @@ export const aktivitetsplanAsyncConfig: AsyncSpaConfig = {
 		if (isWebpackManifeset) {
 			return createAssetManifestParser(baseUrl)(manifest)
 		} else { // Vitejs manifest
-			const { file/*, css*/ } = manifest['index.html'];
+			const { file } = manifest['index.html'];
 			const entry = { type: 'module', path: `${baseUrl}/${file}` };
-			// const styles = css.map((path: string) => ({ path: `${baseUrl}/${path}` }));
-			return [entry,/* ...styles*/];
+			return [entry];
 		}
 	}
 };
@@ -108,19 +107,7 @@ export const Decorator: React.ComponentType<DecoratorConfig> = navSpaImport<Deco
 export const Visittkort: React.ComponentType<VisittKortProps> =
 	AsyncNavspa.importer<VisittKortProps>(visittkortAsyncConfig);
 
-let hasLoadedAssets = false
-const AktivitetsplanWebcomponent = ({ fnr }: SpaProps) => {
-	useEffect(() => {
-		if (hasLoadedAssets) return
-		loadAssets(aktivitetsplanAsyncConfig)
-		hasLoadedAssets = true
-	}, [])
-	return React.createElement('dab-aktivitetsplan', {
-		// eslint-disable-next-line
-		['data-fnr']: fnr
-	})
-}
-export const Aktivitetsplan: React.ComponentType<SpaProps> = AktivitetsplanWebcomponent //AsyncNavspa.importer<SpaProps>(aktivitetsplanAsyncConfig);
+export const Aktivitetsplan: React.ComponentType<SpaProps> = AsyncNavspa.importer<SpaProps>(aktivitetsplanAsyncConfig);
 export const Dialog: React.ComponentType<SpaProps> = AsyncNavspa.importer<SpaProps>(dialogAsyncConfig);
 export const Detaljer: React.ComponentType<SpaProps> = AsyncNavspa.importer<SpaProps>(detaljerAsyncConfig);
 export const Vedtaksstotte: React.ComponentType<SpaProps> = AsyncNavspa.importer<SpaProps>(vedtaksstotteAsyncConfig);
