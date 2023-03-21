@@ -1,10 +1,9 @@
 import { AsyncNavspa, AsyncSpaConfig, Navspa } from '@navikt/navspa';
-import React, {useEffect} from 'react';
+import React from 'react';
 import { utledSpaUrl } from '../util/url-utils';
 import { DecoratorConfig } from './internflate-decorator/internflate-decorator-config';
 import Spinner from './spinner/spinner';
 import {createAssetManifestParser} from "@navikt/navspa/dist/async/utils";
-import {loadAssets} from "@navikt/navspa/dist/async/async-navspa";
 
 interface SpaProps {
 	enhet?: string;
@@ -106,7 +105,6 @@ export const Decorator: React.ComponentType<DecoratorConfig> = navSpaImport<Deco
 
 export const Visittkort: React.ComponentType<VisittKortProps> =
 	AsyncNavspa.importer<VisittKortProps>(visittkortAsyncConfig);
-
 export const Aktivitetsplan: React.ComponentType<SpaProps> = AsyncNavspa.importer<SpaProps>(aktivitetsplanAsyncConfig);
 export const Dialog: React.ComponentType<SpaProps> = AsyncNavspa.importer<SpaProps>(dialogAsyncConfig);
 export const Detaljer: React.ComponentType<SpaProps> = AsyncNavspa.importer<SpaProps>(detaljerAsyncConfig);
