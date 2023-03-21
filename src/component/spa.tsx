@@ -66,8 +66,16 @@ export const aktivitetsplanAsyncConfig: AsyncSpaConfig = {
 			return createAssetManifestParser(baseUrl)(manifest)
 		} else { // Vitejs manifest
 			const { file } = manifest['index.html'];
+			const otherJs = Object.entries(manifest)
+				.filter(([name, fileMeta]) => name.endsWith('.js'))
+				.map (([name, fileMeta]) => {
+				return {
+					type: 'module',
+					path: `${baseUrl}/${fileMeta.file}`
+				}
+			})
 			const entry = { type: 'module', path: `${baseUrl}/${file}` };
-			return [entry];
+			return [entry, ...otherJs];
 		}
 	}
 };
