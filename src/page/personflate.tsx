@@ -12,7 +12,7 @@ import { InternflateDecorator } from '../component/internflate-decorator/internf
 import { useFetchAktivEnhet, useFetchFeatures, useFetchTilgangTilBruker } from '../api/api';
 import { hasAnyFailed, isAnyLoading } from '../api/utils';
 import { Features } from '../api/features';
-import { useModiaContextStore } from '../store/modia-context-store';
+import { useModiaContext } from '../store/modia-context-store';
 import { UtloptSesjonAdvarsel } from '../component/utlopt-sesjon-advarsel/utlopt-sesjon-advarsel';
 import { SesjonStatus, useSesjonStatus } from '../hooks/use-sesjon-status';
 
@@ -24,7 +24,7 @@ interface AppInnholdProps {
 
 export const PersonflatePage = () => {
 	const [appInnholdKey] = useState<number>(0);
-	const { aktivBrukerFnr, aktivEnhetId, setAktivEnhetId } = useModiaContextStore();
+	const { aktivBrukerFnr, aktivEnhetId, setAktivEnhetId } = useModiaContext();
 	const { sesjonStatus } = useSesjonStatus();
 
 	const fetchTilgangTilBruker = useFetchTilgangTilBruker(aktivBrukerFnr, { manual: true });

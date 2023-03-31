@@ -1,5 +1,5 @@
-import React from 'react';
-import { ModiaContextStore } from './modia-context-store';
+import React, { useState } from 'react';
+import { ModiaContext } from './modia-context-store';
 
 interface StoreProviderProps {
 	fnr: string;
@@ -7,7 +7,20 @@ interface StoreProviderProps {
 }
 
 const StoreProvider = (props: StoreProviderProps) => {
-	return <ModiaContextStore fnr={props.fnr}>{props.children}</ModiaContextStore>;
+	const [fnr, setFnr] = useState(props.fnr);
+	const [aktivEnhet, setAktivEnhet] = useState<null | string>(null);
+	return (
+		<ModiaContext.Provider
+			value={{
+				aktivBrukerFnr: fnr,
+				setAktivBrukerFnr: setFnr,
+				aktivEnhetId: aktivEnhet,
+				setAktivEnhetId: setAktivEnhet
+			}}
+		>
+			{props.children}
+		</ModiaContext.Provider>
+	);
 };
 
 export default StoreProvider;

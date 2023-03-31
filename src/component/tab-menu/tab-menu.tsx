@@ -5,7 +5,7 @@ import { lagreSistBesokteTab } from './siste-tab';
 import { useEventListener } from '../../util/utils';
 import useUlesteDialoger from './dialog-tab/useAntalUlesteDialoger';
 import './tab-menu.less';
-import { useModiaContextStore } from '../../store/modia-context-store';
+import { useModiaContext } from '../../store/modia-context-store';
 import { logEvent } from '../../util/frontend-logger';
 import { BodyShort } from '@navikt/ds-react';
 
@@ -42,7 +42,7 @@ interface MenuButtonProps {
 }
 
 const UlesteDialoger = () => {
-	const { aktivBrukerFnr } = useModiaContextStore();
+	const { aktivBrukerFnr } = useModiaContext();
 	const antallUleste = useUlesteDialoger(aktivBrukerFnr);
 
 	if (!antallUleste) {

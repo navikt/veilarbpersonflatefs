@@ -1,9 +1,17 @@
-import { useState } from 'react';
-import constate from 'constate';
+import React, { useContext } from 'react';
 
-export const [ModiaContextStore, useModiaContextStore] = constate((initalValues: { fnr: string }) => {
-	const [aktivBrukerFnr, setAktivBrukerFnr] = useState<string>(initalValues.fnr);
-	const [aktivEnhetId, setAktivEnhetId] = useState<string>();
-
-	return { aktivBrukerFnr, setAktivBrukerFnr, aktivEnhetId, setAktivEnhetId };
+interface ModiaContextData {
+	aktivBrukerFnr: string;
+	setAktivBrukerFnr: (fnr: string) => void;
+	aktivEnhetId: string | null;
+	setAktivEnhetId: (enhetId: string) => void;
+}
+export const ModiaContext = React.createContext<ModiaContextData>({
+	aktivBrukerFnr: '',
+	aktivEnhetId: null,
+	// tslint:disable-next-line:no-empty
+	setAktivBrukerFnr: () => {},
+	// tslint:disable-next-line:no-empty
+	setAktivEnhetId: () => {}
 });
+export const useModiaContext = () => useContext(ModiaContext);
