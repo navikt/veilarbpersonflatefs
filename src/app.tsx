@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import { useEffect } from 'react';
 import StoreProvider from './store/store-provider';
 import { hentFnrFraUrl } from './util/url-utils';
 import { PersonflatePage } from './page/personflate';

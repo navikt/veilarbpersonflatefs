@@ -1,7 +1,7 @@
 import { useCallback, useEffect } from 'react';
 
 export function erMock() {
-	return process.env.REACT_APP_MOCK === 'true';
+	return import.meta.env.MODE === 'development';
 }
 
 export function hasStored(tagName: string) {

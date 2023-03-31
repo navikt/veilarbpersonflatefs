@@ -13,7 +13,7 @@ interface SideInnholdLayoutProps {
 	dialog?: React.ReactElement;
 	vedtaksstotte: React.ReactElement;
 	arbeidsmarkedstiltak: React.ReactElement;
-	features: Features;
+	features?: Features;
 	fnr: string;
 }
 
@@ -36,13 +36,6 @@ const showTabMap: { [k: string]: TabId } = {
 	visDetaljer: TabId.DETALJER,
 	visArbeidsmarkedstiltak: TabId.ARBEIDSMARKEDSTILTAK
 };
-
-declare global {
-	interface Window {
-		defaultSelectedTab?: string;
-	}
-}
-
 
 class SideInnhold extends React.Component<SideInnholdLayoutProps> {
 	getTabFromHashParam(): TabId | undefined {
@@ -80,7 +73,7 @@ class SideInnhold extends React.Component<SideInnholdLayoutProps> {
 		const aktivitet = {
 			id: TabId.AKTIVITETSPLAN,
 			title: 'Aktivitetsplan',
-			content: aktivitetsplan,
+			content: aktivitetsplan
 		};
 
 		if (dialog) {
@@ -103,7 +96,7 @@ class SideInnhold extends React.Component<SideInnholdLayoutProps> {
 			className: 'tab-menu__tab-content--vedtaksstotte'
 		});
 
-		if (features[ARBEIDSMARKEDSTILTAK_LANSERING]) {
+		if (features?.[ARBEIDSMARKEDSTILTAK_LANSERING]) {
 			tabs.push({
 				id: TabId.ARBEIDSMARKEDSTILTAK,
 				title: 'Arbeidsmarkedstiltak',

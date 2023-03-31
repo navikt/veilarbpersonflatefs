@@ -1,16 +1,15 @@
-import React from 'react';
-import NavFrontendSpinner from 'nav-frontend-spinner';
 import './spinner.less';
+import { Loader } from '@navikt/ds-react';
 
 interface SpinnerProps {
-	type?: 'XXS' | 'XS' | 'S' | 'M' | 'L' | 'XL' | 'XXL' | 'XXXL';
+	type?: 'large';
 	className?: string;
 }
 
 function Spinner(props: SpinnerProps) {
 	return (
 		<div className={props.className || 'veilarbpersonflatefs-spinner'}>
-			<NavFrontendSpinner type={props.type || 'XL'} />
+			<Loader size={props.type || 'xlarge'} />
 		</div>
 	);
 }

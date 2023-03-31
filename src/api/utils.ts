@@ -2,7 +2,7 @@ import { useMemo } from 'react';
 import axios, { AxiosPromise, AxiosRequestConfig } from 'axios';
 import useAxiosHook, { configure, Options, RefetchOptions, ResponseValues } from 'axios-hooks';
 
-export type UseAxiosResponseValue<T> = ResponseValues<T> & {
+export type UseAxiosResponseValue<T> = ResponseValues<T, any, any> & {
 	fetch: (config?: AxiosRequestConfig, options?: RefetchOptions) => AxiosPromise<T>;
 };
 

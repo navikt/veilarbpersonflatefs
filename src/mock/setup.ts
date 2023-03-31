@@ -15,7 +15,7 @@ import { testBrukerFnr } from './api/data';
 window.history.replaceState('', '', '/veilarbpersonflatefs/' + testBrukerFnr + window.location.hash);
 
 setupWorker(...handlers)
-	.start({ serviceWorker: { url: process.env.PUBLIC_URL + '/mockServiceWorker.js' } })
+	.start({ serviceWorker: { url: '' + '/mockServiceWorker.js' } })
 	.catch(e => {
 		// tslint:disable-next-line:no-console
 		console.error('Unable to setup mocked API endpoints', e);

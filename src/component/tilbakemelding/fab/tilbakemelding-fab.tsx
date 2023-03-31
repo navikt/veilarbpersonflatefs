@@ -10,7 +10,7 @@ import './tilbakemelding-fab.less';
 // FAB = Floating Action Button
 
 interface TilbakemeldingFabProps {
-	features: Features;
+	features?: Features;
 }
 
 interface TilbakemeldingFabState {
@@ -19,6 +19,10 @@ interface TilbakemeldingFabState {
 	hideFab: boolean;
 }
 
+const APP_NAME = 'veilarbpersonflatefs';
+const TILBAKEMELDING_PREFIX = 'har_sendt_tilbakemelding';
+const TILBAKEMELDING_FEATURE_TAG = 'ny_layout'; // NB: Husk å endre for hver nye feature
+
 class TilbakemeldingFab extends React.Component<TilbakemeldingFabProps, TilbakemeldingFabState> {
 	state = {
 		hideFab: false,
@@ -26,11 +30,7 @@ class TilbakemeldingFab extends React.Component<TilbakemeldingFabProps, Tilbakem
 		isModalOpen: false
 	};
 
-	private readonly APP_NAME = 'veilarbpersonflatefs';
-	private readonly TILBAKEMELDING_PREFIX = 'har_sendt_tilbakemelding';
-	private readonly TILBAKEMELDING_FEATURE_TAG = 'ny_layout'; // NB: Husk å endre for hver nye feature
-
-	private wrapperRef?: HTMLElement | null;
+	wrapperRef?: HTMLElement | null;
 
 	componentDidMount() {
 		document.addEventListener('mousedown', this.handleClickOutside);
@@ -47,7 +47,7 @@ class TilbakemeldingFab extends React.Component<TilbakemeldingFabProps, Tilbakem
 	};
 
 	tilbakemeldingLocalStorageName = () => {
-		return `${this.TILBAKEMELDING_PREFIX}__${this.TILBAKEMELDING_FEATURE_TAG}`;
+		return `${TILBAKEMELDING_PREFIX}__${TILBAKEMELDING_FEATURE_TAG}`;
 	};
 
 	harTidligereSendtTilbakemelding = () => {
@@ -56,7 +56,7 @@ class TilbakemeldingFab extends React.Component<TilbakemeldingFabProps, Tilbakem
 
 	handleFabClicked = () => {
 		if (!this.state.isModalOpen) {
-			logEvent(`${this.APP_NAME}.tilbakemelding_modal_apnet`);
+			logEvent(`${APP_NAME}.tilbakemelding_modal_apnet`);
 		}
 
 		this.setState((prevState: TilbakemeldingFabState) => {
@@ -68,12 +68,12 @@ class TilbakemeldingFab extends React.Component<TilbakemeldingFabProps, Tilbakem
 		this.startAutoClose();
 		this.setState({ hideFab: true });
 		window.localStorage.setItem(this.tilbakemeldingLocalStorageName(), 'true');
-		logEvent(`${this.APP_NAME}.tilbakemelding`, { feature: this.TILBAKEMELDING_FEATURE_TAG, ...tilbakemelding });
+		logEvent(`${APP_NAME}.tilbakemelding`, { feature: TILBAKEMELDING_FEATURE_TAG, ...tilbakemelding });
 	};
 
 	handleIkkeVisIgjen = () => {
 		window.localStorage.setItem(this.tilbakemeldingLocalStorageName(), 'true');
-		logEvent(`${this.APP_NAME}.ikke_vis_tilbakemelding_igjen`);
+		logEvent(`${APP_NAME}.ikke_vis_tilbakemelding_igjen`);
 		this.setState({ ikkeVisIgjen: true });
 	};
 
@@ -87,7 +87,7 @@ class TilbakemeldingFab extends React.Component<TilbakemeldingFabProps, Tilbakem
 		const { features } = this.props;
 		const { isModalOpen, ikkeVisIgjen, hideFab } = this.state;
 		const hide =
-			ikkeVisIgjen || !features[SPOR_OM_TILBAKEMELDING] || this.harTidligereSendtTilbakemelding() || hideFab;
+			ikkeVisIgjen || !features?.[SPOR_OM_TILBAKEMELDING] || this.harTidligereSendtTilbakemelding() || hideFab;
 
 		return (
 			<div

@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import cls from 'classnames';
-import { Normaltekst } from 'nav-frontend-typografi';
 import { TabId } from '../side-innhold';
 import { lagreSistBesokteTab } from './siste-tab';
 import { useEventListener } from '../../util/utils';
@@ -8,6 +7,7 @@ import useUlesteDialoger from './dialog-tab/useAntalUlesteDialoger';
 import './tab-menu.less';
 import { useModiaContextStore } from '../../store/modia-context-store';
 import { logEvent } from '../../util/frontend-logger';
+import { BodyShort } from '@navikt/ds-react';
 
 export interface Tab {
 	id: TabId;
@@ -62,10 +62,10 @@ const MenuButton = (props: MenuButtonProps) => {
 
 	return (
 		<button className={cls('tab', { 'tab--selected': isSelected })} onClick={onClick} aria-expanded={isSelected}>
-			<Normaltekst className={cls('tab__title', { 'tab__title--selected': isSelected })}>
+			<BodyShort className={cls('tab__title', { 'tab__title--selected': isSelected })}>
 				{title}
 				{tabId === TabId.DIALOG && <UlesteDialoger />}
-			</Normaltekst>
+			</BodyShort>
 		</button>
 	);
 };

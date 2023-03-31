@@ -1,6 +1,6 @@
-import * as React from 'react';
 import { Decorator } from '../spa';
 import { DecoratorConfig, EnhetDisplay, FnrDisplay } from './internflate-decorator-config';
+import { useEffect } from 'react';
 
 interface InternflateDecoratorProps {
 	enhetId: string | undefined | null;

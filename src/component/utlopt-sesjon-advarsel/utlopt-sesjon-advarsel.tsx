@@ -1,17 +1,15 @@
-import React from 'react';
 import { loginUrl } from '../../util/url-utils';
-import Lenke from 'nav-frontend-lenker';
-import { AlertStripeAdvarsel } from 'nav-frontend-alertstriper';
+import { Alert, Link } from '@navikt/ds-react';
 import './utlopt-sesjon-advarsel.less';
 
 export const UtloptSesjonAdvarsel = () => {
-	const LoginLenke = () => <Lenke href={loginUrl()}>Logg inn på nytt.</Lenke>;
+	const LoginLenke = () => <Link href={loginUrl()}>Logg inn på nytt.</Link>;
 
 	return (
 		<div className="utloptSesjonAdvarselWrapper">
-			<AlertStripeAdvarsel>
+			<Alert variant="warning">
 				Økten din er utløpt. <LoginLenke />
-			</AlertStripeAdvarsel>
+			</Alert>
 		</div>
 	);
 };

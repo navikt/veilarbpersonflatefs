@@ -1,4 +1,3 @@
-@import "~nav-frontend-core/less/_variabler";
 
 .stegviser {
 	display: flex;
@@ -22,11 +21,11 @@
 		width: 0.625rem;
 		height: 0.625rem;
 		border-radius: 50%;
-		background-color: @navBlaLighten60;
+		background-color: var(--a-blue-200);
 	}
 
 	&__steg--selected {
-		background-color: @navBla;
+		background-color: var(--a-blue-500);
 		transition: background-color 333ms linear;
 	}
 

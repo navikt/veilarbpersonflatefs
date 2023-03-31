@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import SideInnhold from '../component/side-innhold';
 import { Aktivitetsplan, Arbeidsmarkedstiltak, Detaljer, Dialog, Vedtaksstotte, Visittkort } from '../component/spa';
 import {
@@ -19,7 +19,7 @@ import { SesjonStatus, useSesjonStatus } from '../hooks/use-sesjon-status';
 interface AppInnholdProps {
 	fnr: string;
 	enhetId: string | undefined;
-	features: Features;
+	features?: Features;
 }
 
 export const PersonflatePage = () => {

@@ -1,11 +1,11 @@
 import React from 'react';
-import NavFrontendSpinner from 'nav-frontend-spinner';
 import './page-spinner.less';
+import { Loader } from '@navikt/ds-react';
 
 const PageSpinner: React.FunctionComponent = () => {
 	return (
 		<div className="page-spinner">
-			<NavFrontendSpinner type="XL" />
+			<Loader size="xlarge" />
 		</div>
 	);
 };

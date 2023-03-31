@@ -1,4 +1,3 @@
-@import "~nav-frontend-core/less/_variabler";
 
 .tab-menu {
 	display: flex;
@@ -53,7 +52,7 @@
 
 	&:focus {
 		outline: none;
-		box-shadow: 0 0 0 3px @navBlaDarken60;
+		box-shadow: 0 0 0 3px var(--a-blue-800);
 	}
 
 	&:first-child {
@@ -61,12 +60,12 @@
 	}
 
 	&__title {
-		color: @navGra80;
+		color: var(--a-gray-800);
 		padding: 0 1.25rem;
 
 		&__notification {
 			font-size: 0.875rem;
-			background-color: @navRod;
+			background-color: var(--a-red-500);
 			color: white;
 			border-radius: 100%;
 			padding: 0 5.5px;
@@ -77,19 +76,19 @@
 	}
 
 	&__title:hover {
-		color: @navMorkGra;
+		color: var(--a-gray-800);
 	}
 
 	&__title--selected {
-		color: @navMorkGra;
+		color: var(--a-gray-800);
 		font-weight: 900 !important;
 	}
 
 	&:hover:not(:focus) {
-		border-bottom: 3px solid @navBla;
+		border-bottom: 3px solid var(--a-blue-500);
 	}
 
 	&--selected:not(:focus) {
-		border-bottom: 3px solid @navBla;
+		border-bottom: 3px solid var(--a-blue-500);
 	}
 }

@@ -1,8 +1,8 @@
-import React from 'react';
-import * as ReactDOM from 'react-dom';
+import '@navikt/ds-css';
+
 import { App } from './app';
-import NavFrontendModal from 'nav-frontend-modal';
 import './index.less';
+
 import { AsyncNavspa } from '@navikt/navspa';
 import {
 	arbeidsmarkedstiltakAsyncConfig,
@@ -12,23 +12,32 @@ import {
 	visittkortAsyncConfig
 } from './component/spa';
 import { erMock } from './util/utils';
+import { Modal } from '@navikt/ds-react';
+import { createRoot } from 'react-dom/client';
+
+const lastInnSubApper = () => {
+	AsyncNavspa.preload(visittkortAsyncConfig);
+	AsyncNavspa.preload(detaljerAsyncConfig);
+	AsyncNavspa.preload(vedtaksstotteAsyncConfig);
+	AsyncNavspa.preload(dialogAsyncConfig);
+	AsyncNavspa.preload(arbeidsmarkedstiltakAsyncConfig);
+};
+const renderApp = () => {
+	const root = createRoot(document.getElementById('veilarbpersonflatefs-root')!!);
+	root.render(<App />);
+};
 
 if (!window['_babelPolyfill']) {
 	// @ts-ignore
-	require('babel-polyfill');
+	import('babel-polyfill');
 }
 
-NavFrontendModal.setAppElement(document.getElementById('modal-a11y-wrapper'));
+Modal.setAppElement(document.getElementById('modal-a11y-wrapper'));
 
 if (erMock()) {
 	// @ts-ignore
-	require('./mock/setup');
+	import('./mock/setup').then(renderApp);
+} else {
+	renderApp();
+	lastInnSubApper();
 }
-
-AsyncNavspa.preload(visittkortAsyncConfig);
-AsyncNavspa.preload(detaljerAsyncConfig);
-AsyncNavspa.preload(vedtaksstotteAsyncConfig);
-AsyncNavspa.preload(dialogAsyncConfig);
-AsyncNavspa.preload(arbeidsmarkedstiltakAsyncConfig);
-
-ReactDOM.render(<App />, document.getElementById('veilarbpersonflatefs-root'));
