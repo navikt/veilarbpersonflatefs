@@ -1,4 +1,4 @@
-import NAVSPA, { AsyncNavspa, AsyncSpaConfig, Navspa } from '@navikt/navspa';
+import NAVSPA, { AsyncNavspa, AsyncSpaConfig } from '@navikt/navspa';
 import React from 'react';
 import { utledSpaUrl } from '../util/url-utils';
 import { DecoratorConfig } from './internflate-decorator/internflate-decorator-config';
