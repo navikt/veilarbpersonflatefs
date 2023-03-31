@@ -4,9 +4,6 @@ import { utledSpaUrl } from '../util/url-utils';
 import { DecoratorConfig } from './internflate-decorator/internflate-decorator-config';
 import Spinner from './spinner/spinner';
 import { createAssetManifestParser } from '@navikt/navspa/dist/async/utils';
-// import { React17Adapter } from '@navikt/navspa-react-17-adapter';
-
-// NAVSPA.setAdapter(new React17Adapter());
 
 interface SpaProps {
 	enhet?: string;
@@ -103,9 +100,6 @@ export const arbeidsmarkedstiltakAsyncConfig: AsyncSpaConfig = {
 	}
 };
 
-// export const Decorator: React.ComponentType<DecoratorConfig> = navSpaImport<DecoratorConfig>(
-// 	SpaName.INTERNARBEIDSFLATEFS_DECORATOR
-// );
 export const Decorator: React.ComponentType<DecoratorConfig> = NAVSPA.importer(SpaName.INTERNARBEIDSFLATEFS_DECORATOR, {
 	wrapperClassName: ''
 });
@@ -119,14 +113,3 @@ export const Vedtaksstotte: React.ComponentType<SpaProps> = AsyncNavspa.importer
 export const Arbeidsmarkedstiltak: React.ComponentType<SpaProps> = AsyncNavspa.importer<SpaProps>(
 	arbeidsmarkedstiltakAsyncConfig
 );
-
-function navSpaImport<P extends {}>(spaName: SpaName, wrapperClassName?: string): React.FunctionComponent<P> {
-	return (props: P) => {
-		const SpaApp = Navspa.importer<P>(spaName);
-		return (
-			<div className={wrapperClassName}>
-				<SpaApp {...props} />
-			</div>
-		);
-	};
-}
