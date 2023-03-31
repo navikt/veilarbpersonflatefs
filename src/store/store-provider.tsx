@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useMemo, useState } from 'react';
 import { ModiaContext } from './modia-context-store';
 
 interface StoreProviderProps {
@@ -9,13 +9,17 @@ interface StoreProviderProps {
 const StoreProvider = (props: StoreProviderProps) => {
 	const [fnr, setFnr] = useState(props.fnr);
 	const [aktivEnhet, setAktivEnhet] = useState<null | string>(null);
+
+	const memoSetfnr = useMemo(() => setFnr, [setFnr]);
+	const memoSetEnhet = useMemo(() => setAktivEnhet, [setAktivEnhet]);
+
 	return (
 		<ModiaContext.Provider
 			value={{
 				aktivBrukerFnr: fnr,
-				setAktivBrukerFnr: setFnr,
+				setAktivBrukerFnr: memoSetfnr,
 				aktivEnhetId: aktivEnhet,
-				setAktivEnhetId: setAktivEnhet
+				setAktivEnhetId: memoSetEnhet
 			}}
 		>
 			{props.children}
