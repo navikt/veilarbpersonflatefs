@@ -29,7 +29,7 @@ export const PersonflatePage = () => {
 
 	const onAktivBrukerChanged = (newFnr: string | null) => {
 		if (newFnr && newFnr !== aktivBrukerFnr) {
-			window.history.pushState('', 'Personflate', `/veilarbpersonflatefs/${newFnr}`);
+			window.history.pushState('', 'Personflate', `/${newFnr}`);
 			setAktivBrukerFnr(newFnr);
 			setRenderKey(renderKey + 1); // Forces all the micro frontends to be remounted so that their state is reset
 		}
