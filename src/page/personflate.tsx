@@ -29,6 +29,7 @@ export const PersonflatePage = () => {
 
 	const onAktivBrukerChanged = (newFnr: string | null) => {
 		if (newFnr && newFnr !== aktivBrukerFnr) {
+			console.log('onAktivBrukerChanged new fnr', { newFnr, aktivBrukerFnr });
 			window.history.pushState('', '', `/${newFnr}`);
 			setAktivBrukerFnr(newFnr);
 			setRenderKey(renderKey + 1); // Forces all the micro frontends to be remounted so that their state is reset
@@ -39,7 +40,10 @@ export const PersonflatePage = () => {
 
 	const onAktivEnhetChanged = (newEnhetId: string | null) => {
 		if (newEnhetId && newEnhetId !== aktivEnhetId) {
+			console.log('onAktivEnhetChanged new enhet', { newEnhetId, aktivEnhetId });
 			setAktivEnhetId(newEnhetId);
+		} else {
+			console.log('onAktivEnhetChanged called but did not trigger change', { newEnhetId, aktivEnhetId });
 		}
 	};
 
