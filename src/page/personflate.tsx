@@ -80,7 +80,7 @@ export const PersonflatePage = () => {
 		<>
 			<InternflateDecorator
 				enhetId={aktivEnhetId}
-				fnr={aktivBrukerFnr}
+				fnr={aktivBrukerFnr ?? null}
 				onEnhetChanged={onAktivEnhetChanged}
 				onFnrChanged={onAktivBrukerChanged}
 			/>
