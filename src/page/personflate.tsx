@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import SideInnhold from '../component/side-innhold';
 import {
 	FeilmeldingManglerFnr,
@@ -28,16 +28,21 @@ export const PersonflatePage = () => {
 	const fetchFeature = useFetchFeatures();
 	const fetchAktivEnhet = useFetchAktivEnhet();
 
-	const onAktivBrukerChanged = (newFnr: string | null) => {
-		if (newFnr && newFnr !== aktivBrukerFnr) {
-			console.log('onAktivBrukerChanged new fnr', { newFnr, aktivBrukerFnr });
-			window.history.pushState('', '', `/${newFnr}`);
-			setAktivBrukerFnr(newFnr);
+	// Hack because used because internflatedecorator does not update onFnrChanged function so comparison on fnr can not
+	// be done inside that function because it alwaus closes the first value
+	const [nextFnr, setNextFnr] = useState<null | string>(aktivBrukerFnr);
+	useEffect(() => {
+		if (nextFnr && nextFnr !== aktivBrukerFnr) {
+			console.log('onAktivBrukerChanged new fnr', { nextFnr, aktivBrukerFnr });
+			window.history.pushState('', '', `/${nextFnr}`);
+			setAktivBrukerFnr(nextFnr);
 			setRenderKey(renderKey + 1); // Forces all the micro frontends to be remounted so that their state is reset
 		} else {
-			console.log('onAktivBrukerChanged called but did not trigger change', { newFnr, aktivBrukerFnr });
+			console.log('onAktivBrukerChanged called but did not trigger change', { nextFnr, aktivBrukerFnr });
 		}
-	};
+	}, [nextFnr]);
+
+	const onAktivBrukerChanged = (newFnr: string | null) => setNextFnr(newFnr);
 
 	const onAktivEnhetChanged = (newEnhetId: string | null) => {
 		if (newEnhetId && newEnhetId !== aktivEnhetId) {
