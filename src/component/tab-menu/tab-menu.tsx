@@ -68,6 +68,8 @@ function TabMenu(props: TabsProps) {
 	useEventListener('visAktivitetsplan', () => changeTab(TabId.AKTIVITETSPLAN));
 	useEventListener('visDialog', event => changeTab(TabId.DIALOG, event));
 
+	console.log({ renderKey });
+
 	return (
 		<div className="tab-menu">
 			<Tabs onChange={tabId => changeTab(tabId as TabId)} value={currentTab.id} defaultValue={tabs[0].id}>

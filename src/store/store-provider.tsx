@@ -12,14 +12,6 @@ export const DispatchProvider = React.createContext((a: any) => {});
 const StoreProvider = (props: StoreProviderProps) => {
 	const [state, dispatch] = useReducer(reducer, props.fnr, createInitialStore);
 
-	// const [fnr, setFnr] = useState(props.fnr);
-	// const [aktivEnhet, setAktivEnhet] = useState<null | string>(null);
-	// const [renderKey, setRenderKey] = useState(1);
-	//
-	// const memoSetfnr = useMemo(() => setFnr, [setFnr]);
-	// const memoSetEnhet = useMemo(() => setAktivEnhet, [setAktivEnhet]);
-	// const memoSetRenderKey = useMemo(() => setRenderKey, [setRenderKey]);
-	//
 	const forceRerender = () => dispatch({ type: SET_RENDER_KEY, renderKey: state.renderKey + 1 });
 	useEventListener('rerenderMao', forceRerender);
 	useEventListener('oppfolgingAvslutet', forceRerender);

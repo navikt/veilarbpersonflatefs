@@ -14,9 +14,6 @@ const defaultValue = {
 	aktivBrukerFnr: '',
 	aktivEnhetId: null,
 	dispatch: noop,
-	// setAktivBrukerFnr: noop,
-	// setAktivEnhetId: noop,
-	// setRenderKey: noop,
 	renderKey: 1
 };
 export const ModiaContext = React.createContext<ModiaContextData>(null);
