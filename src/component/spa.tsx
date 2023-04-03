@@ -5,7 +5,7 @@ import { DecoratorConfig } from './internflate-decorator/internflate-decorator-c
 import Spinner from './spinner/spinner';
 import { createAssetManifestParser } from '@navikt/navspa/dist/async/utils';
 
-interface SpaProps {
+export interface SpaProps {
 	enhet?: string;
 	fnr: string;
 }

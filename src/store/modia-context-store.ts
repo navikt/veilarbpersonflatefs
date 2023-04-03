@@ -1,17 +1,76 @@
 import React, { useContext } from 'react';
+import { DispatchProvider } from './store-provider';
 
-interface ModiaContextData {
+export interface ModiaContextData {
 	aktivBrukerFnr: string;
-	setAktivBrukerFnr: (fnr: string) => void;
 	aktivEnhetId: string | null;
-	setAktivEnhetId: (enhetId: string) => void;
+	renderKey: number;
 }
-export const ModiaContext = React.createContext<ModiaContextData>({
+
+// tslint:disable-next-line:no-empty
+const noop = () => {};
+
+const defaultValue = {
 	aktivBrukerFnr: '',
 	aktivEnhetId: null,
-	// tslint:disable-next-line:no-empty
-	setAktivBrukerFnr: () => {},
-	// tslint:disable-next-line:no-empty
-	setAktivEnhetId: () => {}
-});
-export const useModiaContext = () => useContext(ModiaContext);
+	dispatch: noop,
+	// setAktivBrukerFnr: noop,
+	// setAktivEnhetId: noop,
+	// setRenderKey: noop,
+	renderKey: 1
+};
+export const ModiaContext = React.createContext<ModiaContextData>(null);
+export const useModiaContext = () => {
+	const dispatch = useContext(DispatchProvider);
+	const values = useContext(ModiaContext);
+	return {
+		...values,
+		setAktivBrukerFnr: (fnr: string) => dispatch({ type: SET_FNR, fnr }),
+		setAktivEnhetId: (enhet: string) => dispatch({ type: SET_ENHET, enhet }),
+		setRenderKey: (renderKey: number) => dispatch({ type: SET_RENDER_KEY, renderKey })
+	};
+};
+
+const SET_FNR = 'SET_FNR' as const;
+interface SetFnr {
+	type: typeof SET_FNR;
+	fnr: string;
+}
+const SET_ENHET = 'SET_ENHET' as const;
+interface SetEnhet {
+	type: typeof SET_ENHET;
+	enhet: string;
+}
+export const SET_RENDER_KEY = 'SET_RENDER_KEY' as const;
+interface SetRenderKey {
+	type: typeof SET_RENDER_KEY;
+	renderKey: number;
+}
+export const reducer = (state: ModiaContextData, action: SetFnr | SetEnhet | SetRenderKey): ModiaContextData => {
+	switch (action.type) {
+		case 'SET_ENHET':
+			return {
+				...state,
+				aktivEnhetId: action.enhet
+			};
+		case 'SET_RENDER_KEY':
+			return {
+				...state,
+				renderKey: action.renderKey
+			};
+		case SET_FNR:
+			return {
+				...state,
+				aktivBrukerFnr: action.fnr
+			};
+		default:
+			throw Error('Unknown action');
+	}
+};
+
+export const createInitialStore = (fnr: string) => {
+	return {
+		...defaultValue,
+		aktivBrukerFnr: fnr
+	};
+};

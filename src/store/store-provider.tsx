@@ -1,29 +1,34 @@
-import React, { useMemo, useState } from 'react';
-import { ModiaContext } from './modia-context-store';
+import React, { useReducer } from 'react';
+import { useEventListener } from '../util/utils';
+import { createInitialStore, ModiaContext, reducer, SET_RENDER_KEY } from './modia-context-store';
 
 interface StoreProviderProps {
 	fnr: string;
 	children: React.ReactNode;
 }
 
-const StoreProvider = (props: StoreProviderProps) => {
-	const [fnr, setFnr] = useState(props.fnr);
-	const [aktivEnhet, setAktivEnhet] = useState<null | string>(null);
+export const DispatchProvider = React.createContext((a: any) => {});
 
-	const memoSetfnr = useMemo(() => setFnr, [setFnr]);
-	const memoSetEnhet = useMemo(() => setAktivEnhet, [setAktivEnhet]);
+const StoreProvider = (props: StoreProviderProps) => {
+	const [state, dispatch] = useReducer(reducer, props.fnr, createInitialStore);
+
+	// const [fnr, setFnr] = useState(props.fnr);
+	// const [aktivEnhet, setAktivEnhet] = useState<null | string>(null);
+	// const [renderKey, setRenderKey] = useState(1);
+	//
+	// const memoSetfnr = useMemo(() => setFnr, [setFnr]);
+	// const memoSetEnhet = useMemo(() => setAktivEnhet, [setAktivEnhet]);
+	// const memoSetRenderKey = useMemo(() => setRenderKey, [setRenderKey]);
+	//
+	const forceRerender = () => dispatch({ type: SET_RENDER_KEY, renderKey: state.renderKey + 1 });
+	useEventListener('rerenderMao', forceRerender);
+	useEventListener('oppfolgingAvslutet', forceRerender);
+	useEventListener('eskaleringsVarselSendt', forceRerender);
 
 	return (
-		<ModiaContext.Provider
-			value={{
-				aktivBrukerFnr: fnr,
-				setAktivBrukerFnr: memoSetfnr,
-				aktivEnhetId: aktivEnhet,
-				setAktivEnhetId: memoSetEnhet
-			}}
-		>
-			{props.children}
-		</ModiaContext.Provider>
+		<DispatchProvider.Provider value={dispatch}>
+			<ModiaContext.Provider value={state}>{props.children}</ModiaContext.Provider>
+		</DispatchProvider.Provider>
 	);
 };
 

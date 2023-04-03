@@ -12,7 +12,7 @@ import {
 } from './util/spa-mock-utils';
 import { testBrukerFnr } from './api/data';
 
-window.history.replaceState('', '', '/veilarbpersonflatefs/' + testBrukerFnr + window.location.hash);
+// window.history.replaceState('', '', '/veilarbpersonflatefs/' + testBrukerFnr + window.location.hash);
 
 setupWorker(...handlers)
 	.start({ serviceWorker: { url: '' + '/mockServiceWorker.js' } })
