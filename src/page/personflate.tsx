@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import SideInnhold from '../component/side-innhold';
 import {
 	FeilmeldingManglerFnr,
@@ -21,6 +21,7 @@ interface AppInnholdProps {
 export const PersonflatePage = () => {
 	const { aktivBrukerFnr, aktivEnhetId, setAktivEnhetId, setAktivBrukerFnr, setRenderKey, renderKey } =
 		useModiaContext();
+	console.log('Personflate', { aktivBrukerFnr });
 	const { sesjonStatus } = useSesjonStatus();
 
 	const fetchTilgangTilBruker = useFetchTilgangTilBruker(aktivBrukerFnr, { manual: true });
