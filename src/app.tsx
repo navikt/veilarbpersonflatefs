@@ -22,7 +22,7 @@ export const App = () => {
 		};
 		window.addEventListener('popstate', rerenderIfChangedFnr);
 		return () => window.removeEventListener('popstate', rerenderIfChangedFnr);
-	}, []);
+	}, [fnr]);
 
 	useEffect(() => {
 		/*
