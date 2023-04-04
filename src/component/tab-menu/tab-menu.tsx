@@ -72,8 +72,8 @@ function TabMenu(props: TabsProps) {
 
 	return (
 		<div className="tab-menu">
-			<Tabs onChange={tabId => changeTab(tabId as TabId)} value={currentTab.id} defaultValue={tabs[0].id}>
-				<div className="tab-menu__headers--wrapper">
+			<div className="tab-menu__headers--wrapper">
+				<Tabs onChange={tabId => changeTab(tabId as TabId)} value={currentTab.id} defaultValue={tabs[0].id}>
 					<div className="tab-menu__headers ">
 						<Tabs.List className="tab-menu__headers--hoire">
 							{tabs.map(tab =>
@@ -85,15 +85,19 @@ function TabMenu(props: TabsProps) {
 							)}
 						</Tabs.List>
 					</div>
-				</div>
-				{tabs.map(tab => {
-					return (
-						<Tabs.Panel key={tab.id} value={tab.id}>
-							<tab.content key={`${tab.id}-${renderKey}`} fnr={fnr} enhet={aktivEnhetId ?? undefined} />
-						</Tabs.Panel>
-					);
-				})}
-			</Tabs>
+					{tabs.map(tab => {
+						return (
+							<Tabs.Panel key={tab.id} value={tab.id}>
+								<tab.content
+									key={`${tab.id}-${renderKey}`}
+									fnr={fnr}
+									enhet={aktivEnhetId ?? undefined}
+								/>
+							</Tabs.Panel>
+						);
+					})}
+				</Tabs>
+			</div>
 		</div>
 	);
 }
