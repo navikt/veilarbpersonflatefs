@@ -86,7 +86,7 @@ function TabMenu(props: TabsProps) {
 					{tabs.map(tab => {
 						return (
 							<Tabs.Panel key={tab.id} value={tab.id}>
-								<div className="tab-menu__tab-content">
+								<div className={'tab-menu__tab-content ' + tab.className ?? ''}>
 									<tab.content
 										key={`${tab.id}-${renderKey}`}
 										fnr={fnr}
