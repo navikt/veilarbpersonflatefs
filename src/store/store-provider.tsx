@@ -19,8 +19,13 @@ const StoreProvider = (props: StoreProviderProps) => {
 
 	useEffect(() => {
 		const rerenderIfChangedFnr = () => {
-			if (window.location.pathname.includes(props.fnr)) return;
-			else forceRerender();
+			console.log({
+				pathname: window.location.pathname,
+				fnr: props.fnr
+			});
+			if (window.location.pathname.includes(props.fnr)) {
+				return;
+			} else forceRerender();
 		};
 		window.addEventListener('popstate', rerenderIfChangedFnr);
 		return () => window.removeEventListener('popstate', rerenderIfChangedFnr);
