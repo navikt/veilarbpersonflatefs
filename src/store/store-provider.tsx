@@ -12,7 +12,7 @@ export const DispatchProvider = React.createContext((a: any) => {});
 
 const StoreProvider = (props: StoreProviderProps) => {
 	const [state, dispatch] = useReducer(reducer, props.fnr, createInitialStore);
-
+	console.log({ state, fnr: props.fnr });
 	const forceRerender = () => dispatch({ type: SET_RENDER_KEY, renderKey: state.renderKey + 1 });
 	useEventListener('rerenderMao', forceRerender);
 	useEventListener('oppfolgingAvslutet', forceRerender);
