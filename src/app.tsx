@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import StoreProvider from './store/store-provider';
 import { hentFnrFraUrl } from './util/url-utils';
 import { PersonflatePage } from './page/personflate';
@@ -6,7 +6,17 @@ import { synkroniserManuellStatusMedDkif } from './api/api';
 import './sentry';
 
 export const App = () => {
-	const fnr = hentFnrFraUrl() || '';
+	const [fnr, setFnr] = useState(hentFnrFraUrl() || '');
+
+	useEffect(() => {
+		const rerenderIfChangedFnr = (event: any) => {
+			const nextFnr = hentFnrFraUrl();
+			if (fnr === nextFnr || !nextFnr) return;
+			setFnr(nextFnr);
+		};
+		window.addEventListener('popstate', rerenderIfChangedFnr);
+		return () => window.removeEventListener('popstate', rerenderIfChangedFnr);
+	}, []);
 
 	useEffect(() => {
 		/*
