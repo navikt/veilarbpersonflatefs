@@ -53,6 +53,11 @@ function TabMenu(props: TabsProps) {
 	}, [currentTab, tabs]);
 
 	const changeTab = (id: TabId, extraDetails?: Event) => {
+		// When changing tabs these apps expect url to be /:fnr or their routes won't match
+		if ([TabId.DIALOG, TabId.AKTIVITETSPLAN].includes(id)) {
+			window.history.replaceState({}, '', `/${fnr}`);
+		}
+
 		const selectedTab = mappedTabs[id];
 		lagreSistBesokteTab({ fnr, tab: id });
 		if (!tabsSeen.includes(selectedTab.id)) {
