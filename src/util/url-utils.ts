@@ -11,7 +11,6 @@ export const hasQueryParam = (parameterName: string): boolean => {
 const regex = `\\d{11}`;
 
 export const hentFnrFraUrl = (): string | undefined => {
-	console.log('Getting fnr from url');
 	const url = window.location.pathname;
 	const match = url.match(regex);
 

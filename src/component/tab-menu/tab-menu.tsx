@@ -68,8 +68,6 @@ function TabMenu(props: TabsProps) {
 	useEventListener('visAktivitetsplan', () => changeTab(TabId.AKTIVITETSPLAN));
 	useEventListener('visDialog', event => changeTab(TabId.DIALOG, event));
 
-	console.log({ renderKey });
-
 	return (
 		<div className="tab-menu">
 			<div className="tab-menu__headers--wrapper">

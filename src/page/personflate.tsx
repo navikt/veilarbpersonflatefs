@@ -21,7 +21,6 @@ interface AppInnholdProps {
 export const PersonflatePage = () => {
 	const { aktivBrukerFnr, aktivEnhetId, setAktivEnhetId, setAktivBrukerFnr, setRenderKey, renderKey } =
 		useModiaContext();
-	console.log('Personflate', { aktivBrukerFnr });
 	const { sesjonStatus } = useSesjonStatus();
 
 	const fetchTilgangTilBruker = useFetchTilgangTilBruker(aktivBrukerFnr, { manual: true });
@@ -33,12 +32,9 @@ export const PersonflatePage = () => {
 	const [nextFnr, setNextFnr] = useState<null | string>(aktivBrukerFnr);
 	useEffect(() => {
 		if (nextFnr && nextFnr !== aktivBrukerFnr) {
-			console.log('onAktivBrukerChanged new fnr', { nextFnr, aktivBrukerFnr });
 			window.history.pushState('', '', `/${nextFnr}`);
 			setAktivBrukerFnr(nextFnr);
 			setRenderKey(renderKey + 1); // Forces all the micro frontends to be remounted so that their state is reset
-		} else {
-			console.log('onAktivBrukerChanged called but did not trigger change', { nextFnr, aktivBrukerFnr });
 		}
 	}, [nextFnr]);
 
@@ -46,10 +42,7 @@ export const PersonflatePage = () => {
 
 	const onAktivEnhetChanged = (newEnhetId: string | null) => {
 		if (newEnhetId && newEnhetId !== aktivEnhetId) {
-			console.log('onAktivEnhetChanged new enhet', { newEnhetId, aktivEnhetId });
 			setAktivEnhetId(newEnhetId);
-		} else {
-			console.log('onAktivEnhetChanged called but did not trigger change', { newEnhetId, aktivEnhetId });
 		}
 	};
 
