@@ -27,7 +27,7 @@ export const PersonflatePage = () => {
 	const fetchFeature = useFetchFeatures();
 	const fetchAktivEnhet = useFetchAktivEnhet();
 
-	// Hack because used because internflatedecorator does not update onFnrChanged function so comparison on fnr can not
+	// Hack used because internflatedecorator does not update onFnrChanged function so comparison on fnr can not
 	// be done inside that function because it alwaus closes the first value
 	const [nextFnr, setNextFnr] = useState<null | string>(aktivBrukerFnr);
 	useEffect(() => {
