@@ -1,6 +1,7 @@
 import React, { useEffect, useReducer } from 'react';
 import { useEventListener } from '../util/utils';
 import { createInitialStore, ModiaContext, reducer, SET_RENDER_KEY } from './modia-context-store';
+import { a } from 'msw/lib/SetupServerApi-1855d9c6';
 
 interface StoreProviderProps {
 	fnr: string;
@@ -18,12 +19,13 @@ const StoreProvider = (props: StoreProviderProps) => {
 	useEventListener('eskaleringsVarselSendt', forceRerender);
 
 	useEffect(() => {
-		const rerenderIfChangedFnr = () => {
+		const rerenderIfChangedFnr = (event: any) => {
 			console.log({
-				pathname: window.location.pathname,
+				event_pathname: event.target.location.pathname,
+				window_pathname: window.location.pathname,
 				fnr: props.fnr
 			});
-			if (window.location.pathname.includes(props.fnr)) {
+			if (event.target.location.pathname.includes(props.fnr)) {
 				return;
 			} else forceRerender();
 		};
