@@ -1,4 +1,4 @@
-import React, { useReducer } from 'react';
+import React, { useEffect, useReducer } from 'react';
 import { useEventListener } from '../util/utils';
 import { createInitialStore, ModiaContext, reducer, SET_RENDER_KEY } from './modia-context-store';
 
@@ -16,6 +16,12 @@ const StoreProvider = (props: StoreProviderProps) => {
 	useEventListener('rerenderMao', forceRerender);
 	useEventListener('oppfolgingAvslutet', forceRerender);
 	useEventListener('eskaleringsVarselSendt', forceRerender);
+
+	useEffect(() => {
+		const logPopState = e => console.log('Popstate', e);
+		window.addEventListener('popstate', logPopState);
+		return () => window.removeEventListener('popstate', logPopState);
+	}, []);
 
 	return (
 		<DispatchProvider.Provider value={dispatch}>
