@@ -32,7 +32,6 @@ export const PersonflatePage = () => {
 	const [nextFnr, setNextFnr] = useState<null | string>(aktivBrukerFnr);
 	useEffect(() => {
 		if (nextFnr && nextFnr !== aktivBrukerFnr) {
-			console.log('Pushing to history', nextFnr);
 			window.history.pushState('', '', `/${nextFnr}`);
 			setAktivBrukerFnr(nextFnr);
 			setRenderKey(renderKey + 1); // Forces all the micro frontends to be remounted so that their state is reset

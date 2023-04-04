@@ -11,12 +11,6 @@ export const App = () => {
 	useEffect(() => {
 		const rerenderIfChangedFnr = (event: any) => {
 			const nextFnr = hentFnrFraUrl();
-			console.log({
-				nextFnr,
-				fnr,
-				window_pathname: window.location.pathname,
-				event_pathname: event.target.location.pathname
-			});
 			if (fnr === nextFnr || !nextFnr) return;
 			setFnr(nextFnr);
 		};

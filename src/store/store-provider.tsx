@@ -18,7 +18,6 @@ const StoreProvider = (props: StoreProviderProps) => {
 			dispatch({ type: SET_FNR, fnr: props.fnr });
 		}
 	}, [props.fnr]);
-	console.log({ state, fnr: props.fnr });
 	const forceRerender = () => dispatch({ type: SET_RENDER_KEY, renderKey: state.renderKey + 1 });
 	useEventListener('rerenderMao', forceRerender);
 	useEventListener('oppfolgingAvslutet', forceRerender);
