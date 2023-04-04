@@ -1,6 +1,6 @@
 import React, { useEffect, useReducer } from 'react';
 import { useEventListener } from '../util/utils';
-import { createInitialStore, ModiaContext, reducer, SET_RENDER_KEY } from './modia-context-store';
+import { createInitialStore, ModiaContext, reducer, SET_FNR, SET_RENDER_KEY } from './modia-context-store';
 import { a } from 'msw/lib/SetupServerApi-1855d9c6';
 
 interface StoreProviderProps {
@@ -12,6 +12,12 @@ export const DispatchProvider = React.createContext((a: any) => {});
 
 const StoreProvider = (props: StoreProviderProps) => {
 	const [state, dispatch] = useReducer(reducer, props.fnr, createInitialStore);
+
+	useEffect(() => {
+		if (state.aktivBrukerFnr !== props.fnr) {
+			dispatch({ type: SET_FNR, fnr: props.fnr });
+		}
+	}, [props.fnr]);
 	console.log({ state, fnr: props.fnr });
 	const forceRerender = () => dispatch({ type: SET_RENDER_KEY, renderKey: state.renderKey + 1 });
 	useEventListener('rerenderMao', forceRerender);

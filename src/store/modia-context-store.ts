@@ -28,7 +28,7 @@ export const useModiaContext = () => {
 	};
 };
 
-const SET_FNR = 'SET_FNR' as const;
+export const SET_FNR = 'SET_FNR' as const;
 interface SetFnr {
 	type: typeof SET_FNR;
 	fnr: string;
