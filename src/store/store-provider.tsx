@@ -18,10 +18,13 @@ const StoreProvider = (props: StoreProviderProps) => {
 	useEventListener('eskaleringsVarselSendt', forceRerender);
 
 	useEffect(() => {
-		const logPopState = e => console.log('Popstate', e);
-		window.addEventListener('popstate', logPopState);
-		return () => window.removeEventListener('popstate', logPopState);
-	}, []);
+		const rerenderIfChangedFnr = () => {
+			if (window.location.pathname.includes(props.fnr));
+			else forceRerender();
+		};
+		window.addEventListener('popstate', rerenderIfChangedFnr);
+		return () => window.removeEventListener('popstate', rerenderIfChangedFnr);
+	}, [props]);
 
 	return (
 		<DispatchProvider.Provider value={dispatch}>
