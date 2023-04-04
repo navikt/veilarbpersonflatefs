@@ -5,6 +5,12 @@
 	flex-grow: 1;
 	min-height: 0;
 
+	&__content {
+		display: flex;
+		flex-grow: 1;
+		flex-direction: column;
+	}
+
 	&__headers {
 		display: flex;
 		flex-direction: row;
@@ -21,6 +27,8 @@
 	}
 
 	&__headers--wrapper {
+		flex-grow: 1;
+		display: flex;
 		z-index: 1;
 	}
 
