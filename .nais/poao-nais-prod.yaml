@@ -46,6 +46,19 @@ spec:
         - application: poao-unleash
         - application: mulighetsrommet-api
           namespace: team-mulighetsrommet
+      external:
+        - host: veilarbmalverk.prod-fss-pub.nais.io
+        - host: veilarbperson.prod-fss-pub.nais.io
+        - host: veilarboppfolging.prod-fss-pub.nais.io
+        - host: veilarbdialog.prod-fss-pub.nais.io
+        - host: veilarbportefolje.prod-fss-pub.nais.io
+        - host: veilarbaktivitet.prod-fss-pub.nais.io
+        - host: veilarblest.prod-fss-pub.nais.io
+        - host: modiacontextholder.prod-fss-pub.nais.io
+        - host: veilarbveileder.prod-fss-pub.nais.io
+        - host: veilarbvedtaksstotte.prod-fss-pub.nais.io
+        - host: finn-kandidat-api.prod-fss-pub.nais.io
+        - host: veilarboppgave.prod-fss-pub.nais.io
 
   env:
     - name: JSON_CONFIG

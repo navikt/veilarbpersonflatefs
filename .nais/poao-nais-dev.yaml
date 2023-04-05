@@ -52,6 +52,15 @@ spec:
         - host: veilarbdialog.dev-fss-pub.nais.io
         - host: veilarbaktivitet.dev-fss-pub.nais.io
         - host: veilarblest.dev-fss-pub.nais.io
+        - host: veilarbmalverk.dev-fss-pub.nais.io
+        - host: veilarbperson.dev-fss-pub.nais.io
+        - host: veilarboppfolging.dev-fss-pub.nais.io
+        - host: veilarbportefolje.dev-fss-pub.nais.io
+        - host: modiacontextholder-q1.dev-fss-pub.nais.io
+        - host: veilarbveileder.dev-fss-pub.nais.io
+        - host: veilarbvedtaksstotte.dev-fss-pub.nais.io
+        - host: finn-kandidat-api.dev-fss-pub.nais.io
+        - host: veilarboppgave.dev-fss-pub.nais.io
   env:
     - name: JSON_CONFIG
       value: >
