@@ -11,6 +11,7 @@ export const App = () => {
 	useEffect(() => {
 		const rerenderIfChangedFnr = (event: any) => {
 			const nextFnr = hentFnrFraUrl();
+			console.log('Popstate received', { nextFnr, fnr });
 			if (fnr === nextFnr || !nextFnr) return;
 			setFnr(nextFnr);
 		};

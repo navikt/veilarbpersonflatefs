@@ -14,6 +14,7 @@ const StoreProvider = (props: StoreProviderProps) => {
 	const [state, dispatch] = useReducer(reducer, props.fnr, createInitialStore);
 
 	useEffect(() => {
+		console.log('Fnr prop changed');
 		if (state.aktivBrukerFnr !== props.fnr) {
 			dispatch({ type: SET_FNR, fnr: props.fnr });
 		}
