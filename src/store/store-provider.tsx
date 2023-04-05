@@ -13,6 +13,10 @@ export const DispatchProvider = React.createContext({});
 const StoreProvider = (props: StoreProviderProps) => {
 	const [state, dispatch] = useReducer(reducer, hentFnrFraUrl() || '', createInitialStore);
 	const fnr = state.aktivBrukerFnr;
+	console.log('Store provider render', {
+		state,
+		fnr
+	});
 
 	const forceRerender = () => dispatch({ type: SET_RENDER_KEY, renderKey: state.renderKey + 1 });
 	useEventListener('rerenderMao', forceRerender);
