@@ -9,6 +9,7 @@ export const App = () => {
 	const [fnr, setFnr] = useState(hentFnrFraUrl() || '');
 
 	useEffect(() => {
+		console.log('Fnr effect', { fnr });
 		const rerenderIfChangedFnr = (event: any) => {
 			const nextFnr = hentFnrFraUrl();
 			console.log('Popstate received', { nextFnr, fnr });
