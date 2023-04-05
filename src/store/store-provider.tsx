@@ -29,7 +29,7 @@ const StoreProvider = (props: StoreProviderProps) => {
 			const nextFnr = hentFnrFraUrl();
 			console.log('Popstate received', { nextFnr, fnr });
 			if (fnr === nextFnr || !nextFnr) return;
-			dispatch({ type: SET_FNR, fnr });
+			dispatch({ type: SET_FNR, fnr: nextFnr });
 		};
 		window.addEventListener('popstate', rerenderIfChangedFnr);
 		return () => window.removeEventListener('popstate', rerenderIfChangedFnr);
