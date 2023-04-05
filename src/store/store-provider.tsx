@@ -13,10 +13,6 @@ export const DispatchProvider = React.createContext({});
 const StoreProvider = (props: StoreProviderProps) => {
 	const [state, dispatch] = useReducer(reducer, hentFnrFraUrl() || '', createInitialStore);
 	const fnr = state.aktivBrukerFnr;
-	console.log('Store provider render', {
-		state,
-		fnr
-	});
 
 	const forceRerender = () => dispatch({ type: SET_RENDER_KEY, renderKey: state.renderKey + 1 });
 	useEventListener('rerenderMao', forceRerender);
@@ -24,10 +20,8 @@ const StoreProvider = (props: StoreProviderProps) => {
 	useEventListener('eskaleringsVarselSendt', forceRerender);
 
 	useEffect(() => {
-		console.log('Fnr effect', { fnr });
 		const rerenderIfChangedFnr = (event: any) => {
 			const nextFnr = hentFnrFraUrl();
-			console.log('Popstate received', { nextFnr, fnr });
 			if (fnr === nextFnr || !nextFnr) return;
 			dispatch({ type: SET_FNR, fnr: nextFnr });
 		};
