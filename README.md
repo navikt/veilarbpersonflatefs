@@ -1,6 +1,24 @@
 # VeilArbPersonFlateFS
 Flate applikasjonen for veiledere som viser informasjon og aktivitetsplanen til brukerne
 
+Denne appen er "host" app for følgende "micro"-frontends:
+- Tab-apper (Åpnes inni et tab-område)
+  - AKTIVITETSPLAN
+  - DIALOG
+  - VEDTAKSSTOTTE
+  - DETALJER (VEILARBMAOFS)
+  - ARBEIDSMARKEDSTILTAK
+- Navbar-apps 
+  - INTERNARBEIDSFLATEFS_DECORATOR (søke på person og linker til andre nav apper)
+  - VEILARBVISITTKORTFS (div info om en person + "veilederverktøy")
+
+Alt dette er skrudd sammen med [NAVSPA](https://github.com/navikt/navspa) 
+
+Appen inneholder følgende:
+- En tab-bar med de forskjellige appene
+- En feedback-form-popup som enables av en unleash toggle som atm er archieved
+- En tour-modal som også er bak en unleash toggle som er archived
+
 ## Kjøre appen
 ```console
 $ npm install
