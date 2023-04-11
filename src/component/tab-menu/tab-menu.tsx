@@ -52,12 +52,15 @@ function TabMenu(props: TabsProps) {
 		document.title = currentTab.title;
 	}, [currentTab, tabs]);
 
-	const changeTab = (id: TabId, extraDetails?: Event) => {
+	const onClickChangeTab = (tabId: TabId) => () => {
 		// When changing tabs these apps expect url to be /:fnr or their routes won't match
-		if ([TabId.DIALOG, TabId.AKTIVITETSPLAN].includes(id)) {
+		// Only reset on click, not on "automatic" change
+		if ([TabId.DIALOG, TabId.AKTIVITETSPLAN].includes(tabId)) {
 			window.history.replaceState({}, '', `/${fnr}`);
 		}
-
+		changeTab(tabId);
+	};
+	const changeTab = (id: TabId, extraDetails?: Event) => {
 		const selectedTab = mappedTabs[id];
 		lagreSistBesokteTab({ fnr, tab: id });
 		if (!tabsSeen.includes(selectedTab.id)) {
@@ -76,19 +79,25 @@ function TabMenu(props: TabsProps) {
 	return (
 		<div className="tab-menu">
 			<div className="tab-menu__headers--wrapper">
-				<Tabs
-					className="tab-menu__content"
-					onChange={tabId => changeTab(tabId as TabId)}
-					value={currentTab.id}
-					defaultValue={tabs[0].id}
-				>
+				<Tabs className="tab-menu__content" value={currentTab.id} defaultValue={tabs[0].id}>
 					<div className="tab-menu__headers ">
 						<Tabs.List className="tab-menu__headers--hoire">
 							{tabs.map(tab =>
 								tab.id === TabId.DIALOG ? (
-									<Tabs.Tab label={tab.title} key={tab.id} value={tab.id} icon={<UlesteDialoger />} />
+									<Tabs.Tab
+										onClick={onClickChangeTab(tab.id)}
+										label={tab.title}
+										key={tab.id}
+										value={tab.id}
+										icon={<UlesteDialoger />}
+									/>
 								) : (
-									<Tabs.Tab label={tab.title} key={tab.id} value={tab.id} />
+									<Tabs.Tab
+										onClick={onClickChangeTab(tab.id)}
+										label={tab.title}
+										key={tab.id}
+										value={tab.id}
+									/>
 								)
 							)}
 						</Tabs.List>
