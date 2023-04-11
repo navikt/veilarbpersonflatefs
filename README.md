@@ -12,7 +12,7 @@ Denne appen er "host" app for følgende "micro"-frontends:
   - INTERNARBEIDSFLATEFS_DECORATOR (søke på person og linker til andre nav apper)
   - VEILARBVISITTKORTFS (div info om en person + "veilederverktøy")
 
-Alt dette er skrudd sammen med [NAVSPA](https://github.com/navikt/navspa) 
+Alt dette er limt sammen med [NAVSPA](https://github.com/navikt/navspa) 
 
 Appen inneholder følgende:
 - En tab-bar med de forskjellige appene

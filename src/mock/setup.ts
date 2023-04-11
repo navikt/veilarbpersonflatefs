@@ -10,7 +10,6 @@ import {
 	vedtaksstotteSpaMockProps,
 	visittkortSpaMockProps
 } from './util/spa-mock-utils';
-import { testBrukerFnr } from './api/data';
 
 // window.history.replaceState('', '', '/veilarbpersonflatefs/' + testBrukerFnr + window.location.hash);
 
