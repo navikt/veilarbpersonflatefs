@@ -5,16 +5,11 @@ import TilbakemeldingFab from './tilbakemelding/fab/tilbakemelding-fab';
 import { hentSistBesokteTab } from './tab-menu/siste-tab';
 import { TourModalController } from './tour-modal/tour-modal-controller';
 import { hasHashParam, hasQueryParam } from '../util/url-utils';
+import { Aktivitetsplan, Arbeidsmarkedstiltak, Detaljer, Dialog, Vedtaksstotte, Visittkort } from './spa';
+import { ModiaContext } from '../store/modia-context-store';
 
 interface SideInnholdLayoutProps {
-	visittkort: React.ReactElement;
-	mao: React.ReactElement;
-	aktivitetsplan: React.ReactElement;
-	dialog?: React.ReactElement;
-	vedtaksstotte: React.ReactElement;
-	arbeidsmarkedstiltak: React.ReactElement;
-	features: Features;
-	fnr: string;
+	features?: Features;
 }
 
 export enum TabId {
@@ -37,21 +32,25 @@ const showTabMap: { [k: string]: TabId } = {
 	visArbeidsmarkedstiltak: TabId.ARBEIDSMARKEDSTILTAK
 };
 
-declare global {
-	interface Window {
-		defaultSelectedTab?: string;
-	}
-}
-
+const apps = {
+	mao: Detaljer,
+	aktivitetsplan: Aktivitetsplan,
+	vedtaksstotte: Vedtaksstotte,
+	dialog: Dialog,
+	arbeidsmarkedstiltak: Arbeidsmarkedstiltak
+};
 
 class SideInnhold extends React.Component<SideInnholdLayoutProps> {
+	static contextType = ModiaContext;
+	context!: React.ContextType<typeof ModiaContext>;
+
 	getTabFromHashParam(): TabId | undefined {
 		const tabKey = Object.keys(showTabMap).find(key => hasHashParam(key));
 		return tabKey ? showTabMap[tabKey] : undefined;
 	}
 
 	getDefaultTab() {
-		const { fnr } = this.props;
+		const { aktivBrukerFnr: fnr } = this.context;
 		const tabFromHashParam = this.getTabFromHashParam();
 		// TODO: Remove when arbeidssokerregistrering uses hash params
 		//  https://github.com/navikt/arbeidssokerregistrering/blob/208caec7acda07cf896b822edc6f466637dabd07/src/utils/url-utils.ts
@@ -73,48 +72,45 @@ class SideInnhold extends React.Component<SideInnholdLayoutProps> {
 	}
 
 	render() {
-		const { visittkort, aktivitetsplan, dialog, vedtaksstotte, arbeidsmarkedstiltak, mao, features, fnr } =
-			this.props;
+		const { aktivBrukerFnr, aktivEnhetId } = this.context;
+		const { features } = this.props;
 		const tabs: Tab[] = [];
 
-		const aktivitet = {
+		tabs.push({
 			id: TabId.AKTIVITETSPLAN,
 			title: 'Aktivitetsplan',
-			content: aktivitetsplan,
-		};
-
-		if (dialog) {
-			tabs.push(aktivitet);
-			tabs.push({
-				id: TabId.DIALOG,
-				title: 'Dialog',
-				content: dialog
-			});
-		} else {
-			tabs.push({ ...aktivitet, title: 'Aktivitetsplan og dialog' });
-		}
-
-		tabs.push({ id: TabId.DETALJER, title: 'Detaljer', content: mao });
-
+			content: apps.aktivitetsplan
+		});
+		tabs.push({
+			id: TabId.DIALOG,
+			title: 'Dialog',
+			content: apps.dialog
+		});
+		tabs.push({ id: TabId.DETALJER, title: 'Detaljer', content: apps.mao });
 		tabs.push({
 			id: TabId.VEDTAKSSTOTTE,
 			title: 'Oppfølgingsvedtak',
-			content: vedtaksstotte,
+			content: apps.vedtaksstotte,
 			className: 'tab-menu__tab-content--vedtaksstotte'
 		});
 
-		if (features[ARBEIDSMARKEDSTILTAK_LANSERING]) {
+		if (features?.[ARBEIDSMARKEDSTILTAK_LANSERING]) {
 			tabs.push({
 				id: TabId.ARBEIDSMARKEDSTILTAK,
 				title: 'Arbeidsmarkedstiltak',
-				content: arbeidsmarkedstiltak
+				content: apps.arbeidsmarkedstiltak
 			});
 		}
 
 		return (
 			<>
-				{visittkort}
-				<TabMenu fnr={fnr} tabs={tabs} defaultSelectedTab={this.getDefaultTab()} skulGammelDialog={!!dialog} />
+				<Visittkort
+					enhet={aktivEnhetId ?? undefined}
+					fnr={aktivBrukerFnr}
+					visVeilederVerktoy={true}
+					tilbakeTilFlate="veilarbportefoljeflatefs"
+				/>
+				<TabMenu tabs={tabs} defaultSelectedTab={this.getDefaultTab()} />
 				<TourModalController features={features} />
 				<TilbakemeldingFab features={features} />
 			</>

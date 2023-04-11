@@ -1,12 +1,9 @@
 import React from 'react';
 import cls from 'classnames';
-import { Hovedknapp } from 'nav-frontend-knapper';
-import { Textarea } from 'nav-frontend-skjema';
-import { Innholdstittel, Normaltekst, Undertittel } from 'nav-frontend-typografi';
 import TilfredshetValg from './valg/tilfredshet-valg';
-import Lenke from 'nav-frontend-lenker';
 import hjerteIkon from './ikon_hjerte.svg';
 import './tilbakemelding-modal.less';
+import { BodyShort, Button, Ingress, Link, Textarea } from '@navikt/ds-react';
 
 export interface Tilbakemelding {
 	tilfredshet: number;
@@ -29,8 +26,8 @@ interface TilbakemeldingModalState {
 }
 
 class TilbakemeldingModal extends React.Component<TilbakemeldingModalProps, TilbakemeldingModalState> {
-	private readonly KOMMENTAR_ROWS = 5;
-	private readonly KOMMENTAR_MAX_CHAR = 750;
+	KOMMENTAR_ROWS = 5;
+	KOMMENTAR_MAX_CHAR = 750;
 
 	constructor(props: TilbakemeldingModalProps) {
 		super(props);
@@ -80,11 +77,11 @@ class TilbakemeldingModal extends React.Component<TilbakemeldingModalProps, Tilb
 
 		return (
 			<div className={cls({ 'tilbakemelding-modal__innhold-fade-out': showFadeOutAnimation })}>
-				<Innholdstittel className="blokk-xxs tilbakemelding-modal__tittel">Tilbakemelding</Innholdstittel>
-				<Normaltekst className="tilbakemelding-modal__ingress">
+				<Ingress className="blokk-xxs tilbakemelding-modal__tittel">Tilbakemelding</Ingress>
+				<BodyShort className="tilbakemelding-modal__ingress">
 					Vi har nå endret design i Modia arbeidsrettet oppfølging. Hvordan opplever du endringen? Svarene er
 					anonyme.
-				</Normaltekst>
+				</BodyShort>
 				<div className="tilbakemelding-modal__tilfredshet">
 					<TilfredshetValg
 						className="blokk-l"
@@ -92,9 +89,9 @@ class TilbakemeldingModal extends React.Component<TilbakemeldingModalProps, Tilb
 						defaultTilfredshet={tilfredshet}
 					/>
 					{!harBesvartTilfredshet && (
-						<Lenke className="ikke-vis-igjen-lenke" href="" onClick={this.handleIkkeVisIgjenClicked}>
+						<Link className="ikke-vis-igjen-lenke" href="" onClick={this.handleIkkeVisIgjenClicked}>
 							Ikke vis dette igjen
-						</Lenke>
+						</Link>
 					)}
 				</div>
 				{harBesvartTilfredshet && (
@@ -109,9 +106,7 @@ class TilbakemeldingModal extends React.Component<TilbakemeldingModalProps, Tilb
 								onChange={this.handleKommentarChanged}
 							/>
 						</div>
-						<Hovedknapp htmlType="submit" className="knapp--hoved">
-							Send
-						</Hovedknapp>
+						<Button type="submit">Send</Button>
 					</form>
 				)}
 			</div>
@@ -122,7 +117,7 @@ class TilbakemeldingModal extends React.Component<TilbakemeldingModalProps, Tilb
 		return (
 			<div className="takk-melding__wrapper">
 				<img src={hjerteIkon} alt="Hjerte" className="takk-melding__ikon" />
-				<Undertittel className="takk-melding__tekst">Takk for din tilbakemelding</Undertittel>
+				<Ingress className="takk-melding__tekst">Takk for din tilbakemelding</Ingress>
 			</div>
 		);
 	};

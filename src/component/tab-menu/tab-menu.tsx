@@ -1,48 +1,31 @@
-import React, { useEffect, useState } from 'react';
-import cls from 'classnames';
-import { Normaltekst } from 'nav-frontend-typografi';
+import { ComponentType, useEffect, useState } from 'react';
 import { TabId } from '../side-innhold';
 import { lagreSistBesokteTab } from './siste-tab';
 import { useEventListener } from '../../util/utils';
 import useUlesteDialoger from './dialog-tab/useAntalUlesteDialoger';
 import './tab-menu.less';
-import { useModiaContextStore } from '../../store/modia-context-store';
+import { useModiaContext } from '../../store/modia-context-store';
 import { logEvent } from '../../util/frontend-logger';
+import { Tabs } from '@navikt/ds-react';
+import { SpaProps } from '../spa';
 
 export interface Tab {
 	id: TabId;
 	title: string;
-	content: React.ReactElement;
+	content: ComponentType<SpaProps>;
 	className?: string;
 }
 
 interface TabsProps {
-	fnr: string;
 	tabs: Tab[];
 	defaultSelectedTab?: TabId;
-	skulGammelDialog: boolean;
 }
 
-const getIndexOfTab = (tabs: Tab[], tag?: TabId): number => {
-	const idx = tabs.findIndex(tab => tab.id === tag);
-	return idx >= 0 ? idx : 0;
-};
-
-interface MenuProps {
-	tabs: Tab[];
-	selectedTabIdx: number;
-	createTabClickedHandler: (id: TabId) => () => void;
-}
-
-interface MenuButtonProps {
-	title: string;
-	tabId: TabId;
-	isSelected: boolean;
-	onClick: () => void;
-}
+const tabMap = (tabs: Tab[]): Record<TabId, Tab> =>
+	tabs.reduce((acc, tab) => ({ ...acc, [tab.id]: tab }), {} as Record<TabId, Tab>);
 
 const UlesteDialoger = () => {
-	const { aktivBrukerFnr } = useModiaContextStore();
+	const { aktivBrukerFnr } = useModiaContext();
 	const antallUleste = useUlesteDialoger(aktivBrukerFnr);
 
 	if (!antallUleste) {
@@ -57,105 +40,74 @@ const UlesteDialoger = () => {
 	);
 };
 
-const MenuButton = (props: MenuButtonProps) => {
-	const { title, isSelected, onClick, tabId } = props;
-
-	return (
-		<button className={cls('tab', { 'tab--selected': isSelected })} onClick={onClick} aria-expanded={isSelected}>
-			<Normaltekst className={cls('tab__title', { 'tab__title--selected': isSelected })}>
-				{title}
-				{tabId === TabId.DIALOG && <UlesteDialoger />}
-			</Normaltekst>
-		</button>
-	);
-};
-
-const Menu = (props: MenuProps) => {
-	const { tabs, selectedTabIdx, createTabClickedHandler } = props;
-	const isSelected = (idx: number) => idx === selectedTabIdx;
-	const buttons = tabs.map((tab, idx) => (
-		<MenuButton
-			key={idx}
-			title={tab.title}
-			isSelected={isSelected(idx)}
-			onClick={createTabClickedHandler(tab.id)}
-			tabId={tab.id}
-		/>
-	));
-
-	return (
-		<div className="tab-menu__headers--wrapper">
-			<div className="tab-menu__headers">
-				<div className="tab-menu__headers--hoire">{buttons}</div>
-			</div>
-		</div>
-	);
-};
-
-interface ContentProps {
-	selectedTabIdx: number;
-	tabsSeen: number[];
-	tabs: Tab[];
-}
-
-const Content = (props: ContentProps) => {
-	const { selectedTabIdx, tabsSeen, tabs } = props;
-
-	const content = tabs.map((tab, idx) => {
-		// If the tab has been seen before, then it should still be rendered, but not displayed
-		if (tabsSeen.findIndex(t => t === idx) === -1) {
-			return null;
-		}
-
-		return (
-			<div
-				className={cls('tab-menu__tab-content', tab.className, { 'no-display': idx !== selectedTabIdx })}
-				key={idx}
-			>
-				{tabs[idx].content}
-			</div>
-		);
-	});
-
-	return <> {content} </>;
-};
-
 function TabMenu(props: TabsProps) {
-	const { fnr, tabs, defaultSelectedTab } = props;
+	const { tabs, defaultSelectedTab } = props;
+	const { aktivBrukerFnr: fnr, aktivEnhetId, renderKey } = useModiaContext();
+	const mappedTabs = tabMap(tabs);
 
-	const [selectedTabIdx, setSelectedTabIdx] = useState(getIndexOfTab(tabs, defaultSelectedTab));
-	const [tabsSeen, setTabsSeen] = useState([selectedTabIdx]);
+	const [currentTab, setCurrentTab] = useState(defaultSelectedTab ? mappedTabs[defaultSelectedTab] : tabs[0]);
+	const [tabsSeen, setTabsSeen] = useState<TabId[]>([currentTab.id]);
 
 	useEffect(() => {
-		document.title = tabs[selectedTabIdx].title;
-	}, [selectedTabIdx, tabs]);
-
-	const setCurrentTab = (index: number) => {
-		if (!tabsSeen.includes(index)) {
-			setTabsSeen([...tabsSeen, index]);
-		}
-		setSelectedTabIdx(index);
-	};
+		document.title = currentTab.title;
+	}, [currentTab, tabs]);
 
 	const changeTab = (id: TabId, extraDetails?: Event) => {
-		const index: number = tabs.findIndex(tab => tab.id === id);
+		// When changing tabs these apps expect url to be /:fnr or their routes won't match
+		if ([TabId.DIALOG, TabId.AKTIVITETSPLAN].includes(id)) {
+			window.history.replaceState({}, '', `/${fnr}`);
+		}
+
+		const selectedTab = mappedTabs[id];
 		lagreSistBesokteTab({ fnr, tab: id });
-		setCurrentTab(index);
+		if (!tabsSeen.includes(selectedTab.id)) {
+			setTabsSeen([...tabsSeen, selectedTab.id]);
+		}
+		setCurrentTab(selectedTab);
 
 		logEvent('veilarbpersonflatefs.valgt-fane', { tabId: id });
 		const extra = !!extraDetails ? (extraDetails as CustomEvent).detail : {};
 		window.dispatchEvent(new CustomEvent('veilarbpersonflatefs.tab-clicked', { detail: { tabId: id, ...extra } }));
 	};
 
-	const createTabClickedHandler = (id: TabId) => () => changeTab(id);
-
 	useEventListener('visAktivitetsplan', () => changeTab(TabId.AKTIVITETSPLAN));
 	useEventListener('visDialog', event => changeTab(TabId.DIALOG, event));
 
 	return (
 		<div className="tab-menu">
-			<Menu tabs={tabs} selectedTabIdx={selectedTabIdx} createTabClickedHandler={createTabClickedHandler} />
-			<Content selectedTabIdx={selectedTabIdx} tabsSeen={tabsSeen} tabs={tabs} />
+			<div className="tab-menu__headers--wrapper">
+				<Tabs
+					className="tab-menu__content"
+					onChange={tabId => changeTab(tabId as TabId)}
+					value={currentTab.id}
+					defaultValue={tabs[0].id}
+				>
+					<div className="tab-menu__headers ">
+						<Tabs.List className="tab-menu__headers--hoire">
+							{tabs.map(tab =>
+								tab.id === TabId.DIALOG ? (
+									<Tabs.Tab label={tab.title} key={tab.id} value={tab.id} icon={<UlesteDialoger />} />
+								) : (
+									<Tabs.Tab label={tab.title} key={tab.id} value={tab.id} />
+								)
+							)}
+						</Tabs.List>
+					</div>
+					{tabs.map(tab => {
+						return (
+							<Tabs.Panel className="flex flex-grow" key={tab.id} value={tab.id}>
+								<div className={'tab-menu__tab-content flex-grow ' + tab.className ?? ''}>
+									<tab.content
+										key={`${tab.id}-${renderKey}`}
+										fnr={fnr}
+										enhet={aktivEnhetId ?? undefined}
+									/>
+								</div>
+							</Tabs.Panel>
+						);
+					})}
+				</Tabs>
+			</div>
 		</div>
 	);
 }

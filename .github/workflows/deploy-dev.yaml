@@ -1,4 +1,5 @@
 name: Deploy to dev
+run-name: Deploy dev ${{ github.ref_name }} by @${{ github.actor }}
 on:
   workflow_dispatch: # This workflow can be triggered manually from: https://github.com/navikt/veilarbpersonflatefs/actions/workflows/deploy-dev.yaml
   push:
@@ -25,7 +26,7 @@ jobs:
       - name: Run tests
         run: npm run test
       - name: Build application
-        run: npm run build:gcp-dev
+        run: npm run build
       - name: Authenticate to Google Cloud
         uses: google-github-actions/auth@v0
         with:

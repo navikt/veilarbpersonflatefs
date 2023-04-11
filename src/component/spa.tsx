@@ -1,11 +1,11 @@
-import { AsyncNavspa, AsyncSpaConfig, Navspa } from '@navikt/navspa';
+import NAVSPA, { AsyncNavspa, AsyncSpaConfig } from '@navikt/navspa';
 import React from 'react';
 import { utledSpaUrl } from '../util/url-utils';
 import { DecoratorConfig } from './internflate-decorator/internflate-decorator-config';
 import Spinner from './spinner/spinner';
-import {createAssetManifestParser} from "@navikt/navspa/dist/async/utils";
+import { createAssetManifestParser } from '@navikt/navspa/dist/async/utils';
 
-interface SpaProps {
+export interface SpaProps {
 	enhet?: string;
 	fnr: string;
 }
@@ -49,22 +49,23 @@ export const vedtaksstotteAsyncConfig: AsyncSpaConfig = {
 export const visittkortAsyncConfig: AsyncSpaConfig = {
 	appName: SpaName.VEILARBVISITTKORTFS,
 	appBaseUrl: utledSpaUrl(SpaName.VEILARBVISITTKORTFS),
-	loader: <Spinner type="L" className="veilarbpersonflatefs-visittkort-spinner" />
+	loader: <Spinner type="large" className="veilarbpersonflatefs-visittkort-spinner" />
 };
 
 export const aktivitetsplanAsyncConfig: AsyncSpaConfig = {
 	appName: SpaName.AKTIVITETSPLAN,
 	appBaseUrl: utledSpaUrl(SpaName.AKTIVITETSPLAN),
-	loader: <Spinner type="L" className="veilarbpersonflatefs-visittkort-spinner" />,
+	loader: <Spinner type="large" className="veilarbpersonflatefs-visittkort-spinner" />,
 	config: {
 		wrapperClassName: spaWrapperTabContentClassName
 	},
 	assetManifestParser: manifest => {
-		const isWebpackManifeset = 'entrypoints' in manifest
-		const baseUrl = utledSpaUrl(SpaName.AKTIVITETSPLAN)
+		const isWebpackManifeset = 'entrypoints' in manifest;
+		const baseUrl = utledSpaUrl(SpaName.AKTIVITETSPLAN);
 		if (isWebpackManifeset) {
-			return createAssetManifestParser(baseUrl)(manifest)
-		} else { // Vitejs manifest
+			return createAssetManifestParser(baseUrl)(manifest);
+		} else {
+			// Vitejs manifest
 			const { file } = manifest['index.html'];
 			const entry = { type: 'module', path: `${baseUrl}/${file}` };
 			return [entry];
@@ -75,7 +76,7 @@ export const aktivitetsplanAsyncConfig: AsyncSpaConfig = {
 export const dialogAsyncConfig: AsyncSpaConfig = {
 	appName: SpaName.DIALOG,
 	appBaseUrl: utledSpaUrl(SpaName.DIALOG) + '/arbeid/dialog',
-	loader: <Spinner type="L" className="veilarbpersonflatefs-visittkort-spinner" />,
+	loader: <Spinner type="large" className="veilarbpersonflatefs-visittkort-spinner" />,
 	config: {
 		wrapperClassName: spaWrapperTabContentClassNameDialog
 	}
@@ -84,7 +85,7 @@ export const dialogAsyncConfig: AsyncSpaConfig = {
 export const arbeidsmarkedstiltakAsyncConfig: AsyncSpaConfig = {
 	appName: SpaName.ARBEIDSMARKEDSTILTAK,
 	appBaseUrl: utledSpaUrl(SpaName.ARBEIDSMARKEDSTILTAK),
-	loader: <Spinner type="L" className="veilarbpersonflatefs-visittkort-spinner" />,
+	loader: <Spinner type="large" className="veilarbpersonflatefs-visittkort-spinner" />,
 	config: {
 		wrapperClassName: spaWrapperTabContentClassName
 	},
@@ -99,9 +100,9 @@ export const arbeidsmarkedstiltakAsyncConfig: AsyncSpaConfig = {
 	}
 };
 
-export const Decorator: React.ComponentType<DecoratorConfig> = navSpaImport<DecoratorConfig>(
-	SpaName.INTERNARBEIDSFLATEFS_DECORATOR
-);
+export const Decorator: React.ComponentType<DecoratorConfig> = NAVSPA.importer(SpaName.INTERNARBEIDSFLATEFS_DECORATOR, {
+	wrapperClassName: ''
+});
 
 export const Visittkort: React.ComponentType<VisittKortProps> =
 	AsyncNavspa.importer<VisittKortProps>(visittkortAsyncConfig);
@@ -112,14 +113,3 @@ export const Vedtaksstotte: React.ComponentType<SpaProps> = AsyncNavspa.importer
 export const Arbeidsmarkedstiltak: React.ComponentType<SpaProps> = AsyncNavspa.importer<SpaProps>(
 	arbeidsmarkedstiltakAsyncConfig
 );
-
-function navSpaImport<P extends {}>(spaName: SpaName, wrapperClassName?: string): React.FunctionComponent<P> {
-	return (props: P) => {
-		const SpaApp = Navspa.importer<P>(spaName);
-		return (
-			<div className={wrapperClassName}>
-				<SpaApp {...props} />
-			</div>
-		);
-	};
-}

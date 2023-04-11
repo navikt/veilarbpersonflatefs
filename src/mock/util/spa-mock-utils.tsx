@@ -1,4 +1,3 @@
-import React from 'react';
 import { SpaName } from '../../component/spa';
 import NAVSPA from '@navikt/navspa';
 import { SpaMock, SpaMockProps } from '../component/spa-mock';

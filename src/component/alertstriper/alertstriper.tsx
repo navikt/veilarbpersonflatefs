@@ -1,12 +1,10 @@
-import React from 'react';
-import AlertStripe, { AlertStripeType } from 'nav-frontend-alertstriper';
-import './alertstriper.less';
+import { Alert } from '@navikt/ds-react';
 
-function PersonflateAlertStripe(props: { tekst: string; type: AlertStripeType }) {
+function PersonflateAlertStripe(props: { tekst: string; type: 'error' | 'warning' | 'info' | 'success' }) {
 	return (
-		<AlertStripe type={props.type} className="veilarbpersonflatefs-alertstripe">
+		<Alert variant={props.type} className="veilarbpersonflatefs-alertstripe">
 			{props.tekst}
-		</AlertStripe>
+		</Alert>
 	);
 }
 
@@ -15,9 +13,9 @@ export function FeilmeldingManglerFnr() {
 }
 
 export function IngenTilgangTilBruker() {
-	return <PersonflateAlertStripe type="advarsel" tekst="Du har ikke tilgang til å se aktivitetsplanen" />;
+	return <PersonflateAlertStripe type="warning" tekst="Du har ikke tilgang til å se aktivitetsplanen" />;
 }
 
 export function FeilUnderLastingAvData() {
-	return <PersonflateAlertStripe type="feil" tekst="Kunne ikke laste data, prøv på nytt ..." />;
+	return <PersonflateAlertStripe type="error" tekst="Kunne ikke laste data, prøv på nytt ..." />;
 }

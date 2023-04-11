@@ -1,4 +1,3 @@
-import * as React from 'react';
 import { Decorator } from '../spa';
 import { DecoratorConfig, EnhetDisplay, FnrDisplay } from './internflate-decorator-config';
 

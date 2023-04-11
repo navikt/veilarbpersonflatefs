@@ -1,11 +1,11 @@
 import React from 'react';
-import NavFrontendModal from 'nav-frontend-modal';
-import { Normaltekst, Systemtittel, Undertittel } from 'nav-frontend-typografi';
+
 import ChevronLenke, { Retning } from '../chevron-lenke/chevron-lenke';
 import Stegviser from '../stegviser/stegviser';
 import TourModalMetrics from './tour-modal-metrics';
 import { hasStored } from '../../util/utils';
 import './tour-modal.less';
+import { BodyShort, Heading, Ingress, Modal } from '@navikt/ds-react';
 
 export interface TourModalConfig {
 	storageName: string;
@@ -32,7 +32,7 @@ interface TourModalState {
 }
 
 class TourModal extends React.Component<TourModalProps, TourModalState> {
-	private metrics: TourModalMetrics;
+	metrics: TourModalMetrics;
 
 	constructor(props: TourModalProps) {
 		super(props);
@@ -89,17 +89,17 @@ class TourModal extends React.Component<TourModalProps, TourModalState> {
 		const nextBtnHandleClick = isFinalStep ? this.handleFinishBtnClicked : this.handleNextBtnClicked;
 
 		return (
-			<NavFrontendModal
+			<Modal
 				className="tour-modal"
-				contentLabel="TourModal"
-				isOpen={modalOpen}
+				// contentLabel="TourModal"
+				open={modalOpen}
 				closeButton={true}
 				shouldCloseOnOverlayClick={false}
-				onRequestClose={this.handleOnRequestClose}
+				onClose={this.handleOnRequestClose}
 			>
 				<div className="tour-modal__header--wrapper">
 					<header className="tour-modal__header">
-						<Systemtittel>{modalName}</Systemtittel>
+						<Heading size="large">{modalName}</Heading>
 					</header>
 				</div>
 				<main className="tour-modal__main">
@@ -107,8 +107,8 @@ class TourModal extends React.Component<TourModalProps, TourModalState> {
 						<img src={step.bilde} alt={step.bildeAlt} className="tour-modal__main--bilde" />
 					</div>
 					<div className="tour-modal__main--beskrivelse">
-						<Undertittel className="blokk-xxxs">{step.tittel}</Undertittel>
-						<Normaltekst className="tour-modal__main--tekst">{step.tekst}</Normaltekst>
+						<Ingress className="blokk-xxxs">{step.tittel}</Ingress>
+						<BodyShort className="tour-modal__main--tekst">{step.tekst}</BodyShort>
 					</div>
 				</main>
 				<footer className="tour-modal__footer">
@@ -121,7 +121,7 @@ class TourModal extends React.Component<TourModalProps, TourModalState> {
 					<Stegviser antallSteg={steps.length} valgtSteg={selectedStepIdx} />
 					<ChevronLenke retning={Retning.HOYRE} tekst={nextBtnText} onClick={nextBtnHandleClick} />
 				</footer>
-			</NavFrontendModal>
+			</Modal>
 		);
 	}
 }

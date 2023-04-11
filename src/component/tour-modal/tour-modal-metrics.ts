@@ -8,9 +8,9 @@ interface Metrics {
 }
 
 class TourModalMetrics {
-	private timeSpent: number[];
-	private timeStarted: number;
-	private metricName: string;
+	timeSpent: number[];
+	timeStarted: number;
+	metricName: string;
 
 	constructor(antallSteg: number, metricName: string) {
 		this.timeSpent = Array(antallSteg).fill(0);
@@ -18,18 +18,18 @@ class TourModalMetrics {
 		this.metricName = metricName;
 	}
 
-	public setTimeSpent = (currentStepIdx: number) => {
+	setTimeSpent = (currentStepIdx: number) => {
 		const now = Date.now();
 		this.timeSpent[currentStepIdx] += (now - this.timeStarted) / 1000;
 		this.timeStarted = now;
 	};
 
-	public log = (finishedTour: boolean) => {
+	log = (finishedTour: boolean) => {
 		const metrics = this.lagTourModalMetrikker(finishedTour);
 		logEvent(this.metricName, metrics);
 	};
 
-	private lagTourModalMetrikker = (finishedTour: boolean): Metrics => {
+	lagTourModalMetrikker = (finishedTour: boolean): Metrics => {
 		const metrics = {
 			canceledTour: !finishedTour,
 			finishedTour,

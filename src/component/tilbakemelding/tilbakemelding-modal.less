@@ -1,4 +1,3 @@
-@import "~nav-frontend-core/less/_variabler";
 
 .tilbakemelding-modal {
     width: 350px;
@@ -7,16 +6,16 @@
     border-radius: 12px;
     background-color: white;
     box-shadow: 0 6px 15px 0 rgb(183, 177, 169);
-    border: 1px solid @navLysGra;
+    border: 1px solid var(--a-gray-100);
     z-index: 998;
 
     .ikke-vis-igjen-lenke {
         text-decoration: none;
         padding-bottom: 3px;
-        border-bottom: 1px solid @navGra60;
+        border-bottom: 1px solid var(--a-gray-600);
 
         &:hover {
-            border-bottom: 1px solid @navDypBla;
+            border-bottom: 1px solid var(--a-deepblue-600);
         }
     }
 
@@ -89,7 +88,7 @@
 
             &:focus {
                 outline: none;
-                box-shadow: 0 0 0 3px @navBlaDarken60;
+                box-shadow: 0 0 0 3px var(--a-deepblue-600);
             }
         }
 

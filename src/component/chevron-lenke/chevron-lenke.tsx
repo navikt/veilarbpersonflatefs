@@ -1,6 +1,7 @@
 import React from 'react';
 import cls from 'classnames';
-import { HoyreChevron, VenstreChevron } from 'nav-frontend-chevron';
+
+import { ChevronLeftIcon, ChevronRightIcon } from '@navikt/aksel-icons';
 import './chevron-lenke.less';
 
 export enum Retning {
@@ -21,13 +22,13 @@ const ChevronLenke: React.FunctionComponent<ChevronLenkeProps> = (props: Chevron
 		<button className={cls('chevron-lenke', { 'chevron-lenke--hide': hide })} onClick={onClick}>
 			{retning === Retning.VENSTRE ? (
 				<>
-					<VenstreChevron />
+					<ChevronLeftIcon />
 					<span className="chevron-lenke__tekst">{tekst}</span>
 				</>
 			) : (
 				<>
 					<span className="chevron-lenke__tekst">{tekst}</span>
-					<HoyreChevron />
+					<ChevronRightIcon />
 				</>
 			)}
 		</button>
