@@ -11,7 +11,6 @@ export enum SesjonStatus {
 export const useSesjonStatus = (): { sesjonStatus: SesjonStatus } => {
 	const [sekunderTilSesjonUtloper, setSekunderTilSesjonUtloper] = useState<number | null>(null);
 	const [sesjonStatus, setSesjonStatus] = useState<SesjonStatus>(SesjonStatus.UINITIALISERT);
-	const [teller, setTeller] = useState<number>(0);
 
 	const oppdaterSesjonStatus = (sesjonMetadata: SessionMeta) => {
 		const tokensUtloperOmSekunder = sesjonMetadata?.tokens?.expire_in_seconds;
@@ -24,7 +23,6 @@ export const useSesjonStatus = (): { sesjonStatus: SesjonStatus } => {
 			return;
 		}
 
-		setTeller((prevState: number) => prevState + 1);
 		setSesjonStatus(SesjonStatus.AKTIV);
 		setSekunderTilSesjonUtloper(Math.min(tokensUtloperOmSekunder, sesjonUtloperOmSekunder));
 	};
@@ -38,7 +36,7 @@ export const useSesjonStatus = (): { sesjonStatus: SesjonStatus } => {
 	useEffect(() => {
 		let timeout: number | undefined;
 
-		if (sekunderTilSesjonUtloper !== null) {
+		if (isDefined(sekunderTilSesjonUtloper) && !isNaN(sekunderTilSesjonUtloper)) {
 			const msTilSesjonUtloper = sekunderTilSesjonUtloper * 1000;
 
 			timeout = window.setTimeout(() => {
@@ -49,7 +47,7 @@ export const useSesjonStatus = (): { sesjonStatus: SesjonStatus } => {
 		}
 
 		return () => window.clearTimeout(timeout);
-	}, [teller, sekunderTilSesjonUtloper]);
+	}, [sekunderTilSesjonUtloper]);
 
 	return { sesjonStatus };
 };
