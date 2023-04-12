@@ -39,9 +39,6 @@ export const useSesjonStatus = (): { sesjonStatus: SesjonStatus } => {
 		if (isDefined(sekunderTilSesjonUtloper) && !isNaN(sekunderTilSesjonUtloper)) {
 			const msTilSesjonUtloper = sekunderTilSesjonUtloper * 1000;
 
-			if (timeout) {
-				window.clearTimeout(timeout);
-			}
 			timeout = window.setTimeout(() => {
 				hentSesjonMetadata()
 					.then(oppdaterSesjonStatus)
