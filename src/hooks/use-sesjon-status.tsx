@@ -38,9 +38,12 @@ export const useSesjonStatus = (): { sesjonStatus: SesjonStatus } => {
 	useEffect(() => {
 		let timeout: number | undefined;
 
-		if (sekunderTilSesjonUtloper !== null) {
+		if (sekunderTilSesjonUtloper !== null && sekunderTilSesjonUtloper !== undefined) {
 			const msTilSesjonUtloper = sekunderTilSesjonUtloper * 1000;
 
+			if (timeout) {
+				window.clearTimeout(timeout);
+			}
 			timeout = window.setTimeout(() => {
 				hentSesjonMetadata()
 					.then(oppdaterSesjonStatus)
