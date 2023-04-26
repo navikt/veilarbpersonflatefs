@@ -61,7 +61,8 @@ export const aktivitetsplanAsyncConfig: AsyncSpaConfig = {
 	},
 	assetManifestParser: manifest => {
 		const isWebpackManifeset = 'entrypoints' in manifest;
-		const baseUrl = utledSpaUrl(SpaName.AKTIVITETSPLAN);
+		// const baseUrl = utledSpaUrl(SpaName.AKTIVITETSPLAN);
+		const baseUrl = 'https://cdn.dev.nav.no/dab/aktivitetsplan/build';
 		if (isWebpackManifeset) {
 			return createAssetManifestParser(baseUrl)(manifest);
 		} else {
