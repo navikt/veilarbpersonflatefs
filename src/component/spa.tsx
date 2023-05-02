@@ -4,6 +4,7 @@ import { utledSpaUrl } from '../util/url-utils';
 import { DecoratorConfig } from './internflate-decorator/internflate-decorator-config';
 import Spinner from './spinner/spinner';
 import { createAssetManifestParser } from '@navikt/navspa/dist/async/utils';
+import { Env, getEnv } from '../sentry';
 
 export interface SpaProps {
 	enhet?: string;
@@ -62,7 +63,10 @@ export const aktivitetsplanAsyncConfig: AsyncSpaConfig = {
 	assetManifestParser: manifest => {
 		const isWebpackManifeset = 'entrypoints' in manifest;
 		// const baseUrl = utledSpaUrl(SpaName.AKTIVITETSPLAN);
-		const baseUrl = 'https://cdn.dev.nav.no/dab/aktivitetsplan/build';
+
+		const baseUrl = `https://cdn.dev.nav.no/dab/aktivitetsplan-${
+			getEnv() === Env.Prod ? 'prod' : 'dev'
+		}-intern/build`;
 		if (isWebpackManifeset) {
 			return createAssetManifestParser(baseUrl)(manifest);
 		} else {

@@ -3,7 +3,7 @@ import { Breadcrumb, Event } from '@sentry/types';
 import * as Sentry from '@sentry/react';
 import { BrowserTracing } from '@sentry/tracing';
 
-enum Env {
+export enum Env {
 	Local = 'local',
 	Dev = 'dev',
 	Prod = 'prod'
