@@ -53,28 +53,20 @@ export const visittkortAsyncConfig: AsyncSpaConfig = {
 	loader: <Spinner type="large" className="veilarbpersonflatefs-visittkort-spinner" />
 };
 
+const aktivitetsplanCdnUrl = `https://cdn.dev.nav.no/dab/aktivitetsplan-${
+	getEnv() === Env.Prod ? 'prod' : 'dev'
+}-intern/build`;
 export const aktivitetsplanAsyncConfig: AsyncSpaConfig = {
 	appName: SpaName.AKTIVITETSPLAN,
-	appBaseUrl: utledSpaUrl(SpaName.AKTIVITETSPLAN),
+	appBaseUrl: aktivitetsplanCdnUrl,
 	loader: <Spinner type="large" className="veilarbpersonflatefs-visittkort-spinner" />,
 	config: {
 		wrapperClassName: spaWrapperTabContentClassName
 	},
 	assetManifestParser: manifest => {
-		const isWebpackManifeset = 'entrypoints' in manifest;
-		// const baseUrl = utledSpaUrl(SpaName.AKTIVITETSPLAN);
-
-		const baseUrl = `https://cdn.dev.nav.no/dab/aktivitetsplan-${
-			getEnv() === Env.Prod ? 'prod' : 'dev'
-		}-intern/build`;
-		if (isWebpackManifeset) {
-			return createAssetManifestParser(baseUrl)(manifest);
-		} else {
-			// Vitejs manifest
-			const { file } = manifest['index.html'];
-			const entry = { type: 'module', path: `${baseUrl}/${file}` };
-			return [entry];
-		}
+		const { file } = manifest['index.html'];
+		const entry = { type: 'module', path: `${aktivitetsplanCdnUrl}/${file}` };
+		return [entry];
 	}
 };
 
