@@ -3,7 +3,6 @@ import React from 'react';
 import { utledSpaUrl } from '../util/url-utils';
 import { DecoratorConfig } from './internflate-decorator/internflate-decorator-config';
 import Spinner from './spinner/spinner';
-import { createAssetManifestParser } from '@navikt/navspa/dist/async/utils';
 import { Env, getEnv } from '../sentry';
 
 export interface SpaProps {
@@ -53,9 +52,12 @@ export const visittkortAsyncConfig: AsyncSpaConfig = {
 	loader: <Spinner type="large" className="veilarbpersonflatefs-visittkort-spinner" />
 };
 
-const aktivitetsplanCdnUrl = `https://cdn.dev.nav.no/dab/aktivitetsplan-${
-	getEnv() === Env.Prod ? 'prod' : 'dev'
-}-intern/build`;
+
+const aktivitetsplanCdnUrl =
+	getEnv() === Env.Prod ?
+	'https://cdn.nav.no/dab/aktivitetsplan-prod-intern/build' :
+	'https://cdn.dev.nav.no/dab/aktivitetsplan-dev-intern/build'
+
 export const aktivitetsplanAsyncConfig: AsyncSpaConfig = {
 	appName: SpaName.AKTIVITETSPLAN,
 	appBaseUrl: aktivitetsplanCdnUrl,
