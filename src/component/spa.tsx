@@ -87,9 +87,10 @@ export const dialogAsyncConfig: AsyncSpaConfig = {
 			return createAssetManifestParser(baseUrl)(manifest);
 		} else {
 			// Vitejs manifest
-			const { file } = manifest['index.html'];
+			const { file, css } = manifest['index.html'];
 			const entry = { type: 'module', path: `${baseUrl}/${file}` };
-			return [entry];
+			const styles = css.map((path: string) => ({ path: `${baseUrl}/${path}` }));
+			return [entry, ...styles];
 		}
 	}
 };
