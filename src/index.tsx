@@ -27,9 +27,10 @@ const renderApp = () => {
 	root.render(<App />);
 };
 
-if (!window['_babelPolyfill']) {
+if (!globalThis['__core-js_shared__']) {
 	// @ts-ignore
-	import('babel-polyfill');
+	import('core-js/stable');
+	import('regenerator-runtime/runtime');
 }
 
 Modal.setAppElement(document.getElementById('modal-a11y-wrapper'));
