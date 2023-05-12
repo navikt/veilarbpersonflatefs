@@ -4,7 +4,7 @@ import { utledSpaUrl } from '../util/url-utils';
 import { DecoratorConfig } from './internflate-decorator/internflate-decorator-config';
 import Spinner from './spinner/spinner';
 import { Env, getEnv } from '../sentry';
-import {createAssetManifestParser} from "@navikt/navspa/dist/async/utils";
+import { createAssetManifestParser } from '@navikt/navspa/dist/async/utils';
 
 export interface SpaProps {
 	enhet?: string;
@@ -53,11 +53,10 @@ export const visittkortAsyncConfig: AsyncSpaConfig = {
 	loader: <Spinner type="large" className="veilarbpersonflatefs-visittkort-spinner" />
 };
 
-
 const aktivitetsplanCdnUrl =
-	getEnv() === Env.Prod ?
-	'https://cdn.nav.no/dab/aktivitetsplan-prod-intern/build' :
-	'https://cdn.dev.nav.no/dab/aktivitetsplan-dev-intern/build'
+	getEnv() === Env.Prod
+		? 'https://cdn.nav.no/dab/aktivitetsplan-prod-intern/build'
+		: 'https://cdn.dev.nav.no/dab/aktivitetsplan-dev-intern/build';
 
 export const aktivitetsplanAsyncConfig: AsyncSpaConfig = {
 	appName: SpaName.AKTIVITETSPLAN,
@@ -75,14 +74,14 @@ export const aktivitetsplanAsyncConfig: AsyncSpaConfig = {
 
 export const dialogAsyncConfig: AsyncSpaConfig = {
 	appName: SpaName.DIALOG,
-	appBaseUrl: utledSpaUrl(SpaName.DIALOG) + '/arbeid/dialog',
+	appBaseUrl: utledSpaUrl(SpaName.DIALOG),
 	loader: <Spinner type="large" className="veilarbpersonflatefs-visittkort-spinner" />,
 	config: {
 		wrapperClassName: spaWrapperTabContentClassNameDialog
 	},
 	assetManifestParser: manifest => {
 		const isWebpackManifeset = 'entrypoints' in manifest;
-		const baseUrl = utledSpaUrl(SpaName.DIALOG) + '/arbeid/dialog';
+		const baseUrl = utledSpaUrl(SpaName.DIALOG);
 		if (isWebpackManifeset) {
 			return createAssetManifestParser(baseUrl)(manifest);
 		} else {
