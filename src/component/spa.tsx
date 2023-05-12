@@ -75,14 +75,14 @@ export const aktivitetsplanAsyncConfig: AsyncSpaConfig = {
 
 export const dialogAsyncConfig: AsyncSpaConfig = {
 	appName: SpaName.DIALOG,
-	appBaseUrl: utledSpaUrl(SpaName.DIALOG),
+	appBaseUrl: utledSpaUrl(SpaName.DIALOG) + '/arbeid/dialog',
 	loader: <Spinner type="large" className="veilarbpersonflatefs-visittkort-spinner" />,
 	config: {
 		wrapperClassName: spaWrapperTabContentClassNameDialog
 	},
 	assetManifestParser: manifest => {
 		const isWebpackManifeset = 'entrypoints' in manifest;
-		const baseUrl = utledSpaUrl(SpaName.DIALOG);
+		const baseUrl = utledSpaUrl(SpaName.DIALOG) + '/arbeid/dialog';
 		if (isWebpackManifeset) {
 			return createAssetManifestParser(baseUrl)(manifest);
 		} else {
