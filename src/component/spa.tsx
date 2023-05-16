@@ -74,8 +74,8 @@ export const aktivitetsplanAsyncConfig: AsyncSpaConfig = {
 
 const dialogCdnUrl =
 	getEnv() === Env.Prod
-		? 'https://cdn.nav.no/dab/arbeidsrettet-dialog-dev-intern/build'
-		: 'https://cdn.nav.no/dab/arbeidsrettet-dialog-prod-intern/build';
+		? 'https://cdn.nav.no/dab/arbeidsrettet-dialog-prod-intern/build'
+		: 'https://cdn.nav.no/dab/arbeidsrettet-dialog-dev-intern/build';
 
 export const dialogAsyncConfig: AsyncSpaConfig = {
 	appName: SpaName.DIALOG,
