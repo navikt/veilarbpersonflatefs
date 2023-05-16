@@ -79,7 +79,7 @@ const dialogCdnUrl =
 
 export const dialogAsyncConfig: AsyncSpaConfig = {
 	appName: SpaName.DIALOG,
-	appBaseUrl: dialogCdnUrl, // TODO: After dialog-cdn-merge, change this
+	appBaseUrl: dialogCdnUrl,
 	loader: <Spinner type="large" className="veilarbpersonflatefs-visittkort-spinner" />,
 	config: {
 		wrapperClassName: spaWrapperTabContentClassNameDialog
