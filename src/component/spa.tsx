@@ -4,7 +4,6 @@ import { utledSpaUrl } from '../util/url-utils';
 import { DecoratorConfig } from './internflate-decorator/internflate-decorator-config';
 import Spinner from './spinner/spinner';
 import { Env, getEnv } from '../sentry';
-import { createAssetManifestParser } from '@navikt/navspa/dist/async/utils';
 
 export interface SpaProps {
 	enhet?: string;
@@ -25,6 +24,8 @@ export enum SpaName {
 	VEILARBVISITTKORTFS = 'veilarbvisittkortfs',
 	ARBEIDSMARKEDSTILTAK = 'mulighetsrommet-veileder-flate'
 }
+
+const dabCdnUrl = 'https://cdn.nav.no/dab';
 
 export const spaWrapperTabContentClassName = 'spa-wrapper__tab-content';
 export const spaWrapperTabContentClassNameDialog = 'spa-wrapper__tab-content-dialog';
@@ -55,8 +56,8 @@ export const visittkortAsyncConfig: AsyncSpaConfig = {
 
 const aktivitetsplanCdnUrl =
 	getEnv() === Env.Prod
-		? 'https://cdn.nav.no/dab/aktivitetsplan-prod-intern/build'
-		: 'https://cdn.dev.nav.no/dab/aktivitetsplan-dev-intern/build';
+		? `${dabCdnUrl}/aktivitetsplan-prod-intern/build`
+		: `${dabCdnUrl}/aktivitetsplan-dev-intern/build`;
 
 export const aktivitetsplanAsyncConfig: AsyncSpaConfig = {
 	appName: SpaName.AKTIVITETSPLAN,
@@ -74,8 +75,8 @@ export const aktivitetsplanAsyncConfig: AsyncSpaConfig = {
 
 const dialogCdnUrl =
 	getEnv() === Env.Prod
-		? 'https://cdn.nav.no/dab/arbeidsrettet-dialog-prod-intern/build'
-		: 'https://cdn.nav.no/dab/arbeidsrettet-dialog-dev-intern/build';
+		? `${dabCdnUrl}/arbeidsrettet-dialog-prod-intern/build`
+		: `${dabCdnUrl}/arbeidsrettet-dialog-dev-intern/build`;
 
 export const dialogAsyncConfig: AsyncSpaConfig = {
 	appName: SpaName.DIALOG,
