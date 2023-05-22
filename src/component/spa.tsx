@@ -72,24 +72,22 @@ export const aktivitetsplanAsyncConfig: AsyncSpaConfig = {
 	}
 };
 
+const dialogCdnUrl =
+	getEnv() === Env.Prod
+		? 'https://cdn.nav.no/dab/arbeidsrettet-dialog-prod-intern/build'
+		: 'https://cdn.nav.no/dab/arbeidsrettet-dialog-dev-intern/build';
+
 export const dialogAsyncConfig: AsyncSpaConfig = {
 	appName: SpaName.DIALOG,
-	appBaseUrl: utledSpaUrl(SpaName.DIALOG),
+	appBaseUrl: dialogCdnUrl,
 	loader: <Spinner type="large" className="veilarbpersonflatefs-visittkort-spinner" />,
 	config: {
 		wrapperClassName: spaWrapperTabContentClassNameDialog
 	},
 	assetManifestParser: manifest => {
-		const isWebpackManifeset = 'entrypoints' in manifest;
-		const baseUrl = utledSpaUrl(SpaName.DIALOG);
-		if (isWebpackManifeset) {
-			return createAssetManifestParser(baseUrl)(manifest);
-		} else {
-			// Vitejs manifest
-			const { file } = manifest['index.html'];
-			const entry = { type: 'module', path: `${baseUrl}/${file}` };
-			return [entry];
-		}
+		const { file } = manifest['index.html'];
+		const entry = { type: 'module', path: `${dialogCdnUrl}/${file}` };
+		return [entry];
 	}
 };
 
