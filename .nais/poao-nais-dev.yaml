@@ -196,7 +196,6 @@ spec:
                 "cluster": "dev-fss"
               }
             },
-
             {
               "fromPath": "/mulighetsrommet-api",
               "toUrl": "http://mulighetsrommet-api.team-mulighetsrommet",
