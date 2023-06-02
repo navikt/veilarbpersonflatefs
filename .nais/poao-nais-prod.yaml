@@ -57,7 +57,6 @@ spec:
         - host: modiacontextholder.prod-fss-pub.nais.io
         - host: veilarbveileder.prod-fss-pub.nais.io
         - host: veilarbvedtaksstotte.prod-fss-pub.nais.io
-        - host: finn-kandidat-api.prod-fss-pub.nais.io
         - host: veilarboppgave.prod-fss-pub.nais.io
 
   env:
@@ -82,11 +81,6 @@ spec:
             {
               "fromPath": "/internarbeidsflatedecorator/*",
               "toUrl": "https://internarbeidsflatedecorator.intern.nav.no",
-              "preserveFromPath": true
-            },
-            {
-              "fromPath": "/registrer-tilretteleggingsbehov/*",
-              "toUrl": "https://registrer-tilretteleggingsbehov.intern.nav.no",
               "preserveFromPath": true
             },
             {
@@ -198,16 +192,6 @@ spec:
               "toApp": {
                 "name": "veilarbvedtaksstotte",
                 "namespace": "pto",
-                "cluster": "prod-fss"
-              }
-            },
-            {
-              "fromPath": "/finn-kandidat-api",
-              "toUrl": "https://finn-kandidat-api.prod-fss-pub.nais.io",
-              "preserveFromPath": true,
-              "toApp": {
-                "name": "finn-kandidat-api",
-                "namespace": "arbeidsgiver",
                 "cluster": "prod-fss"
               }
             },
