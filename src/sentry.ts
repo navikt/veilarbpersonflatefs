@@ -73,7 +73,6 @@ Sentry.init({
 				/arbeidsrettet-dialog(\.dev)?.intern.nav.no/,
 				/veilarbpersonflate(\.dev)?.intern.nav.no/
 				// Can't trace these apps, current CORS-config does not allow tracing headers
-				// /registrer-tilretteleggingsbehov(\.dev)?.intern.nav.no/
 				// /mulighetsrommet-veileder-flate(\.dev)?.intern.nav.no/,
 			]
 		})
