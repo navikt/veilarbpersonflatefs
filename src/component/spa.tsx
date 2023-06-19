@@ -82,19 +82,22 @@ const dialogCdnUrl =
 	getEnv() === Env.Prod
 		? `${dabCdnUrl}/arbeidsrettet-dialog-prod-intern/build`
 		: `${dabCdnUrl}/arbeidsrettet-dialog-dev-intern/build`;
-
-export const dialogAsyncConfig: AsyncSpaConfig = {
-	appName: SpaName.DIALOG,
-	appBaseUrl: dialogCdnUrl,
-	loader: <Spinner type="large" className="veilarbpersonflatefs-visittkort-spinner" />,
-	config: {
-		wrapperClassName: spaWrapperTabContentClassNameDialog
-	},
-	assetManifestParser: manifest => {
-		const { file } = manifest['index.html'];
-		const entry = { type: 'module', path: `${dialogCdnUrl}/${file}` };
-		return [entry];
-	}
+const dialogManifestParser: AssetManifestParser = manifest => {
+	const { file } = manifest['index.html'];
+	const entry = { type: 'module', path: `${dialogCdnUrl}/${file}` };
+	return [entry];
+};
+export const Dialog: React.ComponentType<SpaProps> = props => {
+	useEffect(() => {
+		loadAssets({
+			appName: SpaName.DIALOG,
+			appBaseUrl: dialogCdnUrl,
+			assetManifestParser: dialogManifestParser
+		});
+	}, []);
+	return React.createElement('dab-dialog', {
+		['data-fnr']: props.fnr
+	});
 };
 
 export const arbeidsmarkedstiltakAsyncConfig: AsyncSpaConfig = {
@@ -121,7 +124,6 @@ export const Decorator: React.ComponentType<DecoratorConfig> = NAVSPA.importer(S
 
 export const Visittkort: React.ComponentType<VisittKortProps> =
 	AsyncNavspa.importer<VisittKortProps>(visittkortAsyncConfig);
-export const Dialog: React.ComponentType<SpaProps> = AsyncNavspa.importer<SpaProps>(dialogAsyncConfig);
 export const Detaljer: React.ComponentType<SpaProps> = AsyncNavspa.importer<SpaProps>(detaljerAsyncConfig);
 export const Vedtaksstotte: React.ComponentType<SpaProps> = AsyncNavspa.importer<SpaProps>(vedtaksstotteAsyncConfig);
 export const Arbeidsmarkedstiltak: React.ComponentType<SpaProps> = AsyncNavspa.importer<SpaProps>(
