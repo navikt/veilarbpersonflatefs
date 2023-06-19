@@ -5,20 +5,24 @@ import './index.less';
 
 import { AsyncNavspa } from '@navikt/navspa';
 import {
+	aktivitetsplanLoadConfig,
 	arbeidsmarkedstiltakAsyncConfig,
 	detaljerAsyncConfig,
+	dialogLoadConfig,
 	vedtaksstotteAsyncConfig,
 	visittkortAsyncConfig
 } from './component/spa';
 import { erMock } from './util/utils';
 import { Modal } from '@navikt/ds-react';
 import { createRoot } from 'react-dom/client';
+import { loadAssets } from '@navikt/navspa/dist/async/async-navspa';
 
 const lastInnSubApper = () => {
+	loadAssets(aktivitetsplanLoadConfig);
 	AsyncNavspa.preload(visittkortAsyncConfig);
 	AsyncNavspa.preload(detaljerAsyncConfig);
 	AsyncNavspa.preload(vedtaksstotteAsyncConfig);
-	// TODO: add preload for dialog here
+	loadAssets(dialogLoadConfig);
 	AsyncNavspa.preload(arbeidsmarkedstiltakAsyncConfig);
 };
 const renderApp = () => {

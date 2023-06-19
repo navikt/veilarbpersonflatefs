@@ -1,10 +1,10 @@
 import NAVSPA, { AsyncNavspa, AsyncSpaConfig } from '@navikt/navspa';
-import React, { useEffect } from 'react';
+import React from 'react';
 import { utledSpaUrl } from '../util/url-utils';
 import { DecoratorConfig } from './internflate-decorator/internflate-decorator-config';
 import Spinner from './spinner/spinner';
 import { Env, getEnv } from '../sentry';
-import { AssetManifestParser, loadAssets } from '@navikt/navspa/dist/async/async-navspa';
+import { AssetManifestParser } from '@navikt/navspa/dist/async/async-navspa';
 
 export interface SpaProps {
 	enhet?: string;
@@ -65,14 +65,12 @@ const aktivitetsplanManifestParser: AssetManifestParser = manifest => {
 	const entry = { type: 'module', path: `${aktivitetsplanCdnUrl}/${file}` };
 	return [entry];
 };
+export const aktivitetsplanLoadConfig = {
+	appName: SpaName.AKTIVITETSPLAN,
+	appBaseUrl: aktivitetsplanCdnUrl,
+	assetManifestParser: aktivitetsplanManifestParser
+};
 export const Aktivitetsplan: React.ComponentType<SpaProps> = props => {
-	useEffect(() => {
-		loadAssets({
-			appName: SpaName.AKTIVITETSPLAN,
-			appBaseUrl: aktivitetsplanCdnUrl,
-			assetManifestParser: aktivitetsplanManifestParser
-		});
-	}, []);
 	return React.createElement('dab-aktivitetsplan', {
 		['data-fnr']: props.fnr
 	});
@@ -87,14 +85,12 @@ const dialogManifestParser: AssetManifestParser = manifest => {
 	const entry = { type: 'module', path: `${dialogCdnUrl}/${file}` };
 	return [entry];
 };
+export const dialogLoadConfig = {
+	appName: SpaName.DIALOG,
+	appBaseUrl: dialogCdnUrl,
+	assetManifestParser: dialogManifestParser
+};
 export const Dialog: React.ComponentType<SpaProps> = props => {
-	useEffect(() => {
-		loadAssets({
-			appName: SpaName.DIALOG,
-			appBaseUrl: dialogCdnUrl,
-			assetManifestParser: dialogManifestParser
-		});
-	}, []);
 	return React.createElement('dab-dialog', {
 		['data-fnr']: props.fnr
 	});
