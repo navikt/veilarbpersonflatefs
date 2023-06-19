@@ -1,9 +1,10 @@
 import NAVSPA, { AsyncNavspa, AsyncSpaConfig } from '@navikt/navspa';
-import React from 'react';
+import React, { useEffect } from 'react';
 import { utledSpaUrl } from '../util/url-utils';
 import { DecoratorConfig } from './internflate-decorator/internflate-decorator-config';
 import Spinner from './spinner/spinner';
 import { Env, getEnv } from '../sentry';
+import { AssetManifestParser, loadAssets } from '@navikt/navspa/dist/async/async-navspa';
 
 export interface SpaProps {
 	enhet?: string;
@@ -59,18 +60,22 @@ const aktivitetsplanCdnUrl =
 		? `${dabCdnUrl}/aktivitetsplan-prod-intern/build`
 		: `${dabCdnUrl}/aktivitetsplan-dev-intern/build`;
 
-export const aktivitetsplanAsyncConfig: AsyncSpaConfig = {
-	appName: SpaName.AKTIVITETSPLAN,
-	appBaseUrl: aktivitetsplanCdnUrl,
-	loader: <Spinner type="large" className="veilarbpersonflatefs-visittkort-spinner" />,
-	config: {
-		wrapperClassName: spaWrapperTabContentClassName
-	},
-	assetManifestParser: manifest => {
-		const { file } = manifest['index.html'];
-		const entry = { type: 'module', path: `${aktivitetsplanCdnUrl}/${file}` };
-		return [entry];
-	}
+const aktivitetsplanManifestParser: AssetManifestParser = manifest => {
+	const { file } = manifest['index.html'];
+	const entry = { type: 'module', path: `${aktivitetsplanCdnUrl}/${file}` };
+	return [entry];
+};
+export const Aktivitetsplan: React.ComponentType<SpaProps> = props => {
+	useEffect(() => {
+		loadAssets({
+			appName: SpaName.AKTIVITETSPLAN,
+			appBaseUrl: aktivitetsplanCdnUrl,
+			assetManifestParser: aktivitetsplanManifestParser
+		});
+	}, []);
+	return React.createElement('dab-aktivitetsplan', {
+		['data-fnr']: props.fnr
+	});
 };
 
 const dialogCdnUrl =
@@ -116,7 +121,6 @@ export const Decorator: React.ComponentType<DecoratorConfig> = NAVSPA.importer(S
 
 export const Visittkort: React.ComponentType<VisittKortProps> =
 	AsyncNavspa.importer<VisittKortProps>(visittkortAsyncConfig);
-export const Aktivitetsplan: React.ComponentType<SpaProps> = AsyncNavspa.importer<SpaProps>(aktivitetsplanAsyncConfig);
 export const Dialog: React.ComponentType<SpaProps> = AsyncNavspa.importer<SpaProps>(dialogAsyncConfig);
 export const Detaljer: React.ComponentType<SpaProps> = AsyncNavspa.importer<SpaProps>(detaljerAsyncConfig);
 export const Vedtaksstotte: React.ComponentType<SpaProps> = AsyncNavspa.importer<SpaProps>(vedtaksstotteAsyncConfig);
