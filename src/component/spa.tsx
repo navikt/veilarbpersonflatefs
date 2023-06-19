@@ -73,7 +73,7 @@ export const Aktivitetsplan: React.ComponentType<SpaProps> = props => {
 			assetManifestParser: aktivitetsplanManifestParser
 		});
 	}, []);
-	return React.createElement('dab-aktivtetsplan', {
+	return React.createElement('dab-aktivitetsplan', {
 		['data-fnr']: props.fnr
 	});
 };
