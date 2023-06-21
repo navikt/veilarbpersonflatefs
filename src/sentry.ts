@@ -3,7 +3,7 @@ import { Breadcrumb, Event } from '@sentry/types';
 import * as Sentry from '@sentry/react';
 import { BrowserTracing } from '@sentry/tracing';
 
-enum Env {
+export enum Env {
 	Local = 'local',
 	Dev = 'dev',
 	Prod = 'prod'
@@ -73,13 +73,13 @@ Sentry.init({
 				/arbeidsrettet-dialog(\.dev)?.intern.nav.no/,
 				/veilarbpersonflate(\.dev)?.intern.nav.no/
 				// Can't trace these apps, current CORS-config does not allow tracing headers
-				// /registrer-tilretteleggingsbehov(\.dev)?.intern.nav.no/
 				// /mulighetsrommet-veileder-flate(\.dev)?.intern.nav.no/,
 			]
 		})
 	],
 	environment: getEnv(),
 	enabled: !erMock(),
+	ignoreErrors: [/^canceled$/],
 	// Set tracesSampleRate to 1.0 to capture 100%
 	// of transactions for performance monitoring.
 	// We recommend adjusting this value in production
