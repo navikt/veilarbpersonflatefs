@@ -7,24 +7,24 @@ import { Env, getEnv } from '../sentry';
 import { AssetManifestParser, loadAssets } from '@navikt/navspa/dist/async/async-navspa';
 
 export interface SpaProps {
-    enhet?: string;
-    fnr: string;
+	enhet?: string;
+	fnr: string;
 }
 
 interface VisittKortProps extends SpaProps {
-    tilbakeTilFlate: string;
-    visVeilederVerktoy: boolean;
+	tilbakeTilFlate: string;
+	visVeilederVerktoy: boolean;
 }
 
 export enum SpaName {
-    INTERNARBEIDSFLATEFS_DECORATOR = 'internarbeidsflatefs',
-    VEILARBMAOFS = 'veilarbmaofs',
-    AKTIVITETSPLAN = 'aktivitetsplan',
-    DIALOG = 'arbeidsrettet-dialog',
-    VEILARBVEDTAKSSTOTTEFS = 'veilarbvedtaksstottefs',
-    VEILARBVISITTKORTFS = 'veilarbvisittkortfs',
-    ARBEIDSMARKEDSTILTAK = 'mulighetsrommet-veileder-flate',
-    VEILARBDETALJER = 'veilarbdetaljer'
+	INTERNARBEIDSFLATEFS_DECORATOR = 'internarbeidsflatefs',
+	VEILARBMAOFS = 'veilarbmaofs',
+	AKTIVITETSPLAN = 'aktivitetsplan',
+	DIALOG = 'arbeidsrettet-dialog',
+	VEILARBVEDTAKSSTOTTEFS = 'veilarbvedtaksstottefs',
+	VEILARBVISITTKORTFS = 'veilarbvisittkortfs',
+	ARBEIDSMARKEDSTILTAK = 'mulighetsrommet-veileder-flate',
+	VEILARBDETALJER = 'veilarbdetaljer'
 }
 
 const dabCdnUrl = 'https://cdn.nav.no/dab';
@@ -33,45 +33,45 @@ export const spaWrapperTabContentClassName = 'spa-wrapper__tab-content';
 export const spaWrapperTabContentClassNameDialog = 'spa-wrapper__tab-content-dialog';
 
 export const detaljerAsyncConfig: AsyncSpaConfig = {
-    appName: SpaName.VEILARBMAOFS,
-    appBaseUrl: utledSpaUrl(SpaName.VEILARBMAOFS),
-    loader: <Spinner/>,
-    config: {
-        wrapperClassName: spaWrapperTabContentClassName
-    }
+	appName: SpaName.VEILARBMAOFS,
+	appBaseUrl: utledSpaUrl(SpaName.VEILARBMAOFS),
+	loader: <Spinner />,
+	config: {
+		wrapperClassName: spaWrapperTabContentClassName
+	}
 };
 
 export const detaljerNyAsyncConfig: AsyncSpaConfig = {
-    appName: SpaName.VEILARBDETALJER,
-    appBaseUrl: utledSpaUrl(SpaName.VEILARBDETALJER),
-    loader: <Spinner/>,
-    config: {
-        wrapperClassName: spaWrapperTabContentClassName
-    },
-    assetManifestParser: manifest => {
-        const {file, css} = manifest['index.html'];
-        const baseUrl = utledSpaUrl(SpaName.VEILARBDETALJER);
+	appName: SpaName.VEILARBDETALJER,
+	appBaseUrl: utledSpaUrl(SpaName.VEILARBDETALJER),
+	loader: <Spinner />,
+	config: {
+		wrapperClassName: spaWrapperTabContentClassName
+	},
+	assetManifestParser: manifest => {
+		const { file, css } = manifest['index.html'];
+		const baseUrl = utledSpaUrl(SpaName.VEILARBDETALJER);
 
-        const entry = {type: 'module', path: `${baseUrl}/${file}`};
-        const styles = css ? css.map((path: string) => ({path: `${baseUrl}/${path}`})) : [];
+		const entry = { type: 'module', path: `${baseUrl}/${file}` };
+		const styles = css ? css.map((path: string) => ({ path: `${baseUrl}/${path}` })) : [];
 
-        return [entry, ...styles];
-    }
+		return [entry, ...styles];
+	}
 };
 
 export const vedtaksstotteAsyncConfig: AsyncSpaConfig = {
-    appName: SpaName.VEILARBVEDTAKSSTOTTEFS,
-    appBaseUrl: utledSpaUrl(SpaName.VEILARBVEDTAKSSTOTTEFS),
-    loader: <Spinner/>,
-    config: {
-        wrapperClassName: spaWrapperTabContentClassName
-    }
+	appName: SpaName.VEILARBVEDTAKSSTOTTEFS,
+	appBaseUrl: utledSpaUrl(SpaName.VEILARBVEDTAKSSTOTTEFS),
+	loader: <Spinner />,
+	config: {
+		wrapperClassName: spaWrapperTabContentClassName
+	}
 };
 
 export const visittkortAsyncConfig: AsyncSpaConfig = {
-    appName: SpaName.VEILARBVISITTKORTFS,
-    appBaseUrl: utledSpaUrl(SpaName.VEILARBVISITTKORTFS),
-    loader: <Spinner type="large" className="veilarbpersonflatefs-visittkort-spinner"/>
+	appName: SpaName.VEILARBVISITTKORTFS,
+	appBaseUrl: utledSpaUrl(SpaName.VEILARBVISITTKORTFS),
+	loader: <Spinner type="large" className="veilarbpersonflatefs-visittkort-spinner" />
 };
 
 const aktivitetsplanCdnUrl =
@@ -117,25 +117,25 @@ export const dialogAsyncConfig: AsyncSpaConfig = {
 };
 
 export const arbeidsmarkedstiltakAsyncConfig: AsyncSpaConfig = {
-    appName: SpaName.ARBEIDSMARKEDSTILTAK,
-    appBaseUrl: utledSpaUrl(SpaName.ARBEIDSMARKEDSTILTAK),
-    loader: <Spinner type="large" className="veilarbpersonflatefs-visittkort-spinner"/>,
-    config: {
-        wrapperClassName: spaWrapperTabContentClassName
-    },
-    assetManifestParser: manifest => {
-        const {file, css} = manifest['index.html'];
-        const baseUrl = utledSpaUrl(SpaName.ARBEIDSMARKEDSTILTAK);
+	appName: SpaName.ARBEIDSMARKEDSTILTAK,
+	appBaseUrl: utledSpaUrl(SpaName.ARBEIDSMARKEDSTILTAK),
+	loader: <Spinner type="large" className="veilarbpersonflatefs-visittkort-spinner" />,
+	config: {
+		wrapperClassName: spaWrapperTabContentClassName
+	},
+	assetManifestParser: manifest => {
+		const { file, css } = manifest['index.html'];
+		const baseUrl = utledSpaUrl(SpaName.ARBEIDSMARKEDSTILTAK);
 
-        const entry = {type: 'module', path: `${baseUrl}/${file}`};
-        const styles = css.map((path: string) => ({path: `${baseUrl}/${path}`}));
+		const entry = { type: 'module', path: `${baseUrl}/${file}` };
+		const styles = css.map((path: string) => ({ path: `${baseUrl}/${path}` }));
 
-        return [entry, ...styles];
-    }
+		return [entry, ...styles];
+	}
 };
 
 export const Decorator: React.ComponentType<DecoratorConfig> = NAVSPA.importer(SpaName.INTERNARBEIDSFLATEFS_DECORATOR, {
-    wrapperClassName: ''
+	wrapperClassName: ''
 });
 
 export const Visittkort: React.ComponentType<VisittKortProps> =
@@ -145,5 +145,5 @@ export const Detaljer: React.ComponentType<SpaProps> = AsyncNavspa.importer<SpaP
 export const DetaljerNy: React.ComponentType<SpaProps> = AsyncNavspa.importer<SpaProps>(detaljerNyAsyncConfig);
 export const Vedtaksstotte: React.ComponentType<SpaProps> = AsyncNavspa.importer<SpaProps>(vedtaksstotteAsyncConfig);
 export const Arbeidsmarkedstiltak: React.ComponentType<SpaProps> = AsyncNavspa.importer<SpaProps>(
-    arbeidsmarkedstiltakAsyncConfig
+	arbeidsmarkedstiltakAsyncConfig
 );
