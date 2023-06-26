@@ -23,7 +23,8 @@ export enum SpaName {
 	DIALOG = 'arbeidsrettet-dialog',
 	VEILARBVEDTAKSSTOTTEFS = 'veilarbvedtaksstottefs',
 	VEILARBVISITTKORTFS = 'veilarbvisittkortfs',
-	ARBEIDSMARKEDSTILTAK = 'mulighetsrommet-veileder-flate'
+	ARBEIDSMARKEDSTILTAK = 'mulighetsrommet-veileder-flate',
+	VEILARBDETALJER = 'veilarbdetaljer'
 }
 
 const dabCdnUrl = 'https://cdn.nav.no/dab';
@@ -37,6 +38,24 @@ export const detaljerAsyncConfig: AsyncSpaConfig = {
 	loader: <Spinner />,
 	config: {
 		wrapperClassName: spaWrapperTabContentClassName
+	}
+};
+
+export const detaljerNyAsyncConfig: AsyncSpaConfig = {
+	appName: SpaName.VEILARBDETALJER,
+	appBaseUrl: utledSpaUrl(SpaName.VEILARBDETALJER),
+	loader: <Spinner />,
+	config: {
+		wrapperClassName: spaWrapperTabContentClassName
+	},
+	assetManifestParser: manifest => {
+		const { file, css } = manifest['index.html'];
+		const baseUrl = utledSpaUrl(SpaName.VEILARBDETALJER);
+
+		const entry = { type: 'module', path: `${baseUrl}/${file}` };
+		const styles = css ? css.map((path: string) => ({ path: `${baseUrl}/${path}` })) : [];
+
+		return [entry, ...styles];
 	}
 };
 
@@ -123,6 +142,7 @@ export const Visittkort: React.ComponentType<VisittKortProps> =
 	AsyncNavspa.importer<VisittKortProps>(visittkortAsyncConfig);
 export const Dialog: React.ComponentType<SpaProps> = AsyncNavspa.importer<SpaProps>(dialogAsyncConfig);
 export const Detaljer: React.ComponentType<SpaProps> = AsyncNavspa.importer<SpaProps>(detaljerAsyncConfig);
+export const DetaljerNy: React.ComponentType<SpaProps> = AsyncNavspa.importer<SpaProps>(detaljerNyAsyncConfig);
 export const Vedtaksstotte: React.ComponentType<SpaProps> = AsyncNavspa.importer<SpaProps>(vedtaksstotteAsyncConfig);
 export const Arbeidsmarkedstiltak: React.ComponentType<SpaProps> = AsyncNavspa.importer<SpaProps>(
 	arbeidsmarkedstiltakAsyncConfig
