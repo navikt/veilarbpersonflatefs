@@ -1,11 +1,25 @@
 import React from 'react';
 import TabMenu, { Tab } from './tab-menu/tab-menu';
-import { ARBEIDSMARKEDSTILTAK_LANSERING, Features, VEILARBDETALJERFS_ENABLED } from '../api/features';
+import {
+	ARBEIDSMARKEDSTILTAK_LANSERING,
+	FINN_STILLING_INNGANG_ENABLED,
+	Features,
+	VEILARBDETALJERFS_ENABLED
+} from '../api/features';
 import TilbakemeldingFab from './tilbakemelding/fab/tilbakemelding-fab';
 import { hentSistBesokteTab } from './tab-menu/siste-tab';
 import { TourModalController } from './tour-modal/tour-modal-controller';
 import { hasHashParam, hasQueryParam } from '../util/url-utils';
-import { Aktivitetsplan, Arbeidsmarkedstiltak, Detaljer, DetaljerNy, Dialog, Vedtaksstotte, Visittkort } from './spa';
+import {
+	Aktivitetsplan,
+	Arbeidsmarkedstiltak,
+	Detaljer,
+	DetaljerNy,
+	Dialog,
+	FinnStillingInngang,
+	Vedtaksstotte,
+	Visittkort
+} from './spa';
 import { ModiaContext } from '../store/modia-context-store';
 
 interface SideInnholdLayoutProps {
@@ -18,7 +32,8 @@ export enum TabId {
 	VEDTAKSSTOTTE = 'VEDTAKSSTOTTE',
 	DETALJER = 'DETALJER',
 	DETALJER_NY = 'DETALJER_NY',
-	ARBEIDSMARKEDSTILTAK = 'ARBEIDSMARKEDSTILTAK'
+	ARBEIDSMARKEDSTILTAK = 'ARBEIDSMARKEDSTILTAK',
+	FINN_STILLING_INNGANG = 'FINN_STILLING_INNGANG'
 }
 
 /*
@@ -40,7 +55,8 @@ const apps = {
 	aktivitetsplan: Aktivitetsplan,
 	vedtaksstotte: Vedtaksstotte,
 	dialog: Dialog,
-	arbeidsmarkedstiltak: Arbeidsmarkedstiltak
+	arbeidsmarkedstiltak: Arbeidsmarkedstiltak,
+	finnStillingInngang: FinnStillingInngang
 };
 
 class SideInnhold extends React.Component<SideInnholdLayoutProps> {
@@ -110,6 +126,14 @@ class SideInnhold extends React.Component<SideInnholdLayoutProps> {
 				id: TabId.DETALJER_NY,
 				title: 'Detaljer (NY)',
 				content: apps.detaljer_ny
+			});
+		}
+
+		if (features?.[FINN_STILLING_INNGANG_ENABLED]) {
+			tabs.push({
+				id: TabId.FINN_STILLING_INNGANG,
+				title: 'Aktuelle stillinger',
+				content: apps.finnStillingInngang
 			});
 		}
 
