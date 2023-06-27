@@ -132,7 +132,7 @@ class SideInnhold extends React.Component<SideInnholdLayoutProps> {
 		if (features?.[FINN_STILLING_INNGANG_ENABLED]) {
 			tabs.push({
 				id: TabId.FINN_STILLING_INNGANG,
-				title: 'Aktuelle stillinger',
+				title: 'Finn stillinger',
 				content: apps.finnStillingInngang
 			});
 		}
