@@ -24,7 +24,8 @@ export enum SpaName {
 	VEILARBVEDTAKSSTOTTEFS = 'veilarbvedtaksstottefs',
 	VEILARBVISITTKORTFS = 'veilarbvisittkortfs',
 	ARBEIDSMARKEDSTILTAK = 'mulighetsrommet-veileder-flate',
-	VEILARBDETALJER = 'veilarbdetaljer'
+	VEILARBDETALJER = 'veilarbdetaljer',
+	FINN_STILLING_INNGANG = 'finn-stilling-inngang'
 }
 
 const dabCdnUrl = 'https://cdn.nav.no/dab';
@@ -134,6 +135,24 @@ export const arbeidsmarkedstiltakAsyncConfig: AsyncSpaConfig = {
 	}
 };
 
+export const finnStillingInngangAsyncConfig: AsyncSpaConfig = {
+	appName: SpaName.FINN_STILLING_INNGANG,
+	appBaseUrl: utledSpaUrl(SpaName.FINN_STILLING_INNGANG),
+	loader: <Spinner />,
+	config: {
+		wrapperClassName: spaWrapperTabContentClassName
+	},
+	assetManifestParser: manifest => {
+		const { file, css } = manifest['index.html'];
+		const baseUrl = utledSpaUrl(SpaName.FINN_STILLING_INNGANG);
+
+		const entry = { type: 'module', path: `${baseUrl}/${file}` };
+		const styles = css ? css.map((path: string) => ({ path: `${baseUrl}/${path}` })) : [];
+
+		return [entry, ...styles];
+	}
+};
+
 export const Decorator: React.ComponentType<DecoratorConfig> = NAVSPA.importer(SpaName.INTERNARBEIDSFLATEFS_DECORATOR, {
 	wrapperClassName: ''
 });
@@ -147,3 +166,5 @@ export const Vedtaksstotte: React.ComponentType<SpaProps> = AsyncNavspa.importer
 export const Arbeidsmarkedstiltak: React.ComponentType<SpaProps> = AsyncNavspa.importer<SpaProps>(
 	arbeidsmarkedstiltakAsyncConfig
 );
+export const FinnStillingInngang: React.ComponentType<SpaProps> =
+	AsyncNavspa.importer<SpaProps>(finnStillingInngangAsyncConfig);
