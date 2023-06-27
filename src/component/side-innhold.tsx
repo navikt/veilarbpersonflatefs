@@ -46,7 +46,8 @@ const showTabMap: { [k: string]: TabId } = {
 	visVedtaksstotte: TabId.VEDTAKSSTOTTE,
 	visDetaljer: TabId.DETALJER,
 	visDetaljerNy: TabId.DETALJER_NY,
-	visArbeidsmarkedstiltak: TabId.ARBEIDSMARKEDSTILTAK
+	visArbeidsmarkedstiltak: TabId.ARBEIDSMARKEDSTILTAK,
+	visFinnStillingInngang: TabId.FINN_STILLING_INNGANG
 };
 
 const apps = {
