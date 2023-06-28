@@ -8,6 +8,7 @@ Denne appen er "host" app for følgende "micro"-frontends:
   - VEDTAKSSTOTTE
   - DETALJER (VEILARBMAOFS)
   - ARBEIDSMARKEDSTILTAK
+  - FINN STILLING ([Team Toi](https://teamkatalog.nav.no/team/76f378c5-eb35-42db-9f4d-0e8197be0131) sin app [finn-stilling-inngang](https://github.com/navikt/finn-stilling-inngang))
 - Navbar-apps 
   - INTERNARBEIDSFLATEFS_DECORATOR (søke på person og linker til andre nav apper)
   - VEILARBVISITTKORTFS (div info om en person + "veilederverktøy")
