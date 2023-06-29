@@ -52,3 +52,7 @@ async function logAmplitudeEvent(eventName: string, eventData?: Record<string, u
         track(eventName, { ...eventData, app: origin });
     } catch (e) { /* empty */ }
 }
+
+export function logValgtFane(tabId: TabId) {
+    return logAmplitudeEvent('tab åpnet', { tabId });
+}
