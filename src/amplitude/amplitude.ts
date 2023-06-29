@@ -23,34 +23,32 @@ function logEventFromApp(params?: {
     eventName: unknown | string;
     eventData?: unknown | Record<string, unknown>;
 }): Promise<void> {
-    try {
-        if (!params || params.constructor !== Object) {
-            return Promise.reject(
-                'Argument must be an object of type {origin: string, eventName: string, eventData?: Record<string, unknown>}'
-            );
-        }
-
-        const { origin, eventName, eventData = {} } = params;
-        if (!eventName || typeof eventName !== 'string') {
-            return Promise.reject('Parameter "eventName" must be a string');
-        }
-        if (!eventData || eventData.constructor !== Object) {
-            return Promise.reject('Parameter "eventData" must be a plain object');
-        }
-        if (!origin || typeof origin !== 'string') {
-            return Promise.reject('Parameter "origin" must be a string');
-        }
-
-        return logAmplitudeEvent(eventName, eventData as Record<string, unknown>, origin);
-    } catch (e) {
-        return Promise.reject(`Unexpected Amplitude error: ${e}`);
+    if (!params || params.constructor !== Object) {
+        return Promise.reject(
+            'Argument must be an object of type {origin: string, eventName: string, eventData?: Record<string, unknown>}'
+        );
     }
+
+    const { origin, eventName, eventData = {} } = params;
+    if (!eventName || typeof eventName !== 'string') {
+        return Promise.reject('Parameter "eventName" must be a string');
+    }
+    if (!eventData || eventData.constructor !== Object) {
+        return Promise.reject('Parameter "eventData" must be a plain object');
+    }
+    if (!origin || typeof origin !== 'string') {
+        return Promise.reject('Parameter "origin" must be a string');
+    }
+
+    return logAmplitudeEvent(eventName, eventData as Record<string, unknown>, origin);
 }
 
 async function logAmplitudeEvent(eventName: string, eventData?: Record<string, unknown>, origin = 'veilarbpersonflatefs'): Promise<void> {
     try {
-        track(eventName, { ...eventData, app: origin });
-    } catch (e) { /* empty */ }
+        await track(eventName, {...eventData, app: origin});
+    } catch (e) {
+        return Promise.reject(`Unexpected Amplitude error: ${e}`);
+    }
 }
 
 export function logValgtFane(tabId: TabId) {
