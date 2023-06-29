@@ -9,3 +9,15 @@ interface ImportMetaEnv {
 interface ImportMeta {
     readonly env: ImportMetaEnv;
 }
+
+interface Window {
+	veilarbpersonflatefsAmplitude: ({
+		origin,
+		eventName,
+		eventData
+	}?: {
+		origin: string;
+		eventName: string;
+		eventData?: Record<string, unknown>;
+	}) => Promise<void>;
+}

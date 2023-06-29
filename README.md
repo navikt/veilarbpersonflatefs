@@ -41,6 +41,33 @@ ignore-fil med riktig navn i det gitte git prosjektet du står i. Se forøvrig g
 
 `git config --global --unset blame.ignoreRevsFile`
 
+## Bruk av Amplitude
+
+Det er mulig å sende eventer til Amplitude gjennom personflatens Amplitude-klient. Eventene  Det finnes foreløpig ikke noen
+pakke som eksponerer funksjonen, men du kan legge til en deklarasjon som ser sånn her ut:
+
+```typescript
+interface Window {
+	veilarbpersonflatefsAmplitude: ({
+		origin,
+		eventName,
+		eventData
+	}?: {
+		origin: string;
+		eventName: string;
+		eventData?: Record<string, unknown>;
+	}) => Promise<void>;
+}
+```
+
+Eksempel på bruk:
+
+```typescript
+window.veilarbpersonflatefsAmplitude('aktivitetsplan', 'accordion åpnet', { tekst: 'Historikk' });
+```
+
+Se [https://github.com/navikt/analytics-taxonomy](https://github.com/navikt/analytics-taxonomy) for taksonomi.
+
 # Henvendelser
 
 Spørsmål knyttet til koden eller prosjektet kan stilles via issues her på github.
