@@ -4,6 +4,19 @@ export function erMock() {
 	return import.meta.env.MODE === 'development';
 }
 
+export enum Env {
+	Local = 'local',
+	Dev = 'dev',
+	Prod = 'prod'
+}
+
+export const getEnv = (): string => {
+	const { hostname } = window.location;
+	if (hostname.includes('dev.intern.nav.no')) return Env.Dev;
+	if (hostname.includes('intern.nav.no')) return Env.Prod;
+	return Env.Local;
+};
+
 export function hasStored(tagName: string) {
 	return window.localStorage.getItem(tagName) !== null;
 }

@@ -14,6 +14,7 @@ import {
 import { erMock } from './util/utils';
 import { Modal } from '@navikt/ds-react';
 import { createRoot } from 'react-dom/client';
+import { initAmplitude } from './amplitude/amplitude';
 
 const lastInnSubApper = () => {
 	AsyncNavspa.preload(visittkortAsyncConfig);
@@ -39,6 +40,7 @@ if (erMock()) {
 	// @ts-ignore
 	import('./mock/setup').then(renderApp);
 } else {
+	initAmplitude();
 	renderApp();
 	lastInnSubApper();
 }

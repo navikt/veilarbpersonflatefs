@@ -3,8 +3,8 @@ import React, { useEffect } from 'react';
 import { utledSpaUrl } from '../util/url-utils';
 import { DecoratorConfig } from './internflate-decorator/internflate-decorator-config';
 import Spinner from './spinner/spinner';
-import { Env, getEnv } from '../sentry';
 import { AssetManifestParser, loadAssets } from '@navikt/navspa/dist/async/async-navspa';
+import { Env, getEnv } from '../util/utils';
 
 export interface SpaProps {
 	enhet?: string;
