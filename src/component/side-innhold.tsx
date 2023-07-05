@@ -125,7 +125,7 @@ class SideInnhold extends React.Component<SideInnholdLayoutProps> {
 		if (features?.[VEILARBDETALJERFS_ENABLED]) {
 			tabs.push({
 				id: TabId.DETALJER_NY,
-				title: 'Detaljer (NY)',
+				title: 'Overblikk',
 				content: apps.detaljer_ny
 			});
 		}
