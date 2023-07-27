@@ -7,7 +7,7 @@ import {
 } from '../component/alertstriper/alertstriper';
 import PageSpinner from '../component/page-spinner/page-spinner';
 import { InternflateDecorator } from '../component/internflate-decorator/internflate-decorator';
-import { useFetchAktivEnhet, useFetchFeatures, useFetchTilgangTilBruker } from '../api/api';
+import { useFetchAktivEnhet, useFetchFeatures, useFetchFeaturesForTeamValp, useFetchTilgangTilBruker } from '../api/api';
 import { hasAnyFailed, isAnyLoading } from '../api/utils';
 import { Features } from '../api/features';
 import { useModiaContext } from '../store/modia-context-store';
@@ -16,6 +16,7 @@ import { SesjonStatus, useSesjonStatus } from '../hooks/use-sesjon-status';
 
 interface AppInnholdProps {
 	features?: Features;
+	enableArbeidsmarkedstiltakForTeamValp?: boolean;
 }
 
 export const PersonflatePage = () => {
@@ -25,6 +26,7 @@ export const PersonflatePage = () => {
 
 	const fetchTilgangTilBruker = useFetchTilgangTilBruker(aktivBrukerFnr, { manual: true });
 	const fetchFeature = useFetchFeatures();
+	const fetchFeatureForTeamValp = useFetchFeaturesForTeamValp()
 	const fetchAktivEnhet = useFetchAktivEnhet();
 
 	// Hack used because internflatedecorator does not update onFnrChanged function so comparison on fnr can not
@@ -71,7 +73,7 @@ export const PersonflatePage = () => {
 	} else if (!fetchTilgangTilBruker.data) {
 		innhold = <IngenTilgangTilBruker />;
 	} else {
-		innhold = <Innhold features={fetchFeature.data} />;
+		innhold = <Innhold features={fetchFeature.data} enableArbeidsmarkedstiltakForTeamValp={fetchFeatureForTeamValp} />;
 	}
 
 	return (
@@ -88,6 +90,6 @@ export const PersonflatePage = () => {
 	);
 };
 
-const Innhold = ({ features }: AppInnholdProps) => {
-	return <SideInnhold features={features} />;
+const Innhold = ({ features, enableArbeidsmarkedstiltakForTeamValp }: AppInnholdProps) => {
+	return <SideInnhold features={features} enableArbeidsmarkedstiltakForTeamValp={enableArbeidsmarkedstiltakForTeamValp} />;
 };

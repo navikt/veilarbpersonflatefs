@@ -24,6 +24,7 @@ import { ModiaContext } from '../store/modia-context-store';
 
 interface SideInnholdLayoutProps {
 	features?: Features;
+	enableArbeidsmarkedstiltakForTeamValp?: Boolean;
 }
 
 export enum TabId {
@@ -93,7 +94,7 @@ class SideInnhold extends React.Component<SideInnholdLayoutProps> {
 
 	render() {
 		const { aktivBrukerFnr, aktivEnhetId } = this.context;
-		const { features } = this.props;
+		const { features, enableArbeidsmarkedstiltakForTeamValp } = this.props;
 		const tabs: Tab[] = [];
 
 		tabs.push({
@@ -114,6 +115,7 @@ class SideInnhold extends React.Component<SideInnholdLayoutProps> {
 			className: 'tab-menu__tab-content--vedtaksstotte'
 		});
 
+		console.log("Skal vise tab for team valps arbeidsmarkedstiltak = ", enableArbeidsmarkedstiltakForTeamValp)
 		if (features?.[ARBEIDSMARKEDSTILTAK_LANSERING]) {
 			tabs.push({
 				id: TabId.ARBEIDSMARKEDSTILTAK,
