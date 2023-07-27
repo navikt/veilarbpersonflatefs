@@ -14,11 +14,6 @@ import { useModiaContext } from '../store/modia-context-store';
 import { UtloptSesjonAdvarsel } from '../component/utlopt-sesjon-advarsel/utlopt-sesjon-advarsel';
 import { SesjonStatus, useSesjonStatus } from '../hooks/use-sesjon-status';
 
-interface AppInnholdProps {
-	features?: Features;
-	enableArbeidsmarkedstiltakForTeamValp?: boolean;
-}
-
 export const PersonflatePage = () => {
 	const { aktivBrukerFnr, aktivEnhetId, setAktivEnhetId, setAktivBrukerFnr, setRenderKey, renderKey } =
 		useModiaContext();
@@ -26,7 +21,7 @@ export const PersonflatePage = () => {
 
 	const fetchTilgangTilBruker = useFetchTilgangTilBruker(aktivBrukerFnr, { manual: true });
 	const fetchFeature = useFetchFeatures();
-	const fetchFeatureForTeamValp = useFetchFeaturesForTeamValp()
+	const {data: enableArbeidsmarkedstiltakForTeamValp} = useFetchFeaturesForTeamValp()
 	const fetchAktivEnhet = useFetchAktivEnhet();
 
 	// Hack used because internflatedecorator does not update onFnrChanged function so comparison on fnr can not
@@ -73,7 +68,7 @@ export const PersonflatePage = () => {
 	} else if (!fetchTilgangTilBruker.data) {
 		innhold = <IngenTilgangTilBruker />;
 	} else {
-		innhold = <Innhold features={fetchFeature.data} enableArbeidsmarkedstiltakForTeamValp={fetchFeatureForTeamValp} />;
+		innhold = <Innhold features={fetchFeature.data} enableArbeidsmarkedstiltakForTeamValp={enableArbeidsmarkedstiltakForTeamValp} />;
 	}
 
 	return (
@@ -89,6 +84,12 @@ export const PersonflatePage = () => {
 		</>
 	);
 };
+
+
+interface AppInnholdProps {
+	features?: Features;
+	enableArbeidsmarkedstiltakForTeamValp?: boolean;
+}
 
 const Innhold = ({ features, enableArbeidsmarkedstiltakForTeamValp }: AppInnholdProps) => {
 	return <SideInnhold features={features} enableArbeidsmarkedstiltakForTeamValp={enableArbeidsmarkedstiltakForTeamValp} />;

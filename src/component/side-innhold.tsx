@@ -1,7 +1,6 @@
 import React from 'react';
 import TabMenu, { Tab } from './tab-menu/tab-menu';
 import {
-	ARBEIDSMARKEDSTILTAK_LANSERING,
 	FINN_STILLING_INNGANG_ENABLED,
 	Features,
 	VEILARBDETALJERFS_ENABLED
@@ -115,8 +114,7 @@ class SideInnhold extends React.Component<SideInnholdLayoutProps> {
 			className: 'tab-menu__tab-content--vedtaksstotte'
 		});
 
-		console.log("Skal vise tab for team valps arbeidsmarkedstiltak = ", enableArbeidsmarkedstiltakForTeamValp)
-		if (features?.[ARBEIDSMARKEDSTILTAK_LANSERING]) {
+		if (enableArbeidsmarkedstiltakForTeamValp) {
 			tabs.push({
 				id: TabId.ARBEIDSMARKEDSTILTAK,
 				title: 'Arbeidsmarkedstiltak',
