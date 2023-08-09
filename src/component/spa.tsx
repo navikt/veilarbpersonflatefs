@@ -51,7 +51,16 @@ export const vedtaksstotteAsyncConfig: AsyncSpaConfig = {
 export const visittkortAsyncConfig: AsyncSpaConfig = {
 	appName: SpaName.VEILARBVISITTKORTFS,
 	appBaseUrl: utledSpaUrl(SpaName.VEILARBVISITTKORTFS),
-	loader: <Spinner type="large" className="veilarbpersonflatefs-visittkort-spinner" />
+	loader: <Spinner type="large" className="veilarbpersonflatefs-visittkort-spinner" />,
+	assetManifestParser: manifest => {
+		const { file, css } = manifest['index.html'];
+		const baseUrl = utledSpaUrl(SpaName.VEILARBVISITTKORTFS);
+
+		const entry = { type: 'module', path: `${baseUrl}/${file}` };
+		const styles = css.map((path: string) => ({ path: `${baseUrl}/${path}` }));
+
+		return [entry, ...styles];
+	}
 };
 
 const aktivitetsplanCdnUrl =
