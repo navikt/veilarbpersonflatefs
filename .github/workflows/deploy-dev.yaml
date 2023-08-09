@@ -1,5 +1,5 @@
 name: Deploy to dev
-run-name: Deploy dev ${{ github.ref_name }} by @${{ github.actor }}
+run-name: Deploy ${{ github.ref_name }} to dev by @${{ github.actor }}
 on:
   workflow_dispatch: # This workflow can be triggered manually from: https://github.com/navikt/veilarbpersonflatefs/actions/workflows/deploy-dev.yaml
   push:

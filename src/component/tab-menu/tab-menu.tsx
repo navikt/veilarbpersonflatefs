@@ -8,6 +8,7 @@ import { useModiaContext } from '../../store/modia-context-store';
 import { logEvent } from '../../util/frontend-logger';
 import { Tabs } from '@navikt/ds-react';
 import { SpaProps } from '../spa';
+import { logValgtFane } from '../../amplitude/amplitude';
 
 export interface Tab {
 	id: TabId;
@@ -69,6 +70,7 @@ function TabMenu(props: TabsProps) {
 		setCurrentTab(selectedTab);
 
 		logEvent('veilarbpersonflatefs.valgt-fane', { tabId: id });
+		logValgtFane(id);
 		const extra = !!extraDetails ? (extraDetails as CustomEvent).detail : {};
 		window.dispatchEvent(new CustomEvent('veilarbpersonflatefs.tab-clicked', { detail: { tabId: id, ...extra } }));
 	};

@@ -1,15 +1,29 @@
 import React from 'react';
 import TabMenu, { Tab } from './tab-menu/tab-menu';
-import { ARBEIDSMARKEDSTILTAK_LANSERING, Features } from '../api/features';
+import {
+	FINN_STILLING_INNGANG_ENABLED,
+	Features,
+	VEILARBDETALJERFS_ENABLED
+} from '../api/features';
 import TilbakemeldingFab from './tilbakemelding/fab/tilbakemelding-fab';
 import { hentSistBesokteTab } from './tab-menu/siste-tab';
 import { TourModalController } from './tour-modal/tour-modal-controller';
 import { hasHashParam, hasQueryParam } from '../util/url-utils';
-import { Aktivitetsplan, Arbeidsmarkedstiltak, Detaljer, Dialog, Vedtaksstotte, Visittkort } from './spa';
+import {
+	Aktivitetsplan,
+	Arbeidsmarkedstiltak,
+	Detaljer,
+	DetaljerNy,
+	Dialog,
+	FinnStillingInngang,
+	Vedtaksstotte,
+	Visittkort
+} from './spa';
 import { ModiaContext } from '../store/modia-context-store';
 
 interface SideInnholdLayoutProps {
 	features?: Features;
+	enableArbeidsmarkedstiltakForTeamValp?: Boolean;
 }
 
 export enum TabId {
@@ -17,7 +31,9 @@ export enum TabId {
 	DIALOG = 'DIALOG',
 	VEDTAKSSTOTTE = 'VEDTAKSSTOTTE',
 	DETALJER = 'DETALJER',
-	ARBEIDSMARKEDSTILTAK = 'ARBEIDSMARKEDSTILTAK'
+	DETALJER_NY = 'DETALJER_NY',
+	ARBEIDSMARKEDSTILTAK = 'ARBEIDSMARKEDSTILTAK',
+	FINN_STILLING_INNGANG = 'FINN_STILLING_INNGANG'
 }
 
 /*
@@ -29,15 +45,19 @@ const showTabMap: { [k: string]: TabId } = {
 	visDialog: TabId.DIALOG,
 	visVedtaksstotte: TabId.VEDTAKSSTOTTE,
 	visDetaljer: TabId.DETALJER,
-	visArbeidsmarkedstiltak: TabId.ARBEIDSMARKEDSTILTAK
+	visDetaljerNy: TabId.DETALJER_NY,
+	visArbeidsmarkedstiltak: TabId.ARBEIDSMARKEDSTILTAK,
+	visFinnStillingInngang: TabId.FINN_STILLING_INNGANG
 };
 
 const apps = {
 	mao: Detaljer,
+	detaljer_ny: DetaljerNy,
 	aktivitetsplan: Aktivitetsplan,
 	vedtaksstotte: Vedtaksstotte,
 	dialog: Dialog,
-	arbeidsmarkedstiltak: Arbeidsmarkedstiltak
+	arbeidsmarkedstiltak: Arbeidsmarkedstiltak,
+	finnStillingInngang: FinnStillingInngang
 };
 
 class SideInnhold extends React.Component<SideInnholdLayoutProps> {
@@ -73,7 +93,7 @@ class SideInnhold extends React.Component<SideInnholdLayoutProps> {
 
 	render() {
 		const { aktivBrukerFnr, aktivEnhetId } = this.context;
-		const { features } = this.props;
+		const { features, enableArbeidsmarkedstiltakForTeamValp } = this.props;
 		const tabs: Tab[] = [];
 
 		tabs.push({
@@ -94,11 +114,27 @@ class SideInnhold extends React.Component<SideInnholdLayoutProps> {
 			className: 'tab-menu__tab-content--vedtaksstotte'
 		});
 
-		if (features?.[ARBEIDSMARKEDSTILTAK_LANSERING]) {
+		if (enableArbeidsmarkedstiltakForTeamValp) {
 			tabs.push({
 				id: TabId.ARBEIDSMARKEDSTILTAK,
 				title: 'Arbeidsmarkedstiltak',
 				content: apps.arbeidsmarkedstiltak
+			});
+		}
+
+		if (features?.[VEILARBDETALJERFS_ENABLED]) {
+			tabs.push({
+				id: TabId.DETALJER_NY,
+				title: 'Overblikk',
+				content: apps.detaljer_ny
+			});
+		}
+
+		if (features?.[FINN_STILLING_INNGANG_ENABLED]) {
+			tabs.push({
+				id: TabId.FINN_STILLING_INNGANG,
+				title: 'Finn stillinger',
+				content: apps.finnStillingInngang
 			});
 		}
 

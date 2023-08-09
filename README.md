@@ -8,6 +8,7 @@ Denne appen er "host" app for følgende "micro"-frontends:
   - VEDTAKSSTOTTE
   - DETALJER (VEILARBMAOFS)
   - ARBEIDSMARKEDSTILTAK
+  - FINN STILLING ([Team Toi](https://teamkatalog.nav.no/team/76f378c5-eb35-42db-9f4d-0e8197be0131) sin app [finn-stilling-inngang](https://github.com/navikt/finn-stilling-inngang))
 - Navbar-apps 
   - INTERNARBEIDSFLATEFS_DECORATOR (søke på person og linker til andre nav apper)
   - VEILARBVISITTKORTFS (div info om en person + "veilederverktøy")
@@ -39,6 +40,33 @@ ignore-fil med riktig navn i det gitte git prosjektet du står i. Se forøvrig g
 ### Resette git blame dersom man har konfigurert regelen globalt ved et uhell
 
 `git config --global --unset blame.ignoreRevsFile`
+
+## Bruk av Amplitude
+
+Det er mulig å sende eventer til Amplitude gjennom personflatens Amplitude-klient. Eventene  Det finnes foreløpig ikke noen
+pakke som eksponerer funksjonen, men du kan legge til en deklarasjon som ser sånn her ut:
+
+```typescript
+interface Window {
+	veilarbpersonflatefsAmplitude: ({
+		origin,
+		eventName,
+		eventData
+	}?: {
+		origin: string;
+		eventName: string;
+		eventData?: Record<string, unknown>;
+	}) => Promise<void>;
+}
+```
+
+Eksempel på bruk:
+
+```typescript
+window.veilarbpersonflatefsAmplitude('aktivitetsplan', 'accordion åpnet', { tekst: 'Historikk' });
+```
+
+Se [https://github.com/navikt/analytics-taxonomy](https://github.com/navikt/analytics-taxonomy) for taksonomi.
 
 # Henvendelser
 

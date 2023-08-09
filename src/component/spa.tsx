@@ -1,9 +1,10 @@
 import NAVSPA, { AsyncNavspa, AsyncSpaConfig } from '@navikt/navspa';
-import React from 'react';
+import React, { useEffect } from 'react';
 import { utledSpaUrl } from '../util/url-utils';
 import { DecoratorConfig } from './internflate-decorator/internflate-decorator-config';
 import Spinner from './spinner/spinner';
-import { Env, getEnv } from '../sentry';
+import { AssetManifestParser, loadAssets } from '@navikt/navspa/dist/async/async-navspa';
+import { Env, getEnv } from '../util/utils';
 
 export interface SpaProps {
 	enhet?: string;
@@ -22,7 +23,9 @@ export enum SpaName {
 	DIALOG = 'arbeidsrettet-dialog',
 	VEILARBVEDTAKSSTOTTEFS = 'veilarbvedtaksstottefs',
 	VEILARBVISITTKORTFS = 'veilarbvisittkortfs',
-	ARBEIDSMARKEDSTILTAK = 'mulighetsrommet-veileder-flate'
+	ARBEIDSMARKEDSTILTAK = 'mulighetsrommet-veileder-flate',
+	VEILARBDETALJER = 'veilarbdetaljer',
+	FINN_STILLING_INNGANG = 'finn-stilling-inngang'
 }
 
 const dabCdnUrl = 'https://cdn.nav.no/dab';
@@ -36,6 +39,24 @@ export const detaljerAsyncConfig: AsyncSpaConfig = {
 	loader: <Spinner />,
 	config: {
 		wrapperClassName: spaWrapperTabContentClassName
+	}
+};
+
+export const detaljerNyAsyncConfig: AsyncSpaConfig = {
+	appName: SpaName.VEILARBDETALJER,
+	appBaseUrl: utledSpaUrl(SpaName.VEILARBDETALJER),
+	loader: <Spinner />,
+	config: {
+		wrapperClassName: spaWrapperTabContentClassName
+	},
+	assetManifestParser: manifest => {
+		const { file, css } = manifest['index.html'];
+		const baseUrl = utledSpaUrl(SpaName.VEILARBDETALJER);
+
+		const entry = { type: 'module', path: `${baseUrl}/${file}` };
+		const styles = css ? css.map((path: string) => ({ path: `${baseUrl}/${path}` })) : [];
+
+		return [entry, ...styles];
 	}
 };
 
@@ -68,18 +89,22 @@ const aktivitetsplanCdnUrl =
 		? `${dabCdnUrl}/aktivitetsplan-prod-intern/build`
 		: `${dabCdnUrl}/aktivitetsplan-dev-intern/build`;
 
-export const aktivitetsplanAsyncConfig: AsyncSpaConfig = {
-	appName: SpaName.AKTIVITETSPLAN,
-	appBaseUrl: aktivitetsplanCdnUrl,
-	loader: <Spinner type="large" className="veilarbpersonflatefs-visittkort-spinner" />,
-	config: {
-		wrapperClassName: spaWrapperTabContentClassName
-	},
-	assetManifestParser: manifest => {
-		const { file } = manifest['index.html'];
-		const entry = { type: 'module', path: `${aktivitetsplanCdnUrl}/${file}` };
-		return [entry];
-	}
+const aktivitetsplanManifestParser: AssetManifestParser = manifest => {
+	const { file } = manifest['index.html'];
+	const entry = { type: 'module', path: `${aktivitetsplanCdnUrl}/${file}` };
+	return [entry];
+};
+export const Aktivitetsplan: React.ComponentType<SpaProps> = props => {
+	useEffect(() => {
+		loadAssets({
+			appName: SpaName.AKTIVITETSPLAN,
+			appBaseUrl: aktivitetsplanCdnUrl,
+			assetManifestParser: aktivitetsplanManifestParser
+		});
+	}, []);
+	return React.createElement('dab-aktivitetsplan', {
+		['data-fnr']: props.fnr
+	});
 };
 
 const dialogCdnUrl =
@@ -119,16 +144,36 @@ export const arbeidsmarkedstiltakAsyncConfig: AsyncSpaConfig = {
 	}
 };
 
+export const finnStillingInngangAsyncConfig: AsyncSpaConfig = {
+	appName: SpaName.FINN_STILLING_INNGANG,
+	appBaseUrl: utledSpaUrl(SpaName.FINN_STILLING_INNGANG),
+	loader: <Spinner />,
+	config: {
+		wrapperClassName: spaWrapperTabContentClassName
+	},
+	assetManifestParser: manifest => {
+		const { file, css } = manifest['index.html'];
+		const baseUrl = utledSpaUrl(SpaName.FINN_STILLING_INNGANG);
+
+		const entry = { type: 'module', path: `${baseUrl}/${file}` };
+		const styles = css ? css.map((path: string) => ({ path: `${baseUrl}/${path}` })) : [];
+
+		return [entry, ...styles];
+	}
+};
+
 export const Decorator: React.ComponentType<DecoratorConfig> = NAVSPA.importer(SpaName.INTERNARBEIDSFLATEFS_DECORATOR, {
 	wrapperClassName: ''
 });
 
 export const Visittkort: React.ComponentType<VisittKortProps> =
 	AsyncNavspa.importer<VisittKortProps>(visittkortAsyncConfig);
-export const Aktivitetsplan: React.ComponentType<SpaProps> = AsyncNavspa.importer<SpaProps>(aktivitetsplanAsyncConfig);
 export const Dialog: React.ComponentType<SpaProps> = AsyncNavspa.importer<SpaProps>(dialogAsyncConfig);
 export const Detaljer: React.ComponentType<SpaProps> = AsyncNavspa.importer<SpaProps>(detaljerAsyncConfig);
+export const DetaljerNy: React.ComponentType<SpaProps> = AsyncNavspa.importer<SpaProps>(detaljerNyAsyncConfig);
 export const Vedtaksstotte: React.ComponentType<SpaProps> = AsyncNavspa.importer<SpaProps>(vedtaksstotteAsyncConfig);
 export const Arbeidsmarkedstiltak: React.ComponentType<SpaProps> = AsyncNavspa.importer<SpaProps>(
 	arbeidsmarkedstiltakAsyncConfig
 );
+export const FinnStillingInngang: React.ComponentType<SpaProps> =
+	AsyncNavspa.importer<SpaProps>(finnStillingInngangAsyncConfig);

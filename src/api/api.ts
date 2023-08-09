@@ -1,4 +1,4 @@
-import { ALL_TOGGLES, Features } from './features';
+import { ALL_TOGGLES, ARBEIDSMARKEDSTILTAK_LANSERING, Features } from './features';
 import { axiosInstance, useAxios, UseAxiosResponseValue } from './utils';
 import { Options } from 'axios-hooks';
 import { AxiosPromise, AxiosResponse } from 'axios';
@@ -57,6 +57,13 @@ export function useFetchSistOppdatert(fnr: string, options?: Options): UseAxiosR
 export function useFetchFeatures(options?: Options): UseAxiosResponseValue<Features> {
 	const toggles = ALL_TOGGLES.map(element => 'feature=' + element).join('&');
 	return useAxios<Features>(`/veilarbpersonflatefs/api/feature?${toggles}`, options);
+}
+
+export function useFetchFeaturesForTeamValp(options?: Options): UseAxiosResponseValue<Boolean> {
+	return useAxios<Features>(
+		`/mulighetsrommet-api/api/v1/internal/features?feature=${ARBEIDSMARKEDSTILTAK_LANSERING}`,
+		options
+	);
 }
 
 export function useFetchAktivEnhet(options?: Options): UseAxiosResponseValue<AktivEnhetResponse> {
