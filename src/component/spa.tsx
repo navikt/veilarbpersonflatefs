@@ -5,6 +5,7 @@ import { DecoratorConfig } from './internflate-decorator/internflate-decorator-c
 import Spinner from './spinner/spinner';
 import { AssetManifestParser, loadAssets } from '@navikt/navspa/dist/async/async-navspa';
 import { Env, getEnv } from '../util/utils';
+import { createAssetManifestParser } from '@navikt/navspa/dist/async/utils';
 
 export interface SpaProps {
 	enhet?: string;
@@ -72,7 +73,21 @@ export const vedtaksstotteAsyncConfig: AsyncSpaConfig = {
 export const visittkortAsyncConfig: AsyncSpaConfig = {
 	appName: SpaName.VEILARBVISITTKORTFS,
 	appBaseUrl: utledSpaUrl(SpaName.VEILARBVISITTKORTFS),
-	loader: <Spinner type="large" className="veilarbpersonflatefs-visittkort-spinner" />
+	loader: <Spinner type="large" className="veilarbpersonflatefs-visittkort-spinner" />,
+
+	assetManifestParser: manifest => {
+		const isWebpackManifest = 'entrypoints' in manifest;
+		const baseUrl = utledSpaUrl(SpaName.VEILARBVISITTKORTFS);
+		if (isWebpackManifest) {
+			return createAssetManifestParser(baseUrl)(manifest);
+		} else {
+			// Vitejs manifest
+			const { file, css } = manifest['index.html'];
+			const styles = css.map((path: string) => ({ path: `${baseUrl}/${path}` }));
+			const entry = { type: 'module', path: `${baseUrl}/${file}` };
+			return [entry, ...styles];
+		}
+	}
 };
 
 const aktivitetsplanCdnUrl =
