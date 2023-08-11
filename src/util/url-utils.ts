@@ -8,19 +8,6 @@ export const hasQueryParam = (parameterName: string): boolean => {
 	return window.location.search.includes(parameterName);
 };
 
-const regex = `\\d{11}`;
-
-export const hentFnrFraUrl = (): string | undefined => {
-	const url = window.location.pathname;
-	const match = url.match(regex);
-
-	if (match && match.length === 1) {
-		return match[0];
-	}
-
-	return undefined;
-};
-
 const DEV_DOMAINS = ['dev', 'app-q1', 'app-q0', 'localhost'];
 
 const erITestMiljo = (): boolean => {

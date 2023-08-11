@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
-import { DispatchProvider } from './store-provider';
+import { DispatchContext } from './store-provider';
 
 export interface ModiaContextData {
 	aktivBrukerFnr: string;
@@ -18,7 +18,7 @@ const defaultValue = {
 };
 export const ModiaContext = React.createContext<ModiaContextData>(null);
 export const useModiaContext = () => {
-	const dispatch = useContext(DispatchProvider);
+	const dispatch = useContext(DispatchContext);
 	const values = useContext(ModiaContext);
 	return {
 		...values,

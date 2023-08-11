@@ -7,7 +7,12 @@ import {
 } from '../component/alertstriper/alertstriper';
 import PageSpinner from '../component/page-spinner/page-spinner';
 import { InternflateDecorator } from '../component/internflate-decorator/internflate-decorator';
-import { useFetchAktivEnhet, useFetchFeatures, useFetchFeaturesForTeamValp, useFetchTilgangTilBruker } from '../api/api';
+import {
+	useFetchAktivEnhet,
+	useFetchFeatures,
+	useFetchFeaturesForTeamValp,
+	useFetchTilgangTilBruker
+} from '../api/api';
 import { hasAnyFailed, isAnyLoading } from '../api/utils';
 import { Features } from '../api/features';
 import { useModiaContext } from '../store/modia-context-store';
@@ -21,7 +26,7 @@ export const PersonflatePage = () => {
 
 	const fetchTilgangTilBruker = useFetchTilgangTilBruker(aktivBrukerFnr, { manual: true });
 	const fetchFeature = useFetchFeatures();
-	const {data: enableArbeidsmarkedstiltakForTeamValp} = useFetchFeaturesForTeamValp()
+	const { data: enableArbeidsmarkedstiltakForTeamValp } = useFetchFeaturesForTeamValp();
 	const fetchAktivEnhet = useFetchAktivEnhet();
 
 	// Hack used because internflatedecorator does not update onFnrChanged function so comparison on fnr can not
@@ -29,7 +34,6 @@ export const PersonflatePage = () => {
 	const [nextFnr, setNextFnr] = useState<null | string>(aktivBrukerFnr);
 	useEffect(() => {
 		if (nextFnr && nextFnr !== aktivBrukerFnr) {
-			window.history.pushState('', '', `/${nextFnr}`);
 			setAktivBrukerFnr(nextFnr);
 			setRenderKey(renderKey + 1); // Forces all the micro frontends to be remounted so that their state is reset
 		}
@@ -68,7 +72,12 @@ export const PersonflatePage = () => {
 	} else if (!fetchTilgangTilBruker.data) {
 		innhold = <IngenTilgangTilBruker />;
 	} else {
-		innhold = <Innhold features={fetchFeature.data} enableArbeidsmarkedstiltakForTeamValp={enableArbeidsmarkedstiltakForTeamValp} />;
+		innhold = (
+			<Innhold
+				features={fetchFeature.data}
+				enableArbeidsmarkedstiltakForTeamValp={enableArbeidsmarkedstiltakForTeamValp}
+			/>
+		);
 	}
 
 	return (
@@ -85,12 +94,16 @@ export const PersonflatePage = () => {
 	);
 };
 
-
 interface AppInnholdProps {
 	features?: Features;
 	enableArbeidsmarkedstiltakForTeamValp?: boolean;
 }
 
 const Innhold = ({ features, enableArbeidsmarkedstiltakForTeamValp }: AppInnholdProps) => {
-	return <SideInnhold features={features} enableArbeidsmarkedstiltakForTeamValp={enableArbeidsmarkedstiltakForTeamValp} />;
+	return (
+		<SideInnhold
+			features={features}
+			enableArbeidsmarkedstiltakForTeamValp={enableArbeidsmarkedstiltakForTeamValp}
+		/>
+	);
 };

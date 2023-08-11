@@ -1,17 +1,16 @@
 import React, { useEffect, useReducer } from 'react';
 import { useEventListener } from '../util/utils';
-import { createInitialStore, ModiaContext, reducer, SET_FNR, SET_RENDER_KEY } from './modia-context-store';
-import { hentFnrFraUrl } from '../util/url-utils';
+import { createInitialStore, ModiaContext, reducer, SET_RENDER_KEY } from './modia-context-store';
 import { synkroniserManuellStatusMedDkif } from '../api/api';
 
 interface StoreProviderProps {
 	children: React.ReactNode;
 }
 
-export const DispatchProvider = React.createContext({});
+export const DispatchContext = React.createContext({});
 
 const StoreProvider = (props: StoreProviderProps) => {
-	const [state, dispatch] = useReducer(reducer, hentFnrFraUrl() || '', createInitialStore);
+	const [state, dispatch] = useReducer(reducer, '', createInitialStore);
 	const fnr = state.aktivBrukerFnr;
 
 	const forceRerender = () => dispatch({ type: SET_RENDER_KEY, renderKey: state.renderKey + 1 });
@@ -19,15 +18,15 @@ const StoreProvider = (props: StoreProviderProps) => {
 	useEventListener('oppfolgingAvslutet', forceRerender);
 	useEventListener('eskaleringsVarselSendt', forceRerender);
 
-	useEffect(() => {
-		const rerenderIfChangedFnr = (event: any) => {
-			const nextFnr = hentFnrFraUrl();
-			if (fnr === nextFnr || !nextFnr) return;
-			dispatch({ type: SET_FNR, fnr: nextFnr });
-		};
-		window.addEventListener('popstate', rerenderIfChangedFnr);
-		return () => window.removeEventListener('popstate', rerenderIfChangedFnr);
-	}, [fnr]);
+	// useEffect(() => {
+	// 	const rerenderIfChangedFnr = (event: any) => {
+	// 		const nextFnr = hentFnrFraUrl();
+	// 		if (fnr === nextFnr || !nextFnr) return;
+	// 		dispatch({ type: SET_FNR, fnr: nextFnr });
+	// 	};
+	// 	window.addEventListener('popstate', rerenderIfChangedFnr);
+	// 	return () => window.removeEventListener('popstate', rerenderIfChangedFnr);
+	// }, [fnr]);
 
 	useEffect(() => {
 		/*
@@ -42,9 +41,9 @@ const StoreProvider = (props: StoreProviderProps) => {
 	}, [fnr]);
 
 	return (
-		<DispatchProvider.Provider value={dispatch}>
+		<DispatchContext.Provider value={dispatch}>
 			<ModiaContext.Provider value={state}>{props.children}</ModiaContext.Provider>
-		</DispatchProvider.Provider>
+		</DispatchContext.Provider>
 	);
 };
 
