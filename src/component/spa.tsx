@@ -123,10 +123,15 @@ const dialogCdnUrl =
 	getEnv() === Env.Prod
 		? `${dabCdnUrl}/arbeidsrettet-dialog-prod-intern/build`
 		: `${dabCdnUrl}/arbeidsrettet-dialog-dev-intern/build`;
+// Don't use CDN to get asset-manifest because caching takes ~15++++ minutes to purge
+const dialogBucketUrl =
+	getEnv() === Env.Prod
+		? `${dabStorageUrl}/arbeidsrettet-dialog-prod-intern/build`
+		: `${dabStorageUrl}/arbeidsrettet-dialog-dev-intern/build`;
 
 export const dialogAsyncConfig: AsyncSpaConfig = {
 	appName: SpaName.DIALOG,
-	appBaseUrl: dialogCdnUrl,
+	appBaseUrl: dialogBucketUrl,
 	loader: <Spinner type="large" className="veilarbpersonflatefs-visittkort-spinner" />,
 	config: {
 		wrapperClassName: spaWrapperTabContentClassNameDialog
