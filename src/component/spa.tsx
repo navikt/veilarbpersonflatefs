@@ -30,6 +30,7 @@ export enum SpaName {
 }
 
 const dabCdnUrl = 'https://cdn.nav.no/dab';
+const dabStorageUrl = 'https://storage.googleapis.com/frontend-plattform-prod-dab/dab';
 
 export const spaWrapperTabContentClassName = 'spa-wrapper__tab-content';
 export const spaWrapperTabContentClassNameDialog = 'spa-wrapper__tab-content-dialog';
@@ -94,6 +95,11 @@ const aktivitetsplanCdnUrl =
 	getEnv() === Env.Prod
 		? `${dabCdnUrl}/aktivitetsplan-prod-intern/build`
 		: `${dabCdnUrl}/aktivitetsplan-dev-intern/build`;
+// Don't use CDN to get asset-manifest because caching takes ~15++++ minutes to purge
+const aktivitetsplanBucketUrl =
+	getEnv() === Env.Prod
+		? `${dabStorageUrl}/aktivitetsplan-prod-intern/build`
+		: `${dabStorageUrl}/aktivitetsplan-dev-intern/build`;
 
 const aktivitetsplanManifestParser: AssetManifestParser = manifest => {
 	const { file } = manifest['index.html'];
@@ -104,7 +110,7 @@ export const Aktivitetsplan: React.ComponentType<SpaProps> = props => {
 	useEffect(() => {
 		loadAssets({
 			appName: SpaName.AKTIVITETSPLAN,
-			appBaseUrl: aktivitetsplanCdnUrl,
+			appBaseUrl: aktivitetsplanBucketUrl,
 			assetManifestParser: aktivitetsplanManifestParser
 		});
 	}, []);
