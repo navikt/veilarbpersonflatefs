@@ -110,7 +110,7 @@ export const Aktivitetsplan: React.ComponentType<SpaProps> = props => {
 	useEffect(() => {
 		loadAssets({
 			appName: SpaName.AKTIVITETSPLAN,
-			appBaseUrl: aktivitetsplanBucketUrl,
+			appBaseUrl: aktivitetsplanCdnUrl,
 			assetManifestParser: aktivitetsplanManifestParser
 		});
 	}, []);
@@ -131,7 +131,7 @@ const dialogBucketUrl =
 
 export const dialogAsyncConfig: AsyncSpaConfig = {
 	appName: SpaName.DIALOG,
-	appBaseUrl: dialogBucketUrl,
+	appBaseUrl: dialogCdnUrl,
 	loader: <Spinner type="large" className="veilarbpersonflatefs-visittkort-spinner" />,
 	config: {
 		wrapperClassName: spaWrapperTabContentClassNameDialog
