@@ -6,7 +6,7 @@ metadata:
   labels:
     team: poao
 spec:
-  image: ghcr.io/navikt/poao-frontend/poao-frontend:2023.08.18_14.33-ca641b2e2d6b
+  image: ghcr.io/navikt/poao-frontend/poao-frontend:2023.08.21_08.58-44493927cf80
   port: 8080
   ingresses:
     - https://veilarbpersonflate.intern.nav.no
@@ -72,7 +72,7 @@ spec:
             "bucketName": "poao-veilarbpersonflate-prod"
           },
           "enableModiaContextUpdater": {
-            "url": "https://modiacontextholder.dev-fss-pub.nais.io",
+            "url": "https://modiacontextholder.prod-fss-pub.nais.io/modiacontextholder",
             "scope": "api://prod-fss.personoversikt.modiacontextholder/.default"
           },
           "header": {
