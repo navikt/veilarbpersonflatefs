@@ -58,7 +58,7 @@ spec:
         - host: veilarbveileder.prod-fss-pub.nais.io
         - host: veilarbvedtaksstotte.prod-fss-pub.nais.io
         - host: veilarboppgave.prod-fss-pub.nais.io
-
+        - host: veilarbfilter.prod-fss-pub.nais.io
   env:
     - name: JSON_CONFIG
       value: >
@@ -214,6 +214,16 @@ spec:
                 "namespace": "pto",
                 "cluster": "prod-fss"
               }
-            }
+            },
+            {
+              "fromPath": "/veilarbfilter",
+              "toUrl": "https://veilarbfilter.prod-fss-pub.nais.io",
+              "preserveFromPath": true,
+              "toApp": {
+                "name": "veilarbfilter",
+                "namespace": "pto",
+                "cluster": "prod-fss"
+              }
+          }
           ]
         }
