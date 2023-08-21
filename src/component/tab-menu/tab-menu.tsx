@@ -54,10 +54,6 @@ function TabMenu(props: TabsProps) {
 	}, [currentTab, tabs]);
 
 	const onClickChangeTab = (tabId: TabId) => () => {
-		// When changing tabs these apps expect url to be / or their routes won't match
-		if ([TabId.DIALOG, TabId.AKTIVITETSPLAN].includes(tabId)) {
-			window.history.replaceState({}, '', `/`);
-		}
 		changeTab(tabId);
 	};
 	const changeTab = (id: TabId, extraDetails?: Event) => {

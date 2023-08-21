@@ -18,16 +18,6 @@ const StoreProvider = (props: StoreProviderProps) => {
 	useEventListener('oppfolgingAvslutet', forceRerender);
 	useEventListener('eskaleringsVarselSendt', forceRerender);
 
-	// useEffect(() => {
-	// 	const rerenderIfChangedFnr = (event: any) => {
-	// 		const nextFnr = hentFnrFraUrl();
-	// 		if (fnr === nextFnr || !nextFnr) return;
-	// 		dispatch({ type: SET_FNR, fnr: nextFnr });
-	// 	};
-	// 	window.addEventListener('popstate', rerenderIfChangedFnr);
-	// 	return () => window.removeEventListener('popstate', rerenderIfChangedFnr);
-	// }, [fnr]);
-
 	useEffect(() => {
 		/*
 			Siden det ikke er mulig å få endringer på kontaktinfo fra DKIF asynkront, så må vi gjøre regelmessige spørringer for å holde dataen i synk.
