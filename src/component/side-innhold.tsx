@@ -1,10 +1,6 @@
 import React from 'react';
 import TabMenu, { Tab } from './tab-menu/tab-menu';
-import {
-	FINN_STILLING_INNGANG_ENABLED,
-	Features,
-	VEILARBDETALJERFS_ENABLED
-} from '../api/features';
+import { FINN_STILLING_INNGANG_ENABLED, Features, VEILARBDETALJERFS_ENABLED } from '../api/features';
 import TilbakemeldingFab from './tilbakemelding/fab/tilbakemelding-fab';
 import { hentSistBesokteTab } from './tab-menu/siste-tab';
 import { TourModalController } from './tour-modal/tour-modal-controller';
@@ -23,7 +19,7 @@ import { ModiaContext } from '../store/modia-context-store';
 
 interface SideInnholdLayoutProps {
 	features?: Features;
-	enableArbeidsmarkedstiltakForTeamValp?: Boolean;
+	enableArbeidsmarkedstiltakForTeamValp?: boolean;
 }
 
 export enum TabId {

@@ -30,10 +30,8 @@ export enum SpaName {
 }
 
 const dabCdnUrl = 'https://cdn.nav.no/dab';
-const dabStorageUrl = 'https://storage.googleapis.com/frontend-plattform-prod-dab/dab';
 
 export const spaWrapperTabContentClassName = 'spa-wrapper__tab-content';
-export const spaWrapperTabContentClassNameDialog = 'spa-wrapper__tab-content-dialog';
 
 export const detaljerAsyncConfig: AsyncSpaConfig = {
 	appName: SpaName.VEILARBMAOFS,
@@ -95,12 +93,6 @@ const aktivitetsplanCdnUrl =
 	getEnv() === Env.Prod
 		? `${dabCdnUrl}/aktivitetsplan-prod-intern/build`
 		: `${dabCdnUrl}/aktivitetsplan-dev-intern/build`;
-// Don't use CDN to get asset-manifest because caching takes ~15++++ minutes to purge
-const aktivitetsplanBucketUrl =
-	getEnv() === Env.Prod
-		? `${dabStorageUrl}/aktivitetsplan-prod-intern/build`
-		: `${dabStorageUrl}/aktivitetsplan-dev-intern/build`;
-
 const aktivitetsplanManifestParser: AssetManifestParser = manifest => {
 	const { file } = manifest['index.html'];
 	const entry = { type: 'module', path: `${aktivitetsplanCdnUrl}/${file}` };
@@ -114,33 +106,27 @@ export const Aktivitetsplan: React.ComponentType<SpaProps> = props => {
 			assetManifestParser: aktivitetsplanManifestParser
 		});
 	}, []);
-	return React.createElement('dab-aktivitetsplan', {
-		['data-fnr']: props.fnr
-	});
+	return React.createElement('dab-aktivitetsplan', { ['data-fnr']: props.fnr });
 };
 
 const dialogCdnUrl =
 	getEnv() === Env.Prod
 		? `${dabCdnUrl}/arbeidsrettet-dialog-prod-intern/build`
 		: `${dabCdnUrl}/arbeidsrettet-dialog-dev-intern/build`;
-// Don't use CDN to get asset-manifest because caching takes ~15++++ minutes to purge
-const dialogBucketUrl =
-	getEnv() === Env.Prod
-		? `${dabStorageUrl}/arbeidsrettet-dialog-prod-intern/build`
-		: `${dabStorageUrl}/arbeidsrettet-dialog-dev-intern/build`;
-
-export const dialogAsyncConfig: AsyncSpaConfig = {
-	appName: SpaName.DIALOG,
-	appBaseUrl: dialogCdnUrl,
-	loader: <Spinner type="large" className="veilarbpersonflatefs-visittkort-spinner" />,
-	config: {
-		wrapperClassName: spaWrapperTabContentClassNameDialog
-	},
-	assetManifestParser: manifest => {
-		const { file } = manifest['index.html'];
-		const entry = { type: 'module', path: `${dialogCdnUrl}/${file}` };
-		return [entry];
-	}
+const dialogManifestParser: AssetManifestParser = manifest => {
+	const { file } = manifest['index.html'];
+	const entry = { type: 'module', path: `${dialogCdnUrl}/${file}` };
+	return [entry];
+};
+export const Dialog: React.ComponentType<SpaProps> = props => {
+	useEffect(() => {
+		loadAssets({
+			appName: SpaName.DIALOG,
+			appBaseUrl: dialogCdnUrl,
+			assetManifestParser: dialogManifestParser
+		});
+	}, []);
+	return React.createElement('dab-dialog', { ['data-fnr']: props.fnr });
 };
 
 export const arbeidsmarkedstiltakAsyncConfig: AsyncSpaConfig = {
@@ -185,7 +171,6 @@ export const Decorator: React.ComponentType<DecoratorConfig> = NAVSPA.importer(S
 
 export const Visittkort: React.ComponentType<VisittKortProps> =
 	AsyncNavspa.importer<VisittKortProps>(visittkortAsyncConfig);
-export const Dialog: React.ComponentType<SpaProps> = AsyncNavspa.importer<SpaProps>(dialogAsyncConfig);
 export const Detaljer: React.ComponentType<SpaProps> = AsyncNavspa.importer<SpaProps>(detaljerAsyncConfig);
 export const DetaljerNy: React.ComponentType<SpaProps> = AsyncNavspa.importer<SpaProps>(detaljerNyAsyncConfig);
 export const Vedtaksstotte: React.ComponentType<SpaProps> = AsyncNavspa.importer<SpaProps>(vedtaksstotteAsyncConfig);
