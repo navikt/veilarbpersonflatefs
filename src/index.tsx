@@ -7,7 +7,6 @@ import { AsyncNavspa } from '@navikt/navspa';
 import {
 	arbeidsmarkedstiltakAsyncConfig,
 	detaljerAsyncConfig,
-	dialogAsyncConfig,
 	vedtaksstotteAsyncConfig,
 	visittkortAsyncConfig
 } from './component/spa';
@@ -20,7 +19,6 @@ const lastInnSubApper = () => {
 	AsyncNavspa.preload(visittkortAsyncConfig);
 	AsyncNavspa.preload(detaljerAsyncConfig);
 	AsyncNavspa.preload(vedtaksstotteAsyncConfig);
-	AsyncNavspa.preload(dialogAsyncConfig);
 	AsyncNavspa.preload(arbeidsmarkedstiltakAsyncConfig);
 };
 const renderApp = () => {
