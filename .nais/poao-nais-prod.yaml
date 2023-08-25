@@ -5,6 +5,8 @@ metadata:
   namespace: poao
   labels:
     team: poao
+  annotations:
+    nginx.ingress.kubernetes.io/proxy-buffer-size: "8k"
 spec:
   image: ghcr.io/navikt/poao-frontend/poao-frontend:2023.08.25_08.59-d97c9d1df058
   port: 8080
