@@ -6,7 +6,7 @@ metadata:
   labels:
     team: poao
 spec:
-  image: ghcr.io/navikt/poao-frontend/poao-frontend:2023.08.24_06.38-4900f5791aff
+  image: ghcr.io/navikt/poao-frontend/poao-frontend:2023.08.25_08.59-d97c9d1df058
   port: 8080
   ingresses:
     - https://veilarbpersonflate.intern.nav.no
