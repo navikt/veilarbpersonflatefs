@@ -4,12 +4,7 @@ import { App } from './app';
 import './index.less';
 
 import { AsyncNavspa } from '@navikt/navspa';
-import {
-	arbeidsmarkedstiltakAsyncConfig,
-	detaljerAsyncConfig,
-	vedtaksstotteAsyncConfig,
-	visittkortAsyncConfig
-} from './component/spa';
+import { detaljerAsyncConfig, vedtaksstotteAsyncConfig, visittkortAsyncConfig } from './component/spa';
 import { erMock } from './util/utils';
 import { Modal } from '@navikt/ds-react';
 import { createRoot } from 'react-dom/client';
@@ -19,7 +14,6 @@ const lastInnSubApper = () => {
 	AsyncNavspa.preload(visittkortAsyncConfig);
 	AsyncNavspa.preload(detaljerAsyncConfig);
 	AsyncNavspa.preload(vedtaksstotteAsyncConfig);
-	AsyncNavspa.preload(arbeidsmarkedstiltakAsyncConfig);
 };
 const renderApp = () => {
 	const root = createRoot(document.getElementById('veilarbpersonflatefs-root')!!);

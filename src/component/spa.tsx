@@ -129,22 +129,21 @@ export const Dialog: React.ComponentType<SpaProps> = props => {
 	return React.createElement('dab-dialog', { ['data-fnr']: props.fnr });
 };
 
-export const arbeidsmarkedstiltakAsyncConfig: AsyncSpaConfig = {
-	appName: SpaName.ARBEIDSMARKEDSTILTAK,
-	appBaseUrl: utledSpaUrl(SpaName.ARBEIDSMARKEDSTILTAK),
-	loader: <Spinner type="large" className="veilarbpersonflatefs-visittkort-spinner" />,
-	config: {
-		wrapperClassName: spaWrapperTabContentClassName
-	},
-	assetManifestParser: manifest => {
-		const { file, css } = manifest['index.html'];
-		const baseUrl = utledSpaUrl(SpaName.ARBEIDSMARKEDSTILTAK);
-
-		const entry = { type: 'module', path: `${baseUrl}/${file}` };
-		const styles = css.map((path: string) => ({ path: `${baseUrl}/${path}` }));
-
-		return [entry, ...styles];
-	}
+const arbeidsmarkedstiltakBaseUrl = utledSpaUrl(SpaName.ARBEIDSMARKEDSTILTAK);
+const arbeidsmarkedstiltakManifestParser: AssetManifestParser = manifest => {
+	const { file } = manifest['index.html'];
+	const entry = { type: 'module', path: `${arbeidsmarkedstiltakBaseUrl}/${file}` };
+	return [entry];
+};
+export const Arbeidsmarkedstiltak: React.ComponentType<SpaProps> = props => {
+	useEffect(() => {
+		loadAssets({
+			appName: SpaName.ARBEIDSMARKEDSTILTAK,
+			appBaseUrl: arbeidsmarkedstiltakBaseUrl,
+			assetManifestParser: arbeidsmarkedstiltakManifestParser
+		});
+	}, []);
+	return React.createElement('mulighetsrommet-arbeidsmarkedstiltak', { ['data-fnr']: props.fnr });
 };
 
 export const finnStillingInngangAsyncConfig: AsyncSpaConfig = {
@@ -174,8 +173,5 @@ export const Visittkort: React.ComponentType<VisittKortProps> =
 export const Detaljer: React.ComponentType<SpaProps> = AsyncNavspa.importer<SpaProps>(detaljerAsyncConfig);
 export const DetaljerNy: React.ComponentType<SpaProps> = AsyncNavspa.importer<SpaProps>(detaljerNyAsyncConfig);
 export const Vedtaksstotte: React.ComponentType<SpaProps> = AsyncNavspa.importer<SpaProps>(vedtaksstotteAsyncConfig);
-export const Arbeidsmarkedstiltak: React.ComponentType<SpaProps> = AsyncNavspa.importer<SpaProps>(
-	arbeidsmarkedstiltakAsyncConfig
-);
 export const FinnStillingInngang: React.ComponentType<SpaProps> =
 	AsyncNavspa.importer<SpaProps>(finnStillingInngangAsyncConfig);
