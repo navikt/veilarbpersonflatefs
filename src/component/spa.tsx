@@ -42,22 +42,21 @@ export const detaljerAsyncConfig: AsyncSpaConfig = {
 	}
 };
 
-export const detaljerNyAsyncConfig: AsyncSpaConfig = {
-	appName: SpaName.VEILARBDETALJER,
-	appBaseUrl: utledSpaUrl(SpaName.VEILARBDETALJER),
-	loader: <Spinner />,
-	config: {
-		wrapperClassName: spaWrapperTabContentClassName
-	},
-	assetManifestParser: manifest => {
-		const { file, css } = manifest['index.html'];
-		const baseUrl = utledSpaUrl(SpaName.VEILARBDETALJER);
-
-		const entry = { type: 'module', path: `${baseUrl}/${file}` };
-		const styles = css ? css.map((path: string) => ({ path: `${baseUrl}/${path}` })) : [];
-
-		return [entry, ...styles];
-	}
+const veilarbdetaljerBaseUrl = utledSpaUrl(SpaName.VEILARBDETALJER);
+const veilarbdetaljerManifestParser: AssetManifestParser = manifest => {
+	const { file } = manifest['index.html'];
+	const entry = { type: 'module', path: `${veilarbdetaljerBaseUrl}/${file}` };
+	return [entry];
+};
+export const Veilarbdetaljer: React.ComponentType<SpaProps> = props => {
+	useEffect(() => {
+		loadAssets({
+			appName: SpaName.VEILARBDETALJER,
+			appBaseUrl: veilarbdetaljerBaseUrl,
+			assetManifestParser: veilarbdetaljerManifestParser
+		});
+	}, []);
+	return React.createElement('veilarbdetaljer', { ['data-fnr']: props.fnr });
 };
 
 export const vedtaksstotteAsyncConfig: AsyncSpaConfig = {
@@ -171,7 +170,6 @@ export const Decorator: React.ComponentType<DecoratorConfig> = NAVSPA.importer(S
 export const Visittkort: React.ComponentType<VisittKortProps> =
 	AsyncNavspa.importer<VisittKortProps>(visittkortAsyncConfig);
 export const Detaljer: React.ComponentType<SpaProps> = AsyncNavspa.importer<SpaProps>(detaljerAsyncConfig);
-export const DetaljerNy: React.ComponentType<SpaProps> = AsyncNavspa.importer<SpaProps>(detaljerNyAsyncConfig);
 export const Vedtaksstotte: React.ComponentType<SpaProps> = AsyncNavspa.importer<SpaProps>(vedtaksstotteAsyncConfig);
 export const FinnStillingInngang: React.ComponentType<SpaProps> =
 	AsyncNavspa.importer<SpaProps>(finnStillingInngangAsyncConfig);
