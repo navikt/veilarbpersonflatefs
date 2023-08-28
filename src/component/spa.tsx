@@ -48,7 +48,7 @@ const veilarbdetaljerManifestParser: AssetManifestParser = manifest => {
 	const entry = { type: 'module', path: `${veilarbdetaljerBaseUrl}/${file}` };
 	return [entry];
 };
-export const Veilarbdetaljer: React.ComponentType<SpaProps> = props => {
+export const DetaljerNy: React.ComponentType<SpaProps> = props => {
 	useEffect(() => {
 		loadAssets({
 			appName: SpaName.VEILARBDETALJER,
