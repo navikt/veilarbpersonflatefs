@@ -56,7 +56,7 @@ export const DetaljerNy: React.ComponentType<SpaProps> = props => {
 			assetManifestParser: veilarbdetaljerManifestParser
 		});
 	}, []);
-	return React.createElement('veilarbdetaljer', { ['data-fnr']: props.fnr });
+	return React.createElement('veilarb-detaljer', { ['data-fnr']: props.fnr });
 };
 
 export const vedtaksstotteAsyncConfig: AsyncSpaConfig = {
