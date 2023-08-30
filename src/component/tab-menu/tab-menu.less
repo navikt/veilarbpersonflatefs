@@ -19,26 +19,21 @@
 		flex-direction: column;
 	}
 
-	&__headers {
+	.navds-tabs__tablist-wrapper {
 		width: 100%;
-		display: flex;
-		flex-direction: row;
-		justify-content: space-between;
-		margin: 0 auto;
-		max-width: 1920px;
-		padding: 0 .5rem;
 
-		&--hoire {
-			display: flex;
-			align-items: stretch;
-			flex-wrap: wrap;
+		.navds-tabs__tab-inner {
+		  flex-flow: row-reverse;
 		}
 	}
 
-	&__headers--wrapper {
-		flex-grow: 1;
+	&__tablist-element.tab-menu__tablist-element {
+		width: 100%;
+		margin: 0 auto;
+		max-width: 1920px;
+		padding: 0 0.5rem;
 		display: flex;
-		z-index: 1;
+		flex-wrap: wrap;
 	}
 
 	&__tab-content {
@@ -79,17 +74,6 @@
 	&__title {
 		color: var(--a-gray-800);
 		padding: 0 1.25rem;
-
-		&__notification {
-			font-size: 0.875rem;
-			background-color: var(--a-red-500);
-			color: white;
-			border-radius: 100%;
-			padding: 0 8px;
-			margin-left: 0.05rem;
-			top: -8px;
-			position: relative;
-		}
 	}
 
 	&__title:hover {
