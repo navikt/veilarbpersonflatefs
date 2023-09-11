@@ -222,6 +222,16 @@ spec:
               }
             },
             {
+              "fromPath": "/dialogvarsler",
+              "toUrl": "https://dialogvarsler.ekstern.dev.nav.no",
+              "preserveFromPath": false,
+              "toApp": {
+                "name": "dialogvarsler",
+                "namespace": "dab",
+                "cluster": "dev-gcp"
+              }
+            },
+            {
               "fromPath": "/veilarbfilter",
               "toUrl": "https://veilarbfilter.dev-fss-pub.nais.io",
               "preserveFromPath": true,
