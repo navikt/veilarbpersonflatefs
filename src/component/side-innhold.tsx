@@ -102,7 +102,16 @@ class SideInnhold extends React.Component<SideInnholdLayoutProps> {
 			title: 'Dialog',
 			content: apps.dialog
 		});
-		tabs.push({ id: TabId.DETALJER, title: 'Detaljer', content: apps.mao });
+
+		if (features?.[VEILARBDETALJERFS_ENABLED]) {
+			tabs.push({
+				id: TabId.DETALJER_NY,
+				title: 'Overblikk',
+				content: apps.detaljer_ny
+			});
+		} else {
+			tabs.push({ id: TabId.DETALJER, title: 'Detaljer', content: apps.mao });
+		}
 		tabs.push({
 			id: TabId.VEDTAKSSTOTTE,
 			title: 'Oppfølgingsvedtak',
@@ -115,14 +124,6 @@ class SideInnhold extends React.Component<SideInnholdLayoutProps> {
 				id: TabId.ARBEIDSMARKEDSTILTAK,
 				title: 'Arbeidsmarkedstiltak',
 				content: apps.arbeidsmarkedstiltak
-			});
-		}
-
-		if (features?.[VEILARBDETALJERFS_ENABLED]) {
-			tabs.push({
-				id: TabId.DETALJER_NY,
-				title: 'Overblikk',
-				content: apps.detaljer_ny
 			});
 		}
 
