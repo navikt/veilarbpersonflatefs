@@ -26,7 +26,7 @@ export const PersonflatePage = () => {
 
 	const fetchTilgangTilBruker = useFetchTilgangTilBruker(aktivBrukerFnr, { manual: true });
 	const fetchFeature = useFetchFeatures();
-	const { data: enableArbeidsmarkedstiltakForTeamValp } = useFetchFeaturesForTeamValp();
+	const arbeidsmarkedstiltakForTeamValpFeature = useFetchFeaturesForTeamValp();
 	const fetchAktivEnhet = useFetchAktivEnhet();
 
 	// Hack used because internflatedecorator does not update onFnrChanged function so comparison on fnr can not
@@ -65,9 +65,9 @@ export const PersonflatePage = () => {
 
 	if (!aktivBrukerFnr) {
 		innhold = <FeilmeldingManglerFnr />;
-	} else if (isAnyLoading(fetchTilgangTilBruker, fetchFeature, fetchAktivEnhet)) {
+	} else if (isAnyLoading(fetchTilgangTilBruker, fetchFeature, fetchAktivEnhet, arbeidsmarkedstiltakForTeamValpFeature)) {
 		innhold = <PageSpinner />;
-	} else if (hasAnyFailed(fetchTilgangTilBruker, fetchFeature)) {
+	} else if (hasAnyFailed(fetchTilgangTilBruker, fetchFeature, arbeidsmarkedstiltakForTeamValpFeature)) {
 		innhold = <FeilUnderLastingAvData />;
 	} else if (!fetchTilgangTilBruker.data) {
 		innhold = <IngenTilgangTilBruker />;
@@ -75,7 +75,7 @@ export const PersonflatePage = () => {
 		innhold = (
 			<Innhold
 				features={fetchFeature.data}
-				enableArbeidsmarkedstiltakForTeamValp={enableArbeidsmarkedstiltakForTeamValp}
+				enableArbeidsmarkedstiltakForTeamValp={arbeidsmarkedstiltakForTeamValpFeature.data}
 			/>
 		);
 	}
