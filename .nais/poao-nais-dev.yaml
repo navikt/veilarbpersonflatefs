@@ -48,6 +48,8 @@ spec:
         - application: poao-unleash
         - application: mulighetsrommet-api
           namespace: team-mulighetsrommet
+        - application: obo-unleash
+          namespace: obo
       external:
         - host: veilarbdialog.dev-fss-pub.nais.io
         - host: veilarbaktivitet.dev-fss-pub.nais.io
@@ -168,6 +170,16 @@ spec:
                "toApp": {
                 "name": "poao-unleash",
                 "namespace": "poao",
+                "cluster": "dev-gcp"
+              }
+            },
+            {
+              "fromPath": "/obo-unleash",
+              "toUrl": "http://obo-unleash.obo.svc.cluster.local",
+              "preserveFromPath": false,
+               "toApp": {
+                "name": "obo-unleash",
+                "namespace": "obo",
                 "cluster": "dev-gcp"
               }
             },
