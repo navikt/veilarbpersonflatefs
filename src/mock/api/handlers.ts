@@ -11,7 +11,7 @@ import {
 	mockAktivEnhet,
 	mockAktorFnrMappingMockData,
 	mockAntallUleste,
-	mockFeatures,
+	mockFeatures, mockOboUnleashFeatures,
 	mockSistOppdatert,
 	mockTilgangTilBruker,
 	oppfolgingMockData,
@@ -65,6 +65,7 @@ const responseResolver = <RESPONSE_TYPE>(
 export const handlers = [
 	rest.get('/oauth2/session', responseResolver({ json: sessionData })),
 	rest.get('/veilarbpersonflatefs/api/feature', responseResolver({ json: mockFeatures })),
+	rest.get('/obo-unleash/api/feature', responseResolver({ json: mockOboUnleashFeatures })),
 	rest.get('/veilarbdialog/api/dialog/antallUleste', responseResolver({ json: mockAntallUleste })),
 	rest.get('/veilarbdialog/api/dialog/sistOppdatert', responseResolver({ json: mockSistOppdatert })),
 	rest.get('/modiacontextholder/api/context/aktivenhet', responseResolver({ json: mockAktivEnhet })),

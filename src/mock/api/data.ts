@@ -5,7 +5,7 @@ import {
 	SPOR_OM_TILBAKEMELDING,
 	TOUR_MODAL_LAST_NED_CV_TOGGLE,
 	TOUR_MODAL_VEDTAKSSTOTTE_LANSERING_TOGGLE,
-	VEILARBDETALJERFS_ENABLED
+	VEILARBDETALJERFS_ENABLED, OboUnleashFeatures
 } from '../../api/features';
 import { AktivEnhetResponse, SistOppdatertData, AntallUlesteDialoger, SessionMeta } from '../../api/api';
 
@@ -18,9 +18,12 @@ export const mockFeatures: Features = {
 	[TOUR_MODAL_LAST_NED_CV_TOGGLE]: false,
 	[SPOR_OM_TILBAKEMELDING]: true,
 	[ARBEIDSMARKEDSTILTAK_LANSERING]: true,
-	[VEILARBDETALJERFS_ENABLED]: true,
 	[FINN_STILLING_INNGANG_ENABLED]: true
 };
+
+export const mockOboUnleashFeatures: OboUnleashFeatures = {
+	[VEILARBDETALJERFS_ENABLED]: true
+}
 
 export const mockAntallUleste: AntallUlesteDialoger = {
 	antallUleste: 1

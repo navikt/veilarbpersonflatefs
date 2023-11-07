@@ -1,4 +1,10 @@
-import { ALL_TOGGLES, ARBEIDSMARKEDSTILTAK_LANSERING, Features } from './features';
+import {
+	ALL_TOGGLES,
+	ARBEIDSMARKEDSTILTAK_LANSERING,
+	Features,
+	OBO_UNLEASH_TOGGLES,
+	OboUnleashFeatures
+} from './features';
 import { axiosInstance, useAxios, UseAxiosResponseValue } from './utils';
 import { Options } from 'axios-hooks';
 import { AxiosPromise, AxiosResponse } from 'axios';
@@ -58,6 +64,12 @@ export function useFetchFeatures(options?: Options): UseAxiosResponseValue<Featu
 	const toggles = ALL_TOGGLES.map(element => 'feature=' + element).join('&');
 	return useAxios<Features>(`/veilarbpersonflatefs/api/feature?${toggles}`, options);
 }
+
+export function useFetchFeaturesFromOboUnleash(): UseAxiosResponseValue<OboUnleashFeatures> {
+	const toggles = OBO_UNLEASH_TOGGLES.map(element => 'feature=' + element).join('&');
+	return useAxios<Features>(`/obo-unleash/api/feature?${toggles}`);
+}
+
 
 export function useFetchFeaturesForTeamValp(options?: Options): UseAxiosResponseValue<Boolean> {
 	return useAxios<Features>(
