@@ -63,10 +63,12 @@ export const PersonflatePage = () => {
 
 	let innhold;
 
-	if (isAnyLoading(fetchTilgangTilBruker, fetchFeature, fetchAktivEnhet, arbeidsmarkedstiltakForTeamValpFeature)) {
-		innhold = <PageSpinner />;
-	} else if (!aktivBrukerFnr) {
+	if (!aktivBrukerFnr && aktivEnhetId) {
 		innhold = <FeilmeldingManglerFnr />;
+	} else if (
+		isAnyLoading(fetchTilgangTilBruker, fetchFeature, fetchAktivEnhet, arbeidsmarkedstiltakForTeamValpFeature)
+	) {
+		innhold = <PageSpinner />;
 	} else if (hasAnyFailed(fetchTilgangTilBruker, fetchFeature, arbeidsmarkedstiltakForTeamValpFeature)) {
 		innhold = <FeilUnderLastingAvData />;
 	} else if (!fetchTilgangTilBruker.data) {
