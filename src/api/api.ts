@@ -71,10 +71,9 @@ export function useFetchAktivEnhet(options?: Options): UseAxiosResponseValue<Akt
 }
 
 export function useFetchTilgangTilBruker(fnr: string, options?: Options): UseAxiosResponseValue<boolean> {
-	return useAxios<boolean>({ url: `/veilarbperson/api/v2/person/hent-tilgangTilBruker`, method: 'POST', data: {fnr}}, options);
+	return useAxios<boolean>({ url: `/veilarbperson/api/v3/person/hent-tilgangTilBruker`, method: 'POST', data: {fnr}}, options);
 }
 
-// @todo: check if link is correct!!
 export function synkroniserManuellStatusMedDkif(fnr: string): AxiosPromise<null> {
 	return axiosInstance.post(`/veilarboppfolging/api/v3/manuell/synkroniser-med-dkif`, {fnr});
 }

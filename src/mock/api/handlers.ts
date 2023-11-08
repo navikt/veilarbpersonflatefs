@@ -85,7 +85,7 @@ export const handlers = [
 	rest.post('/veilarbperson/api/v3/hent-person', responseResolver({ json: personV2mockData })),
 	rest.post('/veilarbperson/api/v3/person/hent-tolk', responseResolver({ status: 204 })),
 
-	rest.post('/veilarboppfolging/api/v2/manuell/synkroniser-med-dkif', responseResolver({ status: 204 })),
+	rest.post('/veilarboppfolging/api/v3/manuell/synkroniser-med-dkif', responseResolver({ status: 204 })),
 	rest.get('/veilarboppfolging/api/oppfolging', responseResolver({ json: oppfolgingMockData })),
 	rest.post(
 		'/veilarboppfolging/api/v2/person/hent-oppfolgingsstatus',
