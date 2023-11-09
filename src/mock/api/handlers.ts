@@ -98,7 +98,7 @@ export const handlers = [
 	rest.get('/veilarboppfolging/api/oppfolging/me', responseResolver({ json: meMockData })),
 	rest.get('/veilarboppfolging/api/oppfolging/harFlereAktorIderMedOppfolging', responseResolver({ json: false })),
 	rest.get('/veilarboppfolging/api/oppfolging/mal', responseResolver({ json: malMockData })),
-	rest.post('veilarboppfolging/api/v2/hent-lestaktivitetsplan', responseResolver({ status: 204 })),
+	rest.post('veilarboppfolging/api/v3/veileder/lest-aktivitetsplan', responseResolver({ status: 204 })),
 
 	rest.get('/veilarbveileder/api/veileder/me', responseResolver({ json: veilederMeMockData })),
 	rest.get('/veilarbveileder/api/enhet/:enhetsNr/veiledere', responseResolver({ status: 204 })),
