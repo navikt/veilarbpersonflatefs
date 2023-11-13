@@ -25,6 +25,8 @@ export const mockOboUnleashFeatures: OboUnleashFeatures = {
 	[VEILARBDETALJERFS_ENABLED]: true
 }
 
+export const mockMulighetsrommetUnleashFeatures: boolean = true;
+
 export const mockAntallUleste: AntallUlesteDialoger = {
 	antallUleste: 1
 };
