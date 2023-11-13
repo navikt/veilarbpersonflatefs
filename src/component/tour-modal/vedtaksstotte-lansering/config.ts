@@ -2,10 +2,11 @@ import { TourModalConfig } from '../tour-modal';
 import step1Bilde from './step-1.png';
 import step2Bilde from './step-2.png';
 import step3Bilde from './step-3.png';
+import {TOUR_MODAL_VEDTAKSSTOTTE_LANSERING_TOGGLE} from "../../../api/features";
 
 export const vedtaksstotteLanseringConfig: TourModalConfig = {
 	storageName: 'TOUR_MODAL-VEDTAKSSTOTTE_LANSERNG',
-	toggleName: 'veilarbpersonflatefs.tour_modal.vedtaksstotte_lansering',
+	toggleName: TOUR_MODAL_VEDTAKSSTOTTE_LANSERING_TOGGLE,
 	metricName: 'veilarbpersonflatefs.metrikker.tour_modal.vedtaksstotte_lansering',
 	modalName: 'Ny løsning for oppfølgingsvedtak',
 	steps: [

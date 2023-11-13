@@ -1,9 +1,10 @@
 import step1Bilde from './step-1.png';
 import { TourModalConfig } from '../tour-modal';
+import {TOUR_MODAL_LAST_NED_CV_TOGGLE} from "../../../api/features";
 
 export const lastNedCvModalConfig: TourModalConfig = {
 	storageName: 'TOUR_MODAL-LAST_NED_CV',
-	toggleName: 'veilarbpersonflatefs.tour_modal-last_ned_cv',
+	toggleName: TOUR_MODAL_LAST_NED_CV_TOGGLE,
 	metricName: 'veilarbpersonflatefs.metrikker.tour_modal.last_ned_cv',
 	modalName: 'Ny oppdatering',
 	steps: [
