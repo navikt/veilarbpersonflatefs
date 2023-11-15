@@ -67,7 +67,7 @@ export function useFetchFeatures(options?: Options): UseAxiosResponseValue<Featu
 
 export function useFetchFeaturesFromOboUnleash(): UseAxiosResponseValue<OboUnleashFeatures> {
 	const toggles = OBO_UNLEASH_TOGGLES.map(element => 'feature=' + element).join('&');
-	return useAxios<Features>(`/obo-unleash/api/feature?${toggles}`);
+	return useAxios<OboUnleashFeatures>(`/obo-unleash/api/feature?${toggles}`);
 }
 
 
