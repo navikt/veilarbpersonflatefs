@@ -9,12 +9,12 @@ import PageSpinner from '../component/page-spinner/page-spinner';
 import { InternflateDecorator } from '../component/internflate-decorator/internflate-decorator';
 import {
 	useFetchAktivEnhet,
-	useFetchFeatures,
-	useFetchFeaturesForTeamValp, useFetchFeaturesFromOboUnleash,
+	useFetchFeaturesForTeamValp,
+	useFetchFeaturesFromOboUnleash,
 	useFetchTilgangTilBruker
 } from '../api/api';
 import { hasAnyFailed, isAnyLoading } from '../api/utils';
-import {Features, OboUnleashFeatures} from '../api/features';
+import { OboUnleashFeatures } from '../api/features';
 import { useModiaContext } from '../store/modia-context-store';
 import { UtloptSesjonAdvarsel } from '../component/utlopt-sesjon-advarsel/utlopt-sesjon-advarsel';
 import { SesjonStatus, useSesjonStatus } from '../hooks/use-sesjon-status';
@@ -25,7 +25,6 @@ export const PersonflatePage = () => {
 	const { sesjonStatus } = useSesjonStatus();
 
 	const fetchTilgangTilBruker = useFetchTilgangTilBruker(aktivBrukerFnr, { manual: true });
-	const fetchFeature = useFetchFeatures();
 	const fetchOboUnleashFeatures = useFetchFeaturesFromOboUnleash();
 	const arbeidsmarkedstiltakForTeamValpFeature = useFetchFeaturesForTeamValp();
 	const fetchAktivEnhet = useFetchAktivEnhet();
@@ -66,16 +65,22 @@ export const PersonflatePage = () => {
 
 	if (!aktivBrukerFnr) {
 		innhold = <FeilmeldingManglerFnr />;
-	} else if (isAnyLoading(fetchTilgangTilBruker, fetchFeature, fetchAktivEnhet, arbeidsmarkedstiltakForTeamValpFeature, fetchOboUnleashFeatures)) {
+	} else if (
+		isAnyLoading(
+			fetchTilgangTilBruker,
+			fetchAktivEnhet,
+			arbeidsmarkedstiltakForTeamValpFeature,
+			fetchOboUnleashFeatures
+		)
+	) {
 		innhold = <PageSpinner />;
-	} else if (hasAnyFailed(fetchTilgangTilBruker, fetchFeature, arbeidsmarkedstiltakForTeamValpFeature, fetchOboUnleashFeatures)) {
+	} else if (hasAnyFailed(fetchTilgangTilBruker, arbeidsmarkedstiltakForTeamValpFeature, fetchOboUnleashFeatures)) {
 		innhold = <FeilUnderLastingAvData />;
 	} else if (!fetchTilgangTilBruker.data) {
 		innhold = <IngenTilgangTilBruker />;
 	} else {
 		innhold = (
 			<Innhold
-				features={fetchFeature.data}
 				oboUnleashFeatures={fetchOboUnleashFeatures.data}
 				enableArbeidsmarkedstiltakForTeamValp={arbeidsmarkedstiltakForTeamValpFeature.data}
 			/>
@@ -97,15 +102,13 @@ export const PersonflatePage = () => {
 };
 
 interface AppInnholdProps {
-	features?: Features;
 	oboUnleashFeatures?: OboUnleashFeatures;
 	enableArbeidsmarkedstiltakForTeamValp?: boolean;
 }
 
-const Innhold = ({ features, oboUnleashFeatures, enableArbeidsmarkedstiltakForTeamValp }: AppInnholdProps) => {
+const Innhold = ({ oboUnleashFeatures, enableArbeidsmarkedstiltakForTeamValp }: AppInnholdProps) => {
 	return (
 		<SideInnhold
-			features={features}
 			oboUnleashFeatures={oboUnleashFeatures}
 			enableArbeidsmarkedstiltakForTeamValp={enableArbeidsmarkedstiltakForTeamValp}
 		/>

@@ -1,10 +1,4 @@
-import {
-	ALL_TOGGLES,
-	ARBEIDSMARKEDSTILTAK_LANSERING,
-	Features,
-	OBO_UNLEASH_TOGGLES,
-	OboUnleashFeatures
-} from './features';
+import { ARBEIDSMARKEDSTILTAK_LANSERING, OBO_UNLEASH_TOGGLES, OboUnleashFeatures } from './features';
 import { axiosInstance, useAxios, UseAxiosResponseValue } from './utils';
 import { Options } from 'axios-hooks';
 import { AxiosPromise, AxiosResponse } from 'axios';
@@ -60,16 +54,10 @@ export function useFetchSistOppdatert(fnr: string, options?: Options): UseAxiosR
 	return useAxios<SistOppdatertData>(`/veilarbdialog/api/dialog/sistOppdatert?fnr=${fnr}`, options);
 }
 
-export function useFetchFeatures(options?: Options): UseAxiosResponseValue<Features> {
-	const toggles = ALL_TOGGLES.map(element => 'feature=' + element).join('&');
-	return useAxios<Features>(`/veilarbpersonflatefs/api/feature?${toggles}`, options);
-}
-
 export function useFetchFeaturesFromOboUnleash(): UseAxiosResponseValue<OboUnleashFeatures> {
 	const toggles = OBO_UNLEASH_TOGGLES.map(element => 'feature=' + element).join('&');
 	return useAxios<OboUnleashFeatures>(`/obo-unleash/api/feature?${toggles}`);
 }
-
 
 export function useFetchFeaturesForTeamValp(options?: Options): UseAxiosResponseValue<boolean> {
 	return useAxios<boolean>(
@@ -83,11 +71,18 @@ export function useFetchAktivEnhet(options?: Options): UseAxiosResponseValue<Akt
 }
 
 export function useFetchTilgangTilBruker(fnr: string, options?: Options): UseAxiosResponseValue<boolean> {
-	return useAxios<boolean>({ url: `/veilarbperson/api/v3/person/hent-tilgangTilBruker`, method: 'POST', data: {fnr}}, options);
+	return useAxios<boolean>(
+		{
+			url: `/veilarbperson/api/v3/person/hent-tilgangTilBruker`,
+			method: 'POST',
+			data: { fnr }
+		},
+		options
+	);
 }
 
 export function synkroniserManuellStatusMedDkif(fnr: string): AxiosPromise<null> {
-	return axiosInstance.post(`/veilarboppfolging/api/v3/manuell/synkroniser-med-dkif`, {fnr});
+	return axiosInstance.post(`/veilarboppfolging/api/v3/manuell/synkroniser-med-dkif`, { fnr });
 }
 
 export function sendEventTilVeilarbperson(event: FrontendEvent) {
