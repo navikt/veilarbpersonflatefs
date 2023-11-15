@@ -98,13 +98,14 @@ class SideInnhold extends React.Component<SideInnholdLayoutProps> {
 			title: 'Aktivitetsplan',
 			content: apps.aktivitetsplan
 		});
+
 		tabs.push({
 			id: TabId.DIALOG,
 			title: 'Dialog',
 			content: apps.dialog
 		});
 
-		if (features?.[VEILARBDETALJERFS_ENABLED]) {
+		if (oboUnleashFeatures?.[VEILARBDETALJERFS_ENABLED]) {
 			tabs.push({
 				id: TabId.DETALJER_NY,
 				title: 'Overblikk',
@@ -113,6 +114,7 @@ class SideInnhold extends React.Component<SideInnholdLayoutProps> {
 		} else {
 			tabs.push({ id: TabId.DETALJER, title: 'Detaljer', content: apps.mao });
 		}
+
 		tabs.push({
 			id: TabId.VEDTAKSSTOTTE,
 			title: 'Oppfølgingsvedtak',
