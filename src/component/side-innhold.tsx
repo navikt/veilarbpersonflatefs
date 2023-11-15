@@ -1,10 +1,6 @@
 import React from 'react';
 import TabMenu, { Tab } from './tab-menu/tab-menu';
-import {
-	Features,
-	VEILARBDETALJERFS_ENABLED,
-	OboUnleashFeatures
-} from '../api/features';
+import { Features, VEILARBDETALJERFS_ENABLED, OboUnleashFeatures } from '../api/features';
 import TilbakemeldingFab from './tilbakemelding/fab/tilbakemelding-fab';
 import { hentSistBesokteTab } from './tab-menu/siste-tab';
 import { TourModalController } from './tour-modal/tour-modal-controller';
@@ -109,13 +105,13 @@ class SideInnhold extends React.Component<SideInnholdLayoutProps> {
 			content: apps.dialog
 		});
 
+		tabs.push({
+			id: TabId.DETALJER_NY,
+			title: 'Overblikk',
+			content: apps.detaljer_ny
+		});
+
 		if (oboUnleashFeatures?.[VEILARBDETALJERFS_ENABLED]) {
-			tabs.push({
-				id: TabId.DETALJER_NY,
-				title: 'Overblikk',
-				content: apps.detaljer_ny
-			});
-		} else {
 			tabs.push({ id: TabId.DETALJER, title: 'Detaljer', content: apps.mao });
 		}
 
