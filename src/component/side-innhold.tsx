@@ -1,9 +1,7 @@
 import React from 'react';
 import TabMenu, { Tab } from './tab-menu/tab-menu';
-import { Features, VEILARBDETALJERFS_ENABLED, OboUnleashFeatures } from '../api/features';
-import TilbakemeldingFab from './tilbakemelding/fab/tilbakemelding-fab';
+import { OboUnleashFeatures, VEILARBDETALJERFS_ENABLED } from '../api/features';
 import { hentSistBesokteTab } from './tab-menu/siste-tab';
-import { TourModalController } from './tour-modal/tour-modal-controller';
 import { hasHashParam, hasQueryParam } from '../util/url-utils';
 import {
 	Aktivitetsplan,
@@ -18,7 +16,6 @@ import {
 import { ModiaContext } from '../store/modia-context-store';
 
 interface SideInnholdLayoutProps {
-	features?: Features;
 	oboUnleashFeatures?: OboUnleashFeatures;
 	enableArbeidsmarkedstiltakForTeamValp?: boolean;
 }
@@ -90,7 +87,7 @@ class SideInnhold extends React.Component<SideInnholdLayoutProps> {
 
 	render() {
 		const { aktivBrukerFnr, aktivEnhetId } = this.context;
-		const { features, enableArbeidsmarkedstiltakForTeamValp, oboUnleashFeatures } = this.props;
+		const {  enableArbeidsmarkedstiltakForTeamValp, oboUnleashFeatures } = this.props;
 		const tabs: Tab[] = [];
 
 		tabs.push({
@@ -145,8 +142,6 @@ class SideInnhold extends React.Component<SideInnholdLayoutProps> {
 					tilbakeTilFlate="veilarbportefoljeflatefs"
 				/>
 				<TabMenu tabs={tabs} defaultSelectedTab={this.getDefaultTab()} />
-				<TourModalController features={features} />
-				<TilbakemeldingFab features={features} />
 			</>
 		);
 	}
