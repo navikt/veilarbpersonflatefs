@@ -1,6 +1,7 @@
 import step1Bilde from './step-1.png';
 import { TourModalConfig } from '../tour-modal';
-import {TOUR_MODAL_LAST_NED_CV_TOGGLE} from "../../../api/features";
+
+import {TOUR_MODAL_LAST_NED_CV_TOGGLE} from "../../../api/stale-features";
 
 export const lastNedCvModalConfig: TourModalConfig = {
 	storageName: 'TOUR_MODAL-LAST_NED_CV',

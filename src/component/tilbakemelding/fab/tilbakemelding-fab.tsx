@@ -4,8 +4,9 @@ import TilbakemeldingModal, { Tilbakemelding } from '../tilbakemelding-modal';
 import { logEvent } from '../../../util/frontend-logger';
 import lukkBilde from './lukk.svg';
 import tilbakemeldingBilde from './tilbakemelding.svg';
-import { Features, SPOR_OM_TILBAKEMELDING } from '../../../api/features';
+import { Features } from '../../../api/features';
 import './tilbakemelding-fab.less';
+import {SPOR_OM_TILBAKEMELDING} from "../../../api/stale-features";
 
 // FAB = Floating Action Button
 

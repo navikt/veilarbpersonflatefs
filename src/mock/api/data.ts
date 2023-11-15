@@ -1,29 +1,24 @@
 import {
 	ARBEIDSMARKEDSTILTAK_LANSERING,
-	FINN_STILLING_INNGANG_ENABLED,
 	Features,
-	SPOR_OM_TILBAKEMELDING,
-	TOUR_MODAL_LAST_NED_CV_TOGGLE,
-	TOUR_MODAL_VEDTAKSSTOTTE_LANSERING_TOGGLE,
-	VEILARBDETALJERFS_ENABLED, OboUnleashFeatures
+	FINN_STILLING_INNGANG_ENABLED,
+	OboUnleashFeatures,
+	VEILARBDETALJERFS_ENABLED
 } from '../../api/features';
-import { AktivEnhetResponse, SistOppdatertData, AntallUlesteDialoger, SessionMeta } from '../../api/api';
+import { AktivEnhetResponse, AntallUlesteDialoger, SessionMeta, SistOppdatertData } from '../../api/api';
 
 export const testBrukerFnr = '03818796950';
 
 export const testEnhetId = '0123';
 
 export const mockFeatures: Features = {
-	[TOUR_MODAL_VEDTAKSSTOTTE_LANSERING_TOGGLE]: true,
-	[TOUR_MODAL_LAST_NED_CV_TOGGLE]: false,
-	[SPOR_OM_TILBAKEMELDING]: true,
 	[ARBEIDSMARKEDSTILTAK_LANSERING]: true,
 	[FINN_STILLING_INNGANG_ENABLED]: true
 };
 
 export const mockOboUnleashFeatures: OboUnleashFeatures = {
 	[VEILARBDETALJERFS_ENABLED]: true
-}
+};
 
 export const mockMulighetsrommetUnleashFeatures: boolean = true;
 
