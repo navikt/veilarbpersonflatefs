@@ -80,6 +80,7 @@ class SideInnhold extends React.Component<SideInnholdLayoutProps> {
 			defaultSelectedTab = sisteBesokteTab;
 		}
 
+		// @ts-ignore
 		window.defaultSelectedTab = defaultSelectedTab;
 
 		return defaultSelectedTab;
