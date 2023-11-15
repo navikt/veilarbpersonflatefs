@@ -25,7 +25,7 @@ export enum TabId {
 	DIALOG = 'DIALOG',
 	VEDTAKSSTOTTE = 'VEDTAKSSTOTTE',
 	DETALJER = 'DETALJER',
-	DETALJER_NY = 'DETALJER_NY',
+	OVERBLIKK = 'OVERBLIKK',
 	ARBEIDSMARKEDSTILTAK = 'ARBEIDSMARKEDSTILTAK',
 	FINN_STILLING_INNGANG = 'FINN_STILLING_INNGANG'
 }
@@ -39,7 +39,7 @@ const showTabMap: { [k: string]: TabId } = {
 	visDialog: TabId.DIALOG,
 	visVedtaksstotte: TabId.VEDTAKSSTOTTE,
 	visDetaljer: TabId.DETALJER,
-	visDetaljerNy: TabId.DETALJER_NY,
+	visDetaljerNy: TabId.OVERBLIKK,
 	visArbeidsmarkedstiltak: TabId.ARBEIDSMARKEDSTILTAK,
 	visFinnStillingInngang: TabId.FINN_STILLING_INNGANG
 };
@@ -75,7 +75,7 @@ class SideInnhold extends React.Component<SideInnholdLayoutProps> {
 		if (tabFromHashParam) {
 			defaultSelectedTab = tabFromHashParam;
 		} else if (visDetaljer) {
-			defaultSelectedTab = TabId.DETALJER;
+			defaultSelectedTab = TabId.OVERBLIKK;
 		} else if (sisteBesokteTab) {
 			defaultSelectedTab = sisteBesokteTab;
 		}
@@ -104,7 +104,7 @@ class SideInnhold extends React.Component<SideInnholdLayoutProps> {
 		});
 
 		tabs.push({
-			id: TabId.DETALJER_NY,
+			id: TabId.OVERBLIKK,
 			title: 'Overblikk',
 			content: apps.detaljer_ny
 		});
