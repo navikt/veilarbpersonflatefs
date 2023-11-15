@@ -1,6 +1,10 @@
 import React from 'react';
 import TabMenu, { Tab } from './tab-menu/tab-menu';
-import {FINN_STILLING_INNGANG_ENABLED, Features, VEILARBDETALJERFS_ENABLED, OboUnleashFeatures} from '../api/features';
+import {
+	Features,
+	VEILARBDETALJERFS_ENABLED,
+	OboUnleashFeatures
+} from '../api/features';
 import TilbakemeldingFab from './tilbakemelding/fab/tilbakemelding-fab';
 import { hentSistBesokteTab } from './tab-menu/siste-tab';
 import { TourModalController } from './tour-modal/tour-modal-controller';
@@ -130,13 +134,11 @@ class SideInnhold extends React.Component<SideInnholdLayoutProps> {
 			});
 		}
 
-		if (features?.[FINN_STILLING_INNGANG_ENABLED]) {
-			tabs.push({
-				id: TabId.FINN_STILLING_INNGANG,
-				title: 'Finn stillinger',
-				content: apps.finnStillingInngang
-			});
-		}
+		tabs.push({
+			id: TabId.FINN_STILLING_INNGANG,
+			title: 'Finn stillinger',
+			content: apps.finnStillingInngang
+		});
 
 		return (
 			<>

@@ -1,7 +1,6 @@
 import {
 	ARBEIDSMARKEDSTILTAK_LANSERING,
 	Features,
-	FINN_STILLING_INNGANG_ENABLED,
 	OboUnleashFeatures,
 	VEILARBDETALJERFS_ENABLED
 } from '../../api/features';
@@ -12,8 +11,7 @@ export const testBrukerFnr = '03818796950';
 export const testEnhetId = '0123';
 
 export const mockFeatures: Features = {
-	[ARBEIDSMARKEDSTILTAK_LANSERING]: true,
-	[FINN_STILLING_INNGANG_ENABLED]: true
+	[ARBEIDSMARKEDSTILTAK_LANSERING]: true
 };
 
 export const mockOboUnleashFeatures: OboUnleashFeatures = {
