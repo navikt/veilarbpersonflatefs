@@ -2,7 +2,7 @@ import {
 	ARBEIDSMARKEDSTILTAK_LANSERING,
 	Features,
 	OboUnleashFeatures,
-	VEILARBDETALJERFS_ENABLED
+	VIS_GAMLE_DETALJER_FANE
 } from '../../api/features';
 import { AktivEnhetResponse, AntallUlesteDialoger, SessionMeta, SistOppdatertData } from '../../api/api';
 
@@ -15,7 +15,7 @@ export const mockFeatures: Features = {
 };
 
 export const mockOboUnleashFeatures: OboUnleashFeatures = {
-	[VEILARBDETALJERFS_ENABLED]: true
+	[VIS_GAMLE_DETALJER_FANE]: true
 };
 
 export const mockMulighetsrommetUnleashFeatures: boolean = true;

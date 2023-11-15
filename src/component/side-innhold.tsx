@@ -1,6 +1,6 @@
 import React from 'react';
 import TabMenu, { Tab } from './tab-menu/tab-menu';
-import { OboUnleashFeatures, VEILARBDETALJERFS_ENABLED } from '../api/features';
+import { OboUnleashFeatures, VIS_GAMLE_DETALJER_FANE } from '../api/features';
 import { hentSistBesokteTab } from './tab-menu/siste-tab';
 import { hasHashParam, hasQueryParam } from '../util/url-utils';
 import {
@@ -109,7 +109,7 @@ class SideInnhold extends React.Component<SideInnholdLayoutProps> {
 			content: apps.detaljer_ny
 		});
 
-		if (oboUnleashFeatures?.[VEILARBDETALJERFS_ENABLED]) {
+		if (oboUnleashFeatures?.[VIS_GAMLE_DETALJER_FANE]) {
 			tabs.push({ id: TabId.DETALJER, title: 'Detaljer', content: apps.mao });
 		}
 
