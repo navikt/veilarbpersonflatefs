@@ -71,8 +71,8 @@ export function useFetchFeaturesFromOboUnleash(): UseAxiosResponseValue<OboUnlea
 }
 
 
-export function useFetchFeaturesForTeamValp(options?: Options): UseAxiosResponseValue<Boolean> {
-	return useAxios<Features>(
+export function useFetchFeaturesForTeamValp(options?: Options): UseAxiosResponseValue<boolean> {
+	return useAxios<boolean>(
 		`/mulighetsrommet-api/api/v1/internal/features?feature=${ARBEIDSMARKEDSTILTAK_LANSERING}`,
 		options
 	);
