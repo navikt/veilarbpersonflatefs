@@ -1,5 +1,6 @@
 import React, { useContext } from 'react';
 import { DispatchContext } from './store-provider';
+import {erMock} from "../util/utils";
 
 export interface ModiaContextData {
 	aktivBrukerFnr: string;
@@ -66,7 +67,16 @@ export const reducer = (state: ModiaContextData, action: SetFnr | SetEnhet | Set
 };
 
 export const createInitialStore = (fnr: string) => {
-	return {
+	// For å unngå at vi viser "Du må søke opp en person for å vise aktivitetsplanen"-feilmelding
+	// når man kjører appen lokalt, må `aktivBrukerFnr` settes til en verdi.
+	// Årsaken til dette er at internflatedecorator-en ikke er tilgjengelig lokalt og
+	// derfor ikke har mulighet til å oppdatere aktiv bruker.
+	// Om vi finner en løsning der vi kan dra inn internflatedecorator når appen kjøres lokalt,
+	// kan antakeligvis `erMock`-steget fjernes.
+	return erMock() ? {
+		...defaultValue,
+		aktivBrukerFnr: "12345678900"
+	} : {
 		...defaultValue,
 		aktivBrukerFnr: fnr
 	};

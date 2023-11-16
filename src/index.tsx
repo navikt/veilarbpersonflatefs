@@ -30,7 +30,8 @@ Modal.setAppElement(document.getElementById('modal-a11y-wrapper'));
 
 if (erMock()) {
 	// @ts-ignore
-	import('./mock/setup').then(renderApp);
+	const { worker } = await import('./mock/setup');
+	worker.then(renderApp);
 } else {
 	initAmplitude();
 	renderApp();

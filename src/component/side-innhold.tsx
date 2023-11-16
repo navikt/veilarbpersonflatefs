@@ -1,9 +1,7 @@
 import React from 'react';
 import TabMenu, { Tab } from './tab-menu/tab-menu';
-import { FINN_STILLING_INNGANG_ENABLED, Features, VEILARBDETALJERFS_ENABLED } from '../api/features';
-import TilbakemeldingFab from './tilbakemelding/fab/tilbakemelding-fab';
+import { OboUnleashFeatures, VIS_GAMLE_DETALJER_FANE } from '../api/features';
 import { hentSistBesokteTab } from './tab-menu/siste-tab';
-import { TourModalController } from './tour-modal/tour-modal-controller';
 import { hasHashParam, hasQueryParam } from '../util/url-utils';
 import {
 	Aktivitetsplan,
@@ -18,7 +16,7 @@ import {
 import { ModiaContext } from '../store/modia-context-store';
 
 interface SideInnholdLayoutProps {
-	features?: Features;
+	oboUnleashFeatures?: OboUnleashFeatures;
 	enableArbeidsmarkedstiltakForTeamValp?: boolean;
 }
 
@@ -27,7 +25,7 @@ export enum TabId {
 	DIALOG = 'DIALOG',
 	VEDTAKSSTOTTE = 'VEDTAKSSTOTTE',
 	DETALJER = 'DETALJER',
-	DETALJER_NY = 'DETALJER_NY',
+	OVERBLIKK = 'OVERBLIKK',
 	ARBEIDSMARKEDSTILTAK = 'ARBEIDSMARKEDSTILTAK',
 	FINN_STILLING_INNGANG = 'FINN_STILLING_INNGANG'
 }
@@ -41,7 +39,7 @@ const showTabMap: { [k: string]: TabId } = {
 	visDialog: TabId.DIALOG,
 	visVedtaksstotte: TabId.VEDTAKSSTOTTE,
 	visDetaljer: TabId.DETALJER,
-	visDetaljerNy: TabId.DETALJER_NY,
+	visDetaljerNy: TabId.OVERBLIKK,
 	visArbeidsmarkedstiltak: TabId.ARBEIDSMARKEDSTILTAK,
 	visFinnStillingInngang: TabId.FINN_STILLING_INNGANG
 };
@@ -77,11 +75,12 @@ class SideInnhold extends React.Component<SideInnholdLayoutProps> {
 		if (tabFromHashParam) {
 			defaultSelectedTab = tabFromHashParam;
 		} else if (visDetaljer) {
-			defaultSelectedTab = TabId.DETALJER;
+			defaultSelectedTab = TabId.OVERBLIKK;
 		} else if (sisteBesokteTab) {
 			defaultSelectedTab = sisteBesokteTab;
 		}
 
+		// @ts-ignore
 		window.defaultSelectedTab = defaultSelectedTab;
 
 		return defaultSelectedTab;
@@ -89,7 +88,7 @@ class SideInnhold extends React.Component<SideInnholdLayoutProps> {
 
 	render() {
 		const { aktivBrukerFnr, aktivEnhetId } = this.context;
-		const { features, enableArbeidsmarkedstiltakForTeamValp } = this.props;
+		const {  enableArbeidsmarkedstiltakForTeamValp, oboUnleashFeatures } = this.props;
 		const tabs: Tab[] = [];
 
 		tabs.push({
@@ -97,21 +96,23 @@ class SideInnhold extends React.Component<SideInnholdLayoutProps> {
 			title: 'Aktivitetsplan',
 			content: apps.aktivitetsplan
 		});
+
 		tabs.push({
 			id: TabId.DIALOG,
 			title: 'Dialog',
 			content: apps.dialog
 		});
 
-		if (features?.[VEILARBDETALJERFS_ENABLED]) {
-			tabs.push({
-				id: TabId.DETALJER_NY,
-				title: 'Overblikk',
-				content: apps.detaljer_ny
-			});
-		} else {
+		tabs.push({
+			id: TabId.OVERBLIKK,
+			title: 'Overblikk',
+			content: apps.detaljer_ny
+		});
+
+		if (oboUnleashFeatures?.[VIS_GAMLE_DETALJER_FANE]) {
 			tabs.push({ id: TabId.DETALJER, title: 'Detaljer', content: apps.mao });
 		}
+
 		tabs.push({
 			id: TabId.VEDTAKSSTOTTE,
 			title: 'Oppfølgingsvedtak',
@@ -127,13 +128,11 @@ class SideInnhold extends React.Component<SideInnholdLayoutProps> {
 			});
 		}
 
-		if (features?.[FINN_STILLING_INNGANG_ENABLED]) {
-			tabs.push({
-				id: TabId.FINN_STILLING_INNGANG,
-				title: 'Finn stillinger',
-				content: apps.finnStillingInngang
-			});
-		}
+		tabs.push({
+			id: TabId.FINN_STILLING_INNGANG,
+			title: 'Finn stillinger',
+			content: apps.finnStillingInngang
+		});
 
 		return (
 			<>
@@ -144,8 +143,6 @@ class SideInnhold extends React.Component<SideInnholdLayoutProps> {
 					tilbakeTilFlate="veilarbportefoljeflatefs"
 				/>
 				<TabMenu tabs={tabs} defaultSelectedTab={this.getDefaultTab()} />
-				<TourModalController features={features} />
-				<TilbakemeldingFab features={features} />
 			</>
 		);
 	}

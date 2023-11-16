@@ -13,7 +13,7 @@ import {
 
 // window.history.replaceState('', '', '/veilarbpersonflatefs/' + testBrukerFnr + window.location.hash);
 
-setupWorker(...handlers)
+export const worker = setupWorker(...handlers)
 	.start({ serviceWorker: { url: '' + '/mockServiceWorker.js' } })
 	.catch(e => {
 		// tslint:disable-next-line:no-console
