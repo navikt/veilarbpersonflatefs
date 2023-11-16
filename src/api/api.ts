@@ -12,6 +12,10 @@ export interface AktivEnhetResponse {
 	aktivEnhet: string | null;
 }
 
+export interface AktivBrukerResponse {
+	aktivBruker: string | null;
+}
+
 export interface SistOppdatertData {
 	sistOppdatert?: string;
 }
@@ -70,12 +74,23 @@ export function useFetchAktivEnhet(options?: Options): UseAxiosResponseValue<Akt
 	return useAxios<AktivEnhetResponse>('/modiacontextholder/api/context/aktivenhet', options);
 }
 
+export function useFetchAktivBruker(): UseAxiosResponseValue<AktivBrukerResponse> {
+	return useAxios<AktivBrukerResponse>('/modiacontextholder/api/context/aktivbruker');
+}
+
 export function useFetchTilgangTilBruker(fnr: string, options?: Options): UseAxiosResponseValue<boolean> {
-	return useAxios<boolean>({ url: `/veilarbperson/api/v3/person/hent-tilgangTilBruker`, method: 'POST', data: {fnr}}, options);
+	return useAxios<boolean>(
+		{
+			url: `/veilarbperson/api/v3/person/hent-tilgangTilBruker`,
+			method: 'POST',
+			data: { fnr }
+		},
+		options
+	);
 }
 
 export function synkroniserManuellStatusMedDkif(fnr: string): AxiosPromise<null> {
-	return axiosInstance.post(`/veilarboppfolging/api/v3/manuell/synkroniser-med-dkif`, {fnr});
+	return axiosInstance.post(`/veilarboppfolging/api/v3/manuell/synkroniser-med-dkif`, { fnr });
 }
 
 export function sendEventTilVeilarbperson(event: FrontendEvent) {
