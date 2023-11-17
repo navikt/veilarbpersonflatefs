@@ -45,7 +45,6 @@ spec:
   accessPolicy:
     outbound:
       rules:
-        - application: poao-unleash
         - application: mulighetsrommet-api
           namespace: team-mulighetsrommet
         - application: obo-unleash
@@ -161,16 +160,6 @@ spec:
                 "name": "veilarblest",
                 "namespace": "pto",
                 "cluster": "prod-fss"
-              }
-            },
-            {
-              "fromPath": "/veilarbpersonflatefs",
-              "toUrl": "http://poao-unleash.poao.svc.cluster.local",
-              "preserveFromPath": false,
-               "toApp": {
-                "name": "poao-unleash",
-                "namespace": "poao",
-                "cluster": "prod-gcp"
               }
             },
             {
