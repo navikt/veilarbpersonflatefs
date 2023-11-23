@@ -225,7 +225,7 @@ spec:
             },
             {
               "fromPath": "/dialogvarsler",
-              "toUrl": "https://dialogvarsler.ekstern.dev.nav.no",
+              "toUrl": "http://dialogvarsler.dab",
               "preserveFromPath": false,
               "toApp": {
                 "name": "dialogvarsler",
