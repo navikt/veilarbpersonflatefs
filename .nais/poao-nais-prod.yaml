@@ -49,6 +49,8 @@ spec:
           namespace: team-mulighetsrommet
         - application: obo-unleash
           namespace: obo
+        - application: dialogvarsler
+          namespace: dab
       external:
         - host: veilarbmalverk.prod-fss-pub.nais.io
         - host: veilarbperson.prod-fss-pub.nais.io
@@ -221,6 +223,16 @@ spec:
                 "name": "veilarboppgave",
                 "namespace": "pto",
                 "cluster": "prod-fss"
+              }
+            },
+            {
+              "fromPath": "/dialogvarsler",
+              "toUrl": "http://dialogvarsler.dab",
+              "preserveFromPath": false,
+              "toApp": {
+                "name": "dialogvarsler",
+                "namespace": "dab",
+                "cluster": "prod-gcp"
               }
             },
             {
