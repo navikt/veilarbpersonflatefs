@@ -49,6 +49,8 @@ spec:
           namespace: team-mulighetsrommet
         - application: obo-unleash
           namespace: obo
+        - application: dialogvarsler
+          namespace: dab
       external:
         - host: veilarbdialog.dev-fss-pub.nais.io
         - host: veilarbaktivitet.dev-fss-pub.nais.io
@@ -225,7 +227,7 @@ spec:
             },
             {
               "fromPath": "/dialogvarsler",
-              "toUrl": "https://dialogvarsler.ekstern.dev.nav.no",
+              "toUrl": "http://dialogvarsler.dab",
               "preserveFromPath": false,
               "toApp": {
                 "name": "dialogvarsler",
