@@ -12,7 +12,6 @@ import { initAmplitude } from './amplitude/amplitude';
 
 const lastInnSubApper = () => {
 	AsyncNavspa.preload(visittkortAsyncConfig);
-	AsyncNavspa.preload(detaljerAsyncConfig);
 	AsyncNavspa.preload(vedtaksstotteAsyncConfig);
 };
 const renderApp = () => {
