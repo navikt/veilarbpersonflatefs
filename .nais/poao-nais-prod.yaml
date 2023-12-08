@@ -49,6 +49,8 @@ spec:
           namespace: team-mulighetsrommet
         - application: obo-unleash
           namespace: obo
+        - application: please
+          namespace: dab
       external:
         - host: veilarbmalverk.prod-fss-pub.nais.io
         - host: veilarbperson.prod-fss-pub.nais.io
@@ -221,6 +223,16 @@ spec:
                 "name": "veilarboppgave",
                 "namespace": "pto",
                 "cluster": "prod-fss"
+              }
+            },
+            {
+              "fromPath": "/please",
+              "toUrl": "http://please.dab",
+              "preserveFromPath": false,
+              "toApp": {
+                "name": "please",
+                "namespace": "dab",
+                "cluster": "prod-gcp"
               }
             },
             {
