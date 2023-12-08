@@ -84,7 +84,7 @@ spec:
             "csp": {
               "connectSrc": ["'self'", "wss:", "*.nav.no", "*.adeo.no", "cdn.sanity.io", "storage.googleapis.com"],
               "frameSrc": ["vars.hotjar.com", "video.qbrick.com"],
-              "imgSrc": ["'self'", "*.nav.no", "cdn.sanity.io"]
+              "imgSrc": ["'self'", "data:", "*.nav.no", "*.adeo.no", "cdn.sanity.io"]
             }
           },
           "redirects": [

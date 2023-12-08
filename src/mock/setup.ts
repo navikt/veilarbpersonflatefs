@@ -1,4 +1,4 @@
-import { setupWorker } from 'msw';
+import { setupWorker } from 'msw/browser';
 import { handlers } from './api/handlers';
 import {
 	aktivitetsplanSpaMockProps,
@@ -14,11 +14,6 @@ import {
 // window.history.replaceState('', '', '/veilarbpersonflatefs/' + testBrukerFnr + window.location.hash);
 
 export const worker = setupWorker(...handlers)
-	.start({ serviceWorker: { url: '' + '/mockServiceWorker.js' } })
-	.catch(e => {
-		// tslint:disable-next-line:no-console
-		console.error('Unable to setup mocked API endpoints', e);
-	});
 
 eksporterSpaMock(internflateDecoratorSpaMockProps);
 eksporterSpaMock(visittkortSpaMockProps);

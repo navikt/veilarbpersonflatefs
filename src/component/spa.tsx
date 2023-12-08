@@ -142,7 +142,10 @@ export const Arbeidsmarkedstiltak: React.ComponentType<SpaProps> = props => {
 			assetManifestParser: arbeidsmarkedstiltakManifestParser
 		});
 	}, []);
-	return React.createElement('mulighetsrommet-arbeidsmarkedstiltak', { ['data-fnr']: props.fnr });
+	return React.createElement('mulighetsrommet-arbeidsmarkedstiltak', {
+		'data-fnr': props.fnr,
+		'data-enhet': props.enhet
+	});
 };
 
 export const finnStillingInngangAsyncConfig: AsyncSpaConfig = {
@@ -167,9 +170,11 @@ export const Decorator: React.ComponentType<DecoratorConfig> = NAVSPA.importer(S
 	wrapperClassName: ''
 });
 
-export const Visittkort: React.ComponentType<VisittKortProps> =
-	AsyncNavspa.importer<VisittKortProps>(visittkortAsyncConfig);
+export const Visittkort: React.ComponentType<VisittKortProps> = AsyncNavspa.importer<VisittKortProps>(
+	visittkortAsyncConfig
+);
 export const Detaljer: React.ComponentType<SpaProps> = AsyncNavspa.importer<SpaProps>(detaljerAsyncConfig);
 export const Vedtaksstotte: React.ComponentType<SpaProps> = AsyncNavspa.importer<SpaProps>(vedtaksstotteAsyncConfig);
-export const FinnStillingInngang: React.ComponentType<SpaProps> =
-	AsyncNavspa.importer<SpaProps>(finnStillingInngangAsyncConfig);
+export const FinnStillingInngang: React.ComponentType<SpaProps> = AsyncNavspa.importer<SpaProps>(
+	finnStillingInngangAsyncConfig
+);

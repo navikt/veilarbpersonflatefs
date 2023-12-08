@@ -12,7 +12,6 @@ import { initAmplitude } from './amplitude/amplitude';
 
 const lastInnSubApper = () => {
 	AsyncNavspa.preload(visittkortAsyncConfig);
-	AsyncNavspa.preload(detaljerAsyncConfig);
 	AsyncNavspa.preload(vedtaksstotteAsyncConfig);
 };
 const renderApp = () => {
@@ -31,7 +30,13 @@ Modal.setAppElement(document.getElementById('modal-a11y-wrapper'));
 if (erMock()) {
 	// @ts-ignore
 	const { worker } = await import('./mock/setup');
-	worker.then(renderApp);
+	worker
+		.start({ serviceWorker: { url: '' + '/mockServiceWorker.js' } })
+		.catch((e: Error) => {
+			// tslint:disable-next-line:no-console
+			console.error('Unable to setup mocked API endpoints', e);
+		})
+		.then(renderApp);
 } else {
 	initAmplitude();
 	renderApp();
