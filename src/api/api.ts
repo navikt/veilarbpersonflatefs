@@ -74,7 +74,7 @@ export function useFetchFeaturesForTeamValp(options?: Options): UseAxiosResponse
 
 export function useFetchFeaturesFromDabUnleash(): UseAxiosResponseValue<DabUnleashFeatures> {
 	const toggles = DAB_UNLEASH_TOGGLES.map(element => 'feature=' + element).join('&');
-	return useAxios<DabUnleashFeatures>(`/api/feature?${toggles}`);
+	return useAxios<DabUnleashFeatures>(`/veilarbaktivitet/api/feature?${toggles}`);
 }
 
 export function useFetchAktivEnhet(options?: Options): UseAxiosResponseValue<AktivEnhetResponse> {
