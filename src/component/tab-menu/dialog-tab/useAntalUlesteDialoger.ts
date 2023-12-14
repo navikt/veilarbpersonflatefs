@@ -45,16 +45,24 @@ export default function useUlesteDialoger(fnr: string): number | undefined {
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
 
+	const pollWithHttp = () => {
+		let interval: NodeJS.Timeout;
+		interval = setInterval(() => fetchSistOppdatert.fetch().catch(() => clearInterval(interval)), 10000);
+		return () => clearInterval(interval);
+	};
+
 	useEffect(() => {
 		if (!dabToggles) return;
 		if (dabToggles[DIALOG_WEBSOCKET]) {
-			return listenForNyDialogEvents(() => {
-				fetchSistOppdatert.fetch().catch(() => {});
-			}, fnr);
+			try {
+				return listenForNyDialogEvents(() => {
+					fetchSistOppdatert.fetch().catch(() => {});
+				}, fnr);
+			} catch (e) {
+				return pollWithHttp();
+			}
 		} else {
-			let interval: NodeJS.Timeout;
-			interval = setInterval(() => fetchSistOppdatert.fetch().catch(() => clearInterval(interval)), 10000);
-			return () => clearInterval(interval);
+			return pollWithHttp();
 		}
 	}, [dabToggles, fnr]);
 
