@@ -68,8 +68,8 @@ export const listenForNyDialogEvents = (callback: () => void, fnr?: string) => {
 	const body = { subscriptionKey: fnr };
 	if (socket === undefined || ![ReadyState.OPEN, ReadyState.CONNECTING].includes(socket.readyState)) {
 		socket = new WebSocket(socketUrl);
+		connectAndAuthorize(socket, body, callback);
 	}
-	connectAndAuthorize(socket, body, callback);
 	return () => {
 		if (socket) {
 			// Clear reconnect try on intentional close
