@@ -24,22 +24,20 @@ const handleMessage = (callback: () => void) => (event: MessageEvent) => {
 
 const maxRetries = 10;
 let retries = 0;
-const handleClose = (event: CloseEvent) => {
+const handleClose = (socket: WebSocket, body: SubscriptionPayload, callback: () => void) => (event: CloseEvent) => {
 	if (retries >= maxRetries) return;
 	retries++;
-	socket = new WebSocket(socketUrl);
+	setTimeout(() => {
+		connectAndAuthorize(socket, body, callback);
+	}, 1000);
 };
 
-let socket: WebSocket | undefined = undefined;
-export const listenForNyDialogEvents = (callback: () => void, fnr?: string) => {
-	// Start with only internal
-	if (!fnr) return;
-	const body = { subscriptionKey: fnr };
-	if (socket === undefined || ![ReadyState.OPEN, ReadyState.CONNECTING].includes(socket.readyState)) {
-		socket = new WebSocket(socketUrl);
-	}
-
-	fetch(ticketUrl, { body: JSON.stringify(body), method: 'POST', headers: { 'Content-Type': 'application/json' } })
+const connectAndAuthorize = (socket: WebSocket, body: SubscriptionPayload, callback: () => void) => {
+	fetch(ticketUrl, {
+		body: JSON.stringify(body),
+		method: 'POST',
+		headers: { 'Content-Type': 'application/json' }
+	})
 		.then(response => {
 			if (!response.ok) throw Error('Failed to fetch ticket for websocket');
 			return response.text();
@@ -55,11 +53,28 @@ export const listenForNyDialogEvents = (callback: () => void, fnr?: string) => {
 			}
 			if (socket) {
 				socket.onmessage = handleMessage(callback);
-				socket.onclose = handleClose;
+				socket.onclose = handleClose(socket, body, callback);
 			}
 		});
+};
+
+let socket: WebSocket | undefined;
+interface SubscriptionPayload {
+	subscriptionKey: string;
+}
+export const listenForNyDialogEvents = (callback: () => void, fnr?: string) => {
+	// Start with only internal
+	if (!fnr) return;
+	const body = { subscriptionKey: fnr };
+	if (socket === undefined || ![ReadyState.OPEN, ReadyState.CONNECTING].includes(socket.readyState)) {
+		socket = new WebSocket(socketUrl);
+	}
+	connectAndAuthorize(socket, body, callback);
 	return () => {
 		if (socket) {
+			// Clear reconnect try on intentional close
+			// tslint:disable-next-line:no-empty
+			socket.onmessage = () => {};
 			socket.close();
 		}
 	};
