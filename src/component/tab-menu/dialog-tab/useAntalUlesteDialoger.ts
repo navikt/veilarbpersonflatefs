@@ -48,17 +48,15 @@ export default function useUlesteDialoger(fnr: string): number | undefined {
 	useEffect(() => {
 		if (!dabToggles) return;
 		if (dabToggles[DIALOG_WEBSOCKET]) {
-			console.log('Toggle var på, bruker websocket');
 			return listenForNyDialogEvents(() => {
 				fetchSistOppdatert.fetch().catch(() => {});
 			}, fnr);
 		} else {
-			console.log('Toggle var av, bruker httpPolling');
 			let interval: NodeJS.Timeout;
 			interval = setInterval(() => fetchSistOppdatert.fetch().catch(() => clearInterval(interval)), 10000);
 			return () => clearInterval(interval);
 		}
-	}, [dabToggles]);
+	}, [dabToggles, fnr]);
 
 	useEffect(() => {
 		fetchAntallUlesteDialoger.fetch();
