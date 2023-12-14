@@ -1,6 +1,6 @@
 export const ARBEIDSMARKEDSTILTAK_LANSERING = 'mulighetsrommet-veileder-flate.lansering';
 export const VIS_GAMLE_DETALJER_FANE = 'veilarbpersonflatefs.vis-gamle-detaljer-fane';
-export const DIALOG_WEBSOCKET = 'arbeidsrettet-dialog.websockets';
+export const DIALOG_WEBSOCKET = 'veilarbpersonflatefs.dialog.websockets';
 
 export const OBO_UNLEASH_TOGGLES = [VIS_GAMLE_DETALJER_FANE];
 export const DAB_UNLEASH_TOGGLES = [DIALOG_WEBSOCKET];

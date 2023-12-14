@@ -22,17 +22,7 @@ const handleMessage = (callback: () => void) => (event: MessageEvent) => {
 	callback();
 };
 
-const maxRetries = 10;
-let retries = 0;
-const handleClose = (socket: WebSocket, body: SubscriptionPayload, callback: () => void) => (event: CloseEvent) => {
-	if (retries >= maxRetries) return;
-	retries++;
-	setTimeout(() => {
-		connectAndAuthorize(socket, body, callback);
-	}, 1000);
-};
-
-const connectAndAuthorize = (socket: WebSocket, body: SubscriptionPayload, callback: () => void) => {
+const authorize = (socket: WebSocket, body: SubscriptionPayload, callback: () => void) => {
 	fetch(ticketUrl, {
 		body: JSON.stringify(body),
 		method: 'POST',
@@ -53,9 +43,21 @@ const connectAndAuthorize = (socket: WebSocket, body: SubscriptionPayload, callb
 			}
 			if (socket) {
 				socket.onmessage = handleMessage(callback);
-				socket.onclose = handleClose(socket, body, callback);
+				socket.onclose = handleClose(body, callback);
 			}
 		});
+};
+
+const maxRetries = 10;
+let retries = 0;
+const handleClose = (body: SubscriptionPayload, callback: () => void) => (event: CloseEvent) => {
+	if (retries >= maxRetries) return;
+	retries++;
+	setTimeout(() => {
+		socket?.close();
+		socket = new WebSocket(socketUrl);
+		authorize(socket, body, callback);
+	}, 1000);
 };
 
 let socket: WebSocket | undefined;
@@ -68,7 +70,7 @@ export const listenForNyDialogEvents = (callback: () => void, fnr?: string) => {
 	const body = { subscriptionKey: fnr };
 	if (socket === undefined || ![ReadyState.OPEN, ReadyState.CONNECTING].includes(socket.readyState)) {
 		socket = new WebSocket(socketUrl);
-		connectAndAuthorize(socket, body, callback);
+		authorize(socket, body, callback);
 	}
 	return () => {
 		if (socket) {
