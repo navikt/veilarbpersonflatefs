@@ -22,7 +22,20 @@ const handleMessage = (callback: () => void) => (event: MessageEvent) => {
 	callback();
 };
 
+const sendTicketWhenOpen = (socket: WebSocket, ticket: string) => {
+	const sendTicket = () => socket.send(ticket);
+	if (socket?.readyState === ReadyState.OPEN) {
+		sendTicket();
+	} else {
+		socket.onopen = sendTicket;
+	}
+};
+
 const authorize = (socket: WebSocket, body: SubscriptionPayload, callback: () => void) => {
+	if (ticketSigleton) {
+		sendTicketWhenOpen(socket, ticketSigleton);
+	}
+
 	fetch(ticketUrl, {
 		body: JSON.stringify(body),
 		method: 'POST',
@@ -33,18 +46,10 @@ const authorize = (socket: WebSocket, body: SubscriptionPayload, callback: () =>
 			return response.text();
 		})
 		.then(ticket => {
-			// If ready state is OPEN (1)
-			if (socket?.readyState === ReadyState.OPEN) {
-				socket.send(ticket);
-			} else {
-				socket?.addEventListener('open', () => {
-					socket?.send(ticket);
-				});
-			}
-			if (socket) {
-				socket.onmessage = handleMessage(callback);
-				socket.onclose = handleClose(body, callback);
-			}
+			ticketSigleton = ticket;
+			sendTicketWhenOpen(socket, ticket);
+			socket.onmessage = handleMessage(callback);
+			socket.onclose = handleClose(body, callback);
 		});
 };
 
@@ -54,13 +59,14 @@ const handleClose = (body: SubscriptionPayload, callback: () => void) => (event:
 	if (retries >= maxRetries) return;
 	retries++;
 	setTimeout(() => {
-		socket?.close();
-		socket = new WebSocket(socketUrl);
-		authorize(socket, body, callback);
+		socketSingleton?.close();
+		socketSingleton = new WebSocket(socketUrl);
+		authorize(socketSingleton, body, callback);
 	}, 1000);
 };
 
-let socket: WebSocket | undefined;
+let socketSingleton: WebSocket | undefined;
+let ticketSigleton: string | undefined;
 interface SubscriptionPayload {
 	subscriptionKey: string;
 }
@@ -68,16 +74,16 @@ export const listenForNyDialogEvents = (callback: () => void, fnr?: string) => {
 	// Start with only internal
 	if (!fnr) return;
 	const body = { subscriptionKey: fnr };
-	if (socket === undefined || ![ReadyState.OPEN, ReadyState.CONNECTING].includes(socket.readyState)) {
-		socket = new WebSocket(socketUrl);
-		authorize(socket, body, callback);
+	if (socketSingleton === undefined || ![ReadyState.OPEN, ReadyState.CONNECTING].includes(socket.readyState)) {
+		socketSingleton = new WebSocket(socketUrl);
+		authorize(socketSingleton, body, callback);
 	}
 	return () => {
-		if (socket) {
+		if (socketSingleton) {
 			// Clear reconnect try on intentional close
 			// tslint:disable-next-line:no-empty
-			socket.onmessage = () => {};
-			socket.close();
+			socketSingleton.onmessage = () => {};
+			socketSingleton.close();
 		}
 	};
 };
