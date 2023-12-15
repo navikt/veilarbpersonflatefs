@@ -1,6 +1,8 @@
 import { useEffect, useState } from 'react';
-import { useFetchAntallUlesteDialoger, useFetchSistOppdatert } from '../../../api/api';
+import { useFetchAntallUlesteDialoger, useFetchFeaturesFromDabUnleash, useFetchSistOppdatert } from '../../../api/api';
 import { useEventListener } from '../../../util/utils';
+import { listenForNyDialogEvents } from './wsDialogEvents';
+import { DIALOG_WEBSOCKET } from '../../../api/features';
 
 export enum UpdateTypes {
 	Dialog = 'DIALOG'
@@ -37,12 +39,32 @@ export default function useUlesteDialoger(fnr: string): number | undefined {
 		setAntallUleste(prevState => (prevState ? prevState - 1 : 0));
 	});
 
+	const { fetch: fetchDabFeatureToggles, data: dabToggles } = useFetchFeaturesFromDabUnleash();
 	useEffect(() => {
+		fetchDabFeatureToggles();
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, []);
+
+	const pollWithHttp = () => {
 		let interval: NodeJS.Timeout;
 		interval = setInterval(() => fetchSistOppdatert.fetch().catch(() => clearInterval(interval)), 10000);
 		return () => clearInterval(interval);
-		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, []);
+	};
+
+	useEffect(() => {
+		if (!dabToggles) return;
+		if (dabToggles[DIALOG_WEBSOCKET]) {
+			try {
+				return listenForNyDialogEvents(() => {
+					fetchSistOppdatert.fetch().catch(() => {});
+				}, fnr);
+			} catch (e) {
+				return pollWithHttp();
+			}
+		} else {
+			return pollWithHttp();
+		}
+	}, [dabToggles, fnr]);
 
 	useEffect(() => {
 		fetchAntallUlesteDialoger.fetch();
