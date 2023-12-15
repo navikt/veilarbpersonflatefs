@@ -1,4 +1,10 @@
-import { ARBEIDSMARKEDSTILTAK_LANSERING, OBO_UNLEASH_TOGGLES, OboUnleashFeatures } from './features';
+import {
+	ARBEIDSMARKEDSTILTAK_LANSERING,
+	DAB_UNLEASH_TOGGLES,
+	DabUnleashFeatures,
+	OBO_UNLEASH_TOGGLES,
+	OboUnleashFeatures
+} from './features';
 import { axiosInstance, useAxios, UseAxiosResponseValue } from './utils';
 import { Options } from 'axios-hooks';
 import { AxiosPromise, AxiosResponse } from 'axios';
@@ -64,6 +70,11 @@ export function useFetchFeaturesForTeamValp(options?: Options): UseAxiosResponse
 		`/mulighetsrommet-api/api/v1/internal/features?feature=${ARBEIDSMARKEDSTILTAK_LANSERING}`,
 		options
 	);
+}
+
+export function useFetchFeaturesFromDabUnleash(): UseAxiosResponseValue<DabUnleashFeatures> {
+	const toggles = DAB_UNLEASH_TOGGLES.map(element => 'feature=' + element).join('&');
+	return useAxios<DabUnleashFeatures>(`/veilarbaktivitet/api/feature?${toggles}`);
 }
 
 export function useFetchAktivEnhet(options?: Options): UseAxiosResponseValue<AktivEnhetResponse> {
