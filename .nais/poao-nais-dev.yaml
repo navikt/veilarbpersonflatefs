@@ -245,15 +245,8 @@ spec:
                 "name": "veilarbfilter",
                 "namespace": "pto",
                 "cluster": "dev-fss"
-              },
-            {
-              "fromPath": "/amt-deltaker-bff",
-              "toUrl": "http://amt-deltaker-bff",
-              "toApp": {
-                "name": "amt-deltaker-bff",
-                "namespace": "amt",
-                "cluster": "dev-gcp"
               }
+            }
           }
           ]
         }
