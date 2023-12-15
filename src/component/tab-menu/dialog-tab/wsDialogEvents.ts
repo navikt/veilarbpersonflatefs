@@ -15,8 +15,13 @@ enum ReadyState {
 	CLOSED = 3
 }
 
-const handleMessage = (callback: () => void) => (event: MessageEvent) => {
+const handleMessage = (callback: () => void, body: SubscriptionPayload) => (event: MessageEvent) => {
 	if (event.data === 'AUTHENTICATED') return;
+	if (event.data === 'INVALID_TOKEN' && socketSingleton) {
+		ticketSigleton = undefined;
+		authorize(socketSingleton, body, callback);
+		return;
+	}
 	const message = JSON.parse(event.data);
 	if (message !== EventTypes.NY_MELDING) return;
 	callback();
@@ -48,7 +53,7 @@ const authorize = (socket: WebSocket, body: SubscriptionPayload, callback: () =>
 		.then(ticket => {
 			ticketSigleton = ticket;
 			sendTicketWhenOpen(socket, ticket);
-			socket.onmessage = handleMessage(callback);
+			socket.onmessage = handleMessage(callback, body);
 			socket.onclose = handleClose(body, callback);
 		});
 };
@@ -74,7 +79,10 @@ export const listenForNyDialogEvents = (callback: () => void, fnr?: string) => {
 	// Start with only internal
 	if (!fnr) return;
 	const body = { subscriptionKey: fnr };
-	if (socketSingleton === undefined || ![ReadyState.OPEN, ReadyState.CONNECTING].includes(socket.readyState)) {
+	if (
+		socketSingleton === undefined ||
+		![ReadyState.OPEN, ReadyState.CONNECTING].includes(socketSingleton.readyState)
+	) {
 		socketSingleton = new WebSocket(socketUrl);
 		authorize(socketSingleton, body, callback);
 	}
