@@ -51,7 +51,7 @@ spec:
           namespace: obo
         - application: please
           namespace: dab
-        - application: amt-deltaker-flate
+        - application: amt-deltaker-bff
           namespace: amt
       external:
         - host: veilarbdialog.dev-fss-pub.nais.io
@@ -249,6 +249,7 @@ spec:
             },
             {
               "fromPath": "/amt-deltaker-bff",
+              "preserveFromPath": false,
               "toUrl": "http://amt-deltaker-bff",
               "toApp": {
                 "name": "amt-deltaker-bff",
