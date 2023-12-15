@@ -39,32 +39,33 @@ export default function useUlesteDialoger(fnr: string): number | undefined {
 		setAntallUleste(prevState => (prevState ? prevState - 1 : 0));
 	});
 
-	const { fetch: fetchDabFeatureToggles, data: dabToggles } = useFetchFeaturesFromDabUnleash();
-	useEffect(() => {
-		fetchDabFeatureToggles();
-		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, []);
+	// const { fetch: fetchDabFeatureToggles, data: dabToggles } = useFetchFeaturesFromDabUnleash();
+	// useEffect(() => {
+	// 	fetchDabFeatureToggles();
+	// eslint-disable-next-line react-hooks/exhaustive-deps
+	// }, []);
 
-	const pollWithHttp = () => {
-		let interval: NodeJS.Timeout;
-		interval = setInterval(() => fetchSistOppdatert.fetch().catch(() => clearInterval(interval)), 10000);
-		return () => clearInterval(interval);
-	};
+	// const pollWithHttp = () => {
+	// 	let interval: NodeJS.Timeout;
+	// 	interval = setInterval(() => fetchSistOppdatert.fetch().catch(() => clearInterval(interval)), 10000);
+	// 	return () => clearInterval(interval);
+	// };
 
 	useEffect(() => {
-		if (!dabToggles) return;
-		if (dabToggles[DIALOG_WEBSOCKET]) {
-			try {
-				return listenForNyDialogEvents(() => {
-					fetchSistOppdatert.fetch().catch(() => {});
-				}, fnr);
-			} catch (e) {
-				return pollWithHttp();
-			}
-		} else {
-			return pollWithHttp();
-		}
-	}, [dabToggles, fnr]);
+		// pollWithHttp();
+		// if (!dabToggles) return;
+		// if (dabToggles[DIALOG_WEBSOCKET]) {
+		// 	try {
+		return listenForNyDialogEvents(() => {
+			fetchSistOppdatert.fetch().catch(() => {});
+		}, fnr);
+		// 	} catch (e) {
+		// 		return pollWithHttp();
+		// 	}
+		// } else {
+		// 	return pollWithHttp();
+		// }
+	}, [fnr]);
 
 	useEffect(() => {
 		fetchAntallUlesteDialoger.fetch();

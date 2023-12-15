@@ -52,9 +52,9 @@ const authorize = (socket: WebSocket, body: SubscriptionPayload, callback: () =>
 		})
 		.then(ticket => {
 			ticketSigleton = ticket;
-			sendTicketWhenOpen(socket, ticket);
 			socket.onmessage = handleMessage(callback, body);
 			socket.onclose = handleClose(body, callback);
+			sendTicketWhenOpen(socket, ticket);
 		});
 };
 
