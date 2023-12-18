@@ -39,12 +39,13 @@ export default function useUlesteDialoger(fnr: string): number | undefined {
 		setAntallUleste(prevState => (prevState ? prevState - 1 : 0));
 	});
 
-	const { fetch: fetchDabFeatureToggles, data: dabToggles } = useFetchFeaturesFromDabUnleash();
-	useEffect(() => {
-		console.log('Fetching toggles');
-		fetchDabFeatureToggles();
-		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, []);
+	const { data: dabToggles } = useFetchFeaturesFromDabUnleash();
+
+	// useEffect(() => {
+	// 	console.log('Fetching toggles');
+	// 	fetchDabFeatureToggles();
+	// 	// eslint-disable-next-line react-hooks/exhaustive-deps
+	// }, []);
 
 	const pollWithHttp = () => {
 		let interval: NodeJS.Timeout;
