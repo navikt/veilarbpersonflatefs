@@ -41,12 +41,6 @@ export default function useUlesteDialoger(fnr: string): number | undefined {
 
 	const { data: dabToggles } = useFetchFeaturesFromDabUnleash();
 
-	// useEffect(() => {
-	// 	console.log('Fetching toggles');
-	// 	fetchDabFeatureToggles();
-	// 	// eslint-disable-next-line react-hooks/exhaustive-deps
-	// }, []);
-
 	const pollWithHttp = () => {
 		let interval: NodeJS.Timeout;
 		interval = setInterval(() => fetchSistOppdatert.fetch().catch(() => clearInterval(interval)), 10000);
