@@ -5,7 +5,8 @@ export default defineConfig({
 	// config options,
 	plugins: [react()],
 	build: {
-		outDir: 'build'
+		outDir: 'build',
+		sourcemap: true
 	},
 	server: {
 		port: 3000
