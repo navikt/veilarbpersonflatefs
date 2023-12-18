@@ -250,7 +250,7 @@ spec:
             {
               "fromPath": "/amt-deltaker-bff",
               "preserveFromPath": false,
-              "toUrl": "http://amt-deltaker-bff",
+              "toUrl": "http://amt-deltaker-bff.amt",
               "toApp": {
                 "name": "amt-deltaker-bff",
                 "namespace": "amt",
