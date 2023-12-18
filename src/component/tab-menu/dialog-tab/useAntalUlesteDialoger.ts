@@ -42,6 +42,7 @@ export default function useUlesteDialoger(fnr: string): number | undefined {
 	const { fetch: fetchDabFeatureToggles, data: dabToggles } = useFetchFeaturesFromDabUnleash();
 	useEffect(() => {
 		fetchDabFeatureToggles();
+		console.log('Fetching toggles');
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
 
