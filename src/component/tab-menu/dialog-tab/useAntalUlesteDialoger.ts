@@ -48,7 +48,6 @@ export default function useUlesteDialoger(fnr: string): number | undefined {
 	};
 
 	useEffect(() => {
-		pollWithHttp();
 		if (!dabToggles) return;
 		if (dabToggles[DIALOG_WEBSOCKET]) {
 			try {
@@ -61,7 +60,7 @@ export default function useUlesteDialoger(fnr: string): number | undefined {
 		} else {
 			return pollWithHttp();
 		}
-	}, [fnr]);
+	}, [fnr, dabToggles]);
 
 	useEffect(() => {
 		fetchAntallUlesteDialoger.fetch();
