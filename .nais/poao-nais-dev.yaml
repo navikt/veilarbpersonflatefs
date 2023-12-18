@@ -8,7 +8,7 @@ metadata:
   annotations:
     nginx.ingress.kubernetes.io/proxy-buffer-size: "8k"
 spec:
-  image: europe-north1-docker.pkg.dev/nais-management-233d/poao/poao-frontend:2023.12.18_14.06-88820893c3d3x
+  image: europe-north1-docker.pkg.dev/nais-management-233d/poao/poao-frontend@sha256:7bf1e03665d6234597d587e85e0cc34f3bce4b3469a09bee51e703e1da5e1a11
   port: 8080
   ingresses:
     - https://veilarbpersonflate.intern.dev.nav.no
