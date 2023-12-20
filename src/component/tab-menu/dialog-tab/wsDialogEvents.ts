@@ -109,7 +109,6 @@ export const listenForNyDialogEvents = (callback: () => void, fnr?: string) => {
 			// Clear reconnect try on intentional close
 			socketSingleton.onclose = () => {};
 			socketSingleton.close();
-			socketSingleton = undefined;
 		}
 	};
 };
