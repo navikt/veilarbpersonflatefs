@@ -96,6 +96,9 @@ const reconnectWebsocket = (callback: () => void, body: SubscriptionPayload) => 
 export const listenForNyDialogEvents = (callback: () => void, fnr?: string) => {
 	// Start with only internal
 	if (!fnr) return;
+
+	const currentReadyState = socketSingleton?.readyState
+
 	const body = { subscriptionKey: fnr };
 	if (
 		socketSingleton === undefined ||
@@ -105,11 +108,11 @@ export const listenForNyDialogEvents = (callback: () => void, fnr?: string) => {
 		getTicketAndAuthenticate(body);
 	}
 	return () => {
+		if (currentReadyState === ReadyState.CLOSING) return;
 		if (socketSingleton) {
 			// Clear reconnect try on intentional close
 			socketSingleton.onclose = () => {};
 			socketSingleton.close();
-			socketSingleton = undefined;
 		}
 	};
 };
