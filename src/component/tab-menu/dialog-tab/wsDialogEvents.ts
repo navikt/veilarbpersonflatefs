@@ -15,16 +15,35 @@ enum ReadyState {
 	CLOSED = 3
 }
 
+interface SubscriptionPayload {
+	subscriptionKey: string;
+}
+
+let socketSingleton: WebSocket | undefined;
+let ticketSingleton: { ticket: string; fnr: string } | undefined;
+
 const handleMessage = (callback: () => void, body: SubscriptionPayload) => (event: MessageEvent) => {
 	if (event.data === 'AUTHENTICATED') return;
 	if (event.data === 'INVALID_TOKEN' && socketSingleton) {
-		ticketSigleton = undefined;
-		authorize(socketSingleton, body, callback);
+		ticketSingleton = undefined;
+		getTicketAndAuthenticate(body);
 		return;
 	}
 	const message = JSON.parse(event.data);
 	if (message !== EventTypes.NY_MELDING) return;
 	callback();
+};
+
+const maxRetries = 10;
+let retries = 0;
+const handleClose = (callback: () => void, body: SubscriptionPayload) => (event: CloseEvent) => {
+	if (retries >= maxRetries) return;
+	retries++;
+	setTimeout(() => {
+		socketSingleton?.close();
+		reconnectWebsocket(callback, body);
+		getTicketAndAuthenticate(body);
+	}, 1000);
 };
 
 const sendTicketWhenOpen = (socket: WebSocket, ticket: string) => {
@@ -36,45 +55,44 @@ const sendTicketWhenOpen = (socket: WebSocket, ticket: string) => {
 	}
 };
 
-const authorize = (socket: WebSocket, body: SubscriptionPayload, callback: () => void) => {
-	if (ticketSigleton) {
-		sendTicketWhenOpen(socket, ticketSigleton);
-	}
-
-	fetch(ticketUrl, {
+const getTicket = (body: SubscriptionPayload): Promise<string> => {
+	if (ticketSingleton && ticketSingleton.fnr === body.subscriptionKey) return Promise.resolve(ticketSingleton.ticket);
+	return fetch(ticketUrl, {
 		body: JSON.stringify(body),
 		method: 'POST',
-		headers: { 'Content-Type': 'application/json' }
+		headers: {
+			'Content-Type': 'application/json',
+			'Nav-Consumer-Id': 'veilarbpersonflate'
+		}
 	})
 		.then(response => {
 			if (!response.ok) throw Error('Failed to fetch ticket for websocket');
 			return response.text();
 		})
 		.then(ticket => {
-			ticketSigleton = ticket;
-			socket.onmessage = handleMessage(callback, body);
-			socket.onclose = handleClose(body, callback);
-			sendTicketWhenOpen(socket, ticket);
+			ticketSingleton = { ticket, fnr: body.subscriptionKey };
+			return ticket;
 		});
 };
 
-const maxRetries = 10;
-let retries = 0;
-const handleClose = (body: SubscriptionPayload, callback: () => void) => (event: CloseEvent) => {
-	if (retries >= maxRetries) return;
-	retries++;
-	setTimeout(() => {
-		socketSingleton?.close();
-		socketSingleton = new WebSocket(socketUrl);
-		authorize(socketSingleton, body, callback);
-	}, 1000);
+const authenticate = (socket: WebSocket, ticket: string) => {
+	sendTicketWhenOpen(socket, ticket);
 };
 
-let socketSingleton: WebSocket | undefined;
-let ticketSigleton: string | undefined;
-interface SubscriptionPayload {
-	subscriptionKey: string;
-}
+const getTicketAndAuthenticate = async (body: SubscriptionPayload) => {
+	let ticket = await getTicket(body);
+	if (!socketSingleton) return;
+	authenticate(socketSingleton, ticket);
+};
+
+const reconnectWebsocket = (callback: () => void, body: SubscriptionPayload) => {
+	const socket = new WebSocket(socketUrl);
+	socketSingleton = socket;
+	socketSingleton.onmessage = handleMessage(callback, body);
+	socketSingleton.onclose = handleClose(callback, body);
+	return socket;
+};
+
 export const listenForNyDialogEvents = (callback: () => void, fnr?: string) => {
 	// Start with only internal
 	if (!fnr) return;
@@ -83,15 +101,15 @@ export const listenForNyDialogEvents = (callback: () => void, fnr?: string) => {
 		socketSingleton === undefined ||
 		![ReadyState.OPEN, ReadyState.CONNECTING].includes(socketSingleton.readyState)
 	) {
-		socketSingleton = new WebSocket(socketUrl);
-		authorize(socketSingleton, body, callback);
+		reconnectWebsocket(callback, body);
+		getTicketAndAuthenticate(body);
 	}
 	return () => {
 		if (socketSingleton) {
 			// Clear reconnect try on intentional close
-			// tslint:disable-next-line:no-empty
-			socketSingleton.onmessage = () => {};
+			socketSingleton.onclose = () => {};
 			socketSingleton.close();
+			socketSingleton = undefined;
 		}
 	};
 };
