@@ -168,12 +168,12 @@ spec:
             },
             {
               "fromPath": "/veilarblest",
-              "toUrl": "https://veilarblest.prod-fss-pub.nais.io",
+              "toUrl": "http://veilarblest.dab.svc.cluster.local",
               "preserveFromPath": true,
               "toApp": {
                 "name": "veilarblest",
-                "namespace": "pto",
-                "cluster": "prod-fss"
+                "namespace": "dab",
+                "cluster": "prod-gcp"
               }
             },
             {
