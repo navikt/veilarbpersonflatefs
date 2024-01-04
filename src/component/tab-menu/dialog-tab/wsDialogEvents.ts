@@ -96,10 +96,8 @@ const reconnectWebsocket = (callback: () => void, body: SubscriptionPayload) => 
 export const listenForNyDialogEvents = (callback: () => void, fnr?: string) => {
 	// Start with only internal
 	if (!fnr) return;
-
-	const currentReadyState = socketSingleton?.readyState
-
-	const body = { subscriptionKey: fnr };
+	const currentReadyState = socketSingleton?.readyState;
+	const body = { subscriptionKey: fnr, events: [EventTypes.NY_MELDING] };
 	if (
 		socketSingleton === undefined ||
 		![ReadyState.OPEN, ReadyState.CONNECTING].includes(socketSingleton.readyState)
