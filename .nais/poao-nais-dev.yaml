@@ -238,6 +238,16 @@ spec:
               }
             },
             {
+              "fromPath": "/orkivar",
+              "toUrl": "http://orkivar.dab",
+              "preserveFromPath": false,
+              "toApp": {
+                "name": "orkivar",
+                "namespace": "dab",
+                "cluster": "dev-gcp"
+              }
+            },
+            {
               "fromPath": "/veilarbfilter",
               "toUrl": "https://veilarbfilter.dev-fss-pub.nais.io",
               "preserveFromPath": true,
