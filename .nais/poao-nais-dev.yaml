@@ -51,6 +51,8 @@ spec:
           namespace: obo
         - application: please
           namespace: dab
+        - application: orkivar
+          namespace: dab
         - application: amt-deltaker-bff
           namespace: amt
       external:
