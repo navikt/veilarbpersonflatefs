@@ -21,6 +21,7 @@ const renderApp = () => {
 if (!globalThis['__core-js_shared__']) {
 	// @ts-ignore
 	import('core-js/stable');
+	// @ts-ignore
 	import('regenerator-runtime/runtime');
 }
 

@@ -25,13 +25,13 @@ export const mockAktivEnhet: AktivEnhetResponse = {
 
 export const mockTilgangTilBruker = true;
 
-type SessionDataMockConfig = {
+interface SessionDataMockConfig {
 	createdAt: string;
 	tokensExpireTimestamp: number;
 	sessionExpireTimestamp: number;
 	tokensRefreshBufferPeriodMs: number;
 	tokensRefreshedAt?: string;
-};
+}
 
 export const sessionData = ({
 	createdAt,

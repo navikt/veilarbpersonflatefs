@@ -1,4 +1,4 @@
-import {delay, http, HttpResponse, JsonBodyType} from 'msw';
+import { delay, http, HttpResponse, JsonBodyType } from 'msw';
 import {
 	aktivBrukerMock,
 	aktiviteterMockdata,
@@ -27,7 +27,7 @@ import { SessionMeta } from '../../api/api';
 const HTTP_OK = 200;
 const DEFAULT_DELAY_MILLISECONDS = 100;
 
-let sessionDataMockConfig = defaultSessionDataMockConfig(Date.now());
+const sessionDataMockConfig = defaultSessionDataMockConfig(Date.now());
 let sessionData: SessionMeta = getSessionData(sessionDataMockConfig);
 
 export const sesjonUtlopt = (): boolean => {
