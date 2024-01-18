@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
 import { DispatchContext } from './store-provider';
-import {erMock} from "../util/utils";
+import { erMock } from '../util/utils';
 
 export interface ModiaContextData {
 	aktivBrukerFnr: string;
@@ -75,7 +75,7 @@ export const createInitialStore = (fnr: string) => {
 	// kan antakeligvis `erMock`-steget fjernes.
 	return erMock() ? {
 		...defaultValue,
-		aktivBrukerFnr: "12345678900"
+		aktivBrukerFnr: '12345678900'
 	} : {
 		...defaultValue,
 		aktivBrukerFnr: fnr
