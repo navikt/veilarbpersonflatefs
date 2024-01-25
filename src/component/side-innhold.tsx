@@ -1,7 +1,6 @@
 import React from 'react';
-import TabMenu, { Tab } from './tab-menu/tab-menu';
 import { OboUnleashFeatures, VIS_GAMLE_DETALJER_FANE } from '../api/features';
-import { hentSistBesokteTab } from './tab-menu/siste-tab';
+import { ModiaContext } from '../store/modia-context-store';
 import { hasHashParam, hasQueryParam } from '../util/url-utils';
 import {
 	Aktivitetsplan,
@@ -13,7 +12,8 @@ import {
 	Vedtaksstotte,
 	Visittkort
 } from './spa';
-import { ModiaContext } from '../store/modia-context-store';
+import { hentSistBesokteTab } from './tab-menu/siste-tab';
+import TabMenu, { Tab } from './tab-menu/tab-menu';
 
 interface SideInnholdLayoutProps {
 	oboUnleashFeatures?: OboUnleashFeatures;
@@ -88,7 +88,7 @@ class SideInnhold extends React.Component<SideInnholdLayoutProps> {
 
 	render() {
 		const { aktivBrukerFnr, aktivEnhetId } = this.context;
-		const {  enableArbeidsmarkedstiltakForTeamValp, oboUnleashFeatures } = this.props;
+		const { enableArbeidsmarkedstiltakForTeamValp, oboUnleashFeatures } = this.props;
 		const tabs: Tab[] = [];
 
 		tabs.push({
@@ -120,7 +120,7 @@ class SideInnhold extends React.Component<SideInnholdLayoutProps> {
 			className: 'tab-menu__tab-content--vedtaksstotte'
 		});
 
-		if (enableArbeidsmarkedstiltakForTeamValp) {
+		if (isArbeidsmarkedstiltakFaneEnabled(enableArbeidsmarkedstiltakForTeamValp, aktivEnhetId)) {
 			tabs.push({
 				id: TabId.ARBEIDSMARKEDSTILTAK,
 				title: 'Arbeidsmarkedstiltak',
@@ -146,6 +146,16 @@ class SideInnhold extends React.Component<SideInnholdLayoutProps> {
 			</>
 		);
 	}
+}
+
+function isArbeidsmarkedstiltakFaneEnabled(featureEnabled: boolean | undefined, enhet: string | null) {
+	if (!featureEnabled) {
+		return false;
+	}
+
+	// Et lite unntak mens Team Valp venter på PVO
+	const vikafossen = '2103';
+	return enhet && enhet !== vikafossen;
 }
 
 export default SideInnhold;
