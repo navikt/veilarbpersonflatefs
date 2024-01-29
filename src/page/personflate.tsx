@@ -9,7 +9,6 @@ import PageSpinner from '../component/page-spinner/page-spinner';
 import { InternflateDecorator } from '../component/internflate-decorator/internflate-decorator';
 import {
 	useFetchAktivEnhet,
-	useFetchFeaturesForTeamValp,
 	useFetchFeaturesFromOboUnleash,
 	useFetchTilgangTilBruker
 } from '../api/api';
@@ -26,7 +25,6 @@ export const PersonflatePage = () => {
 
 	const fetchTilgangTilBruker = useFetchTilgangTilBruker(aktivBrukerFnr, { manual: true });
 	const fetchOboUnleashFeatures = useFetchFeaturesFromOboUnleash();
-	const arbeidsmarkedstiltakForTeamValpFeature = useFetchFeaturesForTeamValp();
 	const fetchAktivEnhet = useFetchAktivEnhet();
 
 	// Hack used because internflatedecorator does not update onFnrChanged function so comparison on fnr can not
@@ -69,12 +67,11 @@ export const PersonflatePage = () => {
 		isAnyLoading(
 			fetchTilgangTilBruker,
 			fetchAktivEnhet,
-			arbeidsmarkedstiltakForTeamValpFeature,
 			fetchOboUnleashFeatures
 		)
 	) {
 		innhold = <PageSpinner />;
-	} else if (hasAnyFailed(fetchTilgangTilBruker, arbeidsmarkedstiltakForTeamValpFeature, fetchOboUnleashFeatures)) {
+	} else if (hasAnyFailed(fetchTilgangTilBruker, fetchOboUnleashFeatures)) {
 		innhold = <FeilUnderLastingAvData />;
 	} else if (!fetchTilgangTilBruker.data) {
 		innhold = <IngenTilgangTilBruker />;
@@ -82,7 +79,6 @@ export const PersonflatePage = () => {
 		innhold = (
 			<Innhold
 				oboUnleashFeatures={fetchOboUnleashFeatures.data}
-				enableArbeidsmarkedstiltakForTeamValp={arbeidsmarkedstiltakForTeamValpFeature.data}
 			/>
 		);
 	}
@@ -103,14 +99,12 @@ export const PersonflatePage = () => {
 
 interface AppInnholdProps {
 	oboUnleashFeatures?: OboUnleashFeatures;
-	enableArbeidsmarkedstiltakForTeamValp?: boolean;
 }
 
-const Innhold = ({ oboUnleashFeatures, enableArbeidsmarkedstiltakForTeamValp }: AppInnholdProps) => {
+const Innhold = ({ oboUnleashFeatures }: AppInnholdProps) => {
 	return (
 		<SideInnhold
 			oboUnleashFeatures={oboUnleashFeatures}
-			enableArbeidsmarkedstiltakForTeamValp={enableArbeidsmarkedstiltakForTeamValp}
 		/>
 	);
 };
