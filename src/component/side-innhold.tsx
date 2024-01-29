@@ -17,7 +17,6 @@ import TabMenu, { Tab } from './tab-menu/tab-menu';
 
 interface SideInnholdLayoutProps {
 	oboUnleashFeatures?: OboUnleashFeatures;
-	enableArbeidsmarkedstiltakForTeamValp?: boolean;
 }
 
 export enum TabId {
@@ -88,7 +87,7 @@ class SideInnhold extends React.Component<SideInnholdLayoutProps> {
 
 	render() {
 		const { aktivBrukerFnr, aktivEnhetId } = this.context;
-		const { enableArbeidsmarkedstiltakForTeamValp, oboUnleashFeatures } = this.props;
+		const { oboUnleashFeatures } = this.props;
 		const tabs: Tab[] = [];
 
 		tabs.push({
@@ -120,7 +119,7 @@ class SideInnhold extends React.Component<SideInnholdLayoutProps> {
 			className: 'tab-menu__tab-content--vedtaksstotte'
 		});
 
-		if (isArbeidsmarkedstiltakFaneEnabled(enableArbeidsmarkedstiltakForTeamValp, aktivEnhetId)) {
+		if (vikafossenIkkeErValgtSomEnhet(aktivEnhetId)) {
 			tabs.push({
 				id: TabId.ARBEIDSMARKEDSTILTAK,
 				title: 'Arbeidsmarkedstiltak',
@@ -148,11 +147,7 @@ class SideInnhold extends React.Component<SideInnholdLayoutProps> {
 	}
 }
 
-function isArbeidsmarkedstiltakFaneEnabled(featureEnabled: boolean | undefined, enhet: string | null) {
-	if (!featureEnabled) {
-		return false;
-	}
-
+function vikafossenIkkeErValgtSomEnhet(enhet: string | null) {
 	// Et lite unntak mens Team Valp venter på PVO
 	const vikafossen = '2103';
 	return enhet && enhet !== vikafossen;

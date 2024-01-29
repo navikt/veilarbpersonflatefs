@@ -65,13 +65,6 @@ export function useFetchFeaturesFromOboUnleash(): UseAxiosResponseValue<OboUnlea
 	return useAxios<OboUnleashFeatures>(`/obo-unleash/api/feature?${toggles}`);
 }
 
-export function useFetchFeaturesForTeamValp(options?: Options): UseAxiosResponseValue<boolean> {
-	return useAxios<boolean>(
-		`/mulighetsrommet-api/api/v1/internal/features?feature=${ARBEIDSMARKEDSTILTAK_LANSERING}`,
-		options
-	);
-}
-
 export function useFetchFeaturesFromDabUnleash(): UseAxiosResponseValue<DabUnleashFeatures> {
 	const toggles = DAB_UNLEASH_TOGGLES.map(element => 'feature=' + element).join('&');
 	return useAxios<DabUnleashFeatures>(`/veilarbaktivitet/api/feature?${toggles}`);
