@@ -156,7 +156,7 @@ spec:
               "preserveFromPath": true,
               "toApp": {
                 "name": "veilarblest",
-                "namespace": "pto",
+                "namespace": "dab",
                 "cluster": "dev-gcp"
               }
             },
