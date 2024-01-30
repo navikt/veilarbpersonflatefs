@@ -28,7 +28,7 @@
     "@sentry/tracing": "^7.51.2",
     "axios": "^1.6.0",
     "axios-hooks": "^4.0.0",
-    "classnames": "^2.3.2",
+    "classnames": "^2.5.1",
     "core-js": "^3.30.2",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
