@@ -53,12 +53,13 @@ spec:
           namespace: dab
         - application: orkivar
           namespace: dab
+        - application: veilarblest
+          namespace: dab
         - application: amt-deltaker-bff
           namespace: amt
       external:
         - host: veilarbdialog.dev-fss-pub.nais.io
         - host: veilarbaktivitet.dev-fss-pub.nais.io
-        - host: veilarblest.dev-fss-pub.nais.io
         - host: veilarbmalverk.dev-fss-pub.nais.io
         - host: veilarbperson.dev-fss-pub.nais.io
         - host: veilarboppfolging.dev-fss-pub.nais.io
@@ -151,12 +152,12 @@ spec:
             },
             {
               "fromPath": "/veilarblest",
-              "toUrl": "https://veilarblest.dev-fss-pub.nais.io",
+              "toUrl": "http://veilarblest.dab.svc.cluster.local",
               "preserveFromPath": true,
               "toApp": {
                 "name": "veilarblest",
-                "namespace": "pto",
-                "cluster": "dev-fss"
+                "namespace": "dab",
+                "cluster": "dev-gcp"
               }
             },
             {

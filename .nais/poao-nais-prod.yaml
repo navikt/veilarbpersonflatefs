@@ -51,6 +51,8 @@ spec:
           namespace: obo
         - application: please
           namespace: dab
+        - application: veilarblest
+          namespace: dab
       external:
         - host: veilarbmalverk.prod-fss-pub.nais.io
         - host: veilarbperson.prod-fss-pub.nais.io
@@ -58,7 +60,6 @@ spec:
         - host: veilarbdialog.prod-fss-pub.nais.io
         - host: veilarbportefolje.prod-fss-pub.nais.io
         - host: veilarbaktivitet.prod-fss-pub.nais.io
-        - host: veilarblest.prod-fss-pub.nais.io
         - host: modiacontextholder.prod-fss-pub.nais.io
         - host: veilarbveileder.prod-fss-pub.nais.io
         - host: veilarbvedtaksstotte.prod-fss-pub.nais.io
@@ -126,6 +127,16 @@ spec:
               }
             },
             {
+              "fromPath": "/veilarblest",
+              "toUrl": "http://veilarblest.dab.svc.cluster.local",
+              "preserveFromPath": true,
+              "toApp": {
+                "name": "veilarblest",
+                "namespace": "dab",
+                "cluster": "prod-gcp"
+              }
+            },
+            {
               "fromPath": "/veilarbdialog",
               "toUrl": "https://veilarbdialog.prod-fss-pub.nais.io",
               "preserveFromPath": true,
@@ -157,12 +168,12 @@ spec:
             },
             {
               "fromPath": "/veilarblest",
-              "toUrl": "https://veilarblest.prod-fss-pub.nais.io",
+              "toUrl": "http://veilarblest.dab.svc.cluster.local",
               "preserveFromPath": true,
               "toApp": {
                 "name": "veilarblest",
-                "namespace": "pto",
-                "cluster": "prod-fss"
+                "namespace": "dab",
+                "cluster": "prod-gcp"
               }
             },
             {
