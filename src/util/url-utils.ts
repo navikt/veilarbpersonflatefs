@@ -18,6 +18,10 @@ export const utledSpaUrl = (appName: string): string => {
 	return erITestMiljo() ? `https://${appName}.intern.dev.nav.no` : `https://${appName}.intern.nav.no`;
 };
 
+export function utledCdnUrl(contextPath: string): string {
+	return erITestMiljo() ? `https://cdn.dev.nav.no/${contextPath}` : `https://cdn.nav.no/${contextPath}`;
+}
+
 export const loginUrl = () => {
 	if (erMock()) {
 		return `${window.location.href}`;
