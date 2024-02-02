@@ -1,6 +1,6 @@
 import NAVSPA, { AsyncNavspa, AsyncSpaConfig } from '@navikt/navspa';
 import React, { useEffect } from 'react';
-import { utledSpaUrl } from '../util/url-utils';
+import { utledCdnUrl, utledSpaUrl } from '../util/url-utils';
 import { DecoratorConfig } from './internflate-decorator/internflate-decorator-config';
 import Spinner from './spinner/spinner';
 import { AssetManifestParser, loadAssets } from '@navikt/navspa/dist/async/async-navspa';
@@ -24,7 +24,7 @@ export enum SpaName {
 	DIALOG = 'arbeidsrettet-dialog',
 	VEILARBVEDTAKSSTOTTEFS = 'veilarbvedtaksstottefs',
 	VEILARBVISITTKORTFS = 'veilarbvisittkortfs',
-	ARBEIDSMARKEDSTILTAK = 'mulighetsrommet-veileder-flate',
+	ARBEIDSMARKEDSTILTAK = 'arbeidsmarkedstiltak-modia',
 	VEILARBDETALJER = 'veilarbdetaljer',
 	FINN_STILLING_INNGANG = 'finn-stilling-inngang'
 }
@@ -128,7 +128,7 @@ export const Dialog: React.ComponentType<SpaProps> = props => {
 	return React.createElement('dab-dialog', { ['data-fnr']: props.fnr });
 };
 
-const arbeidsmarkedstiltakBaseUrl = utledSpaUrl(SpaName.ARBEIDSMARKEDSTILTAK);
+const arbeidsmarkedstiltakBaseUrl = utledCdnUrl("mulighetsrommet/arbeidsmarkedstiltak-modia/dist");
 const arbeidsmarkedstiltakManifestParser: AssetManifestParser = manifest => {
 	const { file } = manifest['index.html'];
 	const entry = { type: 'module', path: `${arbeidsmarkedstiltakBaseUrl}/${file}` };
