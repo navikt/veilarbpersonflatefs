@@ -83,7 +83,7 @@ function TabMenu(props: TabsProps) {
 				{tabs.map(tab => {
 					return (
 						<Tabs.Panel className="flex flex-grow" key={tab.id} value={tab.id}>
-							<div className={'tab-menu__tab-content flex-grow ' + tab.className ?? ''}>
+							<div className={'tab-menu__tab-content flex-grow ' + (tab.className ?? '')}>
 								<tab.content
 									key={`${tab.id}-${renderKey}`}
 									fnr={fnr}
