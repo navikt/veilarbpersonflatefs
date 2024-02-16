@@ -1,5 +1,5 @@
 import { Decorator } from '../spa';
-import { DecoratorConfig, EnhetDisplay, FnrDisplay } from './internflate-decorator-config';
+import { DecoratorConfig, DecoratorConfigV2, EnhetDisplay, FnrDisplay } from './internflate-decorator-config';
 
 interface InternflateDecoratorProps {
 	enhetId: string | undefined | null;
@@ -16,15 +16,21 @@ export function InternflateDecorator(props: InternflateDecoratorProps) {
 	);
 }
 
-function lagDecoratorConfig(props: InternflateDecoratorProps): DecoratorConfig {
-	const fnr = props.fnr || null;
-	const enhetId = props.enhetId || null;
+function lagDecoratorConfig(props: InternflateDecoratorProps): DecoratorConfigV2 {
+	const fnr = props.fnr || undefined;
+	const enhetId = props.enhetId || undefined;
 
 	return {
-		appname: 'Arbeidsrettet oppfølging',
-		toggles: {
-			visVeileder: true
-		},
+		// appname: 'Arbeidsrettet oppfølging',
+		// toggles: {
+		// 	visVeileder: true
+		// },
+		fnr,
+		enhet: enhetId,
+		onEnhetChanged: newEnhet => props.onEnhetChanged(newEnhet || null),
+		onFnrChanged: newFnr => props.onFnrChanged(newFnr || null)
+
+		/*
 		fnr: {
 			display: FnrDisplay.SOKEFELT,
 			value: fnr,
@@ -39,6 +45,6 @@ function lagDecoratorConfig(props: InternflateDecoratorProps): DecoratorConfig {
 			ignoreWsEvents: true,
 			onChange: props.onEnhetChanged
 		},
-		useProxy: true
+		useProxy: true*/
 	};
 }
