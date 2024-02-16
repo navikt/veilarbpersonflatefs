@@ -104,7 +104,7 @@ spec:
               "fromPath": "/internarbeidsflatedecorator/*",
               "toUrl": "https://internarbeidsflatedecorator-q1.intern.dev.nav.no",
               "toUrl": "https://cdn.nav.no/personoversikt/internarbeidsflate-decorator-v3/dev",
-              "preserveFromPath": true
+              "preserveFromPath": false
             },
             {
               "fromPath": "/veilarbportefoljeflatefs/*",
