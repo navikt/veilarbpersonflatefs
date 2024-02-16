@@ -1,5 +1,6 @@
-import { Decorator } from '../spa';
-import { DecoratorConfig, EnhetDisplay, FnrDisplay } from './internflate-decorator-config';
+import { SpaName } from '../spa';
+import { DecoratorConfigV2 } from './internflate-decorator-config';
+import NAVSPA from '@navikt/navspa';
 
 interface InternflateDecoratorProps {
 	enhetId: string | undefined | null;
@@ -7,6 +8,13 @@ interface InternflateDecoratorProps {
 	onEnhetChanged: (newEnhet: string | null) => void;
 	onFnrChanged: (newFnr: string | null) => void;
 }
+
+export const Decorator: React.ComponentType<DecoratorConfigV2> = NAVSPA.importer(
+	SpaName.INTERNARBEIDSFLATEFS_DECORATOR,
+	{
+		wrapperClassName: ''
+	}
+);
 
 export function InternflateDecorator(props: InternflateDecoratorProps) {
 	return (
@@ -16,15 +24,21 @@ export function InternflateDecorator(props: InternflateDecoratorProps) {
 	);
 }
 
-function lagDecoratorConfig(props: InternflateDecoratorProps): DecoratorConfig {
-	const fnr = props.fnr || null;
-	const enhetId = props.enhetId || null;
+function lagDecoratorConfig(props: InternflateDecoratorProps): DecoratorConfigV2 {
+	const fnr = props.fnr || undefined;
+	const enhetId = props.enhetId || undefined;
 
 	return {
-		appname: 'Arbeidsrettet oppfølging',
-		toggles: {
-			visVeileder: true
-		},
+		// appname: 'Arbeidsrettet oppfølging',
+		// toggles: {
+		// 	visVeileder: true
+		// },
+		fnr,
+		enhet: enhetId,
+		onEnhetChanged: newEnhet => props.onEnhetChanged(newEnhet || null),
+		onFnrChanged: newFnr => props.onFnrChanged(newFnr || null)
+
+		/*
 		fnr: {
 			display: FnrDisplay.SOKEFELT,
 			value: fnr,
@@ -39,6 +53,6 @@ function lagDecoratorConfig(props: InternflateDecoratorProps): DecoratorConfig {
 			ignoreWsEvents: true,
 			onChange: props.onEnhetChanged
 		},
-		useProxy: true
+		useProxy: true*/
 	};
 }

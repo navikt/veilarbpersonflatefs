@@ -1,7 +1,6 @@
-import NAVSPA, { AsyncNavspa, AsyncSpaConfig } from '@navikt/navspa';
-import React from 'react';
+import { AsyncNavspa, AsyncSpaConfig } from '@navikt/navspa';
 import { utledSpaUrl } from '../util/url-utils';
-import { DecoratorConfig } from './internflate-decorator/internflate-decorator-config';
+import React from 'react';
 import Spinner from './spinner/spinner';
 import { createAssetManifestParser } from '@navikt/navspa/dist/async/utils';
 
@@ -16,7 +15,7 @@ interface VisittKortProps extends SpaProps {
 }
 
 export enum SpaName {
-	INTERNARBEIDSFLATEFS_DECORATOR = 'internarbeidsflatefs',
+	INTERNARBEIDSFLATEFS_DECORATOR = 'internarbeidsflate-decorator-v3',
 	AKTIVITETSPLAN = 'aktivitetsplan',
 	DIALOG = 'arbeidsrettet-dialog',
 	OVERBLIKK = 'veilarbdetaljerfs',
@@ -57,9 +56,6 @@ export const visittkortAsyncConfig: AsyncSpaConfig = {
 		}
 	}
 };
-export const Decorator: React.ComponentType<DecoratorConfig> = NAVSPA.importer(SpaName.INTERNARBEIDSFLATEFS_DECORATOR, {
-	wrapperClassName: ''
-});
 
 export const Visittkort: React.ComponentType<VisittKortProps> =
 	AsyncNavspa.importer<VisittKortProps>(visittkortAsyncConfig);
