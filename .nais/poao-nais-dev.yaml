@@ -191,7 +191,7 @@ spec:
             {
               "fromPath": "/modiacontextholder",
               "toUrl": "https://modiacontextholder-q1.dev-fss-pub.nais.io",
-              "preserveFromPath": true,
+              "preserveFromPath": false,
               "toApp": {
                 "name": "modiacontextholder-q1",
                 "namespace": "personoversikt",
