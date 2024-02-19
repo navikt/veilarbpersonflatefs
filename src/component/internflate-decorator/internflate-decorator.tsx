@@ -1,5 +1,6 @@
 import { Decorator } from '../spa';
 import { DecoratorConfig, DecoratorConfigV2, EnhetDisplay, FnrDisplay } from './internflate-decorator-config';
+import { getEnv } from '../../util/utils';
 
 interface InternflateDecoratorProps {
 	enhetId: string | undefined | null;
@@ -29,7 +30,8 @@ function lagDecoratorConfig(props: InternflateDecoratorProps): DecoratorConfigV2
 		enhet: enhetId,
 		onEnhetChanged: newEnhet => props.onEnhetChanged(newEnhet || null),
 		onFnrChanged: newFnr => props.onFnrChanged(newFnr || null),
-		proxy: '/modiacontextholder'
+		proxy: '/modiacontextholder',
+		environment: getEnv() === 'prod' ? 'prod' : 'q1'
 		/*
 		fnr: {
 			display: FnrDisplay.SOKEFELT,
