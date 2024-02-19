@@ -1,6 +1,7 @@
 import { SpaName } from '../spa';
 import { DecoratorConfigV2 } from './internflate-decorator-config';
 import NAVSPA from '@navikt/navspa';
+import { getEnv } from '../../util/utils';
 
 interface InternflateDecoratorProps {
 	enhetId: string | undefined | null;
@@ -37,7 +38,8 @@ function lagDecoratorConfig(props: InternflateDecoratorProps): DecoratorConfigV2
 		enhet: enhetId,
 		onEnhetChanged: newEnhet => props.onEnhetChanged(newEnhet || null),
 		onFnrChanged: newFnr => props.onFnrChanged(newFnr || null),
-		proxy: '/modiacontextholder'
+		proxy: '/modiacontextholder',
+		environment: getEnv() === 'prod' ? 'prod' : 'q1'
 		/*
 		fnr: {
 			display: FnrDisplay.SOKEFELT,
