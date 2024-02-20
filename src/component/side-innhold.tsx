@@ -14,6 +14,9 @@ import {
 } from './spa';
 import { hentSistBesokteTab } from './tab-menu/siste-tab';
 import TabMenu, { Tab } from './tab-menu/tab-menu';
+import NewTabMenu from './new-tab-menu/NewTabMenu';
+import { BrowserRouter } from 'react-router-dom';
+import { AppRoutes } from '../Routes';
 
 interface SideInnholdLayoutProps {
 	oboUnleashFeatures?: OboUnleashFeatures;
@@ -141,7 +144,11 @@ class SideInnhold extends React.Component<SideInnholdLayoutProps> {
 					visVeilederVerktoy={true}
 					tilbakeTilFlate="veilarbportefoljeflatefs"
 				/>
-				<TabMenu tabs={tabs} defaultSelectedTab={this.getDefaultTab()} />
+				<BrowserRouter>
+					<NewTabMenu />
+					<AppRoutes />
+				</BrowserRouter>
+				{/*<TabMenu tabs={tabs} defaultSelectedTab={this.getDefaultTab()} />*/}
 			</>
 		);
 	}
