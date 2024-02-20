@@ -4,7 +4,7 @@ import { useAppContext } from '../AppContext';
 import { useModiaContext } from '../store/modia-context-store';
 import { TabId } from '../component/side-innhold';
 import { Env, getEnv } from '../util/utils';
-import { SpaName } from '../component/spa';
+import { SpaName, SpaProps } from '../component/spa';
 
 const AktivitetsplanPage = () => {
   const { setCurrentTabId } = useAppContext();
@@ -26,15 +26,18 @@ const AktivitetsplanPage = () => {
     return [entry];
   };
 
-  useEffect(() => {
-    loadAssets({
-      appName: SpaName.AKTIVITETSPLAN,
-      appBaseUrl: aktivitetsplanCdnUrl,
-      assetManifestParser: aktivitetsplanManifestParser
-    });
-  }, []);
+  const Aktivitetsplan: React.ComponentType<SpaProps> = props => {
+    useEffect(() => {
+      loadAssets({
+        appName: SpaName.AKTIVITETSPLAN,
+        appBaseUrl: aktivitetsplanCdnUrl,
+        assetManifestParser: aktivitetsplanManifestParser
+      });
+    }, []);
+    return React.createElement('dab-aktivitetsplan', { ['data-fnr']: props.fnr });
+  };
 
-  return React.createElement('dab-aktivitetsplan', { ['data-fnr']: aktivBrukerFnr });
+  return <Aktivitetsplan fnr={aktivBrukerFnr} />
 };
 
 export default AktivitetsplanPage;
