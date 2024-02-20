@@ -1,10 +1,4 @@
-import {
-	ARBEIDSMARKEDSTILTAK_LANSERING,
-	DAB_UNLEASH_TOGGLES,
-	DabUnleashFeatures,
-	OBO_UNLEASH_TOGGLES,
-	OboUnleashFeatures
-} from './features';
+import { DAB_UNLEASH_TOGGLES, DabUnleashFeatures, OBO_UNLEASH_TOGGLES, OboUnleashFeatures } from './features';
 import { axiosInstance, useAxios, UseAxiosResponseValue } from './utils';
 import { Options } from 'axios-hooks';
 import { AxiosPromise, AxiosResponse } from 'axios';
