@@ -87,7 +87,8 @@ spec:
           },
           "header": {
             "csp": {
-              "connectSrc": ["'self'", "wss:", "*.nav.no", "*.adeo.no", "cdn.sanity.io", "storage.googleapis.com"],
+              "scriptSrc": ["'self'", "blob:", "unsafe-inline", "unsafe-eval", "*.nav.no", "*.adeo.no", "*.google-analytics.com", "*.googletagmanager.com", "account.psplugin.com", "*.hotjar.com"],
+              "connectSrc": ["'self'", "blob:", "wss:", "*.nav.no", "*.adeo.no", "cdn.sanity.io", "storage.googleapis.com"],
               "frameSrc": ["vars.hotjar.com", "video.qbrick.com"],
               "imgSrc": ["'self'", "data:", "*.nav.no", "*.adeo.no", "cdn.sanity.io"]
             }
