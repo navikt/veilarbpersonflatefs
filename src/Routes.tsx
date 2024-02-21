@@ -5,7 +5,7 @@ import OverblikkPage from './page/OverblikkPage';
 import OppfolgingsvedtakPage from './page/OppfolgingsvedtakPage';
 import ArbeidsmarkedstiltakPage from './page/ArbeidsmarkedstiltakPage';
 import FinnStillingerPage from './page/FinnStillingerPage';
-import TiltakPage from './page/TiltakPage';
+import TiltakPage from './page/tiltak/TiltakPage';
 
 export const AppRoutes = () => {
     return (
