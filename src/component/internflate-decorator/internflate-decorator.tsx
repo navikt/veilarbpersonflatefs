@@ -1,5 +1,6 @@
 import { Decorator } from '../spa';
-import { DecoratorConfig, EnhetDisplay, FnrDisplay } from './internflate-decorator-config';
+import { DecoratorConfig, DecoratorConfigV2, EnhetDisplay, FnrDisplay } from './internflate-decorator-config';
+import { getEnv } from '../../util/utils';
 
 interface InternflateDecoratorProps {
 	enhetId: string | undefined | null;
@@ -16,15 +17,24 @@ export function InternflateDecorator(props: InternflateDecoratorProps) {
 	);
 }
 
-function lagDecoratorConfig(props: InternflateDecoratorProps): DecoratorConfig {
-	const fnr = props.fnr || null;
-	const enhetId = props.enhetId || null;
+function lagDecoratorConfig(props: InternflateDecoratorProps): DecoratorConfigV2 & { proxy: string } {
+	const fnr = props.fnr || undefined;
+	const enhetId = props.enhetId || undefined;
 
 	return {
-		appname: 'Arbeidsrettet oppfølging',
-		toggles: {
-			visVeileder: true
-		},
+		// appname: 'Arbeidsrettet oppfølging',
+		// toggles: {
+		// 	visVeileder: true
+		// },
+		fnr,
+		enhet: enhetId,
+		onEnhetChanged: newEnhet => props.onEnhetChanged(newEnhet || null),
+		onFnrChanged: newFnr => props.onFnrChanged(newFnr || null),
+		proxy: '/modiacontextholder',
+		environment: getEnv() === 'prod' ? 'prod' : 'q1',
+		fetchActiveUserOnMount: true,
+		fetchActiveEnhetOnMount: true
+		/*
 		fnr: {
 			display: FnrDisplay.SOKEFELT,
 			value: fnr,
@@ -39,6 +49,6 @@ function lagDecoratorConfig(props: InternflateDecoratorProps): DecoratorConfig {
 			ignoreWsEvents: true,
 			onChange: props.onEnhetChanged
 		},
-		useProxy: true
+		useProxy: true*/
 	};
 }

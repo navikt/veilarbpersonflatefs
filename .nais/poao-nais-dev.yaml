@@ -97,7 +97,8 @@ spec:
             {
               "fromPath": "/internarbeidsflatedecorator/*",
               "toUrl": "https://internarbeidsflatedecorator-q1.intern.dev.nav.no",
-              "preserveFromPath": true
+              "toUrl": "https://cdn.nav.no/personoversikt/internarbeidsflate-decorator-v3/dev",
+              "preserveFromPath": false
             },
             {
               "fromPath": "/veilarbportefoljeflatefs/*",
@@ -184,7 +185,7 @@ spec:
             {
               "fromPath": "/modiacontextholder",
               "toUrl": "https://modiacontextholder-q1.dev-fss-pub.nais.io",
-              "preserveFromPath": true,
+              "preserveFromPath": false,
               "toApp": {
                 "name": "modiacontextholder-q1",
                 "namespace": "personoversikt",

@@ -1,7 +1,7 @@
 import NAVSPA, { AsyncNavspa, AsyncSpaConfig } from '@navikt/navspa';
 import React, { useEffect } from 'react';
 import { utledCdnUrl, utledSpaUrl } from '../util/url-utils';
-import { DecoratorConfig } from './internflate-decorator/internflate-decorator-config';
+import { DecoratorConfig, DecoratorConfigV2 } from './internflate-decorator/internflate-decorator-config';
 import Spinner from './spinner/spinner';
 import { AssetManifestParser, loadAssets } from '@navikt/navspa/dist/async/async-navspa';
 import { Env, getEnv } from '../util/utils';
@@ -18,7 +18,7 @@ interface VisittKortProps extends SpaProps {
 }
 
 export enum SpaName {
-	INTERNARBEIDSFLATEFS_DECORATOR = 'internarbeidsflatefs',
+	INTERNARBEIDSFLATEFS_DECORATOR = 'internarbeidsflate-decorator-v3',
 	VEILARBMAOFS = 'veilarbmaofs',
 	AKTIVITETSPLAN = 'aktivitetsplan',
 	DIALOG = 'arbeidsrettet-dialog',
@@ -128,7 +128,7 @@ export const Dialog: React.ComponentType<SpaProps> = props => {
 	return React.createElement('dab-dialog', { ['data-fnr']: props.fnr });
 };
 
-const arbeidsmarkedstiltakBaseUrl = utledCdnUrl("mulighetsrommet/arbeidsmarkedstiltak-modia/dist");
+const arbeidsmarkedstiltakBaseUrl = utledCdnUrl('mulighetsrommet/arbeidsmarkedstiltak-modia/dist');
 const arbeidsmarkedstiltakManifestParser: AssetManifestParser = manifest => {
 	const { file } = manifest['index.html'];
 	const entry = { type: 'module', path: `${arbeidsmarkedstiltakBaseUrl}/${file}` };
@@ -166,15 +166,16 @@ export const finnStillingInngangAsyncConfig: AsyncSpaConfig = {
 	}
 };
 
-export const Decorator: React.ComponentType<DecoratorConfig> = NAVSPA.importer(SpaName.INTERNARBEIDSFLATEFS_DECORATOR, {
-	wrapperClassName: ''
-});
-
-export const Visittkort: React.ComponentType<VisittKortProps> = AsyncNavspa.importer<VisittKortProps>(
-	visittkortAsyncConfig
+export const Decorator: React.ComponentType<DecoratorConfigV2> = NAVSPA.importer(
+	SpaName.INTERNARBEIDSFLATEFS_DECORATOR,
+	{
+		wrapperClassName: ''
+	}
 );
+
+export const Visittkort: React.ComponentType<VisittKortProps> =
+	AsyncNavspa.importer<VisittKortProps>(visittkortAsyncConfig);
 export const Detaljer: React.ComponentType<SpaProps> = AsyncNavspa.importer<SpaProps>(detaljerAsyncConfig);
 export const Vedtaksstotte: React.ComponentType<SpaProps> = AsyncNavspa.importer<SpaProps>(vedtaksstotteAsyncConfig);
-export const FinnStillingInngang: React.ComponentType<SpaProps> = AsyncNavspa.importer<SpaProps>(
-	finnStillingInngangAsyncConfig
-);
+export const FinnStillingInngang: React.ComponentType<SpaProps> =
+	AsyncNavspa.importer<SpaProps>(finnStillingInngangAsyncConfig);

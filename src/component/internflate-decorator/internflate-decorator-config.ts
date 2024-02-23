@@ -11,6 +11,22 @@ export interface DecoratorConfig {
 	accessToken?: string; // Manuell innsending av JWT, settes som Authorization-header. Om null sendes cookies vha credentials: 'include'
 }
 
+export type Environment = 'q0' | 'q1' | 'q2' | 'q3' | 'q4' | 'prod' | 'local' | 'mock';
+
+export interface DecoratorConfigV2 {
+	enhet?: string | undefined;
+	accessToken?: string | undefined;
+	fnr?: string | undefined;
+	userKey?: string | undefined;
+	enableHotkeys?: boolean | undefined;
+	fetchActiveEnhetOnMount?: boolean | undefined;
+	fetchActiveUserOnMount?: boolean | undefined;
+	onBeforeRequest?: (headers: HeadersInit) => HeadersInit | undefined;
+	onEnhetChanged: (enhet?: string | null) => void;
+	onFnrChanged: (fnr?: string | null) => void;
+	environment: Environment;
+}
+
 interface TogglesConfig {
 	visVeileder?: boolean; // Styrer om man skal vise informasjon om innlogget veileder
 }
