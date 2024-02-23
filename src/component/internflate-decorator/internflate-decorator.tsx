@@ -39,7 +39,9 @@ function lagDecoratorConfig(props: InternflateDecoratorProps): DecoratorConfigV2
 		onEnhetChanged: newEnhet => props.onEnhetChanged(newEnhet || null),
 		onFnrChanged: newFnr => props.onFnrChanged(newFnr || null),
 		proxy: '/modiacontextholder',
-		environment: getEnv() === 'prod' ? 'prod' : 'q1'
+		environment: getEnv() === 'prod' ? 'prod' : 'q1',
+		fetchActiveUserOnMount: true,
+		fetchActiveEnhetOnMount: true
 		/*
 		fnr: {
 			display: FnrDisplay.SOKEFELT,
