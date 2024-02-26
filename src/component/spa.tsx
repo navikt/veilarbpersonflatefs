@@ -6,7 +6,7 @@ import Spinner from './spinner/spinner';
 import { AssetManifestParser, loadAssets } from '@navikt/navspa/dist/async/async-navspa';
 import { Env, getEnv } from '../util/utils';
 import { createAssetManifestParser } from '@navikt/navspa/dist/async/utils';
-import { Loader } from '@navikt/ds-react';
+import { HStack, Loader, Skeleton, VStack } from '@navikt/ds-react';
 
 export interface SpaProps {
 	enhet?: string;
@@ -145,7 +145,22 @@ export const Arbeidsmarkedstiltak: React.ComponentType<SpaProps> = props => {
 		}).finally(() => setIsLoading(false));
 	}, []);
 	return isLoading ? (
-		<Loader>Laster...</Loader>
+		<HStack>
+			<VStack gap="2">
+				<Skeleton height={50} variant="rounded" />
+				<Skeleton height={50} variant="rounded" />
+				<Skeleton height={200} variant="rounded" />
+				<Skeleton height={110} variant="rounded" />
+				<Skeleton height={110} variant="rounded" />
+			</VStack>
+			<VStack>
+				<Skeleton height={50} variant="rounded" />
+				<Skeleton height={100} variant="rounded" />
+				<Skeleton height={100} variant="rounded" />
+				<Skeleton height={100} variant="rounded" />
+				<Skeleton height={50} variant="rounded" />
+			</VStack>
+		</HStack>
 	) : (
 		React.createElement('mulighetsrommet-arbeidsmarkedstiltak', {
 			'data-fnr': props.fnr,
