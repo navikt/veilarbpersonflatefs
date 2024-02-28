@@ -4,10 +4,13 @@ import { Env, getEnv } from '../../../util/utils';
 export const DELTAKERREGISTRERING_ENTRY = 'src/webComponentWrapper.tsx';
 
 const deltakerRegistreringOrigin = () => {
-	switch(getEnv()) {
-		case Env.Dev: return 'https://amt-deltaker-flate.intern.dev.nav.no'
-		case Env.Local: return 'http://localhost:4173'
-		default: return ''
+	switch (getEnv()) {
+		case Env.Dev:
+			return 'https://amt-deltaker-flate.intern.dev.nav.no';
+		case Env.Local:
+			return 'http://localhost:4173';
+		default:
+			return '';
 	}
 };
 
@@ -20,7 +23,7 @@ interface DeltakerRegistreringAssetManifest {
 }
 
 export function useLoadDeltakerRegistreringApp() {
-	return useSuspenseQuery<any>({
+	return useSuspenseQuery<any>({ //TODO use fetch
 		queryKey: ['deltaker-registrering-asset-manifest'],
 		queryFn: async () => {
 			const response = await fetch(deltakerregistreringKometManifestUrl);

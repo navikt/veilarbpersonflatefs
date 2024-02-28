@@ -1,49 +1,32 @@
+import { useLoadDeltakerRegistreringApp } from './hooks/useLoadDeltakerRegistreringApp';
+import { useModiaContext } from '../../store/modia-context-store';
+import { createElement, Suspense } from 'react';
+import { Alert } from '@navikt/ds-react';
+
 const TiltakPage = () => {
+	useLoadDeltakerRegistreringApp();
 
-	// const getTiltaksgjennomforingIdFraUrl = () => {
-	//     const { id } = useParams();
-	//     if (!id) throw new Error('id ikke satt');
-	//
-	//     return id?.includes('_')
-	//         ? id?.replace('_', '.')
-	//         : id;
-	// };
+	const searchParams = new URLSearchParams(window.location.search);
+	const tiltaksgjennomforingId = searchParams.get('id');
 
-	// const DeltakerRegistreringApp = () => {
-	//     useLoadDeltakerRegistreringApp();
-	//
-	//     const tiltaksgjennomforingId = getTiltaksgjennomforingIdFraUrl();
-	//
-	//     const { aktivBrukerFnr, aktivEnhetId } = useModiaContext();
-	//
-	//     return createElement('arbeidsmarkedstiltak-deltaker', {
-	//         'data-personident': aktivBrukerFnr,
-	//         'data-deltakerlisteId': tiltaksgjennomforingId,
-	//         'data-enhetId': aktivEnhetId
-	//     });
-	// };
+	const { aktivBrukerFnr, aktivEnhetId } = useModiaContext();
 
-	return (<div>Tiltak Page</div>
-		// <Suspense fallback="Laster...">
-		//     <ErrorBoundary
-		//         FallbackComponent={({ resetErrorBoundary }) => {
-		//             return (
-		//                 <div
-		//                     style={{
-		//                         display: 'flex',
-		//                         flexDirection: 'column',
-		//                         gap: '1rem'
-		//                     }}
-		//                 >
-		//                     <Alert variant="error">Klarte ikke laste deltakerregistrering</Alert>
-		//                     <Button onClick={resetErrorBoundary}>Prøv på nytt</Button>
-		//                 </div>
-		//             );
-		//         }}
-		//     >
-		//         <DeltakerRegistreringApp />
-		//     </ErrorBoundary>
-		// </Suspense>
+	if (tiltaksgjennomforingId === null) {
+		return (
+			<div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
+				<Alert variant="error">Klarte ikke laste deltakerregistrering</Alert>
+			</div>
+		);
+	}
+
+	return (
+		<Suspense fallback="Laster...">
+			{createElement('arbeidsmarkedstiltak-deltaker', {
+				'data-personident': aktivBrukerFnr,
+				'data-deltakerlisteId': tiltaksgjennomforingId,
+				'data-enhetId': aktivEnhetId
+			})}
+		</Suspense>
 	);
 };
 

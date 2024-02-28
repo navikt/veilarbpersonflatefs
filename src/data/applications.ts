@@ -42,11 +42,11 @@ export const applications: Application[] = [
 		tabId: TabId.ARBEIDSMARKEDSTILTAK,
 		component: ArbeidsmarkedstiltakPage
 	},
-	// {
-	// 	pathEntrypoint: '/arbeidsmarkedstiltak/tiltak',
-	// 	tabId: TabId.ARBEIDSMARKEDSTILTAK,
-	// 	component: TiltakPage
-	// },
+	{
+		pathEntrypoint: '/tiltak',
+		tabId: TabId.ARBEIDSMARKEDSTILTAK,
+		component: TiltakPage
+	},
 	{
 		pathEntrypoint: '/finn-stillinger',
 		tabId: TabId.FINN_STILLING_INNGANG,

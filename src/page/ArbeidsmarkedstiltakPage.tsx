@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { AssetManifestParser, loadAssets } from '@navikt/navspa/dist/async/async-navspa';
-import { SpaName, SpaProps } from '../component/spa';
+import { SpaName } from '../component/spa';
 import { utledCdnUrl } from '../util/url-utils';
 import { useModiaContext } from '../store/modia-context-store';
 
@@ -12,7 +12,10 @@ const arbeidsmarkedstiltakManifestParser: AssetManifestParser = manifest => {
   return [entry];
 };
 
-const Arbeidsmarkedstiltak: React.ComponentType<SpaProps> = props => {
+const ArbeidsmarkedstiltakPage = () => {
+
+  const { aktivBrukerFnr, aktivEnhetId } = useModiaContext();
+
   useEffect(() => {
     loadAssets({
       appName: SpaName.ARBEIDSMARKEDSTILTAK,
@@ -20,20 +23,11 @@ const Arbeidsmarkedstiltak: React.ComponentType<SpaProps> = props => {
       assetManifestParser: arbeidsmarkedstiltakManifestParser
     });
   }, []);
+
   return React.createElement('mulighetsrommet-arbeidsmarkedstiltak', {
-    'data-fnr': props.fnr,
-    'data-enhet': props.enhet
+    'data-fnr': aktivBrukerFnr,
+    'data-enhet': aktivEnhetId
   });
-};
-
-/*TODO Props for fnr og*/
-const ArbeidsmarkedstiltakPage = () => {
-
-  const { aktivBrukerFnr, aktivEnhetId } = useModiaContext();
-
-  return (
-      <Arbeidsmarkedstiltak fnr={aktivBrukerFnr} enhet={aktivEnhetId ?? undefined} />
-  );
 };
 
 export default ArbeidsmarkedstiltakPage;
