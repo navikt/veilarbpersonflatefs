@@ -29,6 +29,8 @@ const TabMenu = () => {
 		const application = applications.find((it) => it.tabId === newTabId);
 		if (!application) throw Error('Det finnes ikke en side for ' + newTabId);
 		console.log('Setter application', application);
+
+		setCurrentTabId(application.tabId);
 		window.history.pushState(null, '', application.pathEntrypoint);
 		window.dispatchEvent(new PopStateEvent('popstate'));
 		logEvent('veilarbpersonflatefs.valgt-fane', { tabId: newTabId });

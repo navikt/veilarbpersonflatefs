@@ -23,9 +23,8 @@ const finnStillingInngangAsyncConfig: AsyncSpaConfig = {
   }
 };
 
-const FinnStillingInngang: React.ComponentType<SpaProps> = AsyncNavspa.importer<SpaProps>(
-    finnStillingInngangAsyncConfig
-);
+const FinnStillingInngang: React.ComponentType<SpaProps> =
+    AsyncNavspa.importer<SpaProps>(finnStillingInngangAsyncConfig);
 
 const FinnStillingerPage = () => {
 
