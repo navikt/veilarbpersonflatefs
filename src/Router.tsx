@@ -6,13 +6,10 @@ import { useAppContext } from './AppContext';
 export const Router = () => {
 	const { setCurrentTabId } = useAppContext();
 
-	const [currentPath, setCurrentPath] = useState(window.location.pathname);
 	const [application, setApplication] = useState<undefined | Application>(undefined);
 
 	const changeApplication = (path: string) => {
-		setCurrentPath(path)
 		const newApp = applications.find((it) => path.startsWith(it.pathEntrypoint));
-		console.log(currentPath, newApp);
 		if (newApp) {
 			setCurrentTabId(newApp.tabId);
 			setApplication(newApp);
@@ -23,10 +20,7 @@ export const Router = () => {
 	};
 
 	useEffect(() => {
-		console.log('USE EFFECT');
-		if (application === undefined) {
-			changeApplication(window.location.pathname);
-		}
+		changeApplication(window.location.pathname);
 	}, []);
 
 	useEventListener('popstate', () => {
@@ -36,7 +30,7 @@ export const Router = () => {
 
 	return (
 		<div>
-			<div>Current Path: {currentPath}</div>
+			<div>Current Path: {window.location.pathname}</div>
 			{application && <application.component />}
 		</div>
 	);
