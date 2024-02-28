@@ -2,6 +2,7 @@ import React, { useEffect, useReducer } from 'react';
 import { useEventListener } from '../util/utils';
 import { createInitialStore, ModiaContext, reducer, SET_RENDER_KEY } from './modia-context-store';
 import { synkroniserManuellStatusMedDkif } from '../api/api';
+import { AppContextProvider } from '../AppContext';
 
 interface StoreProviderProps {
 	children: React.ReactNode;
@@ -31,9 +32,12 @@ const StoreProvider = (props: StoreProviderProps) => {
 	}, [fnr]);
 
 	return (
-		<DispatchContext.Provider value={dispatch}>
-			<ModiaContext.Provider value={state}>{props.children}</ModiaContext.Provider>
-		</DispatchContext.Provider>
+		<AppContextProvider>
+			<DispatchContext.Provider value={dispatch}>
+				<ModiaContext.Provider value={state}>{props.children}</ModiaContext.Provider>
+			</DispatchContext.Provider>
+		</AppContextProvider>
+
 	);
 };
 
