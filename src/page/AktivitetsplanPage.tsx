@@ -1,18 +1,11 @@
 import React, { useEffect } from 'react';
 import { AssetManifestParser, loadAssets } from '@navikt/navspa/dist/async/async-navspa';
-import { useAppContext } from '../AppContext';
 import { useModiaContext } from '../store/modia-context-store';
-import { TabId } from '../component/side-innhold';
 import { Env, getEnv } from '../util/utils';
 import { SpaName, SpaProps } from '../component/spa';
 
 const AktivitetsplanPage = () => {
-  const { setCurrentTabId } = useAppContext();
   const { aktivBrukerFnr } = useModiaContext();
-
-  useEffect(() => {
-    setCurrentTabId(TabId.AKTIVITETSPLAN);
-  }, [setCurrentTabId]);
 
   const dabCdnUrl = 'https://cdn.nav.no/dab';
   const aktivitetsplanCdnUrl =
@@ -37,7 +30,7 @@ const AktivitetsplanPage = () => {
     return React.createElement('dab-aktivitetsplan', { ['data-fnr']: props.fnr });
   };
 
-  return <Aktivitetsplan fnr={aktivBrukerFnr} />
+  return <Aktivitetsplan fnr={aktivBrukerFnr} />;
 };
 
 export default AktivitetsplanPage;

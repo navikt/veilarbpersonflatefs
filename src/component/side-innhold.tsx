@@ -1,24 +1,12 @@
 import { OboUnleashFeatures } from '../api/features';
 import { useModiaContext } from '../store/modia-context-store';
 import { Visittkort } from './spa';
-import NewTabMenu from './new-tab-menu/NewTabMenu';
-import { BrowserRouter } from 'react-router-dom';
-import { AppRoutes } from '../Routes';
+import { Router } from '../Router';
+import TabMenu from './tab-menu/TabMenu';
 
 interface SideInnholdLayoutProps {
 	oboUnleashFeatures?: OboUnleashFeatures;
 }
-
-export enum TabId {
-	AKTIVITETSPLAN = 'AKTIVITETSPLAN',
-	DIALOG = 'DIALOG',
-	VEDTAKSSTOTTE = 'VEDTAKSSTOTTE',
-	DETALJER = 'DETALJER',
-	OVERBLIKK = 'OVERBLIKK',
-	ARBEIDSMARKEDSTILTAK = 'ARBEIDSMARKEDSTILTAK',
-	FINN_STILLING_INNGANG = 'FINN_STILLING_INNGANG'
-}
-
 const SideInnhold = (props: SideInnholdLayoutProps) => {
 	const { aktivBrukerFnr, aktivEnhetId } = useModiaContext();
 
@@ -30,10 +18,8 @@ const SideInnhold = (props: SideInnholdLayoutProps) => {
 				visVeilederVerktoy={true}
 				tilbakeTilFlate="veilarbportefoljeflatefs"
 			/>
-			<BrowserRouter>
-				<NewTabMenu />
-				<AppRoutes />
-			</BrowserRouter>
+			<TabMenu />
+			<Router />
 		</>
 	);
 

@@ -1,5 +1,5 @@
 import { createContext, useContext, useState } from 'react';
-import { TabId } from './component/side-innhold';
+import { TabId } from './data/tab-id';
 
 export interface AppContextProps {
   currentTabId: TabId,

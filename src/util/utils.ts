@@ -17,10 +17,6 @@ export const getEnv = (): string => {
 	return Env.Local;
 };
 
-export function hasStored(tagName: string) {
-	return window.localStorage.getItem(tagName) !== null;
-}
-
 export function useEventListener(name: string, listener: (event: Event) => void) {
 	const callback = useCallback(listener, []);
 

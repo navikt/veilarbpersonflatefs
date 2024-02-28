@@ -1,6 +1,4 @@
-import React, { useEffect } from 'react';
-import { useAppContext } from '../AppContext';
-import { TabId } from '../component/side-innhold';
+import React from 'react';
 import { AsyncNavspa, AsyncSpaConfig } from '@navikt/navspa';
 import { SpaName, SpaProps, spaWrapperTabContentClassName } from '../component/spa';
 import { utledSpaUrl } from '../util/url-utils';
@@ -9,12 +7,7 @@ import { useModiaContext } from '../store/modia-context-store';
 
 const FinnStillingerPage = () => {
 
-  const { setCurrentTabId } = useAppContext();
   const { aktivBrukerFnr, aktivEnhetId } = useModiaContext();
-
-  useEffect(() => {
-    setCurrentTabId(TabId.FINN_STILLING_INNGANG);
-  }, [setCurrentTabId]);
 
   const finnStillingInngangAsyncConfig: AsyncSpaConfig = {
     appName: SpaName.FINN_STILLING_INNGANG,

@@ -1,6 +1,4 @@
 import React, { useEffect } from 'react';
-import { useAppContext } from '../AppContext';
-import { TabId } from '../component/side-innhold';
 import { AssetManifestParser, loadAssets } from '@navikt/navspa/dist/async/async-navspa';
 import { SpaName, SpaProps } from '../component/spa';
 import { Env, getEnv } from '../util/utils';
@@ -9,12 +7,7 @@ import { useModiaContext } from '../store/modia-context-store';
 const DialogPage = () => {
   const dabCdnUrl = 'https://cdn.nav.no/dab';
 
-  const { setCurrentTabId } = useAppContext();
   const { aktivBrukerFnr, aktivEnhetId } = useModiaContext();
-
-  useEffect(() => {
-    setCurrentTabId(TabId.DIALOG);
-  }, [setCurrentTabId]);
 
   const dialogCdnUrl =
       getEnv() === Env.Prod

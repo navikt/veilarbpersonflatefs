@@ -1,12 +1,14 @@
 import { Tabs } from '@navikt/ds-react';
-import { useNavigate } from 'react-router-dom';
-import { TabId } from '../side-innhold';
 import { useAppContext } from '../../AppContext';
 import { UlesteDialoger } from '../tab-menu/dialog-tab/UlesteDialoger';
 import { useModiaContext } from '../../store/modia-context-store';
+import { useEventListener } from '../../util/utils';
+import { TabId } from '../../data/tab-id';
+import { applications } from '../../data/applications';
+import { logEvent } from '../../util/frontend-logger';
+import { logValgtFane } from '../../amplitude/amplitude';
 
-const NewTabMenu = () => {
-	const navigate = useNavigate();
+const TabMenu = () => {
 
 	const {
 		currentTabId,
@@ -17,40 +19,30 @@ const NewTabMenu = () => {
 		aktivEnhetId
 	} = useModiaContext();
 
-	const getUrlForTab = (tabId: TabId): string => {
-		switch (tabId) {
-			case TabId.AKTIVITETSPLAN:
-				return '/aktivitetsplan';
-			case TabId.DIALOG:
-				return '/dialog';
-			case TabId.VEDTAKSSTOTTE:
-				return '/vedtaksstotte';
-			case TabId.DETALJER:
-				return '/detaljer';
-			case TabId.OVERBLIKK:
-				return '/overblikk';
-			case TabId.ARBEIDSMARKEDSTILTAK:
-				return '/arbeidsmarkedstiltak';
-			case TabId.FINN_STILLING_INNGANG:
-				return '/finn-stillinger';
-			default:
-				throw Error('Det finnes ikke en side for ' + tabId);
-
-		}
-	};
-
-	const changeTab = (newTabId: TabId) => {
-		setCurrentTabId(newTabId);
-		navigate(getUrlForTab(newTabId));
-	};
-
-
 	// Et lite unntak mens Team Valp venter på PVO
 	const vikafossenIkkeErValgtSomEnhet = () => {
 		const vikafossen = '2103';
 		return aktivEnhetId && aktivEnhetId !== vikafossen;
 	};
 
+	const changeTab = (newTabId: TabId, extraDetails?: Event) => {
+		const application = applications.find((it) => it.tabId === newTabId);
+		if (!application) throw Error('Det finnes ikke en side for ' + newTabId);
+		console.log('Setter application', application);
+		window.history.pushState(null, '', application.pathEntrypoint);
+		window.dispatchEvent(new PopStateEvent('popstate'));
+		logEvent('veilarbpersonflatefs.valgt-fane', { tabId: newTabId });
+		logValgtFane(newTabId);
+
+		const extra = !!extraDetails ? (extraDetails as CustomEvent).detail : {};
+		window.dispatchEvent(new CustomEvent('veilarbpersonflatefs.tab-clicked', { detail: { tabId: newTabId, ...extra } }));
+	};
+
+	useEventListener('visAktivitetsplan', () => changeTab(TabId.AKTIVITETSPLAN));
+	useEventListener('visDialog', event => changeTab(TabId.DIALOG, event));
+	useEventListener('veilarbpersonflatefs.setOverblikkTab', () => changeTab(TabId.OVERBLIKK));
+	useEventListener('veilarbpersonflatefs.setVedtakstotteTab', () => changeTab(TabId.VEDTAKSSTOTTE));
+	useEventListener('veilarbpersonflatefs.setArbeidsmarkedstiltakTab', () => changeTab(TabId.ARBEIDSMARKEDSTILTAK));
 
 	return (
 		<div className="tab-menu">
@@ -103,4 +95,4 @@ const NewTabMenu = () => {
 	);
 };
 
-export default NewTabMenu;
+export default TabMenu;
