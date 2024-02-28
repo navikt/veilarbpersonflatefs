@@ -26,13 +26,7 @@ const TabMenu = () => {
 	};
 
 	const changeTab = (newTabId: TabId, extraDetails?: Event) => {
-		const application = applications.find((it) => it.tabId === newTabId);
-		if (!application) throw Error('Det finnes ikke en side for ' + newTabId);
-		console.log('Setter application', application);
-
-		setCurrentTabId(application.tabId);
-		window.history.pushState(null, '', application.pathEntrypoint);
-		window.dispatchEvent(new PopStateEvent('popstate'));
+		setCurrentTabId(newTabId);
 		logEvent('veilarbpersonflatefs.valgt-fane', { tabId: newTabId });
 		logValgtFane(newTabId);
 
@@ -40,8 +34,21 @@ const TabMenu = () => {
 		window.dispatchEvent(new CustomEvent('veilarbpersonflatefs.tab-clicked', { detail: { tabId: newTabId, ...extra } }));
 	};
 
+	const changeApplication = (newTabId: TabId) => {
+		const application = applications.find((it) => it.tabId === newTabId);
+		if (!application) throw Error('Det finnes ikke en side for ' + newTabId);
+
+		console.log('Setter application', application);
+		changeTab(newTabId);
+		window.history.pushState(null, '', application.pathEntrypoint);
+		window.dispatchEvent(new PopStateEvent('popstate'));
+	};
+
 	useEventListener('visAktivitetsplan', () => changeTab(TabId.AKTIVITETSPLAN));
 	useEventListener('visDialog', event => changeTab(TabId.DIALOG, event));
+
+	useEventListener('veilarbpersonflatefs.setAktivitetsplanTab', () => changeTab(TabId.AKTIVITETSPLAN));
+	useEventListener('veilarbpersonflatefs.setDialogTab', event => changeTab(TabId.DIALOG, event));
 	useEventListener('veilarbpersonflatefs.setOverblikkTab', () => changeTab(TabId.OVERBLIKK));
 	useEventListener('veilarbpersonflatefs.setVedtakstotteTab', () => changeTab(TabId.VEDTAKSSTOTTE));
 	useEventListener('veilarbpersonflatefs.setArbeidsmarkedstiltakTab', () => changeTab(TabId.ARBEIDSMARKEDSTILTAK));
@@ -54,26 +61,26 @@ const TabMenu = () => {
 						label="Aktivitetsplan"
 						key={TabId.AKTIVITETSPLAN}
 						value={TabId.AKTIVITETSPLAN}
-						onClick={() => changeTab(TabId.AKTIVITETSPLAN)}
+						onClick={() => changeApplication(TabId.AKTIVITETSPLAN)}
 					/>
 					<Tabs.Tab
 						label="Dialog"
 						key={TabId.DIALOG}
 						value={TabId.DIALOG}
-						onClick={() => changeTab(TabId.DIALOG)}
+						onClick={() => changeApplication(TabId.DIALOG)}
 						icon={<UlesteDialoger />}
 					/>
 					<Tabs.Tab
 						label="Overblikk"
 						key={TabId.OVERBLIKK}
 						value={TabId.OVERBLIKK}
-						onClick={() => changeTab(TabId.OVERBLIKK)}
+						onClick={() => changeApplication(TabId.OVERBLIKK)}
 					/>
 					<Tabs.Tab
 						label="Oppfølgingsvedtak"
 						key={TabId.VEDTAKSSTOTTE}
 						value={TabId.VEDTAKSSTOTTE}
-						onClick={() => changeTab(TabId.VEDTAKSSTOTTE)}
+						onClick={() => changeApplication(TabId.VEDTAKSSTOTTE)}
 					/>
 
 					{vikafossenIkkeErValgtSomEnhet() && (
@@ -81,7 +88,7 @@ const TabMenu = () => {
 							label="Arbeidsmarkedstiltak"
 							key={TabId.ARBEIDSMARKEDSTILTAK}
 							value={TabId.ARBEIDSMARKEDSTILTAK}
-							onClick={() => changeTab(TabId.ARBEIDSMARKEDSTILTAK)}
+							onClick={() => changeApplication(TabId.ARBEIDSMARKEDSTILTAK)}
 						/>
 					)}
 
