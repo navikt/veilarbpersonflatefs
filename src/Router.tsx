@@ -24,13 +24,11 @@ export const Router = () => {
 	}, []);
 
 	useEventListener('popstate', () => {
-		console.log('POPSTATE', window.location.pathname);
 		changeApplication(window.location.pathname);
 	});
 
 	return (
 		<div>
-			<div>Current Path: {window.location.pathname}</div>
 			{application && <application.component />}
 		</div>
 	);
