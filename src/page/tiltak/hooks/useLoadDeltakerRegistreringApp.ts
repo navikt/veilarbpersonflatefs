@@ -1,4 +1,3 @@
-import { useSuspenseQuery } from '@tanstack/react-query';
 import { Env, getEnv } from '../../../util/utils';
 
 export const DELTAKERREGISTRERING_ENTRY = 'src/webComponentWrapper.tsx';
@@ -22,19 +21,23 @@ interface DeltakerRegistreringAssetManifest {
 	};
 }
 
+const fetchManifest = async (): Promise<DeltakerRegistreringAssetManifest> => {
+	const response = await fetch(deltakerregistreringKometManifestUrl);
+
+	if (!response.ok) {
+		throw new Error('Failed to load DeltakerRegistrering');
+	}
+
+	return await response.json();
+};
+
 export function useLoadDeltakerRegistreringApp() {
-	return useSuspenseQuery<any>({ //TODO use fetch
-		queryKey: ['deltaker-registrering-asset-manifest'],
-		queryFn: async () => {
-			const response = await fetch(deltakerregistreringKometManifestUrl);
-
-			if (!response.ok) {
-				throw new Error('Failed to load DeltakerRegistrering');
-			}
-
-			const manifest: DeltakerRegistreringAssetManifest = await response.json();
+	return fetchManifest()
+		.then(manifest => {
 			const entry = manifest[DELTAKERREGISTRERING_ENTRY].file;
 			return import(/* @vite-ignore */ `${deltakerRegistreringOrigin}/${entry}`);
-		}
-	});
+		})
+		.catch(error => {
+			throw new Error(`Failed to load DeltakerRegistrering: ${error}`);
+		});
 }

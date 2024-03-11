@@ -1,9 +1,9 @@
-import { createContext, useContext, useState } from 'react';
-import { TabId } from './data/tab-id';
+import { createContext, useContext, useMemo, useState } from 'react';
+import { AppId } from './data/tab-id';
 
 export interface AppContextProps {
-  currentTabId: TabId,
-  setCurrentTabId: React.Dispatch<React.SetStateAction<TabId>>
+  currentAppId: AppId,
+  setCurrentAppId: React.Dispatch<React.SetStateAction<AppId>>
 }
 
 const AppContext = createContext<AppContextProps | undefined>(undefined);
@@ -18,15 +18,15 @@ const useAppContext = () => {
   return context;
 };
 
-const AppContextProvider = ({ children }: {
-  children: React.ReactNode
-}) => {
-  const [currentTabId, setCurrentTabId] = useState<TabId>(TabId.AKTIVITETSPLAN);
+const AppContextProvider = ({ children }: { children: React.ReactNode }) => {
+  const [currentAppId, setCurrentAppId] = useState<AppId>(AppId.AKTIVITETSPLAN);
 
-  const contextValue: AppContextProps = {
-    currentTabId,
-    setCurrentTabId
-  };
+  const contextValue: AppContextProps = useMemo(() => {
+    return {
+      currentAppId,
+      setCurrentAppId
+    };
+  }, [currentAppId]);
 
   return <AppContext.Provider value={contextValue}>{children}</AppContext.Provider>;
 };

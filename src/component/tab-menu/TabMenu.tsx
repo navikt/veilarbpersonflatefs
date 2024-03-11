@@ -3,7 +3,7 @@ import { useAppContext } from '../../AppContext';
 import { UlesteDialoger } from '../tab-menu/dialog-tab/UlesteDialoger';
 import { useModiaContext } from '../../store/modia-context-store';
 import { useEventListener } from '../../util/utils';
-import { TabId } from '../../data/tab-id';
+import { appIdToTabId, TabId, tabIdToAppId } from '../../data/tab-id';
 import { applications } from '../../data/applications';
 import { logEvent } from '../../util/frontend-logger';
 import { logValgtFane } from '../../amplitude/amplitude';
@@ -11,8 +11,8 @@ import { logValgtFane } from '../../amplitude/amplitude';
 const TabMenu = () => {
 
 	const {
-		currentTabId,
-		setCurrentTabId
+		currentAppId,
+		setCurrentAppId
 	} = useAppContext();
 
 	const {
@@ -26,7 +26,8 @@ const TabMenu = () => {
 	};
 
 	const changeTab = (newTabId: TabId, extraDetails?: Event) => {
-		setCurrentTabId(newTabId);
+
+		setCurrentAppId(tabIdToAppId[newTabId]);
 		logEvent('veilarbpersonflatefs.valgt-fane', { tabId: newTabId });
 		logValgtFane(newTabId);
 
@@ -38,7 +39,6 @@ const TabMenu = () => {
 		const application = applications.find((it) => it.tabId === newTabId);
 		if (!application) throw Error('Det finnes ikke en side for ' + newTabId);
 
-		console.log('Setter application', application);
 		changeTab(newTabId);
 		window.history.pushState(null, '', application.pathEntrypoint);
 		window.dispatchEvent(new PopStateEvent('popstate'));
@@ -55,7 +55,7 @@ const TabMenu = () => {
 
 	return (
 		<div className="tab-menu">
-			<Tabs size="small" className="tab-menu__content" value={currentTabId}>
+			<Tabs size="small" className="tab-menu__content" value={appIdToTabId[currentAppId]}>
 				<Tabs.List className="tab-menu__tablist-element">
 					<Tabs.Tab
 						label="Aktivitetsplan"

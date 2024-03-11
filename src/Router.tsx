@@ -4,18 +4,23 @@ import { Application, applications, defaultApplication } from './data/applicatio
 import { useAppContext } from './AppContext';
 
 export const Router = () => {
-	const { setCurrentTabId } = useAppContext();
+	const { setCurrentAppId } = useAppContext();
 
 	const [application, setApplication] = useState<undefined | Application>(undefined);
 
 	const changeApplication = (path: string) => {
 		const newApp = applications.find((it) => path.startsWith(it.pathEntrypoint));
-		if (newApp) {
-			setCurrentTabId(newApp.tabId);
-			setApplication(newApp);
-		} else {
-			setCurrentTabId(defaultApplication.tabId);
+
+		if (newApp === undefined) {
+			setCurrentAppId(defaultApplication.id);
 			setApplication(defaultApplication);
+		}
+
+		if (application === newApp) return;
+
+		if (newApp) {
+			setCurrentAppId(newApp.id);
+			setApplication(newApp);
 		}
 	};
 
