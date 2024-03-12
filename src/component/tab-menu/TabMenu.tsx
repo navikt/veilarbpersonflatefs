@@ -47,12 +47,6 @@ const TabMenu = () => {
 	useEventListener('visAktivitetsplan', () => changeTab(TabId.AKTIVITETSPLAN));
 	useEventListener('visDialog', event => changeTab(TabId.DIALOG, event));
 
-	useEventListener('veilarbpersonflatefs.setAktivitetsplanTab', () => changeTab(TabId.AKTIVITETSPLAN));
-	useEventListener('veilarbpersonflatefs.setDialogTab', event => changeTab(TabId.DIALOG, event));
-	useEventListener('veilarbpersonflatefs.setOverblikkTab', () => changeTab(TabId.OVERBLIKK));
-	useEventListener('veilarbpersonflatefs.setVedtakstotteTab', () => changeTab(TabId.VEDTAKSSTOTTE));
-	useEventListener('veilarbpersonflatefs.setArbeidsmarkedstiltakTab', () => changeTab(TabId.ARBEIDSMARKEDSTILTAK));
-
 	return (
 		<div className="tab-menu">
 			<Tabs size="small" className="tab-menu__content" value={appIdToTabId[currentAppId]}>
