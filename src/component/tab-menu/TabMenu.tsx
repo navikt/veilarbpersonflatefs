@@ -4,6 +4,7 @@ import { UlesteDialoger } from '../tab-menu/dialog-tab/UlesteDialoger';
 import { useModiaContext } from '../../store/modia-context-store';
 import { appIdToTabId, TabId } from '../../data/tab-id';
 import { applications } from '../../data/applications';
+import { NAVIGATE_EVENT } from '../../Router';
 
 const TabMenu = () => {
 
@@ -21,7 +22,7 @@ const TabMenu = () => {
 		if (!application) throw Error('Det finnes ikke en side for ' + newTabId);
 
 		window.history.pushState(null, '', application.pathEntrypoint);
-		window.dispatchEvent(new PopStateEvent('veilarbpersonflate.navigate'));
+		window.dispatchEvent(new PopStateEvent(NAVIGATE_EVENT));
 	};
 
 	return (

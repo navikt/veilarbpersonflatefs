@@ -6,6 +6,8 @@ import { TabId, tabIdToAppId } from './data/tab-id';
 import { logEvent } from './util/frontend-logger';
 import { logValgtFane } from './amplitude/amplitude';
 
+export const NAVIGATE_EVENT = 'veilarbpersonflate.navigate'
+
 export const Router = () => {
 	const { setCurrentAppId } = useAppContext();
 
@@ -42,7 +44,7 @@ export const Router = () => {
 		changeApplication(window.location.pathname);
 	}, []);
 
-	useEventListener('veilarbpersonflate.navigate', () => {
+	useEventListener(NAVIGATE_EVENT, () => {
 		changeApplication(window.location.pathname);
 	});
 
