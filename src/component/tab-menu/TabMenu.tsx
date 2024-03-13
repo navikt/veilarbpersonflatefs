@@ -2,22 +2,13 @@ import { Tabs } from '@navikt/ds-react';
 import { useAppContext } from '../../AppContext';
 import { UlesteDialoger } from '../tab-menu/dialog-tab/UlesteDialoger';
 import { useModiaContext } from '../../store/modia-context-store';
-import { useEventListener } from '../../util/utils';
-import { appIdToTabId, TabId, tabIdToAppId } from '../../data/tab-id';
+import { appIdToTabId, TabId } from '../../data/tab-id';
 import { applications } from '../../data/applications';
-import { logEvent } from '../../util/frontend-logger';
-import { logValgtFane } from '../../amplitude/amplitude';
 
 const TabMenu = () => {
 
-	const {
-		currentAppId,
-		setCurrentAppId
-	} = useAppContext();
-
-	const {
-		aktivEnhetId
-	} = useModiaContext();
+	const { currentAppId } = useAppContext();
+	const { aktivEnhetId } = useModiaContext();
 
 	// Et lite unntak mens Team Valp venter på PVO
 	const vikafossenIkkeErValgtSomEnhet = () => {
@@ -25,27 +16,13 @@ const TabMenu = () => {
 		return aktivEnhetId && aktivEnhetId !== vikafossen;
 	};
 
-	const changeTab = (newTabId: TabId, extraDetails?: Event) => {
-
-		setCurrentAppId(tabIdToAppId[newTabId]);
-		logEvent('veilarbpersonflatefs.valgt-fane', { tabId: newTabId });
-		logValgtFane(newTabId);
-
-		const extra = !!extraDetails ? (extraDetails as CustomEvent).detail : {};
-		window.dispatchEvent(new CustomEvent('veilarbpersonflatefs.tab-clicked', { detail: { tabId: newTabId, ...extra } }));
-	};
-
 	const changeApplication = (newTabId: TabId) => {
 		const application = applications.find((it) => it.tabId === newTabId);
 		if (!application) throw Error('Det finnes ikke en side for ' + newTabId);
 
-		changeTab(newTabId);
 		window.history.pushState(null, '', application.pathEntrypoint);
-		window.dispatchEvent(new PopStateEvent('popstate'));
+		window.dispatchEvent(new PopStateEvent('veilarbpersonflate.navigate'));
 	};
-
-	useEventListener('visAktivitetsplan', () => changeTab(TabId.AKTIVITETSPLAN));
-	useEventListener('visDialog', event => changeTab(TabId.DIALOG, event));
 
 	return (
 		<div className="tab-menu">
@@ -90,7 +67,7 @@ const TabMenu = () => {
 						label="Finn stillinger"
 						key={TabId.FINN_STILLING_INNGANG}
 						value={TabId.FINN_STILLING_INNGANG}
-						onClick={() => changeTab(TabId.FINN_STILLING_INNGANG)}
+						onClick={() => changeApplication(TabId.FINN_STILLING_INNGANG)}
 					/>
 				</Tabs.List>
 			</Tabs>

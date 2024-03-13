@@ -1,4 +1,5 @@
 import { Env, getEnv } from '../../../util/utils';
+import { useEffect } from 'react';
 
 export const DELTAKERREGISTRERING_ENTRY = 'src/webComponentWrapper.tsx';
 
@@ -32,12 +33,15 @@ const fetchManifest = async (): Promise<DeltakerRegistreringAssetManifest> => {
 };
 
 export function useLoadDeltakerRegistreringApp() {
-	return fetchManifest()
-		.then(manifest => {
-			const entry = manifest[DELTAKERREGISTRERING_ENTRY].file;
-			return import(/* @vite-ignore */ `${deltakerRegistreringOrigin}/${entry}`);
-		})
-		.catch(error => {
-			throw new Error(`Failed to load DeltakerRegistrering: ${error}`);
-		});
+	useEffect(() => {
+		fetchManifest()
+			.then(manifest => {
+				const entry = manifest[DELTAKERREGISTRERING_ENTRY].file;
+				return import(/* @vite-ignore */ `${deltakerRegistreringOrigin}/${entry}`);
+			})
+			.catch(error => {
+				throw new Error(`Failed to load DeltakerRegistrering: ${error}`);
+			});
+
+	}, []);
 }

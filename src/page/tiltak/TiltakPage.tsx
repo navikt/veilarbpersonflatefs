@@ -1,9 +1,10 @@
 import { useLoadDeltakerRegistreringApp } from './hooks/useLoadDeltakerRegistreringApp';
 import { useModiaContext } from '../../store/modia-context-store';
-import { createElement, Suspense } from 'react';
+import { createElement } from 'react';
 import { Alert } from '@navikt/ds-react';
 
 const TiltakPage = () => {
+
 	useLoadDeltakerRegistreringApp();
 
 	const searchParams = new URLSearchParams(window.location.search);
@@ -20,13 +21,11 @@ const TiltakPage = () => {
 	}
 
 	return (
-		<Suspense fallback="Laster...">
-			{createElement('arbeidsmarkedstiltak-deltaker', {
-				'data-personident': aktivBrukerFnr,
-				'data-deltakerlisteId': tiltaksgjennomforingId,
-				'data-enhetId': aktivEnhetId
-			})}
-		</Suspense>
+		createElement('arbeidsmarkedstiltak-deltaker', {
+			'data-personident': aktivBrukerFnr,
+			'data-deltakerlisteId': tiltaksgjennomforingId,
+			'data-enhetId': aktivEnhetId
+		})
 	);
 };
 
