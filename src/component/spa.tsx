@@ -93,18 +93,16 @@ const aktivitetsplanCdnUrl =
 	getEnv() === Env.Prod
 		? `${dabCdnUrl}/aktivitetsplan-prod-intern/build`
 		: `${dabCdnUrl}/aktivitetsplan-dev-intern/build`;
-const aktivitetsplanManifestParser: AssetManifestParser = manifest => {
-	const { file } = manifest['index.html'];
-	const entry = { type: 'module', path: `${aktivitetsplanCdnUrl}/${file}` };
-	return [entry];
-};
+interface Manifest {
+	'index.html': { file: string };
+}
 export const Aktivitetsplan: React.ComponentType<SpaProps> = props => {
 	useEffect(() => {
-		loadAssets({
-			appName: SpaName.AKTIVITETSPLAN,
-			appBaseUrl: aktivitetsplanCdnUrl,
-			assetManifestParser: aktivitetsplanManifestParser
-		});
+		fetch(`${aktivitetsplanCdnUrl}/asset-manifest.json`)
+			.then(res => res.json())
+			.then((manifest: Manifest) => {
+				import(/* @vite-ignore */ `${aktivitetsplanCdnUrl}/${manifest['index.html'].file}`);
+			});
 	}, []);
 	return React.createElement('dab-aktivitetsplan', { ['data-fnr']: props.fnr });
 };
