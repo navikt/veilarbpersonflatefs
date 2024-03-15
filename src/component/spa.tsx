@@ -1,6 +1,6 @@
 import NAVSPA, { AsyncNavspa, AsyncSpaConfig } from '@navikt/navspa';
 import React, { useEffect, useState } from 'react';
-import { utledCdnUrl, utledSpaUrl } from '../util/url-utils';
+import { erITestMiljo, utledCdnUrl, utledSpaUrl } from '../util/url-utils';
 import { DecoratorConfig } from './internflate-decorator/internflate-decorator-config';
 import Spinner from './spinner/spinner';
 import { AssetManifestParser, loadAssets } from '@navikt/navspa/dist/async/async-navspa';
@@ -129,7 +129,12 @@ export const Dialog: React.ComponentType<SpaProps> = props => {
 	return React.createElement('dab-dialog', { ['data-fnr']: props.fnr });
 };
 
-const arbeidsmarkedstiltakBaseUrl = utledCdnUrl('mulighetsrommet/arbeidsmarkedstiltak-modia/dist');
+function utledArbeidsmarkedstiltakCdnUrl(contextPath: string): string {
+	const base = 'https://cdn.nav.no/team-mulighetsrommet';
+	return erITestMiljo() ? `${base}/dev/${contextPath}` : `${base}/prod/${contextPath}`;
+}
+
+const arbeidsmarkedstiltakBaseUrl = utledArbeidsmarkedstiltakCdnUrl('arbeidsmarkedstiltak-modia/dist');
 const arbeidsmarkedstiltakManifestParser: AssetManifestParser = manifest => {
 	const { file } = manifest['index.html'];
 	const entry = { type: 'module', path: `${arbeidsmarkedstiltakBaseUrl}/${file}` };

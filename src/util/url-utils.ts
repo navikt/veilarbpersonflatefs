@@ -10,17 +10,13 @@ export const hasQueryParam = (parameterName: string): boolean => {
 
 const DEV_DOMAINS = ['dev', 'app-q1', 'app-q0', 'localhost'];
 
-const erITestMiljo = (): boolean => {
+export const erITestMiljo = (): boolean => {
 	return window.location.hostname.split('.').findIndex(domain => DEV_DOMAINS.includes(domain)) >= 0;
 };
 
 export const utledSpaUrl = (appName: string): string => {
 	return erITestMiljo() ? `https://${appName}.intern.dev.nav.no` : `https://${appName}.intern.nav.no`;
 };
-
-export function utledCdnUrl(contextPath: string): string {
-	return erITestMiljo() ? `https://cdn.dev.nav.no/${contextPath}` : `https://cdn.nav.no/${contextPath}`;
-}
 
 export const loginUrl = () => {
 	if (erMock()) {
