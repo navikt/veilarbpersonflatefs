@@ -6,7 +6,6 @@ import Spinner from './spinner/spinner';
 import { AssetManifestParser, loadAssets } from '@navikt/navspa/dist/async/async-navspa';
 import { Env, getEnv } from '../util/utils';
 import { createAssetManifestParser } from '@navikt/navspa/dist/async/utils';
-import { HStack, Loader, Skeleton, VStack } from '@navikt/ds-react';
 
 export interface SpaProps {
 	enhet?: string;
@@ -111,18 +110,13 @@ const dialogCdnUrl =
 	getEnv() === Env.Prod
 		? `${dabCdnUrl}/arbeidsrettet-dialog-prod-intern/build`
 		: `${dabCdnUrl}/arbeidsrettet-dialog-dev-intern/build`;
-const dialogManifestParser: AssetManifestParser = manifest => {
-	const { file } = manifest['index.html'];
-	const entry = { type: 'module', path: `${dialogCdnUrl}/${file}` };
-	return [entry];
-};
 export const Dialog: React.ComponentType<SpaProps> = props => {
 	useEffect(() => {
-		loadAssets({
-			appName: SpaName.DIALOG,
-			appBaseUrl: dialogCdnUrl,
-			assetManifestParser: dialogManifestParser
-		});
+		fetch(`${aktivitetsplanCdnUrl}/asset-manifest.json`)
+			.then(res => res.json())
+			.then((manifest: Manifest) => {
+				import(/* @vite-ignore */ `${dialogCdnUrl}/${manifest['index.html'].file}`);
+			});
 	}, []);
 	return React.createElement('dab-dialog', { ['data-fnr']: props.fnr });
 };
