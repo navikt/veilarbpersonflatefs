@@ -6,6 +6,7 @@ import Spinner from './spinner/spinner';
 import { AssetManifestParser, loadAssets } from '@navikt/navspa/dist/async/async-navspa';
 import { Env, getEnv } from '../util/utils';
 import { createAssetManifestParser } from '@navikt/navspa/dist/async/utils';
+import { HStack, Skeleton, VStack } from '@navikt/ds-react';
 
 export interface SpaProps {
 	enhet?: string;
