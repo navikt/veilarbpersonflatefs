@@ -112,7 +112,7 @@ const dialogCdnUrl =
 		: `${dabCdnUrl}/arbeidsrettet-dialog-dev-intern/build`;
 export const Dialog: React.ComponentType<SpaProps> = props => {
 	useEffect(() => {
-		fetch(`${aktivitetsplanCdnUrl}/asset-manifest.json`)
+		fetch(`${dialogCdnUrl}/asset-manifest.json`)
 			.then(res => res.json())
 			.then((manifest: Manifest) => {
 				import(/* @vite-ignore */ `${dialogCdnUrl}/${manifest['index.html'].file}`);
