@@ -19,7 +19,7 @@ export const utledSpaUrl = (appName: string): string => {
 };
 
 export function utledCdnUrl(contextPath: string): string {
-	return erITestMiljo() ? `https://cdn.dev.nav.no/${contextPath}` : `https://cdn.nav.no/${contextPath}`;
+	return erITestMiljo() ? `https://cdn.nav.no/dev/${contextPath}` : `https://cdn.nav.no/${contextPath}`;
 }
 
 export const loginUrl = () => {

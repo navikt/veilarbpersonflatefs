@@ -129,7 +129,7 @@ export const Dialog: React.ComponentType<SpaProps> = props => {
 	return React.createElement('dab-dialog', { ['data-fnr']: props.fnr });
 };
 
-const arbeidsmarkedstiltakBaseUrl = utledCdnUrl('mulighetsrommet/arbeidsmarkedstiltak-modia/dist');
+const arbeidsmarkedstiltakBaseUrl = utledCdnUrl('team-mulighetsrommet/arbeidsmarkedstiltak-modia/dist');
 const arbeidsmarkedstiltakManifestParser: AssetManifestParser = manifest => {
 	const { file } = manifest['index.html'];
 	const entry = { type: 'module', path: `${arbeidsmarkedstiltakBaseUrl}/${file}` };
