@@ -6,7 +6,7 @@ import { TabId, tabIdToAppId } from './data/tab-id';
 import { logEvent } from './util/frontend-logger';
 import { logValgtFane } from './amplitude/amplitude';
 
-export const NAVIGATE_EVENT = 'veilarbpersonflate.navigate'
+export const NAVIGATE_EVENT = 'veilarbpersonflate.navigate';
 
 export const Router = () => {
 	const { setCurrentAppId } = useAppContext();
@@ -17,6 +17,7 @@ export const Router = () => {
 		const newApp = applications.find((it) => path.startsWith(it.pathEntrypoint));
 
 		if (newApp === undefined) {
+			console.log(path + ' No app found, using ' + defaultApplication.id);
 			setCurrentAppId(defaultApplication.id);
 			setApplication(defaultApplication);
 		}
@@ -24,6 +25,7 @@ export const Router = () => {
 		if (application === newApp) return;
 
 		if (newApp) {
+			console.log(path + ' Changing app to ' + newApp.id);
 			setCurrentAppId(newApp.id);
 			setApplication(newApp);
 		}
