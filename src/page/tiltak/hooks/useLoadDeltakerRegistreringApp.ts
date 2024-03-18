@@ -14,7 +14,7 @@ const deltakerRegistreringOrigin = () => {
 	}
 };
 
-const deltakerregistreringKometManifestUrl = `${deltakerRegistreringOrigin}/asset-manifest.json`;
+const deltakerregistreringKometManifestUrl = `${deltakerRegistreringOrigin()}/asset-manifest.json`;
 
 interface DeltakerRegistreringAssetManifest {
 	'src/webComponentWrapper.tsx': {
