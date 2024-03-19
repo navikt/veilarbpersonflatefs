@@ -1,5 +1,6 @@
 import { createContext, useContext, useMemo, useState } from 'react';
 import { AppId } from './data/tab-id';
+import { appFromPath } from './Router';
 
 export interface AppContextProps {
   currentAppId: AppId,
@@ -19,7 +20,7 @@ const useAppContext = () => {
 };
 
 const AppContextProvider = ({ children }: { children: React.ReactNode }) => {
-  const [currentAppId, setCurrentAppId] = useState<AppId>(AppId.AKTIVITETSPLAN);
+  const [currentAppId, setCurrentAppId] = useState<AppId>(appFromPath(window.location.pathname).id);
 
   const contextValue: AppContextProps = useMemo(() => {
     return {

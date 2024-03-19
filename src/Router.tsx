@@ -5,7 +5,7 @@ import { AppId } from './data/tab-id';
 
 export const NAVIGATE_EVENT = 'veilarbpersonflate.navigate';
 
-const appFromPath = (path: string): Application => {
+export const appFromPath = (path: string): Application => {
 	return applications.find(it => path.startsWith(it.pathEntrypoint)) || defaultApplication;
 };
 
