@@ -37,7 +37,7 @@ export function useLoadDeltakerRegistreringApp() {
 		fetchManifest()
 			.then(manifest => {
 				const entry = manifest[DELTAKERREGISTRERING_ENTRY].file;
-				return import(/* @vite-ignore */ `${deltakerRegistreringOrigin}/${entry}`);
+				return import(/* @vite-ignore */ `${deltakerRegistreringOrigin()}/${entry}`);
 			})
 			.catch(error => {
 				throw new Error(`Failed to load DeltakerRegistrering: ${error}`);
