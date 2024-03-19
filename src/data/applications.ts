@@ -4,7 +4,7 @@ import DialogPage from '../page/DialogPage';
 import OverblikkPage from '../page/OverblikkPage';
 import OppfolgingsvedtakPage from '../page/OppfolgingsvedtakPage';
 import ArbeidsmarkedstiltakPage from '../page/ArbeidsmarkedstiltakPage';
-import TiltakPage from '../page/tiltak/TiltakPage';
+import DeltakelsePage from '../page/tiltak/DeltakelsePage';
 import FinnStillingerPage from '../page/FinnStillingerPage';
 import { AppId, TabId } from './tab-id';
 
@@ -43,16 +43,16 @@ export const applications: Application[] = [
 		component: OppfolgingsvedtakPage
 	},
 	{
+		id: AppId.DELTAKELSE,
+		pathEntrypoint: '/arbeidsmarkedstiltak/deltakelse',
+		tabId: TabId.ARBEIDSMARKEDSTILTAK,
+		component: DeltakelsePage
+	},
+	{
 		id: AppId.ARBEIDSMARKEDSTILTAK,
 		pathEntrypoint: '/arbeidsmarkedstiltak',
 		tabId: TabId.ARBEIDSMARKEDSTILTAK,
 		component: ArbeidsmarkedstiltakPage
-	},
-	{
-		id: AppId.TILTAK,
-		pathEntrypoint: '/tiltak',
-		tabId: TabId.ARBEIDSMARKEDSTILTAK,
-		component: TiltakPage
 	},
 	{
 		id: AppId.FINN_STILLING_INNGANG,
