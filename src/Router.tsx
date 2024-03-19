@@ -1,63 +1,27 @@
-import { useEffect, useState } from 'react';
 import { useEventListener } from './util/utils';
 import { Application, applications, defaultApplication } from './data/applications';
 import { useAppContext } from './AppContext';
-import { TabId, tabIdToAppId } from './data/tab-id';
-import { logEvent } from './util/frontend-logger';
-import { logValgtFane } from './amplitude/amplitude';
+import { AppId } from './data/tab-id';
 
 export const NAVIGATE_EVENT = 'veilarbpersonflate.navigate';
 
-export const Router = () => {
-	const { setCurrentAppId } = useAppContext();
+const appFromPath = (path: string): Application => {
+	return applications.find(it => path.startsWith(it.pathEntrypoint)) || defaultApplication;
+};
 
-	const [application, setApplication] = useState<undefined | Application>(undefined);
+export const Router = () => {
+	const { setCurrentAppId, currentAppId } = useAppContext();
 
 	const changeApplication = (path: string) => {
-		const newApp = applications.find((it) => path.startsWith(it.pathEntrypoint));
-
-		if (newApp === undefined) {
-			console.log(path + ' No app found, using ' + defaultApplication.id);
-			setCurrentAppId(defaultApplication.id);
-			setApplication(defaultApplication);
-		}
-
-		if (application === newApp) return;
-
-		if (newApp) {
-			console.log(path + ' Changing app to ' + newApp.id);
-			setCurrentAppId(newApp.id);
-			setApplication(newApp);
-		}
+		const newApp = appFromPath(path);
+		if (currentAppId === newApp.id) return;
+		setCurrentAppId(newApp.id);
 	};
 
-	const changeTab = (newTabId: TabId, extraDetails?: Event) => {
+	useEventListener(NAVIGATE_EVENT, () => changeApplication(window.location.pathname));
+	useEventListener('visAktivitetsplan', () => setCurrentAppId(AppId.AKTIVITETSPLAN));
+	useEventListener('visDialog', event => setCurrentAppId(AppId.DIALOG));
 
-		setCurrentAppId(tabIdToAppId[newTabId]);
-		logEvent('veilarbpersonflatefs.valgt-fane', { tabId: newTabId });
-		logValgtFane(newTabId);
-
-		const extra = !!extraDetails ? (extraDetails as CustomEvent).detail : {};
-		window.dispatchEvent(new CustomEvent('veilarbpersonflatefs.tab-clicked', { detail: { tabId: newTabId, ...extra } }));
-	};
-
-
-	useEffect(() => {
-		changeApplication(window.location.pathname);
-	}, []);
-
-	useEventListener(NAVIGATE_EVENT, () => {
-		changeApplication(window.location.pathname);
-	});
-
-	useEventListener('visAktivitetsplan', () => changeTab(TabId.AKTIVITETSPLAN));
-	useEventListener('visDialog', event => changeTab(TabId.DIALOG, event));
-
-	return (
-		<div>
-			{application && <application.component />}
-		</div>
-	);
-
-
+	const application = applications.find(app => app.id === currentAppId) || defaultApplication;
+	return <application.component />;
 };

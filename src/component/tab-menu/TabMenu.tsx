@@ -4,11 +4,11 @@ import { UlesteDialoger } from '../tab-menu/dialog-tab/UlesteDialoger';
 import { useModiaContext } from '../../store/modia-context-store';
 import { appIdToTabId, TabId } from '../../data/tab-id';
 import { applications } from '../../data/applications';
-import { NAVIGATE_EVENT } from '../../Router';
+import { logEvent } from '../../util/frontend-logger';
+import { logValgtFane } from '../../amplitude/amplitude';
 
 const TabMenu = () => {
-
-	const { currentAppId } = useAppContext();
+	const { currentAppId, setCurrentAppId } = useAppContext();
 	const { aktivEnhetId } = useModiaContext();
 
 	// Et lite unntak mens Team Valp venter på PVO
@@ -18,11 +18,16 @@ const TabMenu = () => {
 	};
 
 	const changeApplication = (newTabId: TabId) => {
-		const application = applications.find((it) => it.tabId === newTabId);
+		const application = applications.find(it => it.tabId === newTabId);
 		if (!application) throw Error('Det finnes ikke en side for ' + newTabId);
+		if (application.id === currentAppId) return;
+
+		logEvent('veilarbpersonflatefs.valgt-fane', { tabId: newTabId });
+		logValgtFane(newTabId);
+		window.dispatchEvent(new CustomEvent('veilarbpersonflatefs.tab-clicked', { detail: { tabId: newTabId } }));
 
 		window.history.pushState(null, '', application.pathEntrypoint);
-		window.dispatchEvent(new PopStateEvent(NAVIGATE_EVENT));
+		setCurrentAppId(application.id);
 	};
 
 	return (
