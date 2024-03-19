@@ -1,10 +1,15 @@
 import React, { useEffect } from 'react';
 import { AssetManifestParser, loadAssets } from '@navikt/navspa/dist/async/async-navspa';
 import { SpaName } from '../component/spa';
-import { utledCdnUrl } from '../util/url-utils';
+import { erITestMiljo } from '../util/url-utils';
 import { useModiaContext } from '../store/modia-context-store';
 
-const arbeidsmarkedstiltakBaseUrl = utledCdnUrl('mulighetsrommet/arbeidsmarkedstiltak-modia/dist');
+function utledArbeidsmarkedstiltakCdnUrl(contextPath: string): string {
+  const base = 'https://cdn.nav.no/team-mulighetsrommet';
+  return erITestMiljo() ? `${base}/dev/${contextPath}` : `${base}/prod/${contextPath}`;
+}
+
+const arbeidsmarkedstiltakBaseUrl = utledArbeidsmarkedstiltakCdnUrl('arbeidsmarkedstiltak-modia/dist');
 
 const arbeidsmarkedstiltakManifestParser: AssetManifestParser = manifest => {
   const { file } = manifest['index.html'];
