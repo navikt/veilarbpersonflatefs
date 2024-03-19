@@ -2,7 +2,7 @@ import { Tabs } from '@navikt/ds-react';
 import { useAppContext } from '../../AppContext';
 import { UlesteDialoger } from '../tab-menu/dialog-tab/UlesteDialoger';
 import { useModiaContext } from '../../store/modia-context-store';
-import { appIdToTabId, TabId } from '../../data/tab-id';
+import { AppId, appIdToTabId, TabId } from '../../data/tab-id';
 import { applications } from '../../data/applications';
 import { logEvent } from '../../util/frontend-logger';
 import { logValgtFane } from '../../amplitude/amplitude';
@@ -18,7 +18,12 @@ const TabMenu = () => {
 	};
 
 	const changeApplication = (newTabId: TabId) => {
-		const application = applications.find(it => it.tabId === newTabId);
+
+		const application = (newTabId === TabId.ARBEIDSMARKEDSTILTAK
+			? applications.find(it => it.id === AppId.ARBEIDSMARKEDSTILTAK)
+			: applications.find(it => it.tabId === newTabId)
+		);
+
 		if (!application) throw Error('Det finnes ikke en side for ' + newTabId);
 		if (application.id === currentAppId) return;
 
