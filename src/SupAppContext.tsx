@@ -7,10 +7,10 @@ export interface AppContextProps {
   setCurrentAppId: React.Dispatch<React.SetStateAction<AppId>>
 }
 
-const AppContext = createContext<AppContextProps | undefined>(undefined);
+const SupAppContext = createContext<AppContextProps | undefined>(undefined);
 
 const useAppContext = () => {
-  const context = useContext(AppContext);
+  const context = useContext(SupAppContext);
 
   if (!context) {
     throw new Error('useAppContext must be used within an AppContextProvider');
@@ -29,7 +29,7 @@ const AppContextProvider = ({ children }: { children: React.ReactNode }) => {
     };
   }, [currentAppId]);
 
-  return <AppContext.Provider value={contextValue}>{children}</AppContext.Provider>;
+  return <SupAppContext.Provider value={contextValue}>{children}</SupAppContext.Provider>;
 };
 
-export { AppContext, useAppContext, AppContextProvider };
+export { SupAppContext, useAppContext, AppContextProvider };

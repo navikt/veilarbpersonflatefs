@@ -1,21 +1,20 @@
 import { Tabs } from '@navikt/ds-react';
-import { useAppContext } from '../../AppContext';
-import { UlesteDialoger } from '../tab-menu/dialog-tab/UlesteDialoger';
+import { useAppContext } from '../../SupAppContext';
+import { UlesteDialoger } from './dialog-tab/UlesteDialoger';
 import { useModiaContext } from '../../store/modia-context-store';
 import { AppId, appIdToTabId, TabId } from '../../data/tab-id';
 import { applications } from '../../data/applications';
 import { logEvent } from '../../util/frontend-logger';
 import { logValgtFane } from '../../amplitude/amplitude';
 
+const vikafossenIkkeErValgtSomEnhet = (aktivEnhetId: string | null) => {
+	const vikafossen = '2103';
+	return aktivEnhetId && aktivEnhetId !== vikafossen;
+};
+
 const TabMenu = () => {
 	const { currentAppId, setCurrentAppId } = useAppContext();
 	const { aktivEnhetId } = useModiaContext();
-
-	// Et lite unntak mens Team Valp venter på PVO
-	const vikafossenIkkeErValgtSomEnhet = () => {
-		const vikafossen = '2103';
-		return aktivEnhetId && aktivEnhetId !== vikafossen;
-	};
 
 	const changeApplication = (newTabId: TabId) => {
 
@@ -65,7 +64,7 @@ const TabMenu = () => {
 						onClick={() => changeApplication(TabId.VEDTAKSSTOTTE)}
 					/>
 
-					{vikafossenIkkeErValgtSomEnhet() && (
+					{vikafossenIkkeErValgtSomEnhet(aktivEnhetId) && (
 						<Tabs.Tab
 							label="Arbeidsmarkedstiltak"
 							key={TabId.ARBEIDSMARKEDSTILTAK}

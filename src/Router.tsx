@@ -1,6 +1,6 @@
 import { useEventListener } from './util/utils';
 import { Application, applications, defaultApplication } from './data/applications';
-import { useAppContext } from './AppContext';
+import { useAppContext } from './SupAppContext';
 import { AppId } from './data/tab-id';
 
 export const NAVIGATE_EVENT = 'veilarbpersonflate.navigate';
