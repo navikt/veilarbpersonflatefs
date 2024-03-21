@@ -19,10 +19,10 @@ export function useAxios<T = any>(config: AxiosRequestConfig | string, options?:
 	return useMemo(() => ({ data, loading, error, fetch: refetch }), [data, loading, error, refetch]);
 }
 
-export function isAnyLoading(...axiosResponseValues: Array<UseAxiosResponseValue<any>>): boolean {
+export function isAnyLoading(...axiosResponseValues: UseAxiosResponseValue<any>[]): boolean {
 	return axiosResponseValues.some(responseValue => responseValue.loading);
 }
 
-export function hasAnyFailed(...axiosResponseValues: Array<UseAxiosResponseValue<any>>): boolean {
+export function hasAnyFailed(...axiosResponseValues: UseAxiosResponseValue<any>[]): boolean {
 	return axiosResponseValues.some(responseValue => responseValue.error);
 }

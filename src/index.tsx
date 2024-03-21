@@ -1,6 +1,5 @@
 import '@navikt/ds-css';
 
-import { App } from './app';
 import './index.less';
 
 import { AsyncNavspa } from '@navikt/navspa';
@@ -8,6 +7,7 @@ import { vedtaksstotteAsyncConfig, visittkortAsyncConfig } from './component/spa
 import { erMock } from './util/utils';
 import { createRoot } from 'react-dom/client';
 import { initAmplitude } from './amplitude/amplitude';
+import App from './App';
 
 const lastInnSubApper = () => {
 	AsyncNavspa.preload(visittkortAsyncConfig);

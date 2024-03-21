@@ -1,5 +1,5 @@
-import {useModiaContext} from "../../../store/modia-context-store";
-import useUlesteDialoger from "./useAntalUlesteDialoger";
+import { useModiaContext } from '../../../store/modia-context-store';
+import useUlesteDialoger from './useAntallUlesteDialoger';
 import './uleste-dialoger.less';
 
 export const UlesteDialoger = () => {

@@ -2,10 +2,12 @@ import StoreProvider from './store/store-provider';
 import { PersonflatePage } from './page/personflate';
 import './sentry';
 
-export const App = () => {
+const App = () => {
 	return (
 		<StoreProvider>
-			<PersonflatePage />
+				<PersonflatePage />
 		</StoreProvider>
 	);
 };
+
+export default App;

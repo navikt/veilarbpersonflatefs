@@ -80,7 +80,7 @@ const authenticate = (socket: WebSocket, ticket: string) => {
 };
 
 const getTicketAndAuthenticate = async (body: SubscriptionPayload) => {
-	let ticket = await getTicket(body);
+	const ticket = await getTicket(body);
 	if (!socketSingleton) return;
 	authenticate(socketSingleton, ticket);
 };

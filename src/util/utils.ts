@@ -12,14 +12,10 @@ export enum Env {
 
 export const getEnv = (): string => {
 	const { hostname } = window.location;
-	if (hostname.includes('dev.intern.nav.no')) return Env.Dev;
+	if (hostname.includes('intern.dev.nav.no')) return Env.Dev;
 	if (hostname.includes('intern.nav.no')) return Env.Prod;
 	return Env.Local;
 };
-
-export function hasStored(tagName: string) {
-	return window.localStorage.getItem(tagName) !== null;
-}
 
 export function useEventListener(name: string, listener: (event: Event) => void) {
 	const callback = useCallback(listener, []);
