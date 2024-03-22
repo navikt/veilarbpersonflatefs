@@ -12,6 +12,11 @@ const vikafossenIkkeErValgtSomEnhet = (aktivEnhetId: string | null) => {
 	return aktivEnhetId && aktivEnhetId !== vikafossen;
 };
 
+function dispatchNavigateEvent(path: string) {
+	window.history.pushState(null, '', path);
+	window.dispatchEvent(new CustomEvent('veilarbpersonflate.navigate'))
+}
+
 const TabMenu = () => {
 	const { currentAppId } = useAppContext();
 	const { aktivEnhetId } = useModiaContext();
@@ -26,8 +31,7 @@ const TabMenu = () => {
 		logValgtFane(application.tabId);
 		window.dispatchEvent(new CustomEvent('veilarbpersonflatefs.tab-clicked', { detail: { tabId: application.tabId } }));
 
-		window.history.pushState(null, '', application.pathEntrypoint);
-		window.dispatchEvent(new CustomEvent('veilarbpersonflate.navigate'))
+		dispatchNavigateEvent(application.pathEntrypoint)
 	};
 
 	return (
