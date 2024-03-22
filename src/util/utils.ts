@@ -1,4 +1,4 @@
-import { useCallback, useEffect } from 'react';
+import { useEffect } from 'react';
 
 export function erMock() {
 	return import.meta.env.MODE === 'development';
@@ -18,10 +18,8 @@ export const getEnv = (): string => {
 };
 
 export function useEventListener(name: string, listener: (event: Event) => void) {
-	const callback = useCallback(listener, []);
-
 	useEffect(() => {
-		window.addEventListener(name, callback);
-		return () => window.removeEventListener(name, callback);
-	}, [callback, name]);
+		window.addEventListener(name, listener);
+		return () => window.removeEventListener(name, listener);
+	}, [listener, name]);
 }

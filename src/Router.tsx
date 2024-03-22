@@ -2,6 +2,7 @@ import { useEventListener } from './util/utils';
 import { Application, applications, defaultApplication } from './data/applications';
 import { useAppContext } from './SupAppContext';
 import { AppId } from './data/tab-id';
+import { useCallback } from 'react';
 
 export const NAVIGATE_EVENT = 'veilarbpersonflate.navigate';
 
@@ -12,15 +13,18 @@ export const appFromPath = (path: string): Application => {
 export const Router = () => {
 	const { setCurrentAppId, currentAppId } = useAppContext();
 
-	const changeApplication = (path: string) => {
-		const newApp = appFromPath(path);
+	const changeApplication = () => {
+		const newApp = appFromPath(window.location.pathname);
 		if (currentAppId === newApp.id) return;
 		setCurrentAppId(newApp.id);
 	};
 
-	useEventListener(NAVIGATE_EVENT, () => changeApplication(window.location.pathname));
-	useEventListener('visAktivitetsplan', () => setCurrentAppId(AppId.AKTIVITETSPLAN));
-	useEventListener('visDialog', event => setCurrentAppId(AppId.DIALOG));
+	const visAktivitetsplan = useCallback(() => setCurrentAppId(AppId.AKTIVITETSPLAN), [])
+	const visDialog = useCallback(() => setCurrentAppId(AppId.DIALOG), [])
+
+	useEventListener(NAVIGATE_EVENT, changeApplication);
+	useEventListener('visAktivitetsplan', visAktivitetsplan);
+	useEventListener('visDialog', visDialog);
 
 	const application = applications.find(app => app.id === currentAppId) || defaultApplication;
 	return <application.component />;

@@ -5,7 +5,7 @@ import { useModiaContext } from '../../store/modia-context-store';
 import { AppId, appIdToTabId, TabId } from '../../data/tab-id';
 import { applications } from '../../data/applications';
 import { logEvent } from '../../util/frontend-logger';
-import { logValgtFane } from '../../amplitude/amplitude';
+import { logAmplitudeEvent } from '../../amplitude/amplitude';
 
 const vikafossenIkkeErValgtSomEnhet = (aktivEnhetId: string | null) => {
 	const vikafossen = '2103';
@@ -13,25 +13,19 @@ const vikafossenIkkeErValgtSomEnhet = (aktivEnhetId: string | null) => {
 };
 
 const TabMenu = () => {
-	const { currentAppId, setCurrentAppId } = useAppContext();
+	const { currentAppId } = useAppContext();
 	const { aktivEnhetId } = useModiaContext();
 
-	const changeApplication = (newTabId: TabId) => {
+	const changeApplication = (appId: AppId) => {
+		const application = applications.find(app => app.id === appId);
 
-		const application = (newTabId === TabId.ARBEIDSMARKEDSTILTAK
-			? applications.find(it => it.id === AppId.ARBEIDSMARKEDSTILTAK)
-			: applications.find(it => it.tabId === newTabId)
-		);
+		if (!application) throw Error('Det finnes ikke en side for ' + appId);
 
-		if (!application) throw Error('Det finnes ikke en side for ' + newTabId);
 		if (application.id === currentAppId) return;
 
-		logEvent('veilarbpersonflatefs.valgt-fane', { tabId: newTabId });
-		logValgtFane(newTabId);
-		window.dispatchEvent(new CustomEvent('veilarbpersonflatefs.tab-clicked', { detail: { tabId: newTabId } }));
+		dispatchTabClickedEvent(application.tabId);
 
-		window.history.pushState(null, '', application.pathEntrypoint);
-		setCurrentAppId(application.id);
+		dispatchNavigateEvent(application.pathEntrypoint);
 	};
 
 	return (
@@ -42,26 +36,26 @@ const TabMenu = () => {
 						label="Aktivitetsplan"
 						key={TabId.AKTIVITETSPLAN}
 						value={TabId.AKTIVITETSPLAN}
-						onClick={() => changeApplication(TabId.AKTIVITETSPLAN)}
+						onClick={() => changeApplication(AppId.AKTIVITETSPLAN)}
 					/>
 					<Tabs.Tab
 						label="Dialog"
 						key={TabId.DIALOG}
 						value={TabId.DIALOG}
-						onClick={() => changeApplication(TabId.DIALOG)}
+						onClick={() => changeApplication(AppId.DIALOG)}
 						icon={<UlesteDialoger />}
 					/>
 					<Tabs.Tab
 						label="Overblikk"
 						key={TabId.OVERBLIKK}
 						value={TabId.OVERBLIKK}
-						onClick={() => changeApplication(TabId.OVERBLIKK)}
+						onClick={() => changeApplication(AppId.OVERBLIKK)}
 					/>
 					<Tabs.Tab
 						label="Oppfølgingsvedtak"
 						key={TabId.VEDTAKSSTOTTE}
 						value={TabId.VEDTAKSSTOTTE}
-						onClick={() => changeApplication(TabId.VEDTAKSSTOTTE)}
+						onClick={() => changeApplication(AppId.VEDTAKSSTOTTE)}
 					/>
 
 					{vikafossenIkkeErValgtSomEnhet(aktivEnhetId) && (
@@ -69,7 +63,7 @@ const TabMenu = () => {
 							label="Arbeidsmarkedstiltak"
 							key={TabId.ARBEIDSMARKEDSTILTAK}
 							value={TabId.ARBEIDSMARKEDSTILTAK}
-							onClick={() => changeApplication(TabId.ARBEIDSMARKEDSTILTAK)}
+							onClick={() => changeApplication(AppId.ARBEIDSMARKEDSTILTAK)}
 						/>
 					)}
 
@@ -77,12 +71,23 @@ const TabMenu = () => {
 						label="Finn stillinger"
 						key={TabId.FINN_STILLING_INNGANG}
 						value={TabId.FINN_STILLING_INNGANG}
-						onClick={() => changeApplication(TabId.FINN_STILLING_INNGANG)}
+						onClick={() => changeApplication(AppId.FINN_STILLING_INNGANG)}
 					/>
 				</Tabs.List>
 			</Tabs>
 		</div>
 	);
 };
+
+function dispatchTabClickedEvent(tabId: TabId) {
+	logEvent('veilarbpersonflatefs.valgt-fane', { tabId });
+	logAmplitudeEvent('tab åpnet', { tabId });
+	window.dispatchEvent(new CustomEvent('veilarbpersonflatefs.tab-clicked', { detail: { tabId } }));
+}
+
+function dispatchNavigateEvent(path: string) {
+	window.history.pushState(null, '', path);
+	window.dispatchEvent(new CustomEvent('veilarbpersonflate.navigate'));
+}
 
 export default TabMenu;
