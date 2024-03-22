@@ -5,17 +5,12 @@ import { useModiaContext } from '../../store/modia-context-store';
 import { AppId, appIdToTabId, TabId } from '../../data/tab-id';
 import { applications } from '../../data/applications';
 import { logEvent } from '../../util/frontend-logger';
-import { logValgtFane } from '../../amplitude/amplitude';
+import { logAmplitudeEvent } from '../../amplitude/amplitude';
 
 const vikafossenIkkeErValgtSomEnhet = (aktivEnhetId: string | null) => {
 	const vikafossen = '2103';
 	return aktivEnhetId && aktivEnhetId !== vikafossen;
 };
-
-function dispatchNavigateEvent(path: string) {
-	window.history.pushState(null, '', path);
-	window.dispatchEvent(new CustomEvent('veilarbpersonflate.navigate'))
-}
 
 const TabMenu = () => {
 	const { currentAppId } = useAppContext();
@@ -25,13 +20,12 @@ const TabMenu = () => {
 		const application = applications.find(app => app.id === appId);
 
 		if (!application) throw Error('Det finnes ikke en side for ' + appId);
+
 		if (application.id === currentAppId) return;
 
-		logEvent('veilarbpersonflatefs.valgt-fane', { tabId: application.tabId });
-		logValgtFane(application.tabId);
-		window.dispatchEvent(new CustomEvent('veilarbpersonflatefs.tab-clicked', { detail: { tabId: application.tabId } }));
+		dispatchTabClickedEvent(application.tabId);
 
-		dispatchNavigateEvent(application.pathEntrypoint)
+		dispatchNavigateEvent(application.pathEntrypoint);
 	};
 
 	return (
@@ -84,5 +78,16 @@ const TabMenu = () => {
 		</div>
 	);
 };
+
+function dispatchTabClickedEvent(tabId: TabId) {
+	logEvent('veilarbpersonflatefs.valgt-fane', { tabId });
+	logAmplitudeEvent('tab åpnet', { tabId });
+	window.dispatchEvent(new CustomEvent('veilarbpersonflatefs.tab-clicked', { detail: { tabId } }));
+}
+
+function dispatchNavigateEvent(path: string) {
+	window.history.pushState(null, '', path);
+	window.dispatchEvent(new CustomEvent('veilarbpersonflate.navigate'));
+}
 
 export default TabMenu;

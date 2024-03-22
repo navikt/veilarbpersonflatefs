@@ -1,7 +1,6 @@
 import * as amplitude from '@amplitude/analytics-browser';
 import { track } from '@amplitude/analytics-browser';
 import { Env, getEnv } from '../util/utils';
-import { TabId } from '../data/applications';
 
 export function initAmplitude() {
 	const apiKey = getEnv() === Env.Prod ? '691963e61d2b11465aa96acfcaa8959b' : 'faf28eb5445abfe75c7ac28ae7a8d050';
@@ -41,7 +40,7 @@ function logEventFromApp(params?: {
 	return logAmplitudeEvent(eventName, eventData as Record<string, unknown>, origin);
 }
 
-async function logAmplitudeEvent(
+export async function logAmplitudeEvent(
 	eventName: string,
 	eventData?: Record<string, unknown>,
 	origin = 'veilarbpersonflatefs'
@@ -51,8 +50,4 @@ async function logAmplitudeEvent(
 	} catch (e) {
 		return Promise.reject(`Unexpected Amplitude error: ${e}`);
 	}
-}
-
-export function logValgtFane(tabId: TabId) {
-	return logAmplitudeEvent('tab åpnet', { tabId });
 }
