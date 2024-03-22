@@ -12,13 +12,13 @@ export const appFromPath = (path: string): Application => {
 export const Router = () => {
 	const { setCurrentAppId, currentAppId } = useAppContext();
 
-	const changeApplication = (path: string) => {
-		const newApp = appFromPath(path);
+	const changeApplication = () => {
+		const newApp = appFromPath(window.location.pathname);
 		if (currentAppId === newApp.id) return;
 		setCurrentAppId(newApp.id);
 	};
 
-	useEventListener(NAVIGATE_EVENT, () => changeApplication(window.location.pathname));
+	useEventListener(NAVIGATE_EVENT, () => changeApplication());
 	useEventListener('visAktivitetsplan', () => setCurrentAppId(AppId.AKTIVITETSPLAN));
 	useEventListener('visDialog', event => setCurrentAppId(AppId.DIALOG));
 
