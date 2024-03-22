@@ -1,22 +1,21 @@
 import { useEffect, useState } from 'react';
-import SideInnhold from '../component/side-innhold';
-import {
-	FeilmeldingManglerFnr,
-	FeilUnderLastingAvData,
-	IngenTilgangTilBruker
-} from '../component/alertstriper/alertstriper';
-import PageSpinner from '../component/page-spinner/page-spinner';
-import { InternflateDecorator } from '../component/internflate-decorator/internflate-decorator';
 import {
 	useFetchAktivEnhet,
 	useFetchFeaturesFromOboUnleash,
 	useFetchTilgangTilBruker
 } from '../api/api';
 import { hasAnyFailed, isAnyLoading } from '../api/utils';
-import { OboUnleashFeatures } from '../api/features';
-import { useModiaContext } from '../store/modia-context-store';
+import {
+	FeilUnderLastingAvData,
+	FeilmeldingManglerFnr,
+	IngenTilgangTilBruker
+} from '../component/alertstriper/alertstriper';
+import { InternflateDecorator } from '../component/internflate-decorator/internflate-decorator';
+import PageSpinner from '../component/page-spinner/page-spinner';
+import SideInnhold from '../component/side-innhold';
 import { UtloptSesjonAdvarsel } from '../component/utlopt-sesjon-advarsel/utlopt-sesjon-advarsel';
 import { SesjonStatus, useSesjonStatus } from '../hooks/use-sesjon-status';
+import { useModiaContext } from '../store/modia-context-store';
 
 export const PersonflatePage = () => {
 	const { aktivBrukerFnr, aktivEnhetId, setAktivEnhetId, setAktivBrukerFnr, setRenderKey, renderKey } =
@@ -77,9 +76,7 @@ export const PersonflatePage = () => {
 		innhold = <IngenTilgangTilBruker />;
 	} else {
 		innhold = (
-			<Innhold
-				oboUnleashFeatures={fetchOboUnleashFeatures.data}
-			/>
+			<Innhold />
 		);
 	}
 
@@ -97,14 +94,8 @@ export const PersonflatePage = () => {
 	);
 };
 
-interface AppInnholdProps {
-	oboUnleashFeatures?: OboUnleashFeatures;
-}
-
-const Innhold = ({ oboUnleashFeatures }: AppInnholdProps) => {
+const Innhold = () => {
 	return (
-		<SideInnhold
-			oboUnleashFeatures={oboUnleashFeatures}
-		/>
+		<SideInnhold />
 	);
 };
