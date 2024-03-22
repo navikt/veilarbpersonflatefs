@@ -13,25 +13,21 @@ const vikafossenIkkeErValgtSomEnhet = (aktivEnhetId: string | null) => {
 };
 
 const TabMenu = () => {
-	const { currentAppId, setCurrentAppId } = useAppContext();
+	const { currentAppId } = useAppContext();
 	const { aktivEnhetId } = useModiaContext();
 
-	const changeApplication = (newTabId: TabId) => {
+	const changeApplication = (appId: AppId) => {
+		const application = applications.find(app => app.id === appId);
 
-		const application = (newTabId === TabId.ARBEIDSMARKEDSTILTAK
-			? applications.find(it => it.id === AppId.ARBEIDSMARKEDSTILTAK)
-			: applications.find(it => it.tabId === newTabId)
-		);
-
-		if (!application) throw Error('Det finnes ikke en side for ' + newTabId);
+		if (!application) throw Error('Det finnes ikke en side for ' + appId);
 		if (application.id === currentAppId) return;
 
-		logEvent('veilarbpersonflatefs.valgt-fane', { tabId: newTabId });
-		logValgtFane(newTabId);
-		window.dispatchEvent(new CustomEvent('veilarbpersonflatefs.tab-clicked', { detail: { tabId: newTabId } }));
+		logEvent('veilarbpersonflatefs.valgt-fane', { tabId: application.tabId });
+		logValgtFane(application.tabId);
+		window.dispatchEvent(new CustomEvent('veilarbpersonflatefs.tab-clicked', { detail: { tabId: application.tabId } }));
 
 		window.history.pushState(null, '', application.pathEntrypoint);
-		setCurrentAppId(application.id);
+		window.dispatchEvent(new CustomEvent('veilarbpersonflate.navigate'))
 	};
 
 	return (
@@ -42,26 +38,26 @@ const TabMenu = () => {
 						label="Aktivitetsplan"
 						key={TabId.AKTIVITETSPLAN}
 						value={TabId.AKTIVITETSPLAN}
-						onClick={() => changeApplication(TabId.AKTIVITETSPLAN)}
+						onClick={() => changeApplication(AppId.AKTIVITETSPLAN)}
 					/>
 					<Tabs.Tab
 						label="Dialog"
 						key={TabId.DIALOG}
 						value={TabId.DIALOG}
-						onClick={() => changeApplication(TabId.DIALOG)}
+						onClick={() => changeApplication(AppId.DIALOG)}
 						icon={<UlesteDialoger />}
 					/>
 					<Tabs.Tab
 						label="Overblikk"
 						key={TabId.OVERBLIKK}
 						value={TabId.OVERBLIKK}
-						onClick={() => changeApplication(TabId.OVERBLIKK)}
+						onClick={() => changeApplication(AppId.OVERBLIKK)}
 					/>
 					<Tabs.Tab
 						label="Oppfølgingsvedtak"
 						key={TabId.VEDTAKSSTOTTE}
 						value={TabId.VEDTAKSSTOTTE}
-						onClick={() => changeApplication(TabId.VEDTAKSSTOTTE)}
+						onClick={() => changeApplication(AppId.VEDTAKSSTOTTE)}
 					/>
 
 					{vikafossenIkkeErValgtSomEnhet(aktivEnhetId) && (
@@ -69,7 +65,7 @@ const TabMenu = () => {
 							label="Arbeidsmarkedstiltak"
 							key={TabId.ARBEIDSMARKEDSTILTAK}
 							value={TabId.ARBEIDSMARKEDSTILTAK}
-							onClick={() => changeApplication(TabId.ARBEIDSMARKEDSTILTAK)}
+							onClick={() => changeApplication(AppId.ARBEIDSMARKEDSTILTAK)}
 						/>
 					)}
 
@@ -77,7 +73,7 @@ const TabMenu = () => {
 						label="Finn stillinger"
 						key={TabId.FINN_STILLING_INNGANG}
 						value={TabId.FINN_STILLING_INNGANG}
-						onClick={() => changeApplication(TabId.FINN_STILLING_INNGANG)}
+						onClick={() => changeApplication(AppId.FINN_STILLING_INNGANG)}
 					/>
 				</Tabs.List>
 			</Tabs>
