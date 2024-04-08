@@ -5,23 +5,20 @@ import { utledSpaUrl } from '../util/url-utils';
 import Spinner from '../component/spinner/spinner';
 
 const vedtaksstotteAsyncConfig: AsyncSpaConfig = {
-  appName: SpaName.VEILARBVEDTAKSSTOTTEFS,
-  appBaseUrl: utledSpaUrl(SpaName.VEILARBVEDTAKSSTOTTEFS),
-  loader: <Spinner />,
-  config: {
-    wrapperClassName: 'h-screen'
-  }
+	appName: SpaName.VEILARBVEDTAKSSTOTTEFS,
+	appBaseUrl: utledSpaUrl(SpaName.VEILARBVEDTAKSSTOTTEFS),
+	loader: <Spinner />,
+	config: {
+		wrapperClassName: 'veilarbvedtaksstottefs-wrapper'
+	}
 };
 
 const Vedtaksstotte: React.ComponentType<SpaProps> = AsyncNavspa.importer<SpaProps>(vedtaksstotteAsyncConfig);
 
 const OppfolgingsvedtakPage = () => {
+	const { aktivBrukerFnr, aktivEnhetId } = useModiaContext();
 
-  const { aktivBrukerFnr, aktivEnhetId } = useModiaContext()
-
-  return (
-      <Vedtaksstotte fnr={aktivBrukerFnr} enhet={aktivEnhetId ?? undefined} />
-  );
+	return <Vedtaksstotte fnr={aktivBrukerFnr} enhet={aktivEnhetId ?? undefined} />;
 };
 
 export default OppfolgingsvedtakPage;

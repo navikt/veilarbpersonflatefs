@@ -6,6 +6,7 @@ import { AppId, appIdToTabId, TabId } from '../../data/tab-id';
 import { applications } from '../../data/applications';
 import { logEvent } from '../../util/frontend-logger';
 import { logAmplitudeEvent } from '../../amplitude/amplitude';
+import './tab-menu.less';
 
 const vikafossenIkkeErValgtSomEnhet = (aktivEnhetId: string | null) => {
 	const vikafossen = '2103';
@@ -29,53 +30,51 @@ const TabMenu = () => {
 	};
 
 	return (
-		<div className="tab-menu">
-			<Tabs size="small" className="tab-menu__content" value={appIdToTabId[currentAppId]}>
-				<Tabs.List className="tab-menu__tablist-element">
-					<Tabs.Tab
-						label="Aktivitetsplan"
-						key={TabId.AKTIVITETSPLAN}
-						value={TabId.AKTIVITETSPLAN}
-						onClick={() => changeApplication(AppId.AKTIVITETSPLAN)}
-					/>
-					<Tabs.Tab
-						label="Dialog"
-						key={TabId.DIALOG}
-						value={TabId.DIALOG}
-						onClick={() => changeApplication(AppId.DIALOG)}
-						icon={<UlesteDialoger />}
-					/>
-					<Tabs.Tab
-						label="Overblikk"
-						key={TabId.OVERBLIKK}
-						value={TabId.OVERBLIKK}
-						onClick={() => changeApplication(AppId.OVERBLIKK)}
-					/>
-					<Tabs.Tab
-						label="Oppfølgingsvedtak"
-						key={TabId.VEDTAKSSTOTTE}
-						value={TabId.VEDTAKSSTOTTE}
-						onClick={() => changeApplication(AppId.VEDTAKSSTOTTE)}
-					/>
+		<Tabs size="small" className="tab-menu__content" value={appIdToTabId[currentAppId]}>
+			<Tabs.List className="tab-menu__tablist-element">
+				<Tabs.Tab
+					label="Aktivitetsplan"
+					key={TabId.AKTIVITETSPLAN}
+					value={TabId.AKTIVITETSPLAN}
+					onClick={() => changeApplication(AppId.AKTIVITETSPLAN)}
+				/>
+				<Tabs.Tab
+					label="Dialog"
+					key={TabId.DIALOG}
+					value={TabId.DIALOG}
+					onClick={() => changeApplication(AppId.DIALOG)}
+					icon={<UlesteDialoger />}
+				/>
+				<Tabs.Tab
+					label="Overblikk"
+					key={TabId.OVERBLIKK}
+					value={TabId.OVERBLIKK}
+					onClick={() => changeApplication(AppId.OVERBLIKK)}
+				/>
+				<Tabs.Tab
+					label="Oppfølgingsvedtak"
+					key={TabId.VEDTAKSSTOTTE}
+					value={TabId.VEDTAKSSTOTTE}
+					onClick={() => changeApplication(AppId.VEDTAKSSTOTTE)}
+				/>
 
-					{vikafossenIkkeErValgtSomEnhet(aktivEnhetId) && (
-						<Tabs.Tab
-							label="Arbeidsmarkedstiltak"
-							key={TabId.ARBEIDSMARKEDSTILTAK}
-							value={TabId.ARBEIDSMARKEDSTILTAK}
-							onClick={() => changeApplication(AppId.ARBEIDSMARKEDSTILTAK)}
-						/>
-					)}
-
+				{vikafossenIkkeErValgtSomEnhet(aktivEnhetId) && (
 					<Tabs.Tab
-						label="Finn stillinger"
-						key={TabId.FINN_STILLING_INNGANG}
-						value={TabId.FINN_STILLING_INNGANG}
-						onClick={() => changeApplication(AppId.FINN_STILLING_INNGANG)}
+						label="Arbeidsmarkedstiltak"
+						key={TabId.ARBEIDSMARKEDSTILTAK}
+						value={TabId.ARBEIDSMARKEDSTILTAK}
+						onClick={() => changeApplication(AppId.ARBEIDSMARKEDSTILTAK)}
 					/>
-				</Tabs.List>
-			</Tabs>
-		</div>
+				)}
+
+				<Tabs.Tab
+					label="Finn stillinger"
+					key={TabId.FINN_STILLING_INNGANG}
+					value={TabId.FINN_STILLING_INNGANG}
+					onClick={() => changeApplication(AppId.FINN_STILLING_INNGANG)}
+				/>
+			</Tabs.List>
+		</Tabs>
 	);
 };
 
