@@ -18,7 +18,7 @@ const aktivitetsplanManifestParser: AssetManifestParser = manifest => {
 };
 
 const AktivitetsplanPage = () => {
-  const { aktivBrukerFnr } = useModiaContext();
+  const { aktivBrukerFnr, aktivEnhetId } = useModiaContext();
 
   useEffect(() => {
     loadAssets({
@@ -28,7 +28,7 @@ const AktivitetsplanPage = () => {
     });
   }, []);
 
-  return React.createElement('dab-aktivitetsplan', { ['data-fnr']: aktivBrukerFnr });
+  return React.createElement('dab-aktivitetsplan', { ['data-fnr']: aktivBrukerFnr, ['data-aktivEnhet']: aktivEnhetId });
 };
 
 export default AktivitetsplanPage;
