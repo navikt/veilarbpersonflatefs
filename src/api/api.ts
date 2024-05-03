@@ -48,13 +48,13 @@ export function useFetchAntallUlesteDialoger(
 	options?: Options
 ): UseAxiosResponseValue<AntallUlesteDialoger> {
 	return useAxios<AntallUlesteDialoger>(
-		{ url: `/veilarbdialog/api/dialog/antallUleste?fnr=${fnr}`, method: 'POST', data: fnr ? { fnr } : undefined },
+		{ url: `/veilarbdialog/api/dialog/antallUleste`, method: 'POST', data: fnr ? { fnr } : undefined },
 		options
 	);
 }
 
 export function useFetchSistOppdatert(fnr: string, options?: Options): UseAxiosResponseValue<SistOppdatertData> {
-	return useAxios<SistOppdatertData>(`/veilarbdialog/api/dialog/sistOppdatert`, options);
+	return useAxios<SistOppdatertData>(`/veilarbdialog/api/dialog/sistOppdatert?fnr=${fnr}`, options);
 }
 
 export function useFetchFeaturesFromOboUnleash(): UseAxiosResponseValue<OboUnleashFeatures> {
