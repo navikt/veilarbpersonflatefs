@@ -47,11 +47,17 @@ export function useFetchAntallUlesteDialoger(
 	fnr: string,
 	options?: Options
 ): UseAxiosResponseValue<AntallUlesteDialoger> {
-	return useAxios<AntallUlesteDialoger>(`/veilarbdialog/api/dialog/antallUleste?fnr=${fnr}`, options);
+	return useAxios<AntallUlesteDialoger>(
+		{ url: `/veilarbdialog/api/dialog/antallUleste`, method: 'POST', data: fnr ? { fnr } : undefined },
+		options
+	);
 }
 
 export function useFetchSistOppdatert(fnr: string, options?: Options): UseAxiosResponseValue<SistOppdatertData> {
-	return useAxios<SistOppdatertData>(`/veilarbdialog/api/dialog/sistOppdatert?fnr=${fnr}`, options);
+	return useAxios<SistOppdatertData>(
+		{ method: 'POST', url: `/veilarbdialog/api/dialog/sistOppdatert`, data: { fnr } },
+		options
+	);
 }
 
 export function useFetchFeaturesFromOboUnleash(): UseAxiosResponseValue<OboUnleashFeatures> {
