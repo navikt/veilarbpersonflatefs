@@ -38,6 +38,11 @@ spec:
     sidecar:
       enabled: true
       autoLogin: true
+  observability:
+    logging:
+      destinations:
+        - id: elastic
+        - id: loki
   gcp:
     buckets:
       - name: poao-veilarbpersonflate-prod
