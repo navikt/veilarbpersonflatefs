@@ -42,7 +42,7 @@ export default function useUlesteDialoger(fnr: string): number | undefined {
 	const { data: dabToggles } = useFetchFeaturesFromDabUnleash();
 
 	const pollWithHttp = () => {
-		let interval: NodeJS.Timeout;
+		let interval: number; // yes this is actually the correct type, interval-handle is just a number
 		interval = setInterval(() => fetchSistOppdatert.fetch().catch(() => clearInterval(interval)), 10000);
 		return () => clearInterval(interval);
 	};
