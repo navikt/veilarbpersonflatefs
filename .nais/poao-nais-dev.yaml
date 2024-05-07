@@ -12,6 +12,7 @@ spec:
   port: 8080
   ingresses:
     - https://veilarbpersonflate.intern.dev.nav.no
+    - https://veilarbpersonflate.ansatt.dev.nav.no
   liveness:
     path: /internal/alive
     initialDelay: 10
