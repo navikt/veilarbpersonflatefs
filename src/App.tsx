@@ -1,11 +1,11 @@
 import StoreProvider from './store/store-provider';
 import { PersonflatePage } from './page/personflate';
-import './sentry';
+import './faro';
 
 const App = () => {
 	return (
 		<StoreProvider>
-				<PersonflatePage />
+			<PersonflatePage />
 		</StoreProvider>
 	);
 };
