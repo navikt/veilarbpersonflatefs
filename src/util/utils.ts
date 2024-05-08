@@ -10,7 +10,7 @@ export enum Env {
 	Prod = 'prod'
 }
 
-export const getEnv = (): string => {
+export const getEnv = (): Env => {
 	const { hostname } = window.location;
 	if (hostname.includes('intern.dev.nav.no')) return Env.Dev;
 	if (hostname.includes('intern.nav.no')) return Env.Prod;
