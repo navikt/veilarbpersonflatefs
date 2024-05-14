@@ -27,7 +27,7 @@ export const dialogSpaMockProps: SpaMockProps = {
 };
 export const overblikkSpaMockProps: SpaMockProps = {
 	name: SpaName.OVERBLIKK,
-	tekst: 'oVERBLIKK',
+	tekst: 'Overblikk',
 	className: 'spa-mock__content--overblikk'
 };
 
