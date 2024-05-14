@@ -3,8 +3,8 @@ import { handlers } from './api/handlers';
 import {
 	aktivitetsplanSpaMockProps,
 	arbeidsmarkedstiltakSpaMockProps,
-	detaljerSpaMockProps,
 	dialogSpaMockProps,
+	overblikkSpaMockProps,
 	eksporterSpaMock,
 	internflateDecoratorSpaMockProps,
 	vedtaksstotteSpaMockProps,
@@ -17,9 +17,8 @@ export const worker = setupWorker(...handlers)
 
 eksporterSpaMock(internflateDecoratorSpaMockProps);
 eksporterSpaMock(visittkortSpaMockProps);
-
 eksporterSpaMock(aktivitetsplanSpaMockProps);
 eksporterSpaMock(dialogSpaMockProps);
-eksporterSpaMock(detaljerSpaMockProps);
+eksporterSpaMock(overblikkSpaMockProps);
 eksporterSpaMock(vedtaksstotteSpaMockProps);
 eksporterSpaMock(arbeidsmarkedstiltakSpaMockProps);

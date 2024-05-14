@@ -19,6 +19,7 @@ export enum SpaName {
 	INTERNARBEIDSFLATEFS_DECORATOR = 'internarbeidsflatefs',
 	AKTIVITETSPLAN = 'aktivitetsplan',
 	DIALOG = 'arbeidsrettet-dialog',
+	OVERBLIKK = 'veilarbdetaljerfs',
 	VEILARBVEDTAKSSTOTTEFS = 'veilarbvedtaksstottefs',
 	VEILARBVISITTKORTFS = 'veilarbvisittkortfs',
 	ARBEIDSMARKEDSTILTAK = 'arbeidsmarkedstiltak-modia',
