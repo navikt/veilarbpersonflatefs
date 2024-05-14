@@ -17,7 +17,6 @@ interface VisittKortProps extends SpaProps {
 
 export enum SpaName {
 	INTERNARBEIDSFLATEFS_DECORATOR = 'internarbeidsflatefs',
-	VEILARBMAOFS = 'veilarbmaofs',
 	AKTIVITETSPLAN = 'aktivitetsplan',
 	DIALOG = 'arbeidsrettet-dialog',
 	VEILARBVEDTAKSSTOTTEFS = 'veilarbvedtaksstottefs',
