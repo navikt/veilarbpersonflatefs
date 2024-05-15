@@ -65,6 +65,8 @@ spec:
           namespace: dab
         - application: amt-deltaker-bff
           namespace: amt
+        - application: paw-arbeidssoekerregisteret-api-oppslag
+          namespace: paw
       external:
         - host: veilarbdialog.dev-fss-pub.nais.io
         - host: veilarbaktivitet.dev-fss-pub.nais.io
@@ -276,6 +278,16 @@ spec:
               "toApp": {
                 "name": "amt-deltaker-bff",
                 "namespace": "amt",
+                "cluster": "dev-gcp"
+              } 
+            },
+            {
+              "fromPath": "/arbeidssoekerregister",
+              "toUrl": "https://oppslag-arbeidssoekerregisteret.intern.dev.nav.no",
+              "preserveFromPath": false,
+              "toApp": {
+                "name": "paw-arbeidssoekerregisteret-api-oppslag",
+                "namespace": "paw",
                 "cluster": "dev-gcp"
               }
             }
