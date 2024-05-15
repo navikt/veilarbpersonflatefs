@@ -25,11 +25,6 @@ export const dialogSpaMockProps: SpaMockProps = {
 	tekst: 'Dialog',
 	className: 'spa-mock__content--dialog'
 };
-export const overblikkSpaMockProps: SpaMockProps = {
-	name: SpaName.OVERBLIKK,
-	tekst: 'Overblikk',
-	className: 'spa-mock__content--overblikk'
-};
 
 export const vedtaksstotteSpaMockProps: SpaMockProps = {
 	name: SpaName.VEILARBVEDTAKSSTOTTEFS,

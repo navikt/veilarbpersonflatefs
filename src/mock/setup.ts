@@ -4,7 +4,6 @@ import {
 	aktivitetsplanSpaMockProps,
 	arbeidsmarkedstiltakSpaMockProps,
 	dialogSpaMockProps,
-	overblikkSpaMockProps,
 	eksporterSpaMock,
 	internflateDecoratorSpaMockProps,
 	vedtaksstotteSpaMockProps,
@@ -19,6 +18,5 @@ eksporterSpaMock(internflateDecoratorSpaMockProps);
 eksporterSpaMock(visittkortSpaMockProps);
 eksporterSpaMock(aktivitetsplanSpaMockProps);
 eksporterSpaMock(dialogSpaMockProps);
-eksporterSpaMock(overblikkSpaMockProps);
 eksporterSpaMock(vedtaksstotteSpaMockProps);
 eksporterSpaMock(arbeidsmarkedstiltakSpaMockProps);
