@@ -8,14 +8,16 @@ export const hasQueryParam = (parameterName: string): boolean => {
 	return window.location.search.includes(parameterName);
 };
 
-const DEV_DOMAINS = ['dev', 'app-q1', 'app-q0', 'localhost'];
+const DEV_DOMAINS = ['dev', 'localhost'];
 
 export const erITestMiljo = (): boolean => {
 	return window.location.hostname.split('.').findIndex(domain => DEV_DOMAINS.includes(domain)) >= 0;
 };
 
 export const utledSpaUrl = (appName: string): string => {
-	return erITestMiljo() ? `https://${appName}.intern.dev.nav.no` : `https://${appName}.intern.nav.no`;
+	const hostnameParts = window.location.hostname.split('.');
+	const topLevelDomain = hostnameParts.slice(-(hostnameParts.length-1)).join('.');
+	return `${window.location.protocol}//${appName}.${topLevelDomain}`;
 };
 
 export const loginUrl = () => {
