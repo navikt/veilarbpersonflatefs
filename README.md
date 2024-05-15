@@ -7,7 +7,6 @@ Denne appen er "host" app for følgende "micro"-frontends:
   - DIALOG
   - VEDTAKSSTOTTE
   - OVERBLIKK (VEILARBDETALJERFS)
-  - DETALJER (VEILARBMAOFS, skjult fane som skal fjernes - ligger igjen for å kunne sammenligne i dev)
   - ARBEIDSMARKEDSTILTAK
   - FINN STILLING ([Team Toi](https://teamkatalog.nav.no/team/76f378c5-eb35-42db-9f4d-0e8197be0131) sin app [finn-stilling-inngang](https://github.com/navikt/finn-stilling-inngang))
 - Navbar-apps 
