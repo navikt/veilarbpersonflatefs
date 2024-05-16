@@ -25,7 +25,9 @@ export function InternflateDecorator(props: InternflateDecoratorProps) {
 	);
 }
 
-function lagDecoratorConfig(props: InternflateDecoratorProps): DecoratorConfigV2 & { proxy: string } {
+function lagDecoratorConfig(
+	props: InternflateDecoratorProps
+): DecoratorConfigV2 & { proxy: string; useProxy: boolean } {
 	const fnr = props.fnr || undefined;
 	const enhetId = props.enhetId || undefined;
 
@@ -38,7 +40,8 @@ function lagDecoratorConfig(props: InternflateDecoratorProps): DecoratorConfigV2
 		enhet: enhetId,
 		onEnhetChanged: newEnhet => props.onEnhetChanged(newEnhet || null),
 		onFnrChanged: newFnr => props.onFnrChanged(newFnr || null),
-		proxy: '/',
+		useProxy: true,
+		proxy: '/modiacontextholder',
 		environment: getEnv() === 'prod' ? 'prod' : 'q1',
 		fetchActiveUserOnMount: true,
 		fetchActiveEnhetOnMount: true
