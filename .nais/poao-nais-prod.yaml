@@ -197,7 +197,7 @@ spec:
             {
               "fromPath": "/modiacontextholder",
               "toUrl": "http://modiacontextholder.personoversikt.svc.cluster.local",
-              "preserveFromPath": true,
+              "preserveFromPath": false,
               "toApp": {
                 "name": "modiacontextholder",
                 "namespace": "personoversikt",
