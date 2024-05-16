@@ -189,8 +189,8 @@ spec:
             },
             {
               "fromPath": "/modiacontextholder",
-              "toUrl": "http://modiacontextholder.personoversikt.svc.nais.local/modiacontextholder",
-              "preserveFromPath": false,
+              "toUrl": "http://modiacontextholder.personoversikt.svc.nais.local",
+              "preserveFromPath": true,
               "toApp": {
                 "name": "modiacontextholder-q1",
                 "namespace": "personoversikt",
