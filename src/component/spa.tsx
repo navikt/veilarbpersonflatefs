@@ -1,6 +1,6 @@
 import NAVSPA, { AsyncNavspa, AsyncSpaConfig } from '@navikt/navspa';
 import React from 'react';
-import { utledSpaUrl } from '../util/url-utils';
+import { utledCDNSpaUrl, utledSpaUrl } from '../util/url-utils';
 import { DecoratorConfig } from './internflate-decorator/internflate-decorator-config';
 import Spinner from './spinner/spinner';
 import { createAssetManifestParser } from '@navikt/navspa/dist/async/utils';
@@ -40,7 +40,7 @@ export const vedtaksstotteAsyncConfig: AsyncSpaConfig = {
 
 export const visittkortAsyncConfig: AsyncSpaConfig = {
 	appName: SpaName.VEILARBVISITTKORTFS,
-	appBaseUrl: utledSpaUrl(SpaName.VEILARBVISITTKORTFS),
+	appBaseUrl: utledCDNSpaUrl('pto', SpaName.VEILARBVISITTKORTFS),
 	loader: <Spinner type="large" className="veilarbpersonflatefs-visittkort-spinner" />,
 
 	assetManifestParser: manifest => {

@@ -1,4 +1,4 @@
-import { erMock } from './utils';
+import { Env, erMock, getEnv } from './utils';
 
 export const hasHashParam = (parameterName: string): boolean => {
 	return window.location.hash.includes(parameterName);
@@ -16,8 +16,13 @@ export const erITestMiljo = (): boolean => {
 
 export const utledSpaUrl = (appName: string): string => {
 	const hostnameParts = window.location.hostname.split('.');
-	const topLevelDomain = hostnameParts.slice(-(hostnameParts.length-1)).join('.');
+	const topLevelDomain = hostnameParts.slice(-(hostnameParts.length - 1)).join('.');
 	return `${window.location.protocol}//${appName}.${topLevelDomain}`;
+};
+
+export const utledCDNSpaUrl = (teamName: string, appName: string) => {
+	const miljo = getEnv() === Env.Prod ? 'prod' : 'dev';
+	return `https://cdn.nav.no/${teamName}/${appName}-${miljo}`;
 };
 
 export const loginUrl = () => {
