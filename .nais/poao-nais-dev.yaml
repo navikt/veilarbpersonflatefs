@@ -189,7 +189,7 @@ spec:
             },
             {
               "fromPath": "/modiacontextholder",
-              "toUrl": "https://modiacontextholder-q1.dev-fss-pub.nais.io",
+              "toUrl": "http://modiacontextholder.personoversikt.svc.nais.local/modiacontextholder",
               "preserveFromPath": false,
               "toApp": {
                 "name": "modiacontextholder-q1",
