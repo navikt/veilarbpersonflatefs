@@ -22,7 +22,7 @@ export const utledSpaUrl = (appName: string): string => {
 
 export const utledCDNSpaUrl = (teamName: string, appName: string) => {
 	const miljo = getEnv() === Env.Prod ? 'prod' : 'dev';
-	return `https://cdn.nav.no/${teamName}/${appName}-${miljo}`;
+	return `https://cdn.nav.no/${teamName}/${appName}-${miljo}/build`;
 };
 
 export const loginUrl = () => {
