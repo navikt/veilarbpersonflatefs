@@ -45,7 +45,7 @@ export const visittkortAsyncConfig: AsyncSpaConfig = {
 
 	assetManifestParser: manifest => {
 		const isWebpackManifest = 'entrypoints' in manifest;
-		const baseUrl = utledSpaUrl(SpaName.VEILARBVISITTKORTFS);
+		const baseUrl = utledCDNSpaUrl('pto', SpaName.VEILARBVISITTKORTFS);
 		if (isWebpackManifest) {
 			return createAssetManifestParser(baseUrl)(manifest);
 		} else {
