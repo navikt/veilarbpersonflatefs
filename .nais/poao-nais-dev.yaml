@@ -55,6 +55,8 @@ spec:
           namespace: team-mulighetsrommet
         - application: obo-unleash
           namespace: obo
+        - application: modiacontextholder
+          namespace: personoversikt
         - application: please
           namespace: dab
         - application: orkivar
