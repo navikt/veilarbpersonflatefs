@@ -100,7 +100,7 @@ spec:
             {
               "fromPath": "/internarbeidsflatedecorator/*",
               "toUrl": "https://cdn.nav.no/personoversikt/internarbeidsflate-decorator-v3/prod",
-              "preserveFromPath": true
+              "preserveFromPath": false
             },
             {
               "fromPath": "/veilarbportefoljeflatefs/*",
@@ -196,7 +196,7 @@ spec:
             },
             {
               "fromPath": "/modiacontextholder",
-              "toUrl": "http://modiacontextholder.personoversikt.svc.cluster.local",
+              "toUrl": "https://modiacontextholder.prod-fss-pub.nais.io",
               "preserveFromPath": false,
               "toApp": {
                 "name": "modiacontextholder",
