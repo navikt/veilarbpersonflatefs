@@ -40,12 +40,12 @@ export const vedtaksstotteAsyncConfig: AsyncSpaConfig = {
 
 export const visittkortAsyncConfig: AsyncSpaConfig = {
 	appName: SpaName.VEILARBVISITTKORTFS,
-	appBaseUrl: utledCDNSpaUrl('pto', SpaName.VEILARBVISITTKORTFS),
+	appBaseUrl: utledCDNSpaUrl('poao', SpaName.VEILARBVISITTKORTFS),
 	loader: <Spinner type="large" className="veilarbpersonflatefs-visittkort-spinner" />,
 
 	assetManifestParser: manifest => {
 		const isWebpackManifest = 'entrypoints' in manifest;
-		const baseUrl = utledCDNSpaUrl('pto', SpaName.VEILARBVISITTKORTFS);
+		const baseUrl = utledCDNSpaUrl('poao', SpaName.VEILARBVISITTKORTFS);
 		if (isWebpackManifest) {
 			return createAssetManifestParser(baseUrl)(manifest);
 		} else {
