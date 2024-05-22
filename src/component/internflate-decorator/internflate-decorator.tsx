@@ -29,8 +29,6 @@ function getDecoratorEnv(): DecoratorEnvironment {
 	const env = getEnv();
 	if (env.type === EnvType.prod) {
 		return 'prod';
-	} else if (env.type === EnvType.dev && env.ingressType === 'ansatt') {
-		return 'ansatt';
 	} else {
 		return 'q2';
 	}
@@ -55,7 +53,8 @@ function lagDecoratorConfig(
 		proxy: '/modiacontextholder',
 		environment: getDecoratorEnv(),
 		fetchActiveUserOnMount: true,
-		fetchActiveEnhetOnMount: true
+		fetchActiveEnhetOnMount: true,
+		urlFormat: getEnv().ingressType === 'ansatt' ? 'ANSATT' : 'NAV_NO'
 		/*
 		fnr: {
 			display: FnrDisplay.SOKEFELT,
