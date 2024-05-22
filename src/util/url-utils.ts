@@ -26,7 +26,7 @@ export const utledSpaUrl = (appName: string): string => {
 
 export const utledTilbakeUrl = () => {
 	// feks https://veilarbportefoljeflate.intern.dev.nav.no vs https://veilarbportefoljeflate.ansatt.dev.nav.no
-	return `${window.location.protocol}//veilarbportefoljeflatefs.${rootDomain()}`;
+	return `${window.location.protocol}//veilarbportefoljeflate.${rootDomain()}`;
 };
 
 export const utledCDNSpaUrl = (teamName: string, appName: string) => {
