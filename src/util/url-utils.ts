@@ -1,4 +1,4 @@
-import { Env, erMock, getEnv } from './utils';
+import { Env, EnvType, erMock, getEnv } from './utils';
 
 export const hasHashParam = (parameterName: string): boolean => {
 	return window.location.hash.includes(parameterName);
@@ -30,7 +30,7 @@ export const utledTilbakeUrl = () => {
 };
 
 export const utledCDNSpaUrl = (teamName: string, appName: string) => {
-	const miljo = getEnv() === Env.Prod ? 'prod' : 'dev';
+	const miljo = getEnv().type === EnvType.prod ? 'prod' : 'dev';
 	return `https://cdn.nav.no/${teamName}/${appName}-${miljo}/build`;
 };
 

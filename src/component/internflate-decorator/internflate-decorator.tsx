@@ -1,7 +1,7 @@
 import { SpaName } from '../spa';
-import { DecoratorConfigV2 } from './internflate-decorator-config';
+import { DecoratorConfigV2, DecoratorEnvironment } from './internflate-decorator-config';
 import NAVSPA from '@navikt/navspa';
-import { getEnv } from '../../util/utils';
+import { EnvType, getEnv } from '../../util/utils';
 
 interface InternflateDecoratorProps {
 	enhetId: string | undefined | null;
@@ -25,6 +25,17 @@ export function InternflateDecorator(props: InternflateDecoratorProps) {
 	);
 }
 
+function getDecoratorEnv(): DecoratorEnvironment {
+	const env = getEnv();
+	if (env.type === EnvType.prod) {
+		return 'prod';
+	} else if (env.type === EnvType.dev && env.ingressType === 'ansatt') {
+		return 'ansatt';
+	} else {
+		return 'q2';
+	}
+}
+
 function lagDecoratorConfig(
 	props: InternflateDecoratorProps
 ): DecoratorConfigV2 & { proxy: string; useProxy: boolean } {
@@ -42,7 +53,7 @@ function lagDecoratorConfig(
 		onFnrChanged: newFnr => props.onFnrChanged(newFnr || null),
 		useProxy: true,
 		proxy: '/modiacontextholder',
-		environment: getEnv() === 'prod' ? 'prod' : 'q2',
+		environment: getDecoratorEnv(),
 		fetchActiveUserOnMount: true,
 		fetchActiveEnhetOnMount: true
 		/*
