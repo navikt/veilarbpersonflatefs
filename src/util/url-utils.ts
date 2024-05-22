@@ -14,10 +14,19 @@ export const erITestMiljo = (): boolean => {
 	return window.location.hostname.split('.').findIndex(domain => DEV_DOMAINS.includes(domain)) >= 0;
 };
 
-export const utledSpaUrl = (appName: string): string => {
+// feks <appname>.ansatt.dev.nav.no eller <appname>.intern.dev.nav.no
+const rootDomain = (): string => {
 	const hostnameParts = window.location.hostname.split('.');
-	const topLevelDomain = hostnameParts.slice(-(hostnameParts.length - 1)).join('.');
-	return `${window.location.protocol}//${appName}.${topLevelDomain}`;
+	return hostnameParts.slice(-(hostnameParts.length - 1)).join('.');
+};
+
+export const utledSpaUrl = (appName: string): string => {
+	return `${window.location.protocol}//${appName}.${rootDomain()}`;
+};
+
+export const utledTilbakeUrl = () => {
+	// feks https://veilarbportefoljeflate.intern.dev.nav.no vs https://veilarbportefoljeflate.ansatt.dev.nav.no
+	return `${window.location.protocol}//veilarbportefoljeflatefs.${rootDomain()}`;
 };
 
 export const utledCDNSpaUrl = (teamName: string, appName: string) => {
