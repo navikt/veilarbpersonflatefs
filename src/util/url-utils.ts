@@ -1,12 +1,4 @@
-import { Env, EnvType, erMock, getEnv } from './utils';
-
-export const hasHashParam = (parameterName: string): boolean => {
-	return window.location.hash.includes(parameterName);
-};
-
-export const hasQueryParam = (parameterName: string): boolean => {
-	return window.location.search.includes(parameterName);
-};
+import { EnvType, erMock, getEnv } from './utils';
 
 const DEV_DOMAINS = ['dev', 'localhost'];
 
