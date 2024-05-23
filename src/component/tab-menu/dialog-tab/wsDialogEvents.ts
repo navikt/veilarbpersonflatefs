@@ -1,6 +1,6 @@
-import { Env, getEnv } from '../../../util/utils';
+import { EnvType, getEnv } from '../../../util/utils';
 
-const PLEASE_URL = getEnv() === Env.Prod ? 'please.nav.no' : 'please.ekstern.dev.nav.no';
+const PLEASE_URL = getEnv().type === EnvType.prod ? 'please.nav.no' : 'please.ekstern.dev.nav.no';
 const ticketUrl = `/please/ws-auth-ticket`;
 const socketUrl = `ws://${PLEASE_URL}/ws`;
 

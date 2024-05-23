@@ -54,6 +54,8 @@ spec:
           namespace: team-mulighetsrommet
         - application: obo-unleash
           namespace: obo
+        - application: modiacontextholder
+          namespace: personoversikt
         - application: please
           namespace: dab
         - application: veilarblest
@@ -97,8 +99,8 @@ spec:
           "redirects": [
             {
               "fromPath": "/internarbeidsflatedecorator/*",
-              "toUrl": "https://internarbeidsflatedecorator.intern.nav.no",
-              "preserveFromPath": true
+              "toUrl": "https://cdn.nav.no/personoversikt/internarbeidsflate-decorator-v3/prod",
+              "preserveFromPath": false
             },
             {
               "fromPath": "/veilarbportefoljeflatefs/*",
@@ -195,7 +197,7 @@ spec:
             {
               "fromPath": "/modiacontextholder",
               "toUrl": "https://modiacontextholder.prod-fss-pub.nais.io",
-              "preserveFromPath": true,
+              "preserveFromPath": false,
               "toApp": {
                 "name": "modiacontextholder",
                 "namespace": "personoversikt",
