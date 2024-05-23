@@ -15,10 +15,10 @@ export type DecoratorEnvironment = 'q0' | 'q1' | 'q2' | 'q3' | 'q4' | 'prod' | '
 
 export interface DecoratorConfigV2 {
 	enhet: string | undefined;
-	accessToken?: string | undefined;
+	accessToken?: string;
 	fnr: string | undefined;
-	userKey?: string | undefined;
-	enableHotkeys?: boolean | undefined;
+	userKey?: string;
+	enableHotkeys?: boolean;
 	fetchActiveEnhetOnMount: boolean | undefined;
 	fetchActiveUserOnMount: boolean | undefined;
 	onBeforeRequest?: (headers: HeadersInit) => HeadersInit | undefined;
