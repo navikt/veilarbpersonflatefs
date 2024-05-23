@@ -42,8 +42,8 @@ function lagDecoratorConfig(
 	return {
 		fnr,
 		enhet: enhetId,
-		onEnhetChanged: newEnhet => props.onEnhetChanged(newEnhet || null),
-		onFnrChanged: newFnr => props.onFnrChanged(newFnr || null),
+		onEnhetChanged: newEnhet => props.onEnhetChanged(newEnhet ?? null),
+		onFnrChanged: newFnr => props.onFnrChanged(newFnr ?? null),
 		useProxy: true,
 		proxy: '/modiacontextholder',
 		environment: getDecoratorEnv(),
