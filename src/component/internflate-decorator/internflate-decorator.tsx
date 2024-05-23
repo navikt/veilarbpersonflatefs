@@ -39,12 +39,7 @@ function lagDecoratorConfig(
 ): DecoratorConfigV2 & { proxy: string; useProxy: boolean } {
 	const fnr = props.fnr || undefined;
 	const enhetId = props.enhetId || undefined;
-
 	return {
-		// appname: 'Arbeidsrettet oppfølging',
-		// toggles: {
-		// 	visVeileder: true
-		// },
 		fnr,
 		enhet: enhetId,
 		onEnhetChanged: newEnhet => props.onEnhetChanged(newEnhet || null),
@@ -55,21 +50,5 @@ function lagDecoratorConfig(
 		fetchActiveUserOnMount: true,
 		fetchActiveEnhetOnMount: true,
 		urlFormat: getEnv().ingressType === 'ansatt' ? 'ANSATT' : 'NAV_NO'
-		/*
-		fnr: {
-			display: FnrDisplay.SOKEFELT,
-			value: fnr,
-			skipModal: false,
-			ignoreWsEvents: false,
-			onChange: props.onFnrChanged
-		},
-		enhet: {
-			display: EnhetDisplay.ENHET,
-			value: enhetId,
-			skipModal: true,
-			ignoreWsEvents: true,
-			onChange: props.onEnhetChanged
-		},
-		useProxy: true*/
 	};
 }

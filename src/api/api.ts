@@ -70,10 +70,6 @@ export function useFetchFeaturesFromDabUnleash(): UseAxiosResponseValue<DabUnlea
 	return useAxios<DabUnleashFeatures>(`/veilarbaktivitet/api/feature?${toggles}`);
 }
 
-export function useFetchAktivEnhet(options?: Options): UseAxiosResponseValue<AktivEnhetResponse> {
-	return useAxios<AktivEnhetResponse>('/modiacontextholder/api/context/aktivenhet', options);
-}
-
 export function useFetchTilgangTilBruker(fnr: string, options?: Options): UseAxiosResponseValue<boolean> {
 	return useAxios<boolean>(
 		{

@@ -20,7 +20,6 @@ export const PersonflatePage = () => {
 
 	const fetchTilgangTilBruker = useFetchTilgangTilBruker(aktivBrukerFnr, { manual: true });
 	const fetchOboUnleashFeatures = useFetchFeaturesFromOboUnleash();
-	// const fetchAktivEnhet = useFetchAktivEnhet();
 
 	// Hack used because internflatedecorator does not update onFnrChanged function so comparison on fnr can not
 	// be done inside that function because it alwaus closes the first value
@@ -46,13 +45,6 @@ export const PersonflatePage = () => {
 		}
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [aktivBrukerFnr]);
-
-	// useEffect(() => {
-	// 	if (fetchAktivEnhet.data && fetchAktivEnhet.data.aktivEnhet) {
-	// 		setAktivEnhetId(fetchAktivEnhet.data.aktivEnhet);
-	// 	}
-	// 	// eslint-disable-next-line react-hooks/exhaustive-deps
-	// }, [fetchAktivEnhet]);
 
 	let innhold;
 
