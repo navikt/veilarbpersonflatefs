@@ -14,12 +14,6 @@ export const visittkortSpaMockProps: SpaMockProps = {
 	className: 'spa-mock__content--visittkort'
 };
 
-export const detaljerSpaMockProps: SpaMockProps = {
-	name: SpaName.VEILARBMAOFS,
-	tekst: 'Detaljer',
-	className: 'spa-mock__content--mao'
-};
-
 export const aktivitetsplanSpaMockProps: SpaMockProps = {
 	name: SpaName.AKTIVITETSPLAN,
 	tekst: 'Aktivitetsplan',

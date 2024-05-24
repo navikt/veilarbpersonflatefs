@@ -1,5 +1,7 @@
-import { Decorator } from '../spa';
-import { DecoratorConfig, EnhetDisplay, FnrDisplay } from './internflate-decorator-config';
+import { SpaName } from '../spa';
+import { DecoratorConfigV2, DecoratorEnvironment } from './internflate-decorator-config';
+import NAVSPA from '@navikt/navspa';
+import { EnvType, getEnv } from '../../util/utils';
 
 interface InternflateDecoratorProps {
 	enhetId: string | undefined | null;
@@ -7,6 +9,13 @@ interface InternflateDecoratorProps {
 	onEnhetChanged: (newEnhet: string | null) => void;
 	onFnrChanged: (newFnr: string | null) => void;
 }
+
+export const Decorator: React.ComponentType<DecoratorConfigV2> = NAVSPA.importer(
+	SpaName.INTERNARBEIDSFLATEFS_DECORATOR,
+	{
+		wrapperClassName: ''
+	}
+);
 
 export function InternflateDecorator(props: InternflateDecoratorProps) {
 	return (
@@ -16,29 +25,30 @@ export function InternflateDecorator(props: InternflateDecoratorProps) {
 	);
 }
 
-function lagDecoratorConfig(props: InternflateDecoratorProps): DecoratorConfig {
-	const fnr = props.fnr || null;
-	const enhetId = props.enhetId || null;
+function getDecoratorEnv(): DecoratorEnvironment {
+	const env = getEnv();
+	if (env.type === EnvType.prod) {
+		return 'prod';
+	} else {
+		return 'q2';
+	}
+}
 
+function lagDecoratorConfig(
+	props: InternflateDecoratorProps
+): DecoratorConfigV2 & { proxy: string; useProxy: boolean } {
+	const fnr = props.fnr ?? undefined;
+	const enhetId = props.enhetId ?? undefined;
 	return {
-		appname: 'Arbeidsrettet oppfølging',
-		toggles: {
-			visVeileder: true
-		},
-		fnr: {
-			display: FnrDisplay.SOKEFELT,
-			value: fnr,
-			skipModal: false,
-			ignoreWsEvents: false,
-			onChange: props.onFnrChanged
-		},
-		enhet: {
-			display: EnhetDisplay.ENHET,
-			value: enhetId,
-			skipModal: true,
-			ignoreWsEvents: true,
-			onChange: props.onEnhetChanged
-		},
-		useProxy: true
+		fnr,
+		enhet: enhetId,
+		onEnhetChanged: newEnhet => props.onEnhetChanged(newEnhet ?? null),
+		onFnrChanged: newFnr => props.onFnrChanged(newFnr ?? null),
+		useProxy: true,
+		proxy: '/modiacontextholder',
+		environment: getDecoratorEnv(),
+		fetchActiveUserOnMount: true,
+		fetchActiveEnhetOnMount: true,
+		urlFormat: getEnv().ingressType === 'ansatt' ? 'ANSATT' : 'NAV_NO'
 	};
 }

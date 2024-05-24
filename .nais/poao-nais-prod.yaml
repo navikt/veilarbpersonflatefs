@@ -8,7 +8,7 @@ metadata:
   annotations:
     nginx.ingress.kubernetes.io/proxy-buffer-size: "8k"
 spec:
-  image: europe-north1-docker.pkg.dev/nais-management-233d/poao/poao-frontend:2024.02.26_09.22-a08b941e2c0d
+  image: europe-north1-docker.pkg.dev/nais-management-233d/poao/poao-frontend:2024.05.07_13.29-a2e3b56408a1
   port: 8080
   ingresses:
     - https://veilarbpersonflate.intern.nav.no
@@ -38,6 +38,11 @@ spec:
     sidecar:
       enabled: true
       autoLogin: true
+  observability:
+    logging:
+      destinations:
+        - id: elastic
+        - id: loki
   gcp:
     buckets:
       - name: poao-veilarbpersonflate-prod
@@ -49,6 +54,8 @@ spec:
           namespace: team-mulighetsrommet
         - application: obo-unleash
           namespace: obo
+        - application: modiacontextholder
+          namespace: personoversikt
         - application: please
           namespace: dab
         - application: veilarblest
@@ -92,8 +99,8 @@ spec:
           "redirects": [
             {
               "fromPath": "/internarbeidsflatedecorator/*",
-              "toUrl": "https://internarbeidsflatedecorator.intern.nav.no",
-              "preserveFromPath": true
+              "toUrl": "https://cdn.nav.no/personoversikt/internarbeidsflate-decorator-v3/prod",
+              "preserveFromPath": false
             },
             {
               "fromPath": "/veilarbportefoljeflatefs/*",
@@ -190,7 +197,7 @@ spec:
             {
               "fromPath": "/modiacontextholder",
               "toUrl": "https://modiacontextholder.prod-fss-pub.nais.io",
-              "preserveFromPath": true,
+              "preserveFromPath": false,
               "toApp": {
                 "name": "modiacontextholder",
                 "namespace": "personoversikt",
