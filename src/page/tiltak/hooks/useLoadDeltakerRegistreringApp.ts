@@ -4,9 +4,11 @@ import { useEffect } from 'react';
 export const DELTAKERREGISTRERING_ENTRY = 'src/webComponentWrapper.tsx';
 
 const deltakerRegistreringOrigin = () => {
-	switch (getEnv().type) {
+	const env = getEnv();
+
+	switch (env.type) {
 		case EnvType.dev:
-			return 'https://amt-deltaker-flate.intern.dev.nav.no';
+			return `https://amt-deltaker-flate.${env.ingressType}.dev.nav.no`;
 		case EnvType.local:
 			return 'http://localhost:4173';
 		default:
