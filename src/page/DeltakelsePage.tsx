@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { useModiaContext } from '../store/modia-context-store';
 import { erITestMiljo } from '../util/url-utils';
-import { importSubApp } from './importUtils';
+import { importWebComponent } from './importUtils';
 
 function utledArbeidsmarkedstiltakDeltakerCdnUrl(contextPath: string): string {
 	const base = 'https://cdn.nav.no/amt';
@@ -15,7 +15,7 @@ const arbeidsmarkedsTiltakDeltakerCdnUrl = utledArbeidsmarkedstiltakDeltakerCdnU
 const DeltakelsePage = () => {
 	const { aktivBrukerFnr, aktivEnhetId } = useModiaContext();
 	useEffect(() => {
-		importSubApp(arbeidsmarkedsTiltakDeltakerCdnUrl);
+		importWebComponent(arbeidsmarkedsTiltakDeltakerCdnUrl);
 	}, []);
 
 	return React.createElement('arbeidsmarkedstiltak-deltaker', {
