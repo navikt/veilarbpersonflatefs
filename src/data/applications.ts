@@ -4,9 +4,9 @@ import DialogPage from '../page/DialogPage';
 import OverblikkPage from '../page/OverblikkPage';
 import OppfolgingsvedtakPage from '../page/OppfolgingsvedtakPage';
 import ArbeidsmarkedstiltakPage from '../page/ArbeidsmarkedstiltakPage';
-import DeltakelsePage from '../page/tiltak/DeltakelsePage';
 import FinnStillingerPage from '../page/FinnStillingerPage';
 import { AppId, TabId } from './tab-id';
+import DeltakelsePage from '../page/DeltakelsePage';
 
 export interface Application {
 	id: AppId;
