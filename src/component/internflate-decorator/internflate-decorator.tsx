@@ -45,7 +45,7 @@ function lagDecoratorConfig(
 		onEnhetChanged: newEnhet => props.onEnhetChanged(newEnhet ?? null),
 		onFnrChanged: newFnr => props.onFnrChanged(newFnr ?? null),
 		useProxy: true,
-		proxy: '/modiacontextholder',
+		proxy: '/',
 		environment: getDecoratorEnv(),
 		fetchActiveUserOnMount: true,
 		fetchActiveEnhetOnMount: true,
