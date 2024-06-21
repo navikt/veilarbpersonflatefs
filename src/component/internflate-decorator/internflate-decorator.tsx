@@ -36,7 +36,7 @@ function getDecoratorEnv(): DecoratorEnvironment {
 
 function lagDecoratorConfig(
 	props: InternflateDecoratorProps
-): DecoratorConfigV2 & { proxy: string; useProxy: boolean } {
+): DecoratorConfigV2 {
 	const fnr = props.fnr ?? undefined;
 	const enhetId = props.enhetId ?? undefined;
 	return {
@@ -44,8 +44,6 @@ function lagDecoratorConfig(
 		enhet: enhetId,
 		onEnhetChanged: newEnhet => props.onEnhetChanged(newEnhet ?? null),
 		onFnrChanged: newFnr => props.onFnrChanged(newFnr ?? null),
-		useProxy: true,
-		proxy: '/modiacontextholder',
 		environment: getDecoratorEnv(),
 		fetchActiveUserOnMount: true,
 		fetchActiveEnhetOnMount: true,
