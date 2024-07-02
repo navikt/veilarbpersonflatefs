@@ -196,12 +196,12 @@ spec:
             },
             {
               "fromPath": "/modiacontextholder",
-              "toUrl": "https://modiacontextholder.prod-fss-pub.nais.io",
+              "toUrl": "http://modiacontextholder.personoversikt.svc.cluster.local",
               "preserveFromPath": false,
               "toApp": {
                 "name": "modiacontextholder",
                 "namespace": "personoversikt",
-                "cluster": "prod-fss"
+                "cluster": "prod-gcp"
               }
             },
             {
