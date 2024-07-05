@@ -89,9 +89,9 @@ spec:
           "gcs": {
             "bucketName": "poao-veilarbpersonflate-dev"
           },
-          "enableModiaContextUpdater": {
-            "url": "https://modiacontextholder-q1.dev-fss-pub.nais.io/modiacontextholder",
-            "scope": "api://dev-fss.personoversikt.modiacontextholder-q1/.default"
+          "enableModiaContextUpdater": { 
+            "url": "http://modiacontextholder.personoversikt/modiacontextholder",
+            "scope": "api://dev-gcp.personoversikt.modiacontextholder/.default"
           },
           "header": {
             "csp": {

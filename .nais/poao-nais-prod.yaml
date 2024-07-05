@@ -85,8 +85,8 @@ spec:
             "bucketName": "poao-veilarbpersonflate-prod"
           },
           "enableModiaContextUpdater": {
-            "url": "https://modiacontextholder.prod-fss-pub.nais.io/modiacontextholder",
-            "scope": "api://prod-fss.personoversikt.modiacontextholder/.default"
+            "url": "http://modiacontextholder.personoversikt/modiacontextholder",
+            "scope": "api://prod-gcp.personoversikt.modiacontextholder/.default"
           },
           "header": {
             "csp": {
