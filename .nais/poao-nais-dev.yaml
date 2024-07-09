@@ -68,6 +68,7 @@ spec:
       external:
         - host: veilarbdialog.dev-fss-pub.nais.io
         - host: veilarbaktivitet.dev-fss-pub.nais.io
+        - host: veilarbaktivitet.dev.nav.cloud.nais.io
         - host: veilarbmalverk.dev-fss-pub.nais.io
         - host: veilarbperson.dev-fss-pub.nais.io
         - host: veilarboppfolging.dev-fss-pub.nais.io
@@ -151,7 +152,7 @@ spec:
             },
             {
               "fromPath": "/veilarbaktivitet",
-              "toUrl": "https://veilarbaktivitet.dev-fss-pub.nais.io",
+              "toUrl": "https://veilarbaktivitet.dev.nav.cloud.nais.io",
               "preserveFromPath": true,
               "toApp": {
                 "name": "veilarbaktivitet",
