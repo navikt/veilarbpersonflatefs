@@ -152,7 +152,7 @@ spec:
             },
             {
               "fromPath": "/veilarbaktivitet",
-              "toUrl": "https://veilarbaktivitet.dev.nav.cloud.nais.io",
+              "toUrl": "http://veilarbaktivitet.dab",
               "preserveFromPath": true,
               "toApp": {
                 "name": "veilarbaktivitet",
