@@ -65,6 +65,8 @@ spec:
           namespace: dab
         - application: amt-deltaker-bff
           namespace: amt
+        - application: veilarbfilter
+          namespace: obo
       external:
         - host: veilarbdialog.dev-fss-pub.nais.io
         - host: veilarbaktivitet.dev-fss-pub.nais.io
@@ -76,7 +78,6 @@ spec:
         - host: veilarbveileder.dev-fss-pub.nais.io
         - host: veilarbvedtaksstotte.dev-fss-pub.nais.io
         - host: veilarboppgave.dev-fss-pub.nais.io
-        - host: veilarbfilter.dev-fss-pub.nais.io
   env:
     - name: JSON_CONFIG
       value: >
@@ -261,12 +262,12 @@ spec:
             },
             {
               "fromPath": "/veilarbfilter",
-              "toUrl": "https://veilarbfilter.dev-fss-pub.nais.io",
+              "toUrl": "http://veilarbfilter.obo",
               "preserveFromPath": true,
               "toApp": {
                 "name": "veilarbfilter",
-                "namespace": "pto",
-                "cluster": "dev-fss"
+                "namespace": "obo",
+                "cluster": "dev-gcp"
               }
             },
             {
