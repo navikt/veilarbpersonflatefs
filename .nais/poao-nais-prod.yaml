@@ -60,6 +60,8 @@ spec:
           namespace: dab
         - application: veilarblest
           namespace: dab
+        - application: veilarbfilter
+          namespace: obo
       external:
         - host: veilarbmalverk.prod-fss-pub.nais.io
         - host: veilarbperson.prod-fss-pub.nais.io
@@ -71,7 +73,6 @@ spec:
         - host: veilarbveileder.prod-fss-pub.nais.io
         - host: veilarbvedtaksstotte.prod-fss-pub.nais.io
         - host: veilarboppgave.prod-fss-pub.nais.io
-        - host: veilarbfilter.prod-fss-pub.nais.io
   env:
     - name: JSON_CONFIG
       value: >
@@ -256,13 +257,13 @@ spec:
             },
             {
               "fromPath": "/veilarbfilter",
-              "toUrl": "https://veilarbfilter.prod-fss-pub.nais.io",
+              "toUrl": "http://veilarbfilter.obo",
               "preserveFromPath": true,
               "toApp": {
                 "name": "veilarbfilter",
-                "namespace": "pto",
-                "cluster": "prod-fss"
+                "namespace": "obo",
+                "cluster": "prod-gcp"
               }
-          }
+            }
           ]
         }
