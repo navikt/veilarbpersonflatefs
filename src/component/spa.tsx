@@ -1,7 +1,6 @@
-import NAVSPA, { AsyncNavspa, AsyncSpaConfig } from '@navikt/navspa';
+import { AsyncNavspa, AsyncSpaConfig } from '@navikt/navspa';
 import React from 'react';
-import { utledSpaUrl } from '../util/url-utils';
-import { DecoratorConfig } from './internflate-decorator/internflate-decorator-config';
+import { utledCDNSpaUrl, utledSpaUrl } from '../util/url-utils';
 import Spinner from './spinner/spinner';
 import { createAssetManifestParser } from '@navikt/navspa/dist/async/utils';
 
@@ -16,10 +15,10 @@ interface VisittKortProps extends SpaProps {
 }
 
 export enum SpaName {
-	INTERNARBEIDSFLATEFS_DECORATOR = 'internarbeidsflatefs',
-	VEILARBMAOFS = 'veilarbmaofs',
+	INTERNARBEIDSFLATEFS_DECORATOR = 'internarbeidsflate-decorator-v3',
 	AKTIVITETSPLAN = 'aktivitetsplan',
 	DIALOG = 'arbeidsrettet-dialog',
+	OVERBLIKK = 'veilarbdetaljerfs',
 	VEILARBVEDTAKSSTOTTEFS = 'veilarbvedtaksstottefs',
 	VEILARBVISITTKORTFS = 'veilarbvisittkortfs',
 	ARBEIDSMARKEDSTILTAK = 'arbeidsmarkedstiltak-modia',
@@ -40,12 +39,12 @@ export const vedtaksstotteAsyncConfig: AsyncSpaConfig = {
 
 export const visittkortAsyncConfig: AsyncSpaConfig = {
 	appName: SpaName.VEILARBVISITTKORTFS,
-	appBaseUrl: utledSpaUrl(SpaName.VEILARBVISITTKORTFS),
+	appBaseUrl: utledCDNSpaUrl('poao', SpaName.VEILARBVISITTKORTFS),
 	loader: <Spinner type="large" className="veilarbpersonflatefs-visittkort-spinner" />,
 
 	assetManifestParser: manifest => {
 		const isWebpackManifest = 'entrypoints' in manifest;
-		const baseUrl = utledSpaUrl(SpaName.VEILARBVISITTKORTFS);
+		const baseUrl = utledCDNSpaUrl('poao', SpaName.VEILARBVISITTKORTFS);
 		if (isWebpackManifest) {
 			return createAssetManifestParser(baseUrl)(manifest);
 		} else {
@@ -57,9 +56,6 @@ export const visittkortAsyncConfig: AsyncSpaConfig = {
 		}
 	}
 };
-export const Decorator: React.ComponentType<DecoratorConfig> = NAVSPA.importer(SpaName.INTERNARBEIDSFLATEFS_DECORATOR, {
-	wrapperClassName: ''
-});
 
 export const Visittkort: React.ComponentType<VisittKortProps> =
 	AsyncNavspa.importer<VisittKortProps>(visittkortAsyncConfig);

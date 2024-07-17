@@ -1,12 +1,12 @@
 import React, { useEffect } from 'react';
 import { useModiaContext } from '../store/modia-context-store';
-import { Env, getEnv } from '../util/utils';
+import { EnvType, getEnv } from '../util/utils';
 import { importSubApp } from './importUtils';
 
 const dabCdnUrl = 'https://cdn.nav.no/dab';
 
 const aktivitetsplanCdnUrl =
-	getEnv() === Env.Prod
+	getEnv().type === EnvType.prod
 		? `${dabCdnUrl}/aktivitetsplan-prod-intern/build`
 		: `${dabCdnUrl}/aktivitetsplan-dev-intern/build`;
 

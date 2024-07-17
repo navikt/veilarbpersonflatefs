@@ -58,6 +58,8 @@ spec:
           namespace: team-mulighetsrommet
         - application: obo-unleash
           namespace: obo
+        - application: modiacontextholder
+          namespace: personoversikt
         - application: please
           namespace: dab
         - application: orkivar
@@ -66,6 +68,8 @@ spec:
           namespace: dab
         - application: amt-deltaker-bff
           namespace: amt
+        - application: veilarbfilter
+          namespace: obo
       external:
         - host: veilarbdialog.dev-fss-pub.nais.io
         - host: veilarbaktivitet.dev-fss-pub.nais.io
@@ -77,7 +81,6 @@ spec:
         - host: veilarbveileder.dev-fss-pub.nais.io
         - host: veilarbvedtaksstotte.dev-fss-pub.nais.io
         - host: veilarboppgave.dev-fss-pub.nais.io
-        - host: veilarbfilter.dev-fss-pub.nais.io
   env:
     - name: JSON_CONFIG
       value: >
@@ -90,9 +93,9 @@ spec:
           "gcs": {
             "bucketName": "poao-veilarbpersonflate-dev"
           },
-          "enableModiaContextUpdater": {
-            "url": "https://modiacontextholder-q1.dev-fss-pub.nais.io/modiacontextholder",
-            "scope": "api://dev-fss.personoversikt.modiacontextholder-q1/.default"
+          "enableModiaContextUpdater": { 
+            "url": "http://modiacontextholder.personoversikt/modiacontextholder",
+            "scope": "api://dev-gcp.personoversikt.modiacontextholder/.default"
           },
           "header": {
             "csp": {
@@ -105,8 +108,8 @@ spec:
           "redirects": [
             {
               "fromPath": "/internarbeidsflatedecorator/*",
-              "toUrl": "https://internarbeidsflatedecorator-q1.intern.dev.nav.no",
-              "preserveFromPath": true
+              "toUrl": "https://cdn.nav.no/personoversikt/internarbeidsflate-decorator-v3/dev",
+              "preserveFromPath": false
             },
             {
               "fromPath": "/veilarbportefoljeflatefs/*",
@@ -192,12 +195,12 @@ spec:
             },
             {
               "fromPath": "/modiacontextholder",
-              "toUrl": "https://modiacontextholder-q1.dev-fss-pub.nais.io",
-              "preserveFromPath": true,
+              "toUrl": "http://modiacontextholder.personoversikt.svc.cluster.local",
+              "preserveFromPath": false,
               "toApp": {
-                "name": "modiacontextholder-q1",
+                "name": "modiacontextholder",
                 "namespace": "personoversikt",
-                "cluster": "dev-fss"
+                "cluster": "dev-gcp"
               }
             },
             {
@@ -262,12 +265,12 @@ spec:
             },
             {
               "fromPath": "/veilarbfilter",
-              "toUrl": "https://veilarbfilter.dev-fss-pub.nais.io",
+              "toUrl": "http://veilarbfilter.obo",
               "preserveFromPath": true,
               "toApp": {
                 "name": "veilarbfilter",
-                "namespace": "pto",
-                "cluster": "dev-fss"
+                "namespace": "obo",
+                "cluster": "dev-gcp"
               }
             },
             {
