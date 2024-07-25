@@ -65,6 +65,8 @@ spec:
           namespace: dab
         - application: veilarbfilter
           namespace: obo
+        - application: veilarbaktivitet
+          namespace: dab
       external:
         - host: veilarbmalverk.prod-fss-pub.nais.io
         - host: veilarbperson.prod-fss-pub.nais.io
@@ -170,12 +172,12 @@ spec:
             },
             {
               "fromPath": "/veilarbaktivitet",
-              "toUrl": "https://veilarbaktivitet.prod-fss-pub.nais.io",
+              "toUrl": "http://veilarbaktivitet.dab",
               "preserveFromPath": true,
               "toApp": {
                 "name": "veilarbaktivitet",
-                "namespace": "pto",
-                "cluster": "prod-fss"
+                "namespace": "dab",
+                "cluster": "prod-gcp"
               }
             },
             {

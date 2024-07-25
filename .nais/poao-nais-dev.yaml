@@ -68,6 +68,8 @@ spec:
           namespace: dab
         - application: amt-deltaker-bff
           namespace: amt
+        - application: veilarbaktivitet
+          namespace: dab
         - application: veilarbfilter
           namespace: obo
       external:
@@ -155,12 +157,12 @@ spec:
             },
             {
               "fromPath": "/veilarbaktivitet",
-              "toUrl": "https://veilarbaktivitet.dev-fss-pub.nais.io",
+              "toUrl": "http://veilarbaktivitet.dab",
               "preserveFromPath": true,
               "toApp": {
                 "name": "veilarbaktivitet",
-                "namespace": "pto",
-                "cluster": "dev-fss"
+                "namespace": "dab",
+                "cluster": "dev-gcp"
               }
             },
             {
