@@ -172,12 +172,12 @@ spec:
             },
             {
               "fromPath": "/veilarbaktivitet",
-              "toUrl": "https://veilarbaktivitet.prod-fss-pub.nais.io",
+              "toUrl": "http://veilarbaktivitet.dab",
               "preserveFromPath": true,
               "toApp": {
                 "name": "veilarbaktivitet",
-                "namespace": "pto",
-                "cluster": "prod-fss"
+                "namespace": "dab",
+                "cluster": "prod-gcp"
               }
             },
             {
