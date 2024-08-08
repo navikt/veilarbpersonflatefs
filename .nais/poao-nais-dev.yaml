@@ -72,6 +72,8 @@ spec:
           namespace: dab
         - application: veilarbfilter
           namespace: obo
+        - application: veilarbdialog
+          namespace: dab
       external:
         - host: veilarbdialog.dev-fss-pub.nais.io
         - host: veilarbaktivitet.dev-fss-pub.nais.io

@@ -67,6 +67,8 @@ spec:
           namespace: obo
         - application: veilarbaktivitet
           namespace: dab
+        - application: veilarbdialog
+          namespace: dab
       external:
         - host: veilarbmalverk.prod-fss-pub.nais.io
         - host: veilarbperson.prod-fss-pub.nais.io
