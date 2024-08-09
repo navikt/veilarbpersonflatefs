@@ -149,12 +149,12 @@ spec:
             },
             {
               "fromPath": "/veilarbdialog",
-              "toUrl": "https://veilarbdialog.dev-fss-pub.nais.io",
+              "toUrl": "http://veilarbdialog.dab",
               "preserveFromPath": true,
               "toApp": {
                 "name": "veilarbdialog",
-                "namespace": "pto",
-                "cluster": "dev-fss"
+                "namespace": "dab",
+                "cluster": "dev-gcp"
               }
             },
             {
