@@ -20,14 +20,14 @@ spec:
     initialDelay: 10
   replicas:
     min: 2
-    max: 6
-    cpuThresholdPercentage: 75
+    max: 8
+    cpuThresholdPercentage: 65
   resources:
     limits:
       cpu: "2"
       memory: 1024Mi
     requests:
-      cpu: 250m
+      cpu: 500m
       memory: 512Mi
   secureLogs:
     enabled: true
