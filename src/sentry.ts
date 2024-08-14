@@ -1,7 +1,5 @@
 import { erMock, getEnv } from './util/utils';
-import { Breadcrumb, Event } from '@sentry/types';
 import * as Sentry from '@sentry/react';
-import { BrowserTracing } from '@sentry/tracing';
 
 const fnrRegexRegel = {
 	regex: /[0-9]{11}/g,
@@ -17,7 +15,7 @@ const toRoute = (route: string) => {
 	return route.replace(fnrRegexRegel.regex, '&#58;fnr');
 };
 
-const tagsFilter = (tags: Event['tags']): Event['tags'] => {
+const tagsFilter = (tags: Sentry.ErrorEvent['tags']): Sentry.ErrorEvent['tags'] => {
 	if (typeof tags !== 'object' || !('transaction' in tags) || !tags.transaction) return tags;
 	return {
 		...tags,
@@ -25,7 +23,7 @@ const tagsFilter = (tags: Event['tags']): Event['tags'] => {
 	};
 };
 
-const fjernPersonopplysninger = (event: Event): Event => {
+const fjernPersonopplysninger = (event: Sentry.ErrorEvent, _: Sentry.EventHint): Sentry.ErrorEvent => {
 	const url = event.request?.url ? maskerPersonopplysninger(event.request.url) : '';
 	return {
 		...event,
@@ -37,7 +35,7 @@ const fjernPersonopplysninger = (event: Event): Event => {
 			}
 		},
 		tags: tagsFilter(event.tags),
-		breadcrumbs: (event.breadcrumbs || []).map((breadcrumb: Breadcrumb) => ({
+		breadcrumbs: (event.breadcrumbs || []).map((breadcrumb: Sentry.Breadcrumb) => ({
 			...breadcrumb,
 			message: maskerPersonopplysninger(breadcrumb.message),
 			data: {
@@ -52,18 +50,7 @@ const fjernPersonopplysninger = (event: Event): Event => {
 
 Sentry.init({
 	dsn: 'https://82639012ef3d42aab4a8ac2d60e2c464@sentry.gc.nav.no/143',
-	integrations: [
-		new BrowserTracing({
-			tracingOrigins: [
-				/veilarbvisittkortfs(\.dev)?.intern.nav.no/,
-				/veilarbvedtaksstottefs(\.dev)?.intern.nav.no/,
-				/arbeidsrettet-dialog(\.dev)?.intern.nav.no/,
-				/veilarbpersonflate(\.dev)?.intern.nav.no/
-				// Can't trace these apps, current CORS-config does not allow tracing headers
-				// /mulighetsrommet-veileder-flate(\.dev)?.intern.nav.no/,
-			]
-		})
-	],
+	integrations: [Sentry.browserTracingIntegration()],
 	environment: getEnv().type,
 	enabled: !erMock(),
 	ignoreErrors: [/^canceled$/],
