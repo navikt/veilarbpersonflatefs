@@ -65,6 +65,8 @@ spec:
           namespace: dab
         - application: veilarbfilter
           namespace: obo
+        - application: veilarboppgave
+          namespace: obo
         - application: veilarbaktivitet
           namespace: dab
         - application: veilarbdialog
@@ -78,7 +80,6 @@ spec:
         - host: modiacontextholder.prod-fss-pub.nais.io
         - host: veilarbveileder.prod-fss-pub.nais.io
         - host: veilarbvedtaksstotte.prod-fss-pub.nais.io
-        - host: veilarboppgave.prod-fss-pub.nais.io
   env:
     - name: JSON_CONFIG
       value: >
@@ -243,12 +244,12 @@ spec:
             },
             {
               "fromPath": "/veilarboppgave",
-              "toUrl": "https://veilarboppgave.prod-fss-pub.nais.io",
+              "toUrl": "http://veilarboppgave.obo",
               "preserveFromPath": true,
               "toApp": {
                 "name": "veilarboppgave",
-                "namespace": "pto",
-                "cluster": "prod-fss"
+                "namespace": "obo",
+                "cluster": "prod-gcp"
               }
             },
             {
