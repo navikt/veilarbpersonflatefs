@@ -39,3 +39,4 @@ spec:
           labels:
             namespace: poao
             severity: critical
+            
