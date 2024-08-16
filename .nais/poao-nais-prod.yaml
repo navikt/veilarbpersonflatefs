@@ -20,14 +20,14 @@ spec:
     initialDelay: 10
   replicas:
     min: 2
-    max: 6
-    cpuThresholdPercentage: 75
+    max: 8
+    cpuThresholdPercentage: 65
   resources:
     limits:
       cpu: "2"
       memory: 1024Mi
     requests:
-      cpu: 250m
+      cpu: 500m
       memory: 512Mi
   secureLogs:
     enabled: true
@@ -65,19 +65,21 @@ spec:
           namespace: dab
         - application: veilarbfilter
           namespace: obo
+        - application: veilarboppgave
+          namespace: obo
         - application: veilarbaktivitet
+          namespace: dab
+        - application: veilarbdialog
           namespace: dab
       external:
         - host: veilarbmalverk.prod-fss-pub.nais.io
         - host: veilarbperson.prod-fss-pub.nais.io
         - host: veilarboppfolging.prod-fss-pub.nais.io
-        - host: veilarbdialog.prod-fss-pub.nais.io
         - host: veilarbportefolje.prod-fss-pub.nais.io
         - host: veilarbaktivitet.prod-fss-pub.nais.io
         - host: modiacontextholder.prod-fss-pub.nais.io
         - host: veilarbveileder.prod-fss-pub.nais.io
         - host: veilarbvedtaksstotte.prod-fss-pub.nais.io
-        - host: veilarboppgave.prod-fss-pub.nais.io
   env:
     - name: JSON_CONFIG
       value: >
@@ -152,12 +154,12 @@ spec:
             },
             {
               "fromPath": "/veilarbdialog",
-              "toUrl": "https://veilarbdialog.prod-fss-pub.nais.io",
+              "toUrl": "http://veilarbdialog.dab",
               "preserveFromPath": true,
               "toApp": {
                 "name": "veilarbdialog",
-                "namespace": "pto",
-                "cluster": "prod-fss"
+                "namespace": "dab",
+                "cluster": "prod-gcp"
               }
             },
             {
@@ -242,12 +244,12 @@ spec:
             },
             {
               "fromPath": "/veilarboppgave",
-              "toUrl": "https://veilarboppgave.prod-fss-pub.nais.io",
+              "toUrl": "http://veilarboppgave.obo",
               "preserveFromPath": true,
               "toApp": {
                 "name": "veilarboppgave",
-                "namespace": "pto",
-                "cluster": "prod-fss"
+                "namespace": "obo",
+                "cluster": "prod-gcp"
               }
             },
             {
