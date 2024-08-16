@@ -20,14 +20,14 @@ spec:
     initialDelay: 10
   replicas:
     min: 2
-    max: 6
-    cpuThresholdPercentage: 75
+    max: 8
+    cpuThresholdPercentage: 65
   resources:
     limits:
       cpu: "2"
       memory: 1024Mi
     requests:
-      cpu: 250m
+      cpu: 500m
       memory: 512Mi
   secureLogs:
     enabled: true
@@ -39,6 +39,9 @@ spec:
       enabled: true
       autoLogin: true
   observability:
+    autoInstrumentation:
+      enabled: true
+      runtime: nodejs
     logging:
       destinations:
         - id: elastic
@@ -60,18 +63,23 @@ spec:
           namespace: dab
         - application: veilarblest
           namespace: dab
+        - application: veilarbfilter
+          namespace: obo
+        - application: veilarboppgave
+          namespace: obo
+        - application: veilarbaktivitet
+          namespace: dab
+        - application: veilarbdialog
+          namespace: dab
       external:
         - host: veilarbmalverk.prod-fss-pub.nais.io
         - host: veilarbperson.prod-fss-pub.nais.io
         - host: veilarboppfolging.prod-fss-pub.nais.io
-        - host: veilarbdialog.prod-fss-pub.nais.io
         - host: veilarbportefolje.prod-fss-pub.nais.io
         - host: veilarbaktivitet.prod-fss-pub.nais.io
         - host: modiacontextholder.prod-fss-pub.nais.io
         - host: veilarbveileder.prod-fss-pub.nais.io
         - host: veilarbvedtaksstotte.prod-fss-pub.nais.io
-        - host: veilarboppgave.prod-fss-pub.nais.io
-        - host: veilarbfilter.prod-fss-pub.nais.io
   env:
     - name: JSON_CONFIG
       value: >
@@ -85,8 +93,8 @@ spec:
             "bucketName": "poao-veilarbpersonflate-prod"
           },
           "enableModiaContextUpdater": {
-            "url": "https://modiacontextholder.prod-fss-pub.nais.io/modiacontextholder",
-            "scope": "api://prod-fss.personoversikt.modiacontextholder/.default"
+            "url": "http://modiacontextholder.personoversikt/modiacontextholder",
+            "scope": "api://prod-gcp.personoversikt.modiacontextholder/.default"
           },
           "header": {
             "csp": {
@@ -146,12 +154,12 @@ spec:
             },
             {
               "fromPath": "/veilarbdialog",
-              "toUrl": "https://veilarbdialog.prod-fss-pub.nais.io",
+              "toUrl": "http://veilarbdialog.dab",
               "preserveFromPath": true,
               "toApp": {
                 "name": "veilarbdialog",
-                "namespace": "pto",
-                "cluster": "prod-fss"
+                "namespace": "dab",
+                "cluster": "prod-gcp"
               }
             },
             {
@@ -166,12 +174,12 @@ spec:
             },
             {
               "fromPath": "/veilarbaktivitet",
-              "toUrl": "https://veilarbaktivitet.prod-fss-pub.nais.io",
+              "toUrl": "http://veilarbaktivitet.dab",
               "preserveFromPath": true,
               "toApp": {
                 "name": "veilarbaktivitet",
-                "namespace": "pto",
-                "cluster": "prod-fss"
+                "namespace": "dab",
+                "cluster": "prod-gcp"
               }
             },
             {
@@ -196,12 +204,12 @@ spec:
             },
             {
               "fromPath": "/modiacontextholder",
-              "toUrl": "https://modiacontextholder.prod-fss-pub.nais.io",
+              "toUrl": "http://modiacontextholder.personoversikt.svc.cluster.local",
               "preserveFromPath": false,
               "toApp": {
                 "name": "modiacontextholder",
                 "namespace": "personoversikt",
-                "cluster": "prod-fss"
+                "cluster": "prod-gcp"
               }
             },
             {
@@ -236,12 +244,12 @@ spec:
             },
             {
               "fromPath": "/veilarboppgave",
-              "toUrl": "https://veilarboppgave.prod-fss-pub.nais.io",
+              "toUrl": "http://veilarboppgave.obo",
               "preserveFromPath": true,
               "toApp": {
                 "name": "veilarboppgave",
-                "namespace": "pto",
-                "cluster": "prod-fss"
+                "namespace": "obo",
+                "cluster": "prod-gcp"
               }
             },
             {
@@ -256,13 +264,13 @@ spec:
             },
             {
               "fromPath": "/veilarbfilter",
-              "toUrl": "https://veilarbfilter.prod-fss-pub.nais.io",
+              "toUrl": "http://veilarbfilter.obo",
               "preserveFromPath": true,
               "toApp": {
                 "name": "veilarbfilter",
-                "namespace": "pto",
-                "cluster": "prod-fss"
+                "namespace": "obo",
+                "cluster": "prod-gcp"
               }
-          }
+            }
           ]
         }

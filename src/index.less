@@ -17,15 +17,24 @@ header.dekorator {
 }
 
 @media print {
-	header.dekorator {
+	@page {
+		margin: 0;
+	}
+
+	body {
+		margin-bottom: 5mm;
+		margin-top: 5mm;
+	}
+
+	.dekorator {
+		display: none;
+	}
+
+	div.navds-tabs {
 		display: none;
 	}
 
 	div.visittkortfs {
-		display: none;
-	}
-
-	.tab-menu__headers {
 		display: none;
 	}
 }
