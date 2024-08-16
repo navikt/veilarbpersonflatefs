@@ -40,6 +40,9 @@ spec:
       enabled: true
       autoLogin: true
   observability:
+    autoInstrumentation:
+      enabled: true
+      runtime: nodejs
     logging:
       destinations:
         - id: elastic
@@ -65,8 +68,15 @@ spec:
           namespace: dab
         - application: amt-deltaker-bff
           namespace: amt
+        - application: veilarbaktivitet
+          namespace: dab
+        - application: veilarbfilter
+          namespace: obo
+        - application: veilarboppgave
+          namespace: obo
+        - application: veilarbdialog
+          namespace: dab
       external:
-        - host: veilarbdialog.dev-fss-pub.nais.io
         - host: veilarbaktivitet.dev-fss-pub.nais.io
         - host: veilarbmalverk.dev-fss-pub.nais.io
         - host: veilarbperson.dev-fss-pub.nais.io
@@ -75,8 +85,6 @@ spec:
         - host: modiacontextholder-q1.dev-fss-pub.nais.io
         - host: veilarbveileder.dev-fss-pub.nais.io
         - host: veilarbvedtaksstotte.dev-fss-pub.nais.io
-        - host: veilarboppgave.dev-fss-pub.nais.io
-        - host: veilarbfilter.dev-fss-pub.nais.io
   env:
     - name: JSON_CONFIG
       value: >
@@ -89,9 +97,9 @@ spec:
           "gcs": {
             "bucketName": "poao-veilarbpersonflate-dev"
           },
-          "enableModiaContextUpdater": {
-            "url": "https://modiacontextholder-q1.dev-fss-pub.nais.io/modiacontextholder",
-            "scope": "api://dev-fss.personoversikt.modiacontextholder-q1/.default"
+          "enableModiaContextUpdater": { 
+            "url": "http://modiacontextholder.personoversikt/modiacontextholder",
+            "scope": "api://dev-gcp.personoversikt.modiacontextholder/.default"
           },
           "header": {
             "csp": {
@@ -141,22 +149,22 @@ spec:
             },
             {
               "fromPath": "/veilarbdialog",
-              "toUrl": "https://veilarbdialog.dev-fss-pub.nais.io",
+              "toUrl": "http://veilarbdialog.dab",
               "preserveFromPath": true,
               "toApp": {
                 "name": "veilarbdialog",
-                "namespace": "pto",
-                "cluster": "dev-fss"
+                "namespace": "dab",
+                "cluster": "dev-gcp"
               }
             },
             {
               "fromPath": "/veilarbaktivitet",
-              "toUrl": "https://veilarbaktivitet.dev-fss-pub.nais.io",
+              "toUrl": "http://veilarbaktivitet.dab",
               "preserveFromPath": true,
               "toApp": {
                 "name": "veilarbaktivitet",
-                "namespace": "pto",
-                "cluster": "dev-fss"
+                "namespace": "dab",
+                "cluster": "dev-gcp"
               }
             },
             {
@@ -231,12 +239,12 @@ spec:
             },
             {
               "fromPath": "/veilarboppgave",
-              "toUrl": "https://veilarboppgave.dev-fss-pub.nais.io",
+              "toUrl": "http://veilarboppgave.obo",
               "preserveFromPath": true,
               "toApp": {
                 "name": "veilarboppgave",
-                "namespace": "pto",
-                "cluster": "dev-fss"
+                "namespace": "obo",
+                "cluster": "dev-gcp"
               }
             },
             {
@@ -261,12 +269,12 @@ spec:
             },
             {
               "fromPath": "/veilarbfilter",
-              "toUrl": "https://veilarbfilter.dev-fss-pub.nais.io",
+              "toUrl": "http://veilarbfilter.obo",
               "preserveFromPath": true,
               "toApp": {
                 "name": "veilarbfilter",
-                "namespace": "pto",
-                "cluster": "dev-fss"
+                "namespace": "obo",
+                "cluster": "dev-gcp"
               }
             },
             {
