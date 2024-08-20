@@ -86,7 +86,6 @@ spec:
         - host: veilarbveileder.dev-fss-pub.nais.io
         - host: veilarbvedtaksstotte.dev-fss-pub.nais.io
         - host: amplitude.nav.no
-        - host: amplitude.dev.nav.no # Noen av oss bruker dev url-er i dev :)
   env:
     - name: JSON_CONFIG
       value: >
