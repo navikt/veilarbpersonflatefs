@@ -6,10 +6,8 @@ export function initAmplitude() {
 	const apiKey =
 		getEnv().type === EnvType.prod ? '691963e61d2b11465aa96acfcaa8959b' : 'faf28eb5445abfe75c7ac28ae7a8d050';
 
-	const url = getEnv().type === EnvType.prod ? 'https://amplitude.nav.no/collect' : 'https://amplitude.dev.nav.no/collect'
-
 	amplitude.init(apiKey, undefined, {
-		serverUrl: url,
+		serverUrl: 'https://amplitude.nav.no/collect',
 		ingestionMetadata: {
 			sourceName: window.location.toString()
 		}
