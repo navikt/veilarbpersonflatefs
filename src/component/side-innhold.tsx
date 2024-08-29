@@ -5,11 +5,12 @@ import TabMenu from './tab-menu/TabMenu';
 import { utledTilbakeUrl } from '../util/url-utils';
 
 const SideInnhold = () => {
-	const { aktivBrukerFnr, aktivEnhetId } = useModiaContext();
+	const { aktivBrukerFnr, aktivEnhetId, renderKey } = useModiaContext();
 
 	return (
 		<>
 			<Visittkort
+				key={renderKey}
 				enhet={aktivEnhetId ?? undefined}
 				fnr={aktivBrukerFnr}
 				visVeilederVerktoy={true}

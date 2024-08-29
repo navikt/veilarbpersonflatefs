@@ -15,7 +15,8 @@ import { applications } from '../data/applications';
 import { dispatchNavigateEvent } from '../Router';
 
 export const PersonflatePage = () => {
-	const { aktivBrukerFnr, aktivEnhetId, setAktivEnhetId, setAktivBrukerFnr } = useModiaContext();
+	const { aktivBrukerFnr, aktivEnhetId, setAktivEnhetId, setAktivBrukerFnr, setRenderKey, renderKey } =
+		useModiaContext();
 	const { sesjonStatus } = useSesjonStatus();
 
 	const fetchTilgangTilBruker = useFetchTilgangTilBruker(aktivBrukerFnr, { manual: true });
@@ -24,6 +25,7 @@ export const PersonflatePage = () => {
 	const onAktivBrukerChanged = (newFnr: string | null) => {
 		if (!newFnr) return;
 		setAktivBrukerFnr(newFnr);
+		setRenderKey(renderKey + 1);
 		const application = applications.find(app => window.location.pathname.startsWith(app.pathEntrypoint));
 		if (application) {
 			dispatchNavigateEvent(application.pathEntrypoint);
