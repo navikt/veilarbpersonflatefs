@@ -24,16 +24,12 @@ export const PersonflatePage = () => {
 	const fetchOboUnleashFeatures = useFetchFeaturesFromOboUnleash();
 
 	const onAktivBrukerChanged = (newFnr: string | null) => {
-		console.log('bruker endret. fnr = ',newFnr)
 		if(!newFnr) return;
 		setAktivBrukerFnr(newFnr);
 		const application = applications.find(app => window.location.pathname.startsWith(app.pathEntrypoint))
 		if(application) {
-			dispatchNavigateEvent(application?.pathEntrypoint)
-		} else {
-			console.log('application er null for' + window.location.pathname)
+			dispatchNavigateEvent(application.pathEntrypoint)
 		}
-		// setRenderKey(renderKey + 1); // Forces all the micro frontends to be remounted so that their state is reset
 	}
 
 	const onAktivEnhetChanged = (newEnhetId: string | null) => {
