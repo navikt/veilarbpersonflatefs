@@ -1,13 +1,13 @@
-import { Env, getEnv } from '../../../util/utils';
+import { EnvType, getEnv } from '../../../util/utils';
 import { useEffect } from 'react';
 
 export const DELTAKERREGISTRERING_ENTRY = 'src/webComponentWrapper.tsx';
 
 const deltakerRegistreringOrigin = () => {
-	switch (getEnv()) {
-		case Env.Dev:
+	switch (getEnv().type) {
+		case EnvType.dev:
 			return 'https://amt-deltaker-flate.intern.dev.nav.no';
-		case Env.Local:
+		case EnvType.local:
 			return 'http://localhost:4173';
 		default:
 			return '';
@@ -42,6 +42,5 @@ export function useLoadDeltakerRegistreringApp() {
 			.catch(error => {
 				throw new Error(`Failed to load DeltakerRegistrering: ${error}`);
 			});
-
 	}, []);
 }

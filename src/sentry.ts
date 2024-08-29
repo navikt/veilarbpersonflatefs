@@ -64,7 +64,7 @@ Sentry.init({
 			]
 		})
 	],
-	environment: getEnv(),
+	environment: getEnv().type,
 	enabled: !erMock(),
 	ignoreErrors: [/^canceled$/],
 	// Set tracesSampleRate to 1.0 to capture 100%

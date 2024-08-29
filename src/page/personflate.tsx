@@ -1,9 +1,5 @@
 import { useEffect, useState } from 'react';
-import {
-	useFetchAktivEnhet,
-	useFetchFeaturesFromOboUnleash,
-	useFetchTilgangTilBruker
-} from '../api/api';
+import { useFetchFeaturesFromOboUnleash, useFetchTilgangTilBruker } from '../api/api';
 import { hasAnyFailed, isAnyLoading } from '../api/utils';
 import {
 	FeilUnderLastingAvData,
@@ -24,7 +20,6 @@ export const PersonflatePage = () => {
 
 	const fetchTilgangTilBruker = useFetchTilgangTilBruker(aktivBrukerFnr, { manual: true });
 	const fetchOboUnleashFeatures = useFetchFeaturesFromOboUnleash();
-	const fetchAktivEnhet = useFetchAktivEnhet();
 
 	// Hack used because internflatedecorator does not update onFnrChanged function so comparison on fnr can not
 	// be done inside that function because it alwaus closes the first value
@@ -51,33 +46,18 @@ export const PersonflatePage = () => {
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [aktivBrukerFnr]);
 
-	useEffect(() => {
-		if (fetchAktivEnhet.data && fetchAktivEnhet.data.aktivEnhet) {
-			setAktivEnhetId(fetchAktivEnhet.data.aktivEnhet);
-		}
-		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [fetchAktivEnhet]);
-
 	let innhold;
 
 	if (!aktivBrukerFnr) {
 		innhold = <FeilmeldingManglerFnr />;
-	} else if (
-		isAnyLoading(
-			fetchTilgangTilBruker,
-			fetchAktivEnhet,
-			fetchOboUnleashFeatures
-		)
-	) {
+	} else if (isAnyLoading(fetchTilgangTilBruker, fetchOboUnleashFeatures)) {
 		innhold = <PageSpinner />;
 	} else if (hasAnyFailed(fetchTilgangTilBruker, fetchOboUnleashFeatures)) {
 		innhold = <FeilUnderLastingAvData />;
 	} else if (!fetchTilgangTilBruker.data) {
 		innhold = <IngenTilgangTilBruker />;
 	} else {
-		innhold = (
-			<Innhold />
-		);
+		innhold = <Innhold />;
 	}
 
 	return (
@@ -95,7 +75,5 @@ export const PersonflatePage = () => {
 };
 
 const Innhold = () => {
-	return (
-		<SideInnhold />
-	);
+	return <SideInnhold />;
 };

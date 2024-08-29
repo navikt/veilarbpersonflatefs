@@ -19,10 +19,11 @@ export const Router = () => {
 		setCurrentAppId(newApp.id);
 	};
 
-	const visAktivitetsplan = useCallback(() => setCurrentAppId(AppId.AKTIVITETSPLAN), [])
-	const visDialog = useCallback(() => setCurrentAppId(AppId.DIALOG), [])
+	const visAktivitetsplan = useCallback(() => setCurrentAppId(AppId.AKTIVITETSPLAN), []);
+	const visDialog = useCallback(() => setCurrentAppId(AppId.DIALOG), []);
 
 	useEventListener(NAVIGATE_EVENT, changeApplication);
+	useEventListener('popstate', changeApplication);
 	useEventListener('visAktivitetsplan', visAktivitetsplan);
 	useEventListener('visDialog', visDialog);
 

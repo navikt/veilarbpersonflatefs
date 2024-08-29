@@ -8,10 +8,11 @@ metadata:
   annotations:
     nginx.ingress.kubernetes.io/proxy-buffer-size: "8k"
 spec:
-  image: europe-north1-docker.pkg.dev/nais-management-233d/poao/poao-frontend:2024.01.11-15.42-89509d3
+  image: europe-north1-docker.pkg.dev/nais-management-233d/poao/poao-frontend:2024.05.07_13.29-a2e3b56408a1
   port: 8080
   ingresses:
     - https://veilarbpersonflate.intern.dev.nav.no
+    - https://veilarbpersonflate.ansatt.dev.nav.no
   liveness:
     path: /internal/alive
     initialDelay: 10
@@ -38,6 +39,14 @@ spec:
     sidecar:
       enabled: true
       autoLogin: true
+  observability:
+    autoInstrumentation:
+      enabled: true
+      runtime: nodejs
+    logging:
+      destinations:
+        - id: elastic
+        - id: loki
   gcp:
     buckets:
       - name: poao-veilarbpersonflate-dev
@@ -49,6 +58,8 @@ spec:
           namespace: team-mulighetsrommet
         - application: obo-unleash
           namespace: obo
+        - application: modiacontextholder
+          namespace: personoversikt
         - application: please
           namespace: dab
         - application: orkivar
@@ -57,8 +68,15 @@ spec:
           namespace: dab
         - application: amt-deltaker-bff
           namespace: amt
+        - application: veilarbaktivitet
+          namespace: dab
+        - application: veilarbfilter
+          namespace: obo
+        - application: veilarboppgave
+          namespace: obo
+        - application: veilarbdialog
+          namespace: dab
       external:
-        - host: veilarbdialog.dev-fss-pub.nais.io
         - host: veilarbaktivitet.dev-fss-pub.nais.io
         - host: veilarbmalverk.dev-fss-pub.nais.io
         - host: veilarbperson.dev-fss-pub.nais.io
@@ -67,8 +85,7 @@ spec:
         - host: modiacontextholder-q1.dev-fss-pub.nais.io
         - host: veilarbveileder.dev-fss-pub.nais.io
         - host: veilarbvedtaksstotte.dev-fss-pub.nais.io
-        - host: veilarboppgave.dev-fss-pub.nais.io
-        - host: veilarbfilter.dev-fss-pub.nais.io
+        - host: amplitude.nav.no
   env:
     - name: JSON_CONFIG
       value: >
@@ -81,9 +98,9 @@ spec:
           "gcs": {
             "bucketName": "poao-veilarbpersonflate-dev"
           },
-          "enableModiaContextUpdater": {
-            "url": "https://modiacontextholder-q1.dev-fss-pub.nais.io/modiacontextholder",
-            "scope": "api://dev-fss.personoversikt.modiacontextholder-q1/.default"
+          "enableModiaContextUpdater": { 
+            "url": "http://modiacontextholder.personoversikt/modiacontextholder",
+            "scope": "api://dev-gcp.personoversikt.modiacontextholder/.default"
           },
           "header": {
             "csp": {
@@ -96,8 +113,8 @@ spec:
           "redirects": [
             {
               "fromPath": "/internarbeidsflatedecorator/*",
-              "toUrl": "https://internarbeidsflatedecorator-q1.intern.dev.nav.no",
-              "preserveFromPath": true
+              "toUrl": "https://cdn.nav.no/personoversikt/internarbeidsflate-decorator-v3/dev",
+              "preserveFromPath": false
             },
             {
               "fromPath": "/veilarbportefoljeflatefs/*",
@@ -133,22 +150,22 @@ spec:
             },
             {
               "fromPath": "/veilarbdialog",
-              "toUrl": "https://veilarbdialog.dev-fss-pub.nais.io",
+              "toUrl": "http://veilarbdialog.dab",
               "preserveFromPath": true,
               "toApp": {
                 "name": "veilarbdialog",
-                "namespace": "pto",
-                "cluster": "dev-fss"
+                "namespace": "dab",
+                "cluster": "dev-gcp"
               }
             },
             {
               "fromPath": "/veilarbaktivitet",
-              "toUrl": "https://veilarbaktivitet.dev-fss-pub.nais.io",
+              "toUrl": "http://veilarbaktivitet.dab",
               "preserveFromPath": true,
               "toApp": {
                 "name": "veilarbaktivitet",
-                "namespace": "pto",
-                "cluster": "dev-fss"
+                "namespace": "dab",
+                "cluster": "dev-gcp"
               }
             },
             {
@@ -183,12 +200,12 @@ spec:
             },
             {
               "fromPath": "/modiacontextholder",
-              "toUrl": "https://modiacontextholder-q1.dev-fss-pub.nais.io",
-              "preserveFromPath": true,
+              "toUrl": "http://modiacontextholder.personoversikt.svc.cluster.local",
+              "preserveFromPath": false,
               "toApp": {
-                "name": "modiacontextholder-q1",
+                "name": "modiacontextholder",
                 "namespace": "personoversikt",
-                "cluster": "dev-fss"
+                "cluster": "dev-gcp"
               }
             },
             {
@@ -223,12 +240,12 @@ spec:
             },
             {
               "fromPath": "/veilarboppgave",
-              "toUrl": "https://veilarboppgave.dev-fss-pub.nais.io",
+              "toUrl": "http://veilarboppgave.obo",
               "preserveFromPath": true,
               "toApp": {
                 "name": "veilarboppgave",
-                "namespace": "pto",
-                "cluster": "dev-fss"
+                "namespace": "obo",
+                "cluster": "dev-gcp"
               }
             },
             {
@@ -253,12 +270,12 @@ spec:
             },
             {
               "fromPath": "/veilarbfilter",
-              "toUrl": "https://veilarbfilter.dev-fss-pub.nais.io",
+              "toUrl": "http://veilarbfilter.obo",
               "preserveFromPath": true,
               "toApp": {
                 "name": "veilarbfilter",
-                "namespace": "pto",
-                "cluster": "dev-fss"
+                "namespace": "obo",
+                "cluster": "dev-gcp"
               }
             },
             {

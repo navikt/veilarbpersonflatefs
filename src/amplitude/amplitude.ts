@@ -1,9 +1,10 @@
 import * as amplitude from '@amplitude/analytics-browser';
 import { track } from '@amplitude/analytics-browser';
-import { Env, getEnv } from '../util/utils';
+import { EnvType, getEnv } from '../util/utils';
 
 export function initAmplitude() {
-	const apiKey = getEnv() === Env.Prod ? '691963e61d2b11465aa96acfcaa8959b' : 'faf28eb5445abfe75c7ac28ae7a8d050';
+	const apiKey =
+		getEnv().type === EnvType.prod ? '691963e61d2b11465aa96acfcaa8959b' : 'faf28eb5445abfe75c7ac28ae7a8d050';
 
 	amplitude.init(apiKey, undefined, {
 		serverUrl: 'https://amplitude.nav.no/collect',

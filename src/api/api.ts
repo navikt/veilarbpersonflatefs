@@ -47,11 +47,17 @@ export function useFetchAntallUlesteDialoger(
 	fnr: string,
 	options?: Options
 ): UseAxiosResponseValue<AntallUlesteDialoger> {
-	return useAxios<AntallUlesteDialoger>(`/veilarbdialog/api/dialog/antallUleste?fnr=${fnr}`, options);
+	return useAxios<AntallUlesteDialoger>(
+		{ url: `/veilarbdialog/api/dialog/antallUleste`, method: 'POST', data: fnr ? { fnr } : undefined },
+		options
+	);
 }
 
 export function useFetchSistOppdatert(fnr: string, options?: Options): UseAxiosResponseValue<SistOppdatertData> {
-	return useAxios<SistOppdatertData>(`/veilarbdialog/api/dialog/sistOppdatert?fnr=${fnr}`, options);
+	return useAxios<SistOppdatertData>(
+		{ method: 'POST', url: `/veilarbdialog/api/dialog/sistOppdatert`, data: { fnr } },
+		options
+	);
 }
 
 export function useFetchFeaturesFromOboUnleash(): UseAxiosResponseValue<OboUnleashFeatures> {
@@ -62,10 +68,6 @@ export function useFetchFeaturesFromOboUnleash(): UseAxiosResponseValue<OboUnlea
 export function useFetchFeaturesFromDabUnleash(): UseAxiosResponseValue<DabUnleashFeatures> {
 	const toggles = DAB_UNLEASH_TOGGLES.map(element => 'feature=' + element).join('&');
 	return useAxios<DabUnleashFeatures>(`/veilarbaktivitet/api/feature?${toggles}`);
-}
-
-export function useFetchAktivEnhet(options?: Options): UseAxiosResponseValue<AktivEnhetResponse> {
-	return useAxios<AktivEnhetResponse>('/modiacontextholder/api/context/aktivenhet', options);
 }
 
 export function useFetchTilgangTilBruker(fnr: string, options?: Options): UseAxiosResponseValue<boolean> {
