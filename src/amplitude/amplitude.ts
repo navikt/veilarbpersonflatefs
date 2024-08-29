@@ -7,6 +7,7 @@ export function initAmplitude() {
 		getEnv().type === EnvType.prod ? '691963e61d2b11465aa96acfcaa8959b' : 'faf28eb5445abfe75c7ac28ae7a8d050';
 
 	amplitude.init(apiKey, undefined, {
+		defaultTracking: true,
 		serverUrl: 'https://amplitude.nav.no/collect',
 		ingestionMetadata: {
 			sourceName: window.location.toString()
