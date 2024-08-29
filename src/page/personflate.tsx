@@ -24,6 +24,7 @@ export const PersonflatePage = () => {
 	const fetchOboUnleashFeatures = useFetchFeaturesFromOboUnleash();
 
 	const onAktivBrukerChanged = (newFnr: string | null) => {
+		console.log('bruker endret. fnr = ',newFnr)
 		if(!newFnr) return;
 		setAktivBrukerFnr(newFnr);
 		const application = applications.find(app => window.location.pathname.startsWith(app.pathEntrypoint))
