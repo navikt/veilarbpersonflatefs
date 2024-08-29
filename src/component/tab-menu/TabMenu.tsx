@@ -7,7 +7,7 @@ import { applications } from '../../data/applications';
 import { logEvent } from '../../util/frontend-logger';
 import { logAmplitudeEvent } from '../../amplitude/amplitude';
 import './tab-menu.less';
-import { dispatchNavigateEvent } from '../../util/utils';
+import { dispatchNavigateEvent } from '../../Router';
 
 const vikafossenIkkeErValgtSomEnhet = (aktivEnhetId: string | null) => {
 	const vikafossen = '2103';

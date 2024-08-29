@@ -13,7 +13,7 @@ import { UtloptSesjonAdvarsel } from '../component/utlopt-sesjon-advarsel/utlopt
 import { SesjonStatus, useSesjonStatus } from '../hooks/use-sesjon-status';
 import { useModiaContext } from '../store/modia-context-store';
 import { applications } from '../data/applications';
-import { dispatchNavigateEvent } from '../util/utils';
+import { dispatchNavigateEvent } from '../Router';
 
 export const PersonflatePage = () => {
 	const { aktivBrukerFnr, aktivEnhetId, setAktivEnhetId, setAktivBrukerFnr } =
