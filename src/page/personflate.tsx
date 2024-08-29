@@ -12,6 +12,8 @@ import SideInnhold from '../component/side-innhold';
 import { UtloptSesjonAdvarsel } from '../component/utlopt-sesjon-advarsel/utlopt-sesjon-advarsel';
 import { SesjonStatus, useSesjonStatus } from '../hooks/use-sesjon-status';
 import { useModiaContext } from '../store/modia-context-store';
+import { applications } from '../data/applications';
+import { dispatchNavigateEvent } from '../util/utils';
 
 export const PersonflatePage = () => {
 	const { aktivBrukerFnr, aktivEnhetId, setAktivEnhetId, setAktivBrukerFnr } =
@@ -24,6 +26,12 @@ export const PersonflatePage = () => {
 	const onAktivBrukerChanged = (newFnr: string | null) => {
 		if(!newFnr) return;
 		setAktivBrukerFnr(newFnr);
+		const application = applications.find(app => window.location.pathname.startsWith(app.pathEntrypoint))
+		if(application) {
+			dispatchNavigateEvent(application?.pathEntrypoint)
+		} else {
+			console.log('application er null for' + window.location.pathname)
+		}
 		// setRenderKey(renderKey + 1); // Forces all the micro frontends to be remounted so that their state is reset
 	}
 

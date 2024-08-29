@@ -36,3 +36,8 @@ export function useEventListener(name: string, listener: (event: Event) => void)
 		return () => window.removeEventListener(name, listener);
 	}, [listener, name]);
 }
+
+export function dispatchNavigateEvent(path: string) {
+	window.history.pushState(null, '', path);
+	window.dispatchEvent(new CustomEvent('veilarbpersonflate.navigate'));
+}
