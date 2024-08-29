@@ -10,6 +10,11 @@ export const appFromPath = (path: string): Application => {
 	return applications.find(it => path.startsWith(it.pathEntrypoint)) || defaultApplication;
 };
 
+export function dispatchNavigateEvent(path: string) {
+	window.history.pushState(null, '', path);
+	window.dispatchEvent(new CustomEvent('veilarbpersonflate.navigate'));
+}
+
 export const Router = () => {
 	const { setCurrentAppId, currentAppId } = useAppContext();
 

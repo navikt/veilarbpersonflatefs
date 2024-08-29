@@ -7,7 +7,7 @@ import { applications } from '../../data/applications';
 import { logEvent } from '../../util/frontend-logger';
 import { logAmplitudeEvent } from '../../amplitude/amplitude';
 import './tab-menu.less';
-import { NAVIGATE_EVENT } from '../../Router';
+import { dispatchNavigateEvent } from '../../Router';
 
 const vikafossenIkkeErValgtSomEnhet = (aktivEnhetId: string | null) => {
 	const vikafossen = '2103';
@@ -80,11 +80,6 @@ function dispatchTabClickedEvent(tabId: TabId) {
 	logEvent('veilarbpersonflatefs.valgt-fane', { tabId });
 	logAmplitudeEvent('tab åpnet', { tabId });
 	window.dispatchEvent(new CustomEvent('veilarbpersonflatefs.tab-clicked', { detail: { tabId } }));
-}
-
-function dispatchNavigateEvent(path: string) {
-	window.history.pushState(null, '', path);
-	window.dispatchEvent(new CustomEvent(NAVIGATE_EVENT));
 }
 
 export default TabMenu;
