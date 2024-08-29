@@ -20,13 +20,10 @@ const TabMenu = () => {
 
 	const changeApplication = (appId: AppId) => {
 		const application = applications.find(app => app.id === appId);
-
 		if (!application) throw Error('Det finnes ikke en side for ' + appId);
-
-		if (application.id === currentAppId) return;
-
+		// Alltid Naviger til "root" hvis ikke allerede der
+		if (application.pathEntrypoint === window.location.pathname) return;
 		dispatchTabClickedEvent(application.tabId);
-
 		dispatchNavigateEvent(application.pathEntrypoint);
 	};
 
