@@ -71,11 +71,12 @@ spec:
           namespace: dab
         - application: veilarbdialog
           namespace: dab
+        - application: veilarbportefolje
+          namespace: obo
       external:
         - host: veilarbmalverk.prod-fss-pub.nais.io
         - host: veilarbperson.prod-fss-pub.nais.io
         - host: veilarboppfolging.prod-fss-pub.nais.io
-        - host: veilarbportefolje.prod-fss-pub.nais.io
         - host: veilarbaktivitet.prod-fss-pub.nais.io
         - host: modiacontextholder.prod-fss-pub.nais.io
         - host: veilarbveileder.prod-fss-pub.nais.io
@@ -165,12 +166,12 @@ spec:
             },
             {
               "fromPath": "/veilarbportefolje",
-              "toUrl": "https://veilarbportefolje.prod-fss-pub.nais.io",
+              "toUrl": "http://veilarbportefolje.obo",
               "preserveFromPath": true,
-              "toApp": {
+               "toApp": {
                 "name": "veilarbportefolje",
-                "namespace": "pto",
-                "cluster": "prod-fss"
+                "namespace": "obo",
+                "cluster": "prod-gcp"
               }
             },
             {
