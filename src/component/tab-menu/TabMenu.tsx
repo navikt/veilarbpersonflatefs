@@ -1,21 +1,14 @@
 import { Tabs } from '@navikt/ds-react';
-import { useAppContext } from '../../SupAppContext';
-import { UlesteDialoger } from './dialog-tab/UlesteDialoger';
-import { useModiaContext } from '../../store/modia-context-store';
-import { AppId, appIdToTabId, TabId } from '../../data/tab-id';
-import { applications } from '../../data/applications';
-import { logEvent } from '../../util/frontend-logger';
 import { logAmplitudeEvent } from '../../amplitude/amplitude';
+import { applications } from '../../data/applications';
+import { AppId, appIdToTabId, TabId } from '../../data/tab-id';
+import { useAppContext } from '../../SupAppContext';
+import { logEvent } from '../../util/frontend-logger';
+import { UlesteDialoger } from './dialog-tab/UlesteDialoger';
 import './tab-menu.less';
-
-const vikafossenIkkeErValgtSomEnhet = (aktivEnhetId: string | null) => {
-	const vikafossen = '2103';
-	return aktivEnhetId && aktivEnhetId !== vikafossen;
-};
 
 const TabMenu = () => {
 	const { currentAppId } = useAppContext();
-	const { aktivEnhetId } = useModiaContext();
 
 	const changeApplication = (appId: AppId) => {
 		const application = applications.find(app => app.id === appId);
@@ -57,16 +50,12 @@ const TabMenu = () => {
 					value={TabId.VEDTAKSSTOTTE}
 					onClick={() => changeApplication(AppId.VEDTAKSSTOTTE)}
 				/>
-
-				{vikafossenIkkeErValgtSomEnhet(aktivEnhetId) && (
-					<Tabs.Tab
-						label="Arbeidsmarkedstiltak"
-						key={TabId.ARBEIDSMARKEDSTILTAK}
-						value={TabId.ARBEIDSMARKEDSTILTAK}
-						onClick={() => changeApplication(AppId.ARBEIDSMARKEDSTILTAK)}
-					/>
-				)}
-
+				<Tabs.Tab
+					label="Arbeidsmarkedstiltak"
+					key={TabId.ARBEIDSMARKEDSTILTAK}
+					value={TabId.ARBEIDSMARKEDSTILTAK}
+					onClick={() => changeApplication(AppId.ARBEIDSMARKEDSTILTAK)}
+				/>
 				<Tabs.Tab
 					label="Finn stillinger"
 					key={TabId.FINN_STILLING_INNGANG}
