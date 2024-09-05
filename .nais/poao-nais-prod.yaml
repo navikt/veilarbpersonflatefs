@@ -8,7 +8,7 @@ metadata:
   annotations:
     nginx.ingress.kubernetes.io/proxy-buffer-size: "8k"
 spec:
-  image: europe-north1-docker.pkg.dev/nais-management-233d/poao/poao-frontend:2024.05.07_13.29-a2e3b56408a1
+  image: europe-north1-docker.pkg.dev/nais-management-233d/poao/poao-frontend:2024.08.30_10.15-9c1569b22e37
   port: 8080
   ingresses:
     - https://veilarbpersonflate.intern.nav.no
@@ -71,11 +71,12 @@ spec:
           namespace: dab
         - application: veilarbdialog
           namespace: dab
+        - application: veilarbportefolje
+          namespace: obo
       external:
         - host: veilarbmalverk.prod-fss-pub.nais.io
         - host: veilarbperson.prod-fss-pub.nais.io
         - host: veilarboppfolging.prod-fss-pub.nais.io
-        - host: veilarbportefolje.prod-fss-pub.nais.io
         - host: veilarbaktivitet.prod-fss-pub.nais.io
         - host: modiacontextholder.prod-fss-pub.nais.io
         - host: veilarbveileder.prod-fss-pub.nais.io
@@ -165,12 +166,12 @@ spec:
             },
             {
               "fromPath": "/veilarbportefolje",
-              "toUrl": "https://veilarbportefolje.prod-fss-pub.nais.io",
+              "toUrl": "http://veilarbportefolje.obo",
               "preserveFromPath": true,
-              "toApp": {
+               "toApp": {
                 "name": "veilarbportefolje",
-                "namespace": "pto",
-                "cluster": "prod-fss"
+                "namespace": "obo",
+                "cluster": "prod-gcp"
               }
             },
             {

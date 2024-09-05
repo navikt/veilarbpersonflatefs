@@ -6,19 +6,17 @@ import { useAppContext } from '../../SupAppContext';
 import { logEvent } from '../../util/frontend-logger';
 import { UlesteDialoger } from './dialog-tab/UlesteDialoger';
 import './tab-menu.less';
+import { dispatchNavigateEvent } from '../../Router';
 
 const TabMenu = () => {
 	const { currentAppId } = useAppContext();
 
 	const changeApplication = (appId: AppId) => {
 		const application = applications.find(app => app.id === appId);
-
 		if (!application) throw Error('Det finnes ikke en side for ' + appId);
-
-		if (application.id === currentAppId) return;
-
+		// Alltid Naviger til "root" hvis ikke allerede der
+		if (application.pathEntrypoint === window.location.pathname) return;
 		dispatchTabClickedEvent(application.tabId);
-
 		dispatchNavigateEvent(application.pathEntrypoint);
 	};
 
@@ -71,11 +69,6 @@ function dispatchTabClickedEvent(tabId: TabId) {
 	logEvent('veilarbpersonflatefs.valgt-fane', { tabId });
 	logAmplitudeEvent('tab åpnet', { tabId });
 	window.dispatchEvent(new CustomEvent('veilarbpersonflatefs.tab-clicked', { detail: { tabId } }));
-}
-
-function dispatchNavigateEvent(path: string) {
-	window.history.pushState(null, '', path);
-	window.dispatchEvent(new CustomEvent('veilarbpersonflate.navigate'));
 }
 
 export default TabMenu;
