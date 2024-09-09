@@ -101,7 +101,7 @@ spec:
             "origin": ["modiacontextholder.intern.dev.nav.no"],
             "credentials": true,
             "maxAge": 7200,
-            "allowedHeaders": ["Nav-Consumer-Id"]
+            "allowedHeaders": ["Nav-Consumer-Id", "Authorization"]
           },
           "gcs": {
             "bucketName": "poao-veilarbpersonflate-dev"
