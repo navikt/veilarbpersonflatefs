@@ -78,7 +78,6 @@ spec:
         - host: veilarbperson.prod-fss-pub.nais.io
         - host: veilarboppfolging.prod-fss-pub.nais.io
         - host: veilarbaktivitet.prod-fss-pub.nais.io
-        - host: modiacontextholder.prod-fss-pub.nais.io
         - host: veilarbveileder.prod-fss-pub.nais.io
         - host: veilarbvedtaksstotte.prod-fss-pub.nais.io
         - host: amplitude.nav.no
@@ -206,7 +205,7 @@ spec:
             },
             {
               "fromPath": "/modiacontextholder",
-              "toUrl": "http://modiacontextholder.personoversikt.svc.cluster.local",
+              "toUrl": "http://modiacontextholder.personoversikt",
               "preserveFromPath": false,
               "toApp": {
                 "name": "modiacontextholder",
