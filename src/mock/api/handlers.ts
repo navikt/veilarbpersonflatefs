@@ -74,9 +74,9 @@ export const handlers = [
 	),
 	http.post('/veilarbdialog/api/dialog/antallUleste', responseResolver({ json: mockAntallUleste })),
 	http.post('/veilarbdialog/api/dialog/sistOppdatert', responseResolver({ json: mockSistOppdatert })),
-	http.get('/modiacontextholder/api/context/aktivenhet', responseResolver({ json: mockAktivEnhet })),
-	http.get('/modiacontextholder/api/context/v2/aktivenhet', responseResolver({ json: mockAktivEnhet })),
-	http.post('/modiacontextholder/api/context', responseResolver({ json: mockAktivEnhet })),
+	http.get('/api/context/aktivenhet', responseResolver({ json: mockAktivEnhet })),
+	http.get('/api/context/v2/aktivenhet', responseResolver({ json: mockAktivEnhet })),
+	http.post('/api/context', responseResolver({ json: mockAktivEnhet })),
 	http.get('/veilarbperson/api/v3/person/hent-tilgangTilBruker', responseResolver({ json: mockTilgangTilBruker })),
 	http.post('/veilarboppfolging/api/v3/manuell/synkroniser-med-dkif', responseResolver({ status: 204 })),
 
