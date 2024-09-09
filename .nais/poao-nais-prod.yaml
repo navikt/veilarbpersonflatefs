@@ -91,6 +91,12 @@ spec:
           "auth": {
             "loginProvider": "AZURE_AD"
           },
+          "cors": {
+                      "origin": ["nav.no"],
+                      "credentials": true,
+                      "maxAge": 7200,
+                      "allowedHeaders": ["Nav-Consumer-Id"]
+                    },
           "gcs": {
             "bucketName": "poao-veilarbpersonflate-prod"
           },
