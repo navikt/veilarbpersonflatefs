@@ -25,9 +25,13 @@ export const PersonflatePage = () => {
 
 	const onAktivBrukerChanged = (newFnr: string | null) => {
 		if(!newFnr) return;
+		const forrigeFnr = aktivBrukerFnr
 		setAktivBrukerFnr(newFnr);
 		const application = applications.find(app => window.location.pathname.startsWith(app.pathEntrypoint))
-		if(application) {
+		const harByttetBruker = !!forrigeFnr // hvis ikke finnes forrige bruker er dette feltet tom string, ikke undefined
+		const skalNavigereTilRot = application && harByttetBruker;
+
+		if(skalNavigereTilRot) {
 			dispatchNavigateEvent(application.pathEntrypoint)
 		}
 	}

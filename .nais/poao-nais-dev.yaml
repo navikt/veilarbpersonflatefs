@@ -79,6 +79,8 @@ spec:
         - application: veilarbperson
           namespace: obo
           cluster: dev-gcp
+        - application: veilarbportefolje
+          namespace: obo
       external:
         - host: veilarbaktivitet.dev-fss-pub.nais.io
         - host: veilarbmalverk.dev-fss-pub.nais.io
@@ -193,19 +195,19 @@ spec:
             },
             {
               "fromPath": "/veilarbportefolje",
-              "toUrl": "https://veilarbportefolje.dev-fss-pub.nais.io",
+              "toUrl": "http://veilarbportefolje.obo",
               "preserveFromPath": true,
               "toApp": {
                 "name": "veilarbportefolje",
-                "namespace": "pto",
-                "cluster": "dev-fss"
+                "namespace": "obo",
+                "cluster": "dev-gcp"
               }
             },
             {
               "fromPath": "/obo-unleash",
               "toUrl": "http://obo-unleash.obo.svc.cluster.local",
               "preserveFromPath": false,
-               "toApp": {
+              "toApp": {
                 "name": "obo-unleash",
                 "namespace": "obo",
                 "cluster": "dev-gcp"
