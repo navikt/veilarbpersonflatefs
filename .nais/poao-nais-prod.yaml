@@ -73,6 +73,8 @@ spec:
           namespace: dab
         - application: veilarbportefolje
           namespace: obo
+        - application: veilarboppfolging
+          namespace: poao
       external:
         - host: veilarbmalverk.prod-fss-pub.nais.io
         - host: veilarbperson.prod-fss-pub.nais.io
@@ -81,6 +83,7 @@ spec:
         - host: modiacontextholder.prod-fss-pub.nais.io
         - host: veilarbveileder.prod-fss-pub.nais.io
         - host: veilarbvedtaksstotte.prod-fss-pub.nais.io
+        - host: veilarbarena.prod-fss-pub.nais.io
         - host: amplitude.nav.no
   env:
     - name: JSON_CONFIG
@@ -272,6 +275,16 @@ spec:
                 "name": "veilarbfilter",
                 "namespace": "obo",
                 "cluster": "prod-gcp"
+              }
+            },
+            {
+              "fromPath": "/veilarbarena",
+              "preserveFromPath": true,
+              "toUrl": "https://veilarbarena.prod-fss-pub.nais.io",
+              "toApp": {
+                "name": "veilarbarena",
+                "namespace": "pto",
+                "cluster": "prod-fss"
               }
             }
           ]
