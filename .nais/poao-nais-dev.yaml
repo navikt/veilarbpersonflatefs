@@ -78,6 +78,8 @@ spec:
           namespace: dab
         - application: veilarbportefolje
           namespace: obo
+        - application: veilarbvedtaksstotte
+          namespace: obo
         - application: veilarboppfolging
           namespace: poao
       external:
@@ -87,7 +89,6 @@ spec:
         - host: veilarbportefolje.dev-fss-pub.nais.io
         - host: modiacontextholder-q1.dev-fss-pub.nais.io
         - host: veilarbveileder.dev-fss-pub.nais.io
-        - host: veilarbvedtaksstotte.dev-fss-pub.nais.io
         - host: amplitude.nav.no
   env:
     - name: JSON_CONFIG
@@ -223,12 +224,12 @@ spec:
             },
             {
               "fromPath": "/veilarbvedtaksstotte",
-              "toUrl": "https://veilarbvedtaksstotte.dev-fss-pub.nais.io",
+              "toUrl": "http://veilarbvedtaksstotte.obo",
               "preserveFromPath": true,
               "toApp": {
                 "name": "veilarbvedtaksstotte",
-                "namespace": "pto",
-                "cluster": "dev-fss"
+                "namespace": "obo",
+                "cluster": "dev-gcp"
               }
             },
             {
