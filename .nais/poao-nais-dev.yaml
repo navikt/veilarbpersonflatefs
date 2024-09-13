@@ -78,6 +78,8 @@ spec:
           namespace: dab
         - application: veilarbportefolje
           namespace: obo
+        - application: veilarboppfolging
+          namespace: poao
       external:
         - host: veilarbaktivitet.dev-fss-pub.nais.io
         - host: veilarbmalverk.dev-fss-pub.nais.io
