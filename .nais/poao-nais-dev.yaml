@@ -136,16 +136,6 @@ spec:
             },
             {
               "fromPath": "/veilarbperson",
-              "toUrl": "https://veilarbperson.dev-fss-pub.nais.io",
-              "preserveFromPath": true,
-              "toApp": {
-                "name": "veilarbperson",
-                "namespace": "pto",
-                "cluster": "dev-fss"
-              }
-            },
-            {
-              "fromPath": "/veilarbperson",
               "toUrl": "http://veilarbperson.obo",
               "preserveFromPath": true,
               "toApp": {
