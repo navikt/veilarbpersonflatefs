@@ -78,7 +78,6 @@ spec:
       external:
         - host: veilarbmalverk.prod-fss-pub.nais.io
         - host: veilarbperson.prod-fss-pub.nais.io
-        - host: veilarboppfolging.prod-fss-pub.nais.io
         - host: veilarbaktivitet.prod-fss-pub.nais.io
         - host: modiacontextholder.prod-fss-pub.nais.io
         - host: veilarbveileder.prod-fss-pub.nais.io
@@ -139,12 +138,12 @@ spec:
             },
             {
               "fromPath": "/veilarboppfolging",
-              "toUrl": "https://veilarboppfolging.prod-fss-pub.nais.io",
+              "toUrl": "http://veilarboppfolging.poao",
               "preserveFromPath": true,
               "toApp": {
                 "name": "veilarboppfolging",
-                "namespace": "pto",
-                "cluster": "prod-fss"
+                "namespace": "poao",
+                "cluster": "prod-gcp"
               }
             },
             {
