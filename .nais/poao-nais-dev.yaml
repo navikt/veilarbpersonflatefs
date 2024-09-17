@@ -76,6 +76,8 @@ spec:
           namespace: obo
         - application: veilarbdialog
           namespace: dab
+        - application: veilarbperson
+          namespace: obo
         - application: veilarbportefolje
           namespace: obo
         - application: veilarbvedtaksstotte
@@ -85,7 +87,6 @@ spec:
       external:
         - host: veilarbaktivitet.dev-fss-pub.nais.io
         - host: veilarbmalverk.dev-fss-pub.nais.io
-        - host: veilarbperson.dev-fss-pub.nais.io
         - host: veilarbportefolje.dev-fss-pub.nais.io
         - host: modiacontextholder-q1.dev-fss-pub.nais.io
         - host: veilarbveileder.dev-fss-pub.nais.io
@@ -135,12 +136,12 @@ spec:
             },
             {
               "fromPath": "/veilarbperson",
-              "toUrl": "https://veilarbperson.dev-fss-pub.nais.io",
+              "toUrl": "http://veilarbperson.obo",
               "preserveFromPath": true,
               "toApp": {
                 "name": "veilarbperson",
-                "namespace": "pto",
-                "cluster": "dev-fss"
+                "namespace": "obo",
+                "cluster": "dev-gcp"
               }
             },
             {
