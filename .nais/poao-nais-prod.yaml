@@ -75,9 +75,10 @@ spec:
           namespace: obo
         - application: veilarboppfolging
           namespace: poao
+        - application: veilarbperson
+          namespace: obo
       external:
         - host: veilarbmalverk.prod-fss-pub.nais.io
-        - host: veilarbperson.prod-fss-pub.nais.io
         - host: veilarbaktivitet.prod-fss-pub.nais.io
         - host: modiacontextholder.prod-fss-pub.nais.io
         - host: veilarbveileder.prod-fss-pub.nais.io
@@ -128,12 +129,12 @@ spec:
             },
             {
               "fromPath": "/veilarbperson",
-              "toUrl": "https://veilarbperson.prod-fss-pub.nais.io",
+              "toUrl": "http://veilarbperson.obo",
               "preserveFromPath": true,
               "toApp": {
                 "name": "veilarbperson",
-                "namespace": "pto",
-                "cluster": "prod-fss"
+                "namespace": "obo",
+                "cluster": "prod-gcp"
               }
             },
             {
