@@ -49,6 +49,7 @@ function lagDecoratorConfig(
 		environment: getDecoratorEnv(),
 		fetchActiveUserOnMount: true,
 		fetchActiveEnhetOnMount: true,
-		urlFormat: getEnv().ingressType === 'ansatt' ? 'ANSATT' : 'NAV_NO'
+		urlFormat: getEnv().ingressType === 'ansatt' ? 'ANSATT' : 'NAV_NO',
+		appName: 'Arbeidsrettet oppfølging'
 	};
 }
