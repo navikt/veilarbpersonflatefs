@@ -82,14 +82,14 @@ spec:
           namespace: obo
         - application: veilarbvedtaksstotte
           namespace: obo
+        - application: veilarbveileder
+          namespace: obo
         - application: veilarboppfolging
           namespace: poao
       external:
         - host: veilarbaktivitet.dev-fss-pub.nais.io
         - host: veilarbmalverk.dev-fss-pub.nais.io
-        - host: veilarbportefolje.dev-fss-pub.nais.io
         - host: modiacontextholder-q1.dev-fss-pub.nais.io
-        - host: veilarbveileder.dev-fss-pub.nais.io
         - host: veilarbarena.dev-fss-pub.nais.io
         - host: amplitude.nav.no
   env:
@@ -216,12 +216,12 @@ spec:
             },
             {
               "fromPath": "/veilarbveileder",
-              "toUrl": "https://veilarbveileder.dev-fss-pub.nais.io",
+              "toUrl": "http://veilarbveileder.obo",
               "preserveFromPath": true,
               "toApp": {
                 "name": "veilarbveileder",
-                "namespace": "pto",
-                "cluster": "dev-fss"
+                "namespace": "obo",
+                "cluster": "dev-gcp"
               }
             },
             {
