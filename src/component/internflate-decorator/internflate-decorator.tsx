@@ -37,11 +37,11 @@ function getDecoratorEnv(): DecoratorEnvironment {
 function lagDecoratorConfig(
 	props: InternflateDecoratorProps
 ): DecoratorConfigV2 & { proxy: string; useProxy: boolean } {
-	const fnr = props.fnr ?? undefined;
-	const enhetId = props.enhetId ?? undefined;
+	// const fnr = props.fnr ?? undefined;
+	// const enhetId = props.enhetId ?? undefined;
 	return {
-		fnr,
-		enhet: enhetId,
+		fnr: undefined,
+		enhet: undefined,
 		onEnhetChanged: newEnhet => props.onEnhetChanged(newEnhet ?? null),
 		onFnrChanged: newFnr => props.onFnrChanged(newFnr ?? null),
 		useProxy: true,
