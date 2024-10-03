@@ -49,12 +49,12 @@ interface SetRenderKey {
 export const ON_AKTIV_BRUKER_CHANGED = 'ON_AKTIV_BRUKER_CHANGED' as const;
 interface OnAktivBrukerChanged {
 	type: typeof ON_AKTIV_BRUKER_CHANGED;
-	fnr: string;
+	fnr: string | null | undefined;
 }
 export const ON_AKTIV_ENHET_CHANGED = 'ON_AKTIV_ENHET_CHANGED' as const;
 interface OnAktivEnhetChanged {
 	type: typeof ON_AKTIV_ENHET_CHANGED;
-	enhet: string;
+	enhet: string | null | undefined;
 }
 
 export type ModiaContextActions = SetFnr | SetEnhet | SetRenderKey | OnAktivBrukerChanged | OnAktivEnhetChanged;

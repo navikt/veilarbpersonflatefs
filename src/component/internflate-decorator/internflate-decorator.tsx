@@ -6,10 +6,8 @@ import { useContext, useMemo } from 'react';
 import { DispatchContext } from '../../store/store-provider';
 
 interface InternflateDecoratorProps {
-	// enhetId: string | undefined | null;
-	// fnr: string | undefined | null;
-	onEnhetChanged: (newEnhet: string) => void;
-	onFnrChanged: (newFnr: string) => void;
+	onEnhetChanged: (newEnhet: string | undefined | null) => void;
+	onFnrChanged: (newFnr: string | undefined | null) => void;
 }
 
 export const Decorator: React.ComponentType<DecoratorConfigV2> = NAVSPA.importer(
@@ -47,8 +45,6 @@ function getDecoratorEnv(): DecoratorEnvironment {
 function lagDecoratorConfig(
 	props: InternflateDecoratorProps
 ): DecoratorConfigV2 & { proxy: string; useProxy: boolean } {
-	// const fnr = props.fnr ?? undefined;
-	// const enhetId = props.enhetId ?? undefined;
 	return {
 		fnr: undefined,
 		enhet: undefined,
