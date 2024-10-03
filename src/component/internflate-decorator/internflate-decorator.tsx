@@ -2,12 +2,12 @@ import { SpaName } from '../spa';
 import { DecoratorConfigV2, DecoratorEnvironment } from './internflate-decorator-config';
 import NAVSPA from '@navikt/navspa';
 import { EnvType, getEnv } from '../../util/utils';
+import { useContext, useMemo } from 'react';
+import { DispatchContext } from '../../store/store-provider';
 
 interface InternflateDecoratorProps {
-	enhetId: string | undefined | null;
-	fnr: string | undefined | null;
-	onEnhetChanged: (newEnhet: string | null) => void;
-	onFnrChanged: (newFnr: string | null) => void;
+	onEnhetChanged: (newEnhet: string | undefined | null) => void;
+	onFnrChanged: (newFnr: string | undefined | null) => void;
 }
 
 export const Decorator: React.ComponentType<DecoratorConfigV2> = NAVSPA.importer(
@@ -17,10 +17,18 @@ export const Decorator: React.ComponentType<DecoratorConfigV2> = NAVSPA.importer
 	}
 );
 
-export function InternflateDecorator(props: InternflateDecoratorProps) {
+export function InternflateDecorator() {
+	const dispatch = useContext(DispatchContext);
+	const decoratorProps = useMemo(() => {
+		return lagDecoratorConfig({
+			onEnhetChanged: enhet => dispatch({ type: 'ON_AKTIV_ENHET_CHANGED', enhet }),
+			onFnrChanged: fnr => dispatch({ type: 'ON_AKTIV_BRUKER_CHANGED', fnr })
+		});
+	}, []);
+
 	return (
 		<nav>
-			<Decorator {...lagDecoratorConfig(props)} />
+			<Decorator {...lagDecoratorConfig(decoratorProps)} />
 		</nav>
 	);
 }
@@ -37,11 +45,9 @@ function getDecoratorEnv(): DecoratorEnvironment {
 function lagDecoratorConfig(
 	props: InternflateDecoratorProps
 ): DecoratorConfigV2 & { proxy: string; useProxy: boolean } {
-	const fnr = props.fnr ?? undefined;
-	const enhetId = props.enhetId ?? undefined;
 	return {
-		fnr,
-		enhet: enhetId,
+		fnr: undefined,
+		enhet: undefined,
 		onEnhetChanged: newEnhet => props.onEnhetChanged(newEnhet ?? null),
 		onFnrChanged: newFnr => props.onFnrChanged(newFnr ?? null),
 		useProxy: true,
