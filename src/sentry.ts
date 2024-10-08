@@ -52,7 +52,12 @@ const fjernPersonopplysninger = (event: Event): Event => {
 if (getEnv().type !== EnvType.local) {
 	Sentry.init({
 		dsn: 'https://82639012ef3d42aab4a8ac2d60e2c464@sentry.gc.nav.no/143',
-		integrations: [Sentry.browserTracingIntegration()],
+		integrations: [
+			Sentry.browserTracingIntegration(),
+			Sentry.httpClientIntegration({
+				failedRequestTargets: [/https:\/\/veilarbpersonflate\.intern(\.dev)?\.nav.no\/*/]
+			})
+		],
 		environment: getEnv().type,
 		enabled: !erMock(),
 		ignoreErrors: [/^canceled$/, /Amplitude/],
