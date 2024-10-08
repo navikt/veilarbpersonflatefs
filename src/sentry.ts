@@ -1,6 +1,13 @@
 import { EnvType, erMock, getEnv } from './util/utils';
-// import { Breadcrumb, Event } from '@sentry/types';
-import Sentry, { Event, Breadcrumb, EventHint, ErrorEvent } from '@sentry/react';
+import {
+	init,
+	httpClientIntegration,
+	browserTracingIntegration,
+	Event,
+	Breadcrumb,
+	EventHint,
+	ErrorEvent
+} from '@sentry/react';
 
 const fnrRegexRegel = {
 	regex: /[0-9]{11}/g,
@@ -50,11 +57,11 @@ const fjernPersonopplysninger = (event: ErrorEvent, hint: EventHint): ErrorEvent
 };
 
 if (getEnv().type !== EnvType.local) {
-	Sentry.init({
+	init({
 		dsn: 'https://82639012ef3d42aab4a8ac2d60e2c464@sentry.gc.nav.no/143',
 		integrations: [
-			Sentry.browserTracingIntegration(),
-			Sentry.httpClientIntegration({
+			browserTracingIntegration(),
+			httpClientIntegration({
 				failedRequestTargets: [/https:\/\/veilarbpersonflate\.intern(\.dev)?\.nav.no\/*/]
 			})
 		],
