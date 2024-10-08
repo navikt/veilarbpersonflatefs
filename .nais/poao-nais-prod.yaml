@@ -79,6 +79,8 @@ spec:
           namespace: obo
         - application: veilarbveileder
           namespace: obo
+        - application: amt-deltaker-bff
+          namespace: amt
       external:
         - host: veilarbmalverk.prod-fss-pub.nais.io
         - host: veilarbaktivitet.prod-fss-pub.nais.io
@@ -286,6 +288,16 @@ spec:
                 "name": "veilarbarena",
                 "namespace": "pto",
                 "cluster": "prod-fss"
+              }
+            },
+            {
+              "fromPath": "/amt-deltaker-bff",
+              "preserveFromPath": false,
+              "toUrl": "http://amt-deltaker-bff.amt",
+              "toApp": {
+                "name": "amt-deltaker-bff",
+                "namespace": "amt",
+                "cluster": "prod-gcp"
               }
             }
           ]
