@@ -1,6 +1,6 @@
 import { EnvType, erMock, getEnv } from './util/utils';
-import { Breadcrumb, Event } from '@sentry/types';
-import * as Sentry from '@sentry/react';
+// import { Breadcrumb, Event } from '@sentry/types';
+import Sentry, { Event, Breadcrumb, EventHint, ErrorEvent } from '@sentry/react';
 
 const fnrRegexRegel = {
 	regex: /[0-9]{11}/g,
@@ -24,7 +24,7 @@ const tagsFilter = (tags: Event['tags']): Event['tags'] => {
 	};
 };
 
-const fjernPersonopplysninger = (event: Event): Event => {
+const fjernPersonopplysninger = (event: ErrorEvent, hint: EventHint): ErrorEvent => {
 	const url = event.request?.url ? maskerPersonopplysninger(event.request.url) : '';
 	return {
 		...event,
