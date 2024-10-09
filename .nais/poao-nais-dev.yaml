@@ -89,7 +89,6 @@ spec:
       external:
         - host: veilarbaktivitet.dev-fss-pub.nais.io
         - host: veilarbmalverk.dev-fss-pub.nais.io
-        - host: modiacontextholder-q1.dev-fss-pub.nais.io
         - host: veilarbarena.dev-fss-pub.nais.io
         - host: amplitude.nav.no
   env:
@@ -104,8 +103,8 @@ spec:
           "gcs": {
             "bucketName": "poao-veilarbpersonflate-dev"
           },
-          "enableModiaContextUpdater": { 
-            "url": "http://modiacontextholder.personoversikt/modiacontextholder",
+          "enableModiaContextUpdater": {
+            "url": "http://modiacontextholder.personoversikt",
             "scope": "api://dev-gcp.personoversikt.modiacontextholder/.default"
           },
           "header": {
