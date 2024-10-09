@@ -83,9 +83,6 @@ spec:
           namespace: amt
       external:
         - host: veilarbmalverk.prod-fss-pub.nais.io
-        - host: veilarbaktivitet.prod-fss-pub.nais.io
-        - host: modiacontextholder.prod-fss-pub.nais.io
-        - host: veilarbvedtaksstotte.prod-fss-pub.nais.io
         - host: veilarbarena.prod-fss-pub.nais.io
         - host: amplitude.nav.no
   env:
@@ -101,7 +98,7 @@ spec:
             "bucketName": "poao-veilarbpersonflate-prod"
           },
           "enableModiaContextUpdater": {
-            "url": "http://modiacontextholder.personoversikt/modiacontextholder",
+            "url": "http://modiacontextholder.personoversikt",
             "scope": "api://prod-gcp.personoversikt.modiacontextholder/.default"
           },
           "header": {
