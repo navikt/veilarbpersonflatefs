@@ -83,8 +83,8 @@ spec:
           namespace: amt
       external:
         - host: veilarbmalverk.prod-fss-pub.nais.io
-        - host: veilarbarena.prod-fss-pub.nais.io
         - host: veilarbvedtaksstotte.prod-fss-pub.nais.io
+        - host: veilarbarena.prod-fss-pub.nais.io
         - host: amplitude.nav.no
   env:
     - name: JSON_CONFIG
