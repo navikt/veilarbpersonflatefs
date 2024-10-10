@@ -1,7 +1,13 @@
-import { erMock, getEnv } from './util/utils';
-import { Breadcrumb, Event } from '@sentry/types';
-import * as Sentry from '@sentry/react';
-import { BrowserTracing } from '@sentry/tracing';
+import { EnvType, erMock, getEnv } from './util/utils';
+import {
+	init,
+	httpClientIntegration,
+	browserTracingIntegration,
+	Event,
+	Breadcrumb,
+	EventHint,
+	ErrorEvent
+} from '@sentry/react';
 
 const fnrRegexRegel = {
 	regex: /[0-9]{11}/g,
@@ -25,7 +31,7 @@ const tagsFilter = (tags: Event['tags']): Event['tags'] => {
 	};
 };
 
-const fjernPersonopplysninger = (event: Event): Event => {
+const fjernPersonopplysninger = (event: ErrorEvent, hint: EventHint): ErrorEvent => {
 	const url = event.request?.url ? maskerPersonopplysninger(event.request.url) : '';
 	return {
 		...event,
@@ -50,26 +56,30 @@ const fjernPersonopplysninger = (event: Event): Event => {
 	};
 };
 
-Sentry.init({
-	dsn: 'https://82639012ef3d42aab4a8ac2d60e2c464@sentry.gc.nav.no/143',
-	integrations: [
-		new BrowserTracing({
-			tracingOrigins: [
-				/veilarbvisittkortfs(\.dev)?.intern.nav.no/,
-				/veilarbvedtaksstottefs(\.dev)?.intern.nav.no/,
-				/arbeidsrettet-dialog(\.dev)?.intern.nav.no/,
-				/veilarbpersonflate(\.dev)?.intern.nav.no/
-				// Can't trace these apps, current CORS-config does not allow tracing headers
-				// /mulighetsrommet-veileder-flate(\.dev)?.intern.nav.no/,
-			]
-		})
-	],
-	environment: getEnv().type,
-	enabled: !erMock(),
-	ignoreErrors: [/^canceled$/],
-	// Set tracesSampleRate to 1.0 to capture 100%
-	// of transactions for performance monitoring.
-	// We recommend adjusting this value in production
-	tracesSampleRate: 0.2,
-	beforeSend: fjernPersonopplysninger
-});
+if (getEnv().type !== EnvType.local) {
+	init({
+		dsn: 'https://82639012ef3d42aab4a8ac2d60e2c464@sentry.gc.nav.no/143',
+		integrations: [
+			browserTracingIntegration(),
+			httpClientIntegration({
+				failedRequestTargets: [/https:\/\/veilarbpersonflate\.intern(\.dev)?\.nav.no\/*/]
+			})
+		],
+		environment: getEnv().type,
+		enabled: !erMock(),
+		ignoreErrors: [/^canceled$/, /Amplitude/],
+		// Set tracesSampleRate to 1.0 to capture 100%
+		// of transactions for performance monitoring.
+		// We recommend adjusting this value in production
+		tracesSampleRate: 0.2,
+		tracePropagationTargets: [
+			/veilarbvisittkortfs(\.dev)?.intern.nav.no/,
+			/veilarbvedtaksstottefs(\.dev)?.intern.nav.no/,
+			/arbeidsrettet-dialog(\.dev)?.intern.nav.no/,
+			/veilarbpersonflate(\.dev)?.intern.nav.no/
+			// Can't trace these apps, current CORS-config does not allow tracing headers
+			// /mulighetsrommet-veileder-flate(\.dev)?.intern.nav.no/,
+		],
+		beforeSend: fjernPersonopplysninger
+	});
+}

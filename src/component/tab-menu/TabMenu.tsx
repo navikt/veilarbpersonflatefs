@@ -1,31 +1,22 @@
 import { Tabs } from '@navikt/ds-react';
-import { useAppContext } from '../../SupAppContext';
-import { UlesteDialoger } from './dialog-tab/UlesteDialoger';
-import { useModiaContext } from '../../store/modia-context-store';
-import { AppId, appIdToTabId, TabId } from '../../data/tab-id';
-import { applications } from '../../data/applications';
-import { logEvent } from '../../util/frontend-logger';
 import { logAmplitudeEvent } from '../../amplitude/amplitude';
+import { applications } from '../../data/applications';
+import { AppId, appIdToTabId, TabId } from '../../data/tab-id';
+import { useAppContext } from '../../SupAppContext';
+import { logEvent } from '../../util/frontend-logger';
+import { UlesteDialoger } from './dialog-tab/UlesteDialoger';
 import './tab-menu.less';
-
-const vikafossenIkkeErValgtSomEnhet = (aktivEnhetId: string | null) => {
-	const vikafossen = '2103';
-	return aktivEnhetId && aktivEnhetId !== vikafossen;
-};
+import { dispatchNavigateEvent } from '../../Router';
 
 const TabMenu = () => {
 	const { currentAppId } = useAppContext();
-	const { aktivEnhetId } = useModiaContext();
 
 	const changeApplication = (appId: AppId) => {
 		const application = applications.find(app => app.id === appId);
-
 		if (!application) throw Error('Det finnes ikke en side for ' + appId);
-
-		if (application.id === currentAppId) return;
-
+		// Alltid Naviger til "root" hvis ikke allerede der
+		if (application.pathEntrypoint === window.location.pathname) return;
 		dispatchTabClickedEvent(application.tabId);
-
 		dispatchNavigateEvent(application.pathEntrypoint);
 	};
 
@@ -57,16 +48,12 @@ const TabMenu = () => {
 					value={TabId.VEDTAKSSTOTTE}
 					onClick={() => changeApplication(AppId.VEDTAKSSTOTTE)}
 				/>
-
-				{vikafossenIkkeErValgtSomEnhet(aktivEnhetId) && (
-					<Tabs.Tab
-						label="Arbeidsmarkedstiltak"
-						key={TabId.ARBEIDSMARKEDSTILTAK}
-						value={TabId.ARBEIDSMARKEDSTILTAK}
-						onClick={() => changeApplication(AppId.ARBEIDSMARKEDSTILTAK)}
-					/>
-				)}
-
+				<Tabs.Tab
+					label="Arbeidsmarkedstiltak"
+					key={TabId.ARBEIDSMARKEDSTILTAK}
+					value={TabId.ARBEIDSMARKEDSTILTAK}
+					onClick={() => changeApplication(AppId.ARBEIDSMARKEDSTILTAK)}
+				/>
 				<Tabs.Tab
 					label="Finn stillinger"
 					key={TabId.FINN_STILLING_INNGANG}
@@ -82,11 +69,6 @@ function dispatchTabClickedEvent(tabId: TabId) {
 	logEvent('veilarbpersonflatefs.valgt-fane', { tabId });
 	logAmplitudeEvent('tab åpnet', { tabId });
 	window.dispatchEvent(new CustomEvent('veilarbpersonflatefs.tab-clicked', { detail: { tabId } }));
-}
-
-function dispatchNavigateEvent(path: string) {
-	window.history.pushState(null, '', path);
-	window.dispatchEvent(new CustomEvent('veilarbpersonflate.navigate'));
 }
 
 export default TabMenu;
