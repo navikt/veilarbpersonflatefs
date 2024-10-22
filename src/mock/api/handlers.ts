@@ -61,7 +61,7 @@ const responseResolver = <RESPONSE_TYPE extends JsonBodyType>(
 		}
 
 		await delay(delayMilliseconds ?? DEFAULT_DELAY_MILLISECONDS);
-		return HttpResponse.json(json, { status: status ?? HTTP_OK })
+		return HttpResponse.json(json, { status: status ?? HTTP_OK });
 	};
 };
 
@@ -72,14 +72,35 @@ export const handlers = [
 		'/mulighetsrommet-api/api/v1/internal/features',
 		responseResolver({ json: mockMulighetsrommetUnleashFeatures })
 	),
-	http.get('/veilarbdialog/api/dialog/antallUleste', responseResolver({ json: mockAntallUleste })),
-	http.get('/veilarbdialog/api/dialog/sistOppdatert', responseResolver({ json: mockSistOppdatert })),
+	http.post('/veilarbdialog/api/dialog/antallUleste', responseResolver({ json: mockAntallUleste })),
+	http.post('/veilarbdialog/api/dialog/sistOppdatert', responseResolver({ json: mockSistOppdatert })),
 	http.get('/modiacontextholder/api/context/aktivenhet', responseResolver({ json: mockAktivEnhet })),
+	http.get('/modiacontextholder/api/context/v2/aktivenhet', responseResolver({ json: mockAktivEnhet })),
+	http.post('/modiacontextholder/api/context', responseResolver({ json: mockAktivEnhet })),
 	http.get('/veilarbperson/api/v3/person/hent-tilgangTilBruker', responseResolver({ json: mockTilgangTilBruker })),
 	http.post('/veilarboppfolging/api/v3/manuell/synkroniser-med-dkif', responseResolver({ status: 204 })),
 
 	http.get('/veilarbdialog/api/eskaleringsvarsel/gjeldende', responseResolver({ status: 204 })),
 	http.get('/veilarbdialog/api/dialog', responseResolver({ json: [] })),
+	http.post(
+		'/veilarbdialog/graphql',
+		responseResolver({
+			json: {
+				data: {
+					dialoger: [],
+					stansVarsel: {
+						id: 311044,
+						tilhorendeDialogId: 618904,
+						opprettetAv: 'Z994188',
+						opprettetDato: '2024-08-16T09:51:55.743718+02:00',
+						opprettetBegrunnelse:
+							'Les denne meldingen nøye og gi beskjed til veilederen din hvis det er noe du lurer på. Det gjør du ved å svare på denne meldingen.\n\nVi kan stanse arbeidsavklaringspengene dine dersom du ikke deltar på de planlagte aktivitetene og bidrar for å komme i arbeid.\n\nDette går fram av folketrygdloven §§ 11-7 og 11-8.\n\n[Fyll inn begrunnelse for varslet]\n\nVi sender deg dette varselet for at du skal ha mulighet til å uttale deg før vi avgjør saken din. Du må uttale deg innen [fristDato]. Du kan uttale deg skriftlig her eller du kan ringe oss på 55 55 33 33 og uttale deg muntlig.\n\nDersom arbeidsavklaringspengene dine blir stanset, kan du sende inn en ny søknad. Du kan tidligst gjenoppta arbeidsavklaringspengene dine fra den dagen du søker. Søknadsskjema finner du på nav.no.\n'
+					}
+				}
+			}
+		})
+	),
+	http.post('/veilarbdialog/api/logger/event', responseResolver({ status: 204 })),
 
 	http.get('/modiacontextholder/api/context/aktivenhet', responseResolver({ json: mockAktivEnhet })),
 	http.get('/modiacontextholder/api/context/aktivbruker', responseResolver({ json: aktivBrukerMock })),
@@ -97,6 +118,7 @@ export const handlers = [
 
 	http.post('/veilarboppfolging/api/v3/manuell/synkroniser-med-dkif', responseResolver({ status: 204 })),
 	http.get('/veilarboppfolging/api/oppfolging', responseResolver({ json: oppfolgingMockData })),
+	http.post('/veilarboppfolging/api/v3/oppfolging/hent-status', responseResolver({ json: oppfolgingMockData })),
 	http.post(
 		'/veilarboppfolging/api/v2/person/hent-oppfolgingsstatus',
 		responseResolver({ json: oppfolgingsStatusMockData })
@@ -106,19 +128,29 @@ export const handlers = [
 		responseResolver({ json: veilederHarTilgangMockData })
 	),
 	http.get('/veilarboppfolging/api/oppfolging/me', responseResolver({ json: meMockData })),
+	http.post('/veilarboppfolging/api/v3/hent-maal', responseResolver({ json: malMockData })),
 	http.get('/veilarboppfolging/api/oppfolging/harFlereAktorIderMedOppfolging', responseResolver({ json: false })),
-	http.get('/veilarboppfolging/api/oppfolging/mal', responseResolver({ json: malMockData })),
-	http.post('veilarboppfolging/api/v3/veileder/lest-aktivitetsplan', responseResolver({ status: 204 })),
+	http.post('/veilarboppfolging/api/v3/veileder/lest-aktivitetsplan', responseResolver({ status: 204 })),
+	http.get('/veilarboppfolging/api/v3/oppfolging/me', responseResolver({ json: meMockData })),
+	http.post('/veilarboppfolging/api/v3/oppfolging/harFlereAktorIderMedOppfolging', responseResolver({ status: 204 })),
+	http.post(
+		'/veilarboppfolging/api/v3/oppfolging/hent-veilederTilgang',
+		responseResolver({ json: { tilgangTilBrukersKontor: true } })
+	),
 
 	http.get('/veilarbveileder/api/veileder/me', responseResolver({ json: veilederMeMockData })),
 	http.get('/veilarbveileder/api/enhet/:enhetsNr/veiledere', responseResolver({ status: 204 })),
 
-	http.get('/veilarbaktivitet/api/aktivitet', responseResolver({ json: aktiviteterMockdata })),
+	http.post('/veilarbaktivitet/graphql', responseResolver({ json: aktiviteterMockdata })),
+	http.get('/veilarbaktivitet/api/feature', responseResolver({ json: {} })),
 	http.post('/veilarbaktivitet/api/logger/event', responseResolver({ status: 204 })),
-	http.get('/veilarbaktivitet/api/arena/tiltak', responseResolver({ json: [] })),
+	http.post('/veilarbaktivitet/api/arena/tiltak', responseResolver({ json: [] })),
 
 	http.post('/veilarbportefolje/api/v2/hent-arbeidsliste', responseResolver({ json: {} })),
-	http.get('/veilarblest/api/aktivitetsplan/les', responseResolver({ json: lesMockData })),
+	http.post('/veilarbportefolje/api/v1/hent-er-bruker-ufordelt', responseResolver({ json: true })),
+	http.post('/veilarblest/api/aktivitetsplan/les', responseResolver({ json: lesMockData })),
+
+	http.post('https://amplitude.nav.no/collect', responseResolver({ json: { mock: 'lol' } })),
 
 	http.get(
 		'/auth/info',

@@ -22,6 +22,10 @@ export const mockSistOppdatert: SistOppdatertData = {
 export const mockAktivEnhet: AktivEnhetResponse = {
 	aktivEnhet: testEnhetId
 };
+export const mockContext = {
+	aktivBruker: testBrukerFnr,
+	aktivEnhet: testEnhetId
+};
 
 export const mockTilgangTilBruker = true;
 

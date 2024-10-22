@@ -26,6 +26,7 @@ export interface DecoratorConfigV2 {
 	onFnrChanged: (fnr?: string | null) => void;
 	environment: DecoratorEnvironment;
 	urlFormat: 'ANSATT' | 'NAV_NO' | 'LOCAL' | 'ADEO';
+	appName: string;
 }
 
 interface TogglesConfig {

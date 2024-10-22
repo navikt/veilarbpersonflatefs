@@ -8,7 +8,7 @@ metadata:
   annotations:
     nginx.ingress.kubernetes.io/proxy-buffer-size: "8k"
 spec:
-  image: europe-north1-docker.pkg.dev/nais-management-233d/poao/poao-frontend:2024.05.07_13.29-a2e3b56408a1
+  image: europe-north1-docker.pkg.dev/nais-management-233d/poao/poao-frontend:2024.10.04_13.21-c31f6e652a0c
   port: 8080
   ingresses:
     - https://veilarbpersonflate.intern.dev.nav.no
@@ -76,15 +76,19 @@ spec:
           namespace: obo
         - application: veilarbdialog
           namespace: dab
+        - application: veilarbperson
+          namespace: obo
+        - application: veilarbportefolje
+          namespace: obo
+        - application: veilarbvedtaksstotte
+          namespace: obo
+        - application: veilarbveileder
+          namespace: obo
+        - application: veilarboppfolging
+          namespace: poao
       external:
-        - host: veilarbaktivitet.dev-fss-pub.nais.io
         - host: veilarbmalverk.dev-fss-pub.nais.io
-        - host: veilarbperson.dev-fss-pub.nais.io
-        - host: veilarboppfolging.dev-fss-pub.nais.io
-        - host: veilarbportefolje.dev-fss-pub.nais.io
-        - host: modiacontextholder-q1.dev-fss-pub.nais.io
-        - host: veilarbveileder.dev-fss-pub.nais.io
-        - host: veilarbvedtaksstotte.dev-fss-pub.nais.io
+        - host: veilarbarena.dev-fss-pub.nais.io
         - host: amplitude.nav.no
   env:
     - name: JSON_CONFIG
@@ -99,7 +103,7 @@ spec:
             "bucketName": "poao-veilarbpersonflate-dev"
           },
           "enableModiaContextUpdater": { 
-            "url": "http://modiacontextholder.personoversikt/modiacontextholder",
+            "url": "http://modiacontextholder.personoversikt",
             "scope": "api://dev-gcp.personoversikt.modiacontextholder/.default"
           },
           "header": {
@@ -130,22 +134,22 @@ spec:
             },
             {
               "fromPath": "/veilarbperson",
-              "toUrl": "https://veilarbperson.dev-fss-pub.nais.io",
+              "toUrl": "http://veilarbperson.obo",
               "preserveFromPath": true,
               "toApp": {
                 "name": "veilarbperson",
-                "namespace": "pto",
-                "cluster": "dev-fss"
+                "namespace": "obo",
+                "cluster": "dev-gcp"
               }
             },
             {
               "fromPath": "/veilarboppfolging",
-              "toUrl": "https://veilarboppfolging.dev-fss-pub.nais.io",
+              "toUrl": "http://veilarboppfolging.poao",
               "preserveFromPath": true,
               "toApp": {
                 "name": "veilarboppfolging",
-                "namespace": "pto",
-                "cluster": "dev-fss"
+                "namespace": "poao",
+                "cluster": "dev-gcp"
               }
             },
             {
@@ -180,19 +184,19 @@ spec:
             },
             {
               "fromPath": "/veilarbportefolje",
-              "toUrl": "https://veilarbportefolje.dev-fss-pub.nais.io",
+              "toUrl": "http://veilarbportefolje.obo",
               "preserveFromPath": true,
               "toApp": {
                 "name": "veilarbportefolje",
-                "namespace": "pto",
-                "cluster": "dev-fss"
+                "namespace": "obo",
+                "cluster": "dev-gcp"
               }
             },
             {
               "fromPath": "/obo-unleash",
               "toUrl": "http://obo-unleash.obo.svc.cluster.local",
               "preserveFromPath": false,
-               "toApp": {
+              "toApp": {
                 "name": "obo-unleash",
                 "namespace": "obo",
                 "cluster": "dev-gcp"
@@ -210,22 +214,22 @@ spec:
             },
             {
               "fromPath": "/veilarbveileder",
-              "toUrl": "https://veilarbveileder.dev-fss-pub.nais.io",
+              "toUrl": "http://veilarbveileder.obo",
               "preserveFromPath": true,
               "toApp": {
                 "name": "veilarbveileder",
-                "namespace": "pto",
-                "cluster": "dev-fss"
+                "namespace": "obo",
+                "cluster": "dev-gcp"
               }
             },
             {
               "fromPath": "/veilarbvedtaksstotte",
-              "toUrl": "https://veilarbvedtaksstotte.dev-fss-pub.nais.io",
+              "toUrl": "http://veilarbvedtaksstotte.obo",
               "preserveFromPath": true,
               "toApp": {
                 "name": "veilarbvedtaksstotte",
-                "namespace": "pto",
-                "cluster": "dev-fss"
+                "namespace": "obo",
+                "cluster": "dev-gcp"
               }
             },
             {
@@ -286,6 +290,16 @@ spec:
                 "name": "amt-deltaker-bff",
                 "namespace": "amt",
                 "cluster": "dev-gcp"
+              }
+            },
+            {
+              "fromPath": "/veilarbarena",
+              "preserveFromPath": true,
+              "toUrl": "https://veilarbarena.dev-fss-pub.nais.io",
+              "toApp": {
+                "name": "veilarbarena",
+                "namespace": "pto",
+                "cluster": "dev-fss"
               }
             }
           ]
