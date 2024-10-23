@@ -81,9 +81,10 @@ spec:
           namespace: obo
         - application: amt-deltaker-bff
           namespace: amt
+        - application: veilarbvedtaksstotte
+          namespace: obo
       external:
         - host: veilarbmalverk.prod-fss-pub.nais.io
-        - host: veilarbvedtaksstotte.prod-fss-pub.nais.io
         - host: veilarbarena.prod-fss-pub.nais.io
         - host: amplitude.nav.no
   env:
@@ -230,12 +231,12 @@ spec:
             },
             {
               "fromPath": "/veilarbvedtaksstotte",
-              "toUrl": "https://veilarbvedtaksstotte.prod-fss-pub.nais.io",
+              "toUrl": "http://veilarbvedtaksstotte.obo",
               "preserveFromPath": true,
               "toApp": {
                 "name": "veilarbvedtaksstotte",
-                "namespace": "pto",
-                "cluster": "prod-fss"
+                "namespace": "obo",
+                "cluster": "prod-gcp"
               }
             },
             {
