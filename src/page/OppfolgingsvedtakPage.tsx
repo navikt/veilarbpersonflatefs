@@ -8,7 +8,7 @@ function utledOppfolgingsvedtakCdnUrl(contextPath: string): string {
 	return erITestMiljo() ? `${base}/dev/${contextPath}` : `${base}/prod/${contextPath}`;
 }
 
-const oppfolgingsvedtakBaseUrl = utledOppfolgingsvedtakCdnUrl('oppfolgingsvedtak-modia/dist');
+const oppfolgingsvedtakBaseUrl = utledOppfolgingsvedtakCdnUrl('oppfolgingsvedtak-modia/build');
 
 const OppfolgingsvedtakPage = () => {
 	const { aktivBrukerFnr, aktivEnhetId } = useModiaContext();
@@ -17,7 +17,7 @@ const OppfolgingsvedtakPage = () => {
 		importSubApp(oppfolgingsvedtakBaseUrl);
 	}, []);
 
-	return React.createElement('modia-oppfolgingsvedtak', {
+	return React.createElement('veilarbvedtaksstottefs-root', {
 		'data-fnr': aktivBrukerFnr,
 		'data-enhet': aktivEnhetId ?? undefined
 	});
