@@ -1,26 +1,24 @@
+import { AsyncNavspa, AsyncSpaConfig } from '@navikt/navspa';
 import { useModiaContext } from '../store/modia-context-store';
-import { erITestMiljo } from '../util/url-utils';
-import React, { useEffect } from 'react';
-import { importSubApp } from './importUtils';
+import { SpaName, SpaProps } from '../component/spa';
+import { utledSpaUrl } from '../util/url-utils';
+import Spinner from '../component/spinner/spinner';
 
-function utledOppfolgingsvedtakCdnUrl(contextPath: string): string {
-	const base = 'https://cdn.nav.no/obo';
-	return erITestMiljo() ? `${base}/dev/${contextPath}` : `${base}/prod/${contextPath}`;
-}
+const vedtaksstotteAsyncConfig: AsyncSpaConfig = {
+	appName: SpaName.VEILARBVEDTAKSSTOTTEFS,
+	appBaseUrl: utledSpaUrl(SpaName.VEILARBVEDTAKSSTOTTEFS),
+	loader: <Spinner />,
+	config: {
+		wrapperClassName: 'veilarbvedtaksstottefs-wrapper'
+	}
+};
 
-const oppfolgingsvedtakBaseUrl = utledOppfolgingsvedtakCdnUrl('oppfolgingsvedtak-modia/build');
+const Vedtaksstotte: React.ComponentType<SpaProps> = AsyncNavspa.importer<SpaProps>(vedtaksstotteAsyncConfig);
 
 const OppfolgingsvedtakPage = () => {
 	const { aktivBrukerFnr, aktivEnhetId } = useModiaContext();
 
-	useEffect(() => {
-		importSubApp(oppfolgingsvedtakBaseUrl);
-	}, []);
-
-	return React.createElement('veilarbvedtaksstottefs-root', {
-		'data-fnr': aktivBrukerFnr,
-		'data-enhet': aktivEnhetId ?? undefined
-	});
+	return <Vedtaksstotte fnr={aktivBrukerFnr} enhet={aktivEnhetId ?? undefined} />;
 };
 
 export default OppfolgingsvedtakPage;
