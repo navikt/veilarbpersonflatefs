@@ -8,7 +8,7 @@ function utledOverblikkCdnUrl(contextPath: string): string {
   return erITestMiljo() ? `${base}/dev/${contextPath}` : `${base}/prod/${contextPath}`;
 }
 
-const overblikkBaseUrl = utledOverblikkCdnUrl('veilarbdetaljerfs/build');
+const overblikkBaseUrl = utledOverblikkCdnUrl('veilarbdetaljerfs/dist');
 
 const OverblikkPage = () => {
   const { aktivBrukerFnr } = useModiaContext();
