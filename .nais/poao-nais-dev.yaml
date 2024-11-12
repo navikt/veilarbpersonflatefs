@@ -7,6 +7,7 @@ metadata:
     team: poao
   annotations:
     nginx.ingress.kubernetes.io/proxy-buffer-size: "8k"
+    config.linkerd.io/proxy-cpu-limit: 500m
 spec:
   image: europe-north1-docker.pkg.dev/nais-management-233d/poao/poao-frontend:2024.10.04_13.21-c31f6e652a0c
   port: 8080
@@ -25,7 +26,6 @@ spec:
     cpuThresholdPercentage: 75
   resources:
     limits:
-      cpu: "1"
       memory: 512Mi
     requests:
       cpu: 250m
