@@ -43,7 +43,7 @@ const TabMenu = () => {
 					onClick={() => changeApplication(AppId.OVERBLIKK)}
 				/>
 				<Tabs.Tab
-					label="Oppfølgingsvedtak"
+					label="Oppfølgingsvedtak § 14 a"
 					key={TabId.VEDTAKSSTOTTE}
 					value={TabId.VEDTAKSSTOTTE}
 					onClick={() => changeApplication(AppId.VEDTAKSSTOTTE)}
