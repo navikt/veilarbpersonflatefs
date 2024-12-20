@@ -125,7 +125,7 @@ export const oppfolgingMockData = {
 };
 
 export const oppfolgingsStatusMockData = {
-	oppfolgingsenhet: { navn: 'NAV Alta-Kvænangen-Loppa', enhetId: testEnhetId },
+	oppfolgingsenhet: { navn: 'Nav Alta-Kvænangen-Loppa', enhetId: testEnhetId },
 	veilederId: null,
 	formidlingsgruppe: 'ARBS',
 	servicegruppe: 'IVURD',
@@ -149,7 +149,7 @@ export const personV2mockData = {
 	egenAnsatt: false,
 	kontonummer: null,
 	geografiskTilknytning: '5432',
-	geografiskEnhet: { enhetsnummer: '2012', navn: 'NAV Alta-Kvænangen-Loppa' },
+	geografiskEnhet: { enhetsnummer: '2012', navn: 'Nav Alta-Kvænangen-Loppa' },
 	telefon: [{ prioritet: '1', telefonNr: '12121212', registrertDato: '19.12.2022', master: 'KRR' }],
 	epost: { epostAdresse: 'sig@sig.no', epostSistOppdatert: '19.12.2022', master: 'KRR' },
 	statsborgerskapKoder: ['NOR'],
@@ -200,7 +200,7 @@ export const aktiviteterMockdata = {
 			versjon: '2342703',
 			tittel: 'Oppdater CV-en og jobbønsker',
 			beskrivelse:
-				'Når du registrerer CV-en din og jobbønskene dine, kan NAV følge deg opp på en bedre måte. CV-en gir oss nyttig informasjon om din kompetanse og dine jobbønsker. Etter avtale med deg, videreformidler NAV relevant informasjon til aktuelle arbeidsgivere og bemanningsbransjen for å hjelpe deg ut i jobb.',
+				'Når du registrerer CV-en din og jobbønskene dine, kan Nav følge deg opp på en bedre måte. CV-en gir oss nyttig informasjon om din kompetanse og dine jobbønsker. Etter avtale med deg, videreformidler Nav relevant informasjon til aktuelle arbeidsgivere og bemanningsbransjen for å hjelpe deg ut i jobb.',
 			lenke: 'https://arbeidsplassen-q1.nav.no/cv',
 			type: 'EGEN',
 			status: 'GJENNOMFORES',
@@ -222,7 +222,7 @@ export const aktiviteterMockdata = {
 			arbeidsgiver: null,
 			arbeidssted: null,
 			stillingsTittel: null,
-			hensikt: 'Tydeliggjøre arbeidserfaring og jobbønsker slik at NAV kan bidra til å hjelpe deg ut i jobb',
+			hensikt: 'Tydeliggjøre arbeidserfaring og jobbønsker slik at Nav kan bidra til å hjelpe deg ut i jobb',
 			oppfolging: null,
 			antallStillingerSokes: null,
 			antallStillingerIUken: null,
@@ -270,9 +270,9 @@ export const contextMock = {
 	fornavn: 'F_Z994381',
 	etternavn: 'E_Z994381',
 	enheter: [
-		{ enhetId: '0219', navn: 'NAV Bærum' },
-		{ enhetId: '0501', navn: 'NAV Lillehammer-Gausdal' },
-		{ enhetId: testEnhetId, navn: 'NAV Dalane' }
+		{ enhetId: '0219', navn: 'Nav Bærum' },
+		{ enhetId: '0501', navn: 'Nav Lillehammer-Gausdal' },
+		{ enhetId: testEnhetId, navn: 'Nav Dalane' }
 	]
 };
 

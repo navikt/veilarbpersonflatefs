@@ -72,7 +72,7 @@ Se [https://github.com/navikt/analytics-taxonomy](https://github.com/navikt/anal
 
 Spørsmål knyttet til koden eller prosjektet kan stilles via issues her på github.
 
-## For NAV-ansatte
+## For Nav-ansatte
 
 Interne henvendelser kan sendes via Slack i kanalen #po-arbeidsoppfølging.
 
