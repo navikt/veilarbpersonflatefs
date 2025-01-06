@@ -8,7 +8,7 @@ const deltakerRegistreringOrigin = () => {
 		case EnvType.prod:
 			return 'https://amt-deltaker-flate.intern.nav.no';
 		case EnvType.dev:
-			return 'https://amt-deltaker-flate.intern.dev.nav.no';
+			return 'https://cdn.nav.no/amt/amt-deltaker-flate-veileder-dev/build';
 		case EnvType.local:
 			return 'http://localhost:4173';
 		default:
