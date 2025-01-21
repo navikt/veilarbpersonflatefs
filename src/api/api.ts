@@ -1,4 +1,4 @@
-import { DAB_UNLEASH_TOGGLES, DabUnleashFeatures, OBO_UNLEASH_TOGGLES, OboUnleashFeatures } from './features';
+import { DAB_UNLEASH_TOGGLES, DabUnleashFeatures } from './features';
 import { axiosInstance, useAxios, UseAxiosResponseValue } from './utils';
 import { Options } from 'axios-hooks';
 import { AxiosPromise, AxiosResponse } from 'axios';
@@ -58,11 +58,6 @@ export function useFetchSistOppdatert(fnr: string, options?: Options): UseAxiosR
 		{ method: 'POST', url: `/veilarbdialog/api/dialog/sistOppdatert`, data: { fnr } },
 		options
 	);
-}
-
-export function useFetchFeaturesFromOboUnleash(): UseAxiosResponseValue<OboUnleashFeatures> {
-	const toggles = OBO_UNLEASH_TOGGLES.map(element => 'feature=' + element).join('&');
-	return useAxios<OboUnleashFeatures>(`/obo-unleash/api/feature?${toggles}`);
 }
 
 export function useFetchFeaturesFromDabUnleash(): UseAxiosResponseValue<DabUnleashFeatures> {

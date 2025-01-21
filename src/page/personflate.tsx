@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import { useFetchFeaturesFromOboUnleash, useFetchTilgangTilBruker } from '../api/api';
+import { useFetchTilgangTilBruker } from '../api/api';
 import { hasAnyFailed, isAnyLoading } from '../api/utils';
 import {
 	FeilUnderLastingAvData,
@@ -26,7 +26,6 @@ const Body = () => {
 	const { aktivBrukerFnr } = useModiaContext();
 	const { sesjonStatus } = useSesjonStatus();
 	const fetchTilgangTilBruker = useFetchTilgangTilBruker(aktivBrukerFnr, { manual: true });
-	const fetchOboUnleashFeatures = useFetchFeaturesFromOboUnleash();
 
 	useEffect(() => {
 		if (aktivBrukerFnr) {
@@ -39,9 +38,9 @@ const Body = () => {
 
 	if (!aktivBrukerFnr) {
 		innhold = <FeilmeldingManglerFnr />;
-	} else if (isAnyLoading(fetchTilgangTilBruker, fetchOboUnleashFeatures)) {
+	} else if (isAnyLoading(fetchTilgangTilBruker)) {
 		innhold = <PageSpinner />;
-	} else if (hasAnyFailed(fetchTilgangTilBruker, fetchOboUnleashFeatures)) {
+	} else if (hasAnyFailed(fetchTilgangTilBruker)) {
 		innhold = <FeilUnderLastingAvData />;
 	} else if (!fetchTilgangTilBruker.data) {
 		innhold = <IngenTilgangTilBruker />;
