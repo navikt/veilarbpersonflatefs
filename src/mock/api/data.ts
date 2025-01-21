@@ -1,13 +1,9 @@
-import { OboUnleashFeatures, VIS_GAMLE_DETALJER_FANE } from '../../api/features';
+
 import { AktivEnhetResponse, AntallUlesteDialoger, SessionMeta, SistOppdatertData } from '../../api/api';
 
 export const testBrukerFnr = '03818796950';
 
 export const testEnhetId = '0123';
-
-export const mockOboUnleashFeatures: OboUnleashFeatures = {
-	[VIS_GAMLE_DETALJER_FANE]: true
-};
 
 export const mockMulighetsrommetUnleashFeatures: boolean = true;
 
@@ -20,10 +16,6 @@ export const mockSistOppdatert: SistOppdatertData = {
 };
 
 export const mockAktivEnhet: AktivEnhetResponse = {
-	aktivEnhet: testEnhetId
-};
-export const mockContext = {
-	aktivBruker: testBrukerFnr,
 	aktivEnhet: testEnhetId
 };
 

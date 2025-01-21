@@ -17,8 +17,6 @@ Alt dette er limt sammen med [NAVSPA](https://github.com/navikt/navspa)
 
 Appen inneholder følgende:
 - En tab-bar med de forskjellige appene
-- En feedback-form-popup som enables av en unleash toggle som atm er archieved
-- En tour-modal som også er bak en unleash toggle som er archived
 
 ## Kjøre appen
 ```console

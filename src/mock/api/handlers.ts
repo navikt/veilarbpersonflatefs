@@ -12,7 +12,6 @@ import {
 	mockAktorFnrMappingMockData,
 	mockAntallUleste,
 	mockMulighetsrommetUnleashFeatures,
-	mockOboUnleashFeatures,
 	mockSistOppdatert,
 	mockTilgangTilBruker,
 	oppfolgingMockData,
@@ -67,7 +66,6 @@ const responseResolver = <RESPONSE_TYPE extends JsonBodyType>(
 
 export const handlers = [
 	http.get('/oauth2/session', responseResolver({ json: sessionData })),
-	http.get('/obo-unleash/api/feature', responseResolver({ json: mockOboUnleashFeatures })),
 	http.get(
 		'/mulighetsrommet-api/api/v1/internal/features',
 		responseResolver({ json: mockMulighetsrommetUnleashFeatures })
