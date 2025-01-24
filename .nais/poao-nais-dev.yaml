@@ -117,7 +117,8 @@ spec:
           "cors": {
             "origin": [
               "https://veilarbvedtaksstottefs.ansatt.dev.nav.no"
-            ]
+            ],
+            "allowedHeaders": ["*"]
           },
           "redirects": [
             {
