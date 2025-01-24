@@ -114,6 +114,11 @@ spec:
               "imgSrc": ["'self'", "data:", "*.nav.no", "*.adeo.no", "cdn.sanity.io"]
             }
           },
+          "cors": {
+            "origin": [
+              "https://veilarbvedtaksstottefs.ansatt.dev.nav.no"
+            ]
+          },
           "redirects": [
             {
               "fromPath": "/internarbeidsflatedecorator/*",
