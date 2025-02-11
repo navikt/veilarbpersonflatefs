@@ -1,8 +1,9 @@
 import { AsyncNavspa, AsyncSpaConfig } from '@navikt/navspa';
 import React from 'react';
 import { utledCDNSpaUrl, utledSpaUrl } from '../util/url-utils';
-import Spinner from './spinner/spinner';
+import { SpaName, spaWrapperTabContentClassName } from '../util/utils';
 import { createAssetManifestParser } from '@navikt/navspa/dist/async/utils';
+import Spinner from './spinner/spinner';
 
 export interface SpaProps {
 	enhet?: string;
@@ -13,20 +14,6 @@ interface VisittKortProps extends SpaProps {
 	tilbakeTilFlate: string;
 	visVeilederVerktoy: boolean;
 }
-
-export enum SpaName {
-	INTERNARBEIDSFLATEFS_DECORATOR = 'internarbeidsflate-decorator-v3',
-	AKTIVITETSPLAN = 'aktivitetsplan',
-	DIALOG = 'arbeidsrettet-dialog',
-	OVERBLIKK = 'veilarbdetaljerfs',
-	VEILARBVEDTAKSSTOTTEFS = 'veilarbvedtaksstottefs',
-	VEILARBVISITTKORTFS = 'veilarbvisittkortfs',
-	ARBEIDSMARKEDSTILTAK = 'arbeidsmarkedstiltak-modia',
-	VEILARBDETALJER = 'veilarbdetaljer',
-	FINN_STILLING_INNGANG = 'finn-stilling-inngang'
-}
-
-export const spaWrapperTabContentClassName = 'spa-wrapper__tab-content';
 
 export const vedtaksstotteAsyncConfig: AsyncSpaConfig = {
 	appName: SpaName.VEILARBVEDTAKSSTOTTEFS,

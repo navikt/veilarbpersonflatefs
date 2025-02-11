@@ -4,6 +4,20 @@ export function erMock() {
 	return import.meta.env.MODE === 'development';
 }
 
+export enum SpaName {
+	INTERNARBEIDSFLATEFS_DECORATOR = 'internarbeidsflate-decorator-v3',
+	AKTIVITETSPLAN = 'aktivitetsplan',
+	DIALOG = 'arbeidsrettet-dialog',
+	OVERBLIKK = 'veilarbdetaljerfs',
+	VEILARBVEDTAKSSTOTTEFS = 'veilarbvedtaksstottefs',
+	VEILARBVISITTKORTFS = 'veilarbvisittkortfs',
+	ARBEIDSMARKEDSTILTAK = 'arbeidsmarkedstiltak-modia',
+	VEILARBDETALJER = 'veilarbdetaljer',
+	FINN_STILLING_INNGANG = 'finn-stilling-inngang'
+}
+
+export const spaWrapperTabContentClassName = 'spa-wrapper__tab-content';
+
 interface EnvConfig {
 	ingressType: 'ansatt' | 'intern';
 	type: EnvType;

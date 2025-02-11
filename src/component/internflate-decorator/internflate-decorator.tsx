@@ -1,7 +1,6 @@
-import { SpaName } from '../spa';
 import { DecoratorConfigV2, DecoratorEnvironment } from './internflate-decorator-config';
 import NAVSPA from '@navikt/navspa';
-import { EnvType, getEnv } from '../../util/utils';
+import { EnvType, SpaName, getEnv } from '../../util/utils';
 import { useContext, useMemo } from 'react';
 import { DispatchContext } from '../../store/store-provider';
 
