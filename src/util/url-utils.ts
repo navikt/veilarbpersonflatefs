@@ -16,6 +16,11 @@ export const utledSpaUrl = (appName: string): string => {
 	return `${window.location.protocol}//${appName}.${rootDomain()}`;
 };
 
+export function utledOboCdnUrl(contextPath: string): string {
+	const base = 'https://cdn.nav.no/obo';
+	return erITestMiljo() ? `${base}/dev/${contextPath}` : `${base}/prod/${contextPath}`;
+}
+
 export const utledTilbakeUrl = () => {
 	// feks https://veilarbportefoljeflate.intern.dev.nav.no vs https://veilarbportefoljeflate.ansatt.dev.nav.no
 	return `${window.location.protocol}//veilarbportefoljeflate.${rootDomain()}/tilbake`;

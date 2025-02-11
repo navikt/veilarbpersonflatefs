@@ -1,6 +1,6 @@
 import { AsyncNavspa, AsyncSpaConfig } from '@navikt/navspa';
 import React from 'react';
-import { utledCDNSpaUrl, utledSpaUrl } from '../util/url-utils';
+import { utledCDNSpaUrl, utledOboCdnUrl } from '../util/url-utils';
 import { SpaName, spaWrapperTabContentClassName } from '../util/utils';
 import { createAssetManifestParser } from '@navikt/navspa/dist/async/utils';
 import Spinner from './spinner/spinner';
@@ -17,7 +17,7 @@ interface VisittKortProps extends SpaProps {
 
 export const vedtaksstotteAsyncConfig: AsyncSpaConfig = {
 	appName: SpaName.VEILARBVEDTAKSSTOTTEFS,
-	appBaseUrl: utledSpaUrl(SpaName.VEILARBVEDTAKSSTOTTEFS),
+	appBaseUrl: utledOboCdnUrl('veilarbvedtaksstottefs/build'),
 	loader: <Spinner />,
 	config: {
 		wrapperClassName: spaWrapperTabContentClassName
