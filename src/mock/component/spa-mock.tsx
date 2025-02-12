@@ -1,6 +1,6 @@
 import React from 'react';
 import cls from 'classnames';
-import { SpaName } from '../../component/spa';
+import { SpaName } from '../../util/utils';
 import './spa-mock.less';
 
 export interface SpaMockProps {
