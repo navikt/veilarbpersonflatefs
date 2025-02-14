@@ -1,5 +1,5 @@
 import { Alert } from '@navikt/ds-react';
-import { TilgangsType } from '../../api/api';
+import { TilgangsResultat } from '../../api/api';
 
 function PersonflateAlertStripe(props: { tekst: string; type: 'error' | 'warning' | 'info' | 'success' }) {
 	return (
@@ -13,7 +13,7 @@ export function FeilmeldingManglerFnr() {
 	return <PersonflateAlertStripe type="info" tekst="Du må søke opp en person for å vise aktivitetsplanen" />;
 }
 
-const ikkeTilgangFeilmelding: Record<TilgangsType, string> = {
+const ikkeTilgangFeilmelding: Record<TilgangsResultat, string> = {
 	IKKE_TILGANG_FORTROLIG_ADRESSE: 'Du har ikke tilgang til bruker med fortrolig adresse',
 	IKKE_TILGANG_EGNE_ANSATTE: 'Du har ikke tilgang til egne ansatte',
 	IKKE_TILGANG_ENHET: 'Du har ikke tilgang til brukerens enhet',
@@ -22,7 +22,7 @@ const ikkeTilgangFeilmelding: Record<TilgangsType, string> = {
 	JA: 'Du har tilgang :)'
 };
 
-export function IngenTilgangTilBruker({ ikkeTilgangBegrunnelse }: { ikkeTilgangBegrunnelse: TilgangsType }) {
+export function IngenTilgangTilBruker({ ikkeTilgangBegrunnelse }: { ikkeTilgangBegrunnelse: TilgangsResultat }) {
 	return <PersonflateAlertStripe type="warning" tekst={ikkeTilgangFeilmelding[ikkeTilgangBegrunnelse]} />;
 }
 

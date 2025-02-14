@@ -65,15 +65,15 @@ export function useFetchFeaturesFromDabUnleash(): UseAxiosResponseValue<DabUnlea
 	return useAxios<DabUnleashFeatures>(`/veilarbaktivitet/api/feature?${toggles}`);
 }
 
-export type TilgangsType =
-	| 'JA'
+export type TilgangsResultat =
+	| 'HAR_TILGANG'
 	| 'IKKE_TILGANG_FORTROLIG_ADRESSE'
 	| 'IKKE_TILGANG_STRENGT_FORTROLIG_ADRESSE'
 	| 'IKKE_TILGANG_EGNE_ANSATTE'
 	| 'IKKE_TILGANG_ENHET'
 	| 'IKKE_TILGANG_MODIA';
 interface TilgangsResponse {
-	data: { veilederLeseTilgangModia: { tilgang: TilgangsType } };
+	data: { veilederLeseTilgangModia: { tilgang: TilgangsResultat } };
 	errors: { message: string }[];
 }
 export function useFetchTilgangTilBruker(fnr: string, options?: Options): UseAxiosResponseValue<TilgangsResponse> {
