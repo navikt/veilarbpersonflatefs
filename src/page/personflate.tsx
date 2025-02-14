@@ -12,6 +12,8 @@ import SideInnhold from '../component/side-innhold';
 import { UtloptSesjonAdvarsel } from '../component/utlopt-sesjon-advarsel/utlopt-sesjon-advarsel';
 import { SesjonStatus, useSesjonStatus } from '../hooks/use-sesjon-status';
 import { useModiaContext } from '../store/modia-context-store';
+import { utledTilbakeUrl } from '../util/url-utils';
+import { Visittkort } from '../component/spa';
 
 export const PersonflatePage = () => {
 	return (
@@ -23,9 +25,10 @@ export const PersonflatePage = () => {
 };
 
 const Body = () => {
-	const { aktivBrukerFnr } = useModiaContext();
+	const { aktivBrukerFnr, aktivEnhetId } = useModiaContext();
 	const { sesjonStatus } = useSesjonStatus();
 	const fetchTilgangTilBruker = useFetchTilgangTilBruker(aktivBrukerFnr, { manual: true });
+	const tilgangsType = fetchTilgangTilBruker.data?.data?.veilederLeseTilgangModia?.tilgang;
 
 	useEffect(() => {
 		if (aktivBrukerFnr) {
@@ -42,8 +45,18 @@ const Body = () => {
 		innhold = <PageSpinner />;
 	} else if (hasAnyFailed(fetchTilgangTilBruker)) {
 		innhold = <FeilUnderLastingAvData />;
-	} else if (!fetchTilgangTilBruker.data) {
-		innhold = <IngenTilgangTilBruker />;
+	} else if (tilgangsType && tilgangsType !== 'JA') {
+		innhold = (
+			<>
+				<IngenTilgangTilBruker ikkeTilgangBegrunnelse={tilgangsType} />
+				<Visittkort
+					enhet={aktivEnhetId ?? undefined}
+					fnr={aktivBrukerFnr}
+					visVeilederVerktoy={true}
+					tilbakeTilFlate={utledTilbakeUrl()}
+				/>
+			</>
+		);
 	} else {
 		innhold = <SideInnhold />;
 	}

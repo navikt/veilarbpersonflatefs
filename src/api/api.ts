@@ -1,7 +1,7 @@
 import { DAB_UNLEASH_TOGGLES, DabUnleashFeatures } from './features';
 import { axiosInstance, useAxios, UseAxiosResponseValue } from './utils';
 import { Options } from 'axios-hooks';
-import { AxiosPromise, AxiosResponse } from 'axios';
+import { AxiosPromise, AxiosResponse, options } from 'axios';
 import { FrontendEvent } from '../util/frontend-logger';
 
 export interface AntallUlesteDialoger {
@@ -65,12 +65,30 @@ export function useFetchFeaturesFromDabUnleash(): UseAxiosResponseValue<DabUnlea
 	return useAxios<DabUnleashFeatures>(`/veilarbaktivitet/api/feature?${toggles}`);
 }
 
-export function useFetchTilgangTilBruker(fnr: string, options?: Options): UseAxiosResponseValue<boolean> {
-	return useAxios<boolean>(
+export type TilgangsType =
+	| 'JA'
+	| 'IKKE_TILGANG_FORTROLIG_ADRESSE'
+	| 'IKKE_TILGANG_STRENGT_FORTROLIG_ADRESSE'
+	| 'IKKE_TILGANG_EGNE_ANSATTE'
+	| 'IKKE_TILGANG_ENHET'
+	| 'IKKE_TILGANG_MODIA';
+interface TilgangsResponse {
+	data: { veilederLeseTilgangModia: { tilgang: TilgangsType } };
+	errors: { message: string }[];
+}
+export function useFetchTilgangTilBruker(fnr: string, options?: Options): UseAxiosResponseValue<TilgangsResponse> {
+	const query = `
+		query hentTilgangTilBruker($fnr: String!) {
+			veilederLeseTilgangModia(fnr: $fnr) {
+				tilgang
+			}
+		}
+	`;
+	return useAxios<TilgangsResponse>(
 		{
-			url: `/veilarbperson/api/v3/person/hent-tilgangTilBruker`,
+			url: `/veilarboppfolging/api/graphql`,
 			method: 'POST',
-			data: { fnr }
+			data: { query, variables: { fnr } }
 		},
 		options
 	);
