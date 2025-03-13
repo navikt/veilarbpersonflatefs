@@ -86,6 +86,8 @@ spec:
           namespace: obo
         - application: veilarboppfolging
           namespace: poao
+        - application: tryggtekst-proxy
+          namespace: team-effekt
       external:
         - host: veilarbmalverk.dev-fss-pub.nais.io
         - host: veilarbarena.dev-fss-pub.nais.io
