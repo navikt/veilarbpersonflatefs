@@ -132,7 +132,12 @@ spec:
             {
               "fromPath": "/tryggtekst",
               "toUrl": "http://tryggtekst-proxy.team-effekt",
-              "preserveFromPath": false
+              "preserveFromPath": false,
+              "toApp": {
+                "name": "tryggtekst-proxy",
+                "namespace": "team-effekt",
+                "cluster": "dev-gcp"
+              }
             },
             {
               "fromPath": "/veilarbmalverk",
