@@ -1,4 +1,14 @@
-# VeilArbPersonFlateFS
+# Veilarbpersonflatefs
+
+[![CircleCI](https://circleci.com/gh/navikt/veilarbpersonflatefs.svg?style=svg)](https://circleci.com/gh/navikt/veilarbpersonflatefs)
+[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=navikt_veilarbpersonflatefs&metric=alert_status)](https://sonarcloud.io/dashboard?id=navikt_veilarbpersonflatefs)
+[![Maintainability Rating](https://sonarcloud.io/api/project_badges/measure?project=navikt_veilarbpersonflatefs&metric=sqale_rating)](https://sonarcloud.io/dashboard?id=navikt_veilarbpersonflatefs)
+[![Reliability Rating](https://sonarcloud.io/api/project_badges/measure?project=navikt_veilarbpersonflatefs&metric=reliability_rating)](https://sonarcloud.io/dashboard?id=navikt_veilarbpersonflatefs)
+[![Security Rating](https://sonarcloud.io/api/project_badges/measure?project=navikt_veilarbpersonflatefs&metric=security_rating)](https://sonarcloud.io/dashboard?id=navikt_veilarbpersonflatefs)
+[![Vulnerabilities](https://sonarcloud.io/api/project_badges/measure?project=navikt_veilarbpersonflatefs&metric=vulnerabilities)](https://sonarcloud.io/dashboard?id=navikt_veilarbpersonflatefs)
+[![Bugs](https://sonarcloud.io/api/project_badges/measure?project=navikt_veilarbpersonflatefs&metric=bugs)](https://sonarcloud.io/dashboard?id=navikt_veilarbpersonflatefs)
+[![Code Smells](https://sonarcloud.io/api/project_badges/measure?project=navikt_veilarbpersonflatefs&metric=code_smells)](https://sonarcloud.io/dashboard?id=navikt_veilarbpersonflatefs)
+[![Coverage](https://sonarcloud.io/api/project_badges/measure?project=navikt_veilarbpersonflatefs&metric=coverage)](https://sonarcloud.io/dashboard?id=navikt_veilarbpersonflatefs)
 Flate applikasjonen for veiledere som viser informasjon og aktivitetsplanen til brukerne
 
 Denne appen er "host" app for følgende "micro"-frontends:
