@@ -97,7 +97,10 @@ spec:
           "enableSecureLogs": true,
           "fallbackStrategy": "SERVE_INDEX_HTML",
           "auth": {
-            "loginProvider": "AZURE_AD"
+            "loginProvider": "AZURE_AD",
+            "tokenCacheConfig": {
+              "valkeyInstanceName": "VEILARBPERSONFLATE"
+            }
           },
           "gcs": {
             "bucketName": "poao-veilarbpersonflate-prod"
