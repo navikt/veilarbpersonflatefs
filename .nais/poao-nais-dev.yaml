@@ -9,7 +9,7 @@ metadata:
     nginx.ingress.kubernetes.io/proxy-buffer-size: "8k"
     config.linkerd.io/proxy-cpu-limit: 500m
 spec:
-  image: europe-north1-docker.pkg.dev/nais-management-233d/poao/poao-frontend:2024.11.12_09.35-97ae4c05891f
+  image: europe-north1-docker.pkg.dev/nais-management-233d/poao/poao-frontend:2025.04.04_06.53-00558dc484fa
   port: 8080
   ingresses:
     - https://veilarbpersonflate.intern.dev.nav.no
@@ -51,6 +51,9 @@ spec:
     buckets:
       - name: poao-veilarbpersonflate-dev
         cascadingDelete: false
+  valkey:
+    - instance: veilarbpersonflate
+      access: readwrite
   accessPolicy:
     outbound:
       rules:
@@ -99,7 +102,10 @@ spec:
           "enableSecureLogs": true,
           "fallbackStrategy": "SERVE_INDEX_HTML",
           "auth": {
-            "loginProvider": "AZURE_AD"
+            "loginProvider": "AZURE_AD",
+            "tokenCacheConfig": {
+                "valkeyInstanceName": "VEILARBPERSONFLATE"
+             }
           },
           "gcs": {
             "bucketName": "poao-veilarbpersonflate-dev"
@@ -110,7 +116,7 @@ spec:
           },
           "header": {
             "csp": {
-              "scriptSrc": ["'self'", "blob:", "unsafe-inline", "unsafe-eval", "*.nav.no", "*.adeo.no", "*.google-analytics.com", "*.googletagmanager.com", "account.psplugin.com", "*.hotjar.com"],
+              "scriptSrc": ["'self'", "blob:", "*.nav.no", "*.google-analytics.com", "*.googletagmanager.com", "account.psplugin.com", "*.hotjar.com"],
               "connectSrc": ["'self'", "blob:", "wss:", "*.nav.no", "*.adeo.no", "cdn.sanity.io", "storage.googleapis.com"],
               "frameSrc": ["vars.hotjar.com", "video.qbrick.com"],
               "imgSrc": ["'self'", "data:", "*.nav.no", "*.adeo.no", "cdn.sanity.io"]
