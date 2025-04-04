@@ -65,7 +65,7 @@ const TabMenu = () => {
 	);
 };
 
-function dispatchTabClickedEvent(tabId: TabId) {
+async function dispatchTabClickedEvent(tabId: TabId) {
 	logEvent('veilarbpersonflatefs.valgt-fane', { tabId });
 	logAmplitudeEvent('tab åpnet', { tabId });
 	window.dispatchEvent(new CustomEvent('veilarbpersonflatefs.tab-clicked', { detail: { tabId } }));

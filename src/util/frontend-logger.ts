@@ -6,7 +6,7 @@ export interface FrontendEvent {
 	tags?: {};
 }
 
-export const logEvent = (metrikkNavn: string, fields?: {}, tags?: {}): void => {
+export const logEvent = async (metrikkNavn: string, fields?: {}, tags?: {}): Promise<void> => {
 	if (import.meta.env.MODE === 'development') {
 		// tslint:disable-next-line:no-console
 		console.log('Event', metrikkNavn, 'Fields:', fields, 'Tags:', tags);
