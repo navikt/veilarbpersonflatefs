@@ -2,7 +2,7 @@ import * as amplitude from '@amplitude/analytics-browser';
 import { track } from '@amplitude/analytics-browser';
 import { EnvType, getEnv } from '../util/utils';
 
-export function initAmplitude() {
+export async function initAmplitude() {
 	const apiKey =
 		getEnv().type === EnvType.prod ? '691963e61d2b11465aa96acfcaa8959b' : 'faf28eb5445abfe75c7ac28ae7a8d050';
 
