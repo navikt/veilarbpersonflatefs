@@ -50,6 +50,9 @@ spec:
     buckets:
       - name: poao-veilarbpersonflate-prod
         cascadingDelete: false
+  valkey:
+    - instance: veilarbpersonflate
+      access: readwrite
   accessPolicy:
     outbound:
       rules:
