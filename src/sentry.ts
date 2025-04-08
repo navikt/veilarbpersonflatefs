@@ -80,6 +80,7 @@ if (getEnv().type !== EnvType.local) {
 			// Can't trace these apps, current CORS-config does not allow tracing headers
 			// /mulighetsrommet-veileder-flate(\.dev)?.intern.nav.no/,
 		],
+		profilesSampleRate: 1.0,
 		beforeSend: fjernPersonopplysninger
 	});
 }
