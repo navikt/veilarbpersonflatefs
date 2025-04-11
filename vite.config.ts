@@ -10,6 +10,7 @@ export default defineConfig({
 			org: 'nav',
 			project: 'veilarbpersonflate',
 			url: 'https://sentry.gc.nav.no',
+			applicationKey: 'veilarbpersonflate',
 			// Auth tokens can be obtained from https://sentry.io/orgredirect/organizations/:orgslug/settings/auth-tokens/
 			authToken: process.env.SENTRY_AUTH_TOKEN
 		})
