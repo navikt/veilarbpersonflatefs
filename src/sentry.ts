@@ -6,7 +6,10 @@ import {
 	Event,
 	Breadcrumb,
 	EventHint,
-	ErrorEvent
+	ErrorEvent,
+	makeMultiplexedTransport,
+	makeFetchTransport,
+	moduleMetadataIntegration
 } from '@sentry/react';
 
 const fnrRegexRegel = {
@@ -56,6 +59,38 @@ const fjernPersonopplysninger = (event: ErrorEvent, hint: EventHint): ErrorEvent
 	};
 };
 
+const ROUTE_TO_KEY = 'ROUTE_TO';
+const transport = makeMultiplexedTransport(makeFetchTransport, args => {
+	const event = args.getEvent();
+	if (event && event.extra && ROUTE_TO_KEY in event.extra && Array.isArray(event.extra[ROUTE_TO_KEY])) {
+		return event.extra[ROUTE_TO_KEY];
+	}
+	return [];
+});
+
+const routeToCorrectSentryProject = (event: ErrorEvent, hint: EventHint): ErrorEvent => {
+	if (event?.exception?.values?.[0].stacktrace?.frames) {
+		const frames = event.exception.values[0].stacktrace.frames;
+		// Find the last frame with module metadata containing a DSN
+		const routeTo = frames
+			.filter(frame => frame.module_metadata && frame.module_metadata.dsn)
+			.map(v => v.module_metadata)
+			.slice(-1); // using top frame only - you may want to customize this according to your needs
+		if (routeTo.length) {
+			event.extra = {
+				...event.extra,
+				[ROUTE_TO_KEY]: routeTo
+			};
+		}
+	}
+	return event;
+};
+
+const beforeSend = (event: ErrorEvent, hint: EventHint): ErrorEvent => {
+	const eventUtenPersonopplysninger = fjernPersonopplysninger(event, hint);
+	return routeToCorrectSentryProject(eventUtenPersonopplysninger, hint);
+};
+
 if (getEnv().type !== EnvType.local) {
 	init({
 		dsn: 'https://82639012ef3d42aab4a8ac2d60e2c464@sentry.gc.nav.no/143',
@@ -63,10 +98,12 @@ if (getEnv().type !== EnvType.local) {
 			browserTracingIntegration(),
 			httpClientIntegration({
 				failedRequestTargets: [/https:\/\/veilarbpersonflate\.intern(\.dev)?\.nav.no\/*/]
-			})
+			}),
+			moduleMetadataIntegration()
 		],
 		environment: getEnv().type,
 		enabled: !erMock(),
+		transport /* Custom transport for mulitplexing requests based on metadata https://docs.sentry.io/platforms/javascript/best-practices/micro-frontends/ */,
 		ignoreErrors: [/^canceled$/, /Amplitude/],
 		// Set tracesSampleRate to 1.0 to capture 100%
 		// of transactions for performance monitoring.
@@ -81,6 +118,6 @@ if (getEnv().type !== EnvType.local) {
 			// /mulighetsrommet-veileder-flate(\.dev)?.intern.nav.no/,
 		],
 		profilesSampleRate: 1.0,
-		beforeSend: fjernPersonopplysninger
+		beforeSend
 	});
 }
