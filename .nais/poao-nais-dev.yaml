@@ -73,6 +73,8 @@ spec:
           namespace: amt
         - application: veilarbaktivitet
           namespace: dab
+        - application: ao-oppfolgingskontor
+          namespace: dab
         - application: veilarbfilter
           namespace: obo
         - application: veilarboppgave
@@ -196,6 +198,16 @@ spec:
               "preserveFromPath": true,
               "toApp": {
                 "name": "veilarblest",
+                "namespace": "dab",
+                "cluster": "dev-gcp"
+              }
+            },
+            {
+              "fromPath": "/ao-oppfolgingskontor",
+              "toUrl": "http://ao-oppfolgingskontor.dab",
+              "preserveFromPath": false,
+              "toApp": {
+                "name": "ao-oppfolgingskontor",
                 "namespace": "dab",
                 "cluster": "dev-gcp"
               }

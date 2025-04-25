@@ -74,6 +74,8 @@ spec:
           namespace: dab
         - application: veilarbdialog
           namespace: dab
+        - application: ao-oppfolgingskontor
+          namespace: dab
         - application: veilarbportefolje
           namespace: obo
         - application: veilarboppfolging
