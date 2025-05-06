@@ -1,3 +1,5 @@
+import { useEffect, useState } from 'react';
+
 export interface Manifest {
 	'index.html': { file: string };
 }
@@ -20,11 +22,34 @@ export function importSubApp(url: string): Promise<Manifest> {
 			})
 			.catch(error => {
 				appCache.delete(url);
-				reject(error);
+				reject(toError(error));
 			});
 	});
 
 	appCache.set(url, importPromise);
 
 	return importPromise;
+}
+
+export function useSubApp(url: string) {
+	const [manifest, setManifest] = useState<Manifest | null>(null);
+	const [error, setError] = useState<Error | null>(null);
+
+	useEffect(() => {
+		importSubApp(url)
+			.then(manifestData => {
+				setManifest(manifestData);
+				setError(null);
+			})
+			.catch(error => {
+				setError(toError(error));
+				setManifest(null);
+			});
+	}, [url]);
+
+	return { manifest, error };
+}
+
+function toError(error: unknown): Error {
+	return error instanceof Error ? error : new Error(String(error));
 }
