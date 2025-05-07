@@ -22,7 +22,8 @@ const ArbeidsmarkedstiltakPage = () => {
 	return React.createElement('mulighetsrommet-arbeidsmarkedstiltak', {
 		'data-fnr': aktivBrukerFnr,
 		'data-enhet': aktivEnhetId,
-		'data-manifest': manifest ? JSON.stringify(manifest) : undefined
+		'data-base-url': arbeidsmarkedstiltakBaseUrl,
+		'data-asset-manifest': manifest ? JSON.stringify(manifest) : undefined
 	});
 };
 
