@@ -1,26 +1,29 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { useModiaContext } from '../store/modia-context-store';
 import { erITestMiljo } from '../util/url-utils';
-import { importSubApp } from './importUtils';
+import { useSubApp } from './importUtils';
 
 function utledArbeidsmarkedstiltakCdnUrl(contextPath: string): string {
-  const base = 'https://cdn.nav.no/team-mulighetsrommet';
-  return erITestMiljo() ? `${base}/dev/${contextPath}` : `${base}/prod/${contextPath}`;
+	const base = 'https://cdn.nav.no/team-mulighetsrommet';
+	return erITestMiljo() ? `${base}/dev/${contextPath}` : `${base}/prod/${contextPath}`;
 }
 
 const arbeidsmarkedstiltakBaseUrl = utledArbeidsmarkedstiltakCdnUrl('arbeidsmarkedstiltak-modia/dist');
 
 const ArbeidsmarkedstiltakPage = () => {
-  const { aktivBrukerFnr, aktivEnhetId } = useModiaContext();
+	const { aktivBrukerFnr, aktivEnhetId } = useModiaContext();
 
-	useEffect(() => {
-		importSubApp(arbeidsmarkedstiltakBaseUrl);
-	}, []);
+	const { manifest, error } = useSubApp(arbeidsmarkedstiltakBaseUrl);
 
-  return React.createElement('mulighetsrommet-arbeidsmarkedstiltak', {
-    'data-fnr': aktivBrukerFnr,
-    'data-enhet': aktivEnhetId
-  });
+	if (error) {
+		return <div>Klarte ikke laste Arbeidsmarkedstiltak</div>;
+	}
+
+	return React.createElement('mulighetsrommet-arbeidsmarkedstiltak', {
+		'data-fnr': aktivBrukerFnr,
+		'data-enhet': aktivEnhetId,
+		'data-manifest': manifest ? JSON.stringify(manifest) : undefined
+	});
 };
 
 export default ArbeidsmarkedstiltakPage;
