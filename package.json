@@ -29,7 +29,7 @@
     "axios": "1.8.4",
     "axios-hooks": "5.1.1",
     "classnames": "2.5.1",
-    "core-js": "3.37.1",
+    "core-js": "3.43.0",
     "react": "19.1.0",
     "react-dom": "19.1.0",
     "regenerator-runtime": "0.14.1",
