@@ -22,7 +22,7 @@
   "dependencies": {
     "@amplitude/analytics-browser": "2.10.0",
     "@navikt/aksel-icons": "^7.18.0",
-    "@navikt/ds-css": "^7.18.0",
+    "@navikt/ds-css": "^7.27.0",
     "@navikt/ds-react": "^7.18.0",
     "@navikt/navspa": "^6.0.1",
     "@sentry/react": "^9.11.0",
