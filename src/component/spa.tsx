@@ -17,10 +17,17 @@ interface VisittKortProps extends SpaProps {
 
 export const vedtaksstotteAsyncConfig: AsyncSpaConfig = {
 	appName: SpaName.VEILARBVEDTAKSSTOTTEFS,
-	appBaseUrl: utledOboCdnUrl('veilarbvedtaksstottefs/build'),
+	appBaseUrl: utledOboCdnUrl('veilarbvedtaksstottefs/dist'),
 	loader: <Spinner />,
 	config: {
 		wrapperClassName: spaWrapperTabContentClassName
+	},
+	assetManifestParser: manifest => {
+		const { file, css } = manifest['index.html'];
+		const baseUrl = utledOboCdnUrl('veilarbvedtaksstottefs/dist');
+		const entry = { type: 'module', path: `${baseUrl}/${file}` };
+		const styles = css.map((path: string) => ({ path: `${baseUrl}/${path}` }));
+		return [entry, ...styles];
 	}
 };
 
