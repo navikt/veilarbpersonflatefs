@@ -17,7 +17,7 @@ interface VisittKortProps extends SpaProps {
 
 export const vedtaksstotteAsyncConfig: AsyncSpaConfig = {
 	appName: SpaName.VEILARBVEDTAKSSTOTTEFS,
-	appBaseUrl: utledOboCdnUrl('veilarbvedtaksstottefs/build'),
+	appBaseUrl: utledOboCdnUrl('veilarbvedtaksstottefs/dist'),
 	loader: <Spinner />,
 	config: {
 		wrapperClassName: spaWrapperTabContentClassName
