@@ -20,7 +20,7 @@
     "**/fsevents": "^1.2.9"
   },
   "dependencies": {
-    "@amplitude/analytics-browser": "2.10.0",
+    "@amplitude/analytics-browser": "2.23.5",
     "@navikt/aksel-icons": "^7.18.0",
     "@navikt/ds-css": "^7.18.0",
     "@navikt/ds-react": "^7.18.0",
