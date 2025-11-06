@@ -9,7 +9,7 @@ metadata:
     nginx.ingress.kubernetes.io/proxy-buffer-size: "8k"
     config.linkerd.io/proxy-cpu-limit: 500m
 spec:
-  image: europe-north1-docker.pkg.dev/nais-management-233d/poao/poao-frontend:2025.09.23_06.09-9b752cf661ea
+  image: europe-north1-docker.pkg.dev/nais-management-233d/poao/poao-frontend:2025.11.06_11.54-2e17c18266e9
   port: 8080
   ingresses:
     - https://veilarbpersonflate.intern.nav.no
@@ -89,7 +89,6 @@ spec:
         - application: veilarbvedtaksstotte
           namespace: obo
       external:
-        - host: veilarbmalverk.prod-fss-pub.nais.io
         - host: veilarbarena.prod-fss-pub.nais.io
         - host: amplitude.nav.no
   env:
@@ -132,11 +131,6 @@ spec:
             }
           ],
           "proxies": [
-            {
-              "fromPath": "/veilarbmalverk",
-              "toUrl": "https://veilarbmalverk.prod-fss-pub.nais.io",
-              "preserveFromPath": true
-            },
             {
               "fromPath": "/veilarbperson",
               "toUrl": "http://veilarbperson.obo",
