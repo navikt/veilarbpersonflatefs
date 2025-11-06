@@ -9,7 +9,7 @@ metadata:
     nginx.ingress.kubernetes.io/proxy-buffer-size: "8k"
     config.linkerd.io/proxy-cpu-limit: 500m
 spec:
-  image: europe-north1-docker.pkg.dev/nais-management-233d/poao/poao-frontend:2025.11.06_11.54-2e17c18266e9
+  image: europe-north1-docker.pkg.dev/nais-management-233d/poao/poao-frontend:2025.11.06_13.36-d978285e1187
   port: 8080
   ingresses:
     - https://veilarbpersonflate.intern.nav.no
