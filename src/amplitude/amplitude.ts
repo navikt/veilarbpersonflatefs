@@ -1,6 +1,24 @@
-import * as amplitude from '@amplitude/analytics-browser';
-import { track } from '@amplitude/analytics-browser';
 import { EnvType, getEnv } from '../util/utils';
+
+const timeoutMs = 5000;
+let umamiPromise: Promise<void> | undefined;
+const waitForUmamiToAppearOnWindow = new Promise<void>((resolve, reject) => {
+	let interval: NodeJS.Timeout | undefined;
+	let timeout: NodeJS.Timeout | undefined;
+
+	timeout = setTimeout(() => {
+		clearInterval(interval);
+		clearTimeout(timeout);
+		reject(new Error(`Fant ikke Umami på window innen ${timeoutMs} ms`));
+	}, timeoutMs);
+	interval = setInterval(() => {
+		if (window.umami) {
+			clearInterval(interval);
+			clearTimeout(timeout);
+			resolve();
+		}
+	});
+});
 
 export async function initAmplitude() {
 	const apiKey =

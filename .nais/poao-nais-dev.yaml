@@ -95,7 +95,6 @@ spec:
           namespace: team-effekt
       external:
         - host: veilarbarena.dev-fss-pub.nais.io
-        - host: amplitude.nav.no
   env:
     - name: JSON_CONFIG
       value: >

@@ -49,22 +49,16 @@ ignore-fil med riktig navn i det gitte git prosjektet du står i. Se forøvrig g
 
 `git config --global --unset blame.ignoreRevsFile`
 
-## Bruk av Amplitude
+## Bruk av Umami
 
-Det er mulig å sende eventer til Amplitude gjennom personflatens Amplitude-klient. Eventene  Det finnes foreløpig ikke noen
-pakke som eksponerer funksjonen, men du kan legge til en deklarasjon som ser sånn her ut:
+Det er mulig å sende eventer til Umami gjennom personflatens Umami-klient (sporingskode). Umami ligger tilgjengelig på window som beskrevet i umami-dokumentasjonen,
+blant annet kan man gjøre slik:
 
 ```typescript
 interface Window {
-	veilarbpersonflatefsAmplitude: ({
-		origin,
-		eventName,
-		eventData
-	}?: {
-		origin: string;
-		eventName: string;
-		eventData?: Record<string, unknown>;
-	}) => Promise<void>;
+	umami: {
+		track: (eventName: string, eventData?: Record<string, any>) => Promise<void>;
+    } 
 }
 ```
 
