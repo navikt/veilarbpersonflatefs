@@ -65,7 +65,7 @@ interface Window {
 Eksempel på bruk:
 
 ```typescript
-window.veilarbpersonflatefsAmplitude('aktivitetsplan', 'accordion åpnet', { tekst: 'Historikk' });
+window.umami.track('accordion åpnet', { origin: 'aktivitetsplan', tekst: 'Historikk' });
 ```
 
 Se [https://github.com/navikt/analytics-taxonomy](https://github.com/navikt/analytics-taxonomy) for taksonomi.

@@ -1,5 +1,5 @@
 import { Tabs } from '@navikt/ds-react';
-import { logAmplitudeEvent } from '../../amplitude/amplitude';
+import { logAnalyticsEvent } from '../../analytics/analytics';
 import { applications } from '../../data/applications';
 import { AppId, appIdToTabId, TabId } from '../../data/tab-id';
 import { useAppContext } from '../../SupAppContext';
@@ -67,7 +67,7 @@ const TabMenu = () => {
 
 async function dispatchTabClickedEvent(tabId: TabId) {
 	logEvent('veilarbpersonflatefs.valgt-fane', { tabId });
-	logAmplitudeEvent('tab åpnet', { tabId });
+	logAnalyticsEvent('tab åpnet', { tabId });
 	window.dispatchEvent(new CustomEvent('veilarbpersonflatefs.tab-clicked', { detail: { tabId } }));
 }
 

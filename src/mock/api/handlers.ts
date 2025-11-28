@@ -70,6 +70,7 @@ export const handlers = [
 		'/mulighetsrommet-api/api/v1/internal/features',
 		responseResolver({ json: mockMulighetsrommetUnleashFeatures })
 	),
+	http.get('/obo-unleash/api/feature', responseResolver({ json: {} })),
 	http.post('/veilarbdialog/api/dialog/antallUleste', responseResolver({ json: mockAntallUleste })),
 	http.post('/veilarbdialog/api/dialog/sistOppdatert', responseResolver({ json: mockSistOppdatert })),
 	http.get('/modiacontextholder/api/context/aktivenhet', responseResolver({ json: mockAktivEnhet })),
@@ -143,12 +144,20 @@ export const handlers = [
 	http.get('/veilarbaktivitet/api/feature', responseResolver({ json: {} })),
 	http.post('/veilarbaktivitet/api/logger/event', responseResolver({ status: 204 })),
 	http.post('/veilarbaktivitet/api/arena/tiltak', responseResolver({ json: [] })),
+	http.post('/veilarbaktivitet/api/innsynsrett', responseResolver({ json: {} })),
 
 	http.post('/veilarbportefolje/api/v2/hent-arbeidsliste', responseResolver({ json: {} })),
 	http.post('/veilarbportefolje/api/v1/hent-er-bruker-ufordelt', responseResolver({ json: true })),
 	http.post('/veilarblest/api/aktivitetsplan/les', responseResolver({ json: lesMockData })),
 
-	http.post('https://amplitude.nav.no/collect', responseResolver({ json: { mock: 'lol' } })),
+	http.post('/veilarbperson/api/v3/person/hent-fullmakt', responseResolver({ json: lesMockData })),
+	http.post('/veilarbvedtaksstotte/api/hent-gjeldende-14a-vedtak', responseResolver({ json: {} })),
+	http.post(
+		'/veilarbperson/api/v3/person/hent-siste-opplysninger-om-arbeidssoeker-med-profilering',
+		responseResolver({ json: {} })
+	),
+
+	http.post('https://umami.nav.no/api/send', responseResolver({ json: {} })),
 
 	http.get(
 		'/auth/info',

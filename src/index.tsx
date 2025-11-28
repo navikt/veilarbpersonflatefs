@@ -6,7 +6,7 @@ import { AsyncNavspa } from '@navikt/navspa';
 import { vedtaksstotteAsyncConfig, visittkortAsyncConfig } from './component/spa';
 import { erMock } from './util/utils';
 import { createRoot } from 'react-dom/client';
-import { initAmplitude } from './amplitude/amplitude';
+import { initAnalytics } from './analytics/analytics';
 import App from './App';
 
 const lastInnSubApper = () => {
@@ -25,7 +25,6 @@ if (!globalThis['__core-js_shared__']) {
 	import('regenerator-runtime/runtime');
 }
 
-
 if (erMock()) {
 	// @ts-ignore
 	const { worker } = await import('./mock/setup');
@@ -37,7 +36,7 @@ if (erMock()) {
 		})
 		.then(renderApp);
 } else {
-	initAmplitude();
+	initAnalytics();
 	renderApp();
 	lastInnSubApper();
 }
