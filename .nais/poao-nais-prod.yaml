@@ -90,7 +90,6 @@ spec:
           namespace: obo
       external:
         - host: veilarbarena.prod-fss-pub.nais.io
-        - host: amplitude.nav.no
   env:
     - name: JSON_CONFIG
       value: >

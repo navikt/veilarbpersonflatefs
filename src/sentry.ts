@@ -67,7 +67,7 @@ if (getEnv().type !== EnvType.local) {
 		],
 		environment: getEnv().type,
 		enabled: !erMock(),
-		ignoreErrors: [/^canceled$/, /Amplitude/],
+		ignoreErrors: [/^canceled$/],
 		// Set tracesSampleRate to 1.0 to capture 100%
 		// of transactions for performance monitoring.
 		// We recommend adjusting this value in production
