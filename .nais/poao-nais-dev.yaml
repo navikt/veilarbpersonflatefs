@@ -99,7 +99,6 @@ spec:
     - name: JSON_CONFIG
       value: >
         {
-          "enableSecureLogs": true,
           "fallbackStrategy": "SERVE_INDEX_HTML",
           "auth": {
             "loginProvider": "AZURE_AD",
