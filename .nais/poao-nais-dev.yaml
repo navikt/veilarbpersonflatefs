@@ -9,7 +9,7 @@ metadata:
     nginx.ingress.kubernetes.io/proxy-buffer-size: "8k"
     config.linkerd.io/proxy-cpu-limit: 500m
 spec:
-  image: europe-north1-docker.pkg.dev/nais-management-233d/poao/poao-frontend:2025.11.06_13.36-d978285e1187
+  image: europe-north1-docker.pkg.dev/nais-management-233d/poao/poao-frontend:2025.12.03_10.39-17c3dbd008e5
   port: 8080
   ingresses:
     - https://veilarbpersonflate.intern.dev.nav.no
@@ -99,7 +99,6 @@ spec:
     - name: JSON_CONFIG
       value: >
         {
-          "enableSecureLogs": true,
           "fallbackStrategy": "SERVE_INDEX_HTML",
           "auth": {
             "loginProvider": "AZURE_AD",
