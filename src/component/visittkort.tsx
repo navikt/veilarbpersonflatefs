@@ -12,27 +12,12 @@ declare global {
 					tilbakeTilFlate?: string;
 					visVeilederVerktoy?: string;
 					skjulEtiketter?: string;
-					avsluttOppfolgingOpptelt?: string;
 				},
 				HTMLElement
 			>;
 		}
 	}
 }
-
-/*
-const loadScript = (url: string) => {
-	return new Promise((resolve, reject) => {
-		const script = document.createElement('script');
-		script.src = url;
-		script.async = true;
-
-		script.onload = () => resolve(script);
-		script.onerror = () => reject(new Error(`Failed to load script: ${url}`));
-
-		document.head.appendChild(script);
-	});
-};*/
 
 const visittkortBaseUrl = utledCDNSpaUrl('poao', SpaName.VEILARBVISITTKORTFS);
 const lastInnVisittkort = () => {
