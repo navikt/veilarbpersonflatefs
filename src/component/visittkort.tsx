@@ -52,7 +52,7 @@ lastInnVisittkort();
 
 interface VisittKortProps extends SpaProps {
 	tilbakeTilFlate: string;
-	visVeilederVerktoy: boolean;
+	visVeilederVerktoy: 'true' | 'false'; // Når man sendre props til custom elements / web comonents så må det være string
 }
 
 export const Visittkort: React.ComponentType<VisittKortProps> = ({
@@ -66,7 +66,7 @@ export const Visittkort: React.ComponentType<VisittKortProps> = ({
 			enhet={enhet ?? '1234'}
 			fnr={fnr ?? '123123123'}
 			tilbakeTilFlate={tilbakeTilFlate}
-			visVeilederVerktoy={visVeilederVerktoy}
+			visVeilederVerktoy={visVeilederVerktoy ? 'true' : 'false'}
 			key={fnr}
 		></ao-visittkort>
 	);
