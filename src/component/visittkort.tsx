@@ -39,7 +39,7 @@ const lastInnVisittkort = () => {
 	fetch(`${visittkortBaseUrl}/asset-manifest.json`)
 		.then(it => it.json() as Promise<{ 'index.html': { file: string } }>)
 		.then(manifest => {
-			const visittkortScriptUrl = `${visittkortBaseUrl}${manifest['index.html'].file}`;
+			const visittkortScriptUrl = `${visittkortBaseUrl}/${manifest['index.html'].file}`;
 			return import(visittkortScriptUrl);
 		})
 		.catch(err => {
