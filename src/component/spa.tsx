@@ -10,11 +10,6 @@ export interface SpaProps {
 	fnr: string;
 }
 
-interface VisittKortProps extends SpaProps {
-	tilbakeTilFlate: string;
-	visVeilederVerktoy: boolean;
-}
-
 export const vedtaksstotteAsyncConfig: AsyncSpaConfig = {
 	appName: SpaName.VEILARBVEDTAKSSTOTTEFS,
 	appBaseUrl: utledOboCdnUrl('veilarbvedtaksstottefs/dist'),
@@ -43,13 +38,9 @@ export const visittkortAsyncConfig: AsyncSpaConfig = {
 			return createAssetManifestParser(baseUrl)(manifest);
 		} else {
 			// Vitejs manifest
-			const { file, css } = manifest['index.html'];
-			const styles = css.map((path: string) => ({ path: `${baseUrl}/${path}` }));
+			const { file } = manifest['index.html'];
 			const entry = { type: 'module', path: `${baseUrl}/${file}` };
-			return [entry, ...styles];
+			return [entry];
 		}
 	}
 };
-
-export const Visittkort: React.ComponentType<VisittKortProps> =
-	AsyncNavspa.importer<VisittKortProps>(visittkortAsyncConfig);
