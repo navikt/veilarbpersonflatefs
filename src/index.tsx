@@ -3,14 +3,13 @@ import '@navikt/ds-css';
 import './index.less';
 
 import { AsyncNavspa } from '@navikt/navspa';
-import { vedtaksstotteAsyncConfig, visittkortAsyncConfig } from './component/spa';
+import { vedtaksstotteAsyncConfig } from './component/spa';
 import { erMock } from './util/utils';
 import { createRoot } from 'react-dom/client';
 import { initAnalytics } from './analytics/analytics';
 import App from './App';
 
 const lastInnSubApper = () => {
-	AsyncNavspa.preload(visittkortAsyncConfig);
 	AsyncNavspa.preload(vedtaksstotteAsyncConfig);
 };
 const renderApp = () => {
