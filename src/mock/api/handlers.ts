@@ -22,6 +22,7 @@ import {
 	veilederMeMockData
 } from './data';
 import { SessionMeta } from '../../api/api';
+import {graphqlMock} from "../graphqlMock";
 
 const HTTP_OK = 200;
 const DEFAULT_DELAY_MILLISECONDS = 100;
@@ -132,6 +133,9 @@ export const handlers = [
 	http.post('/veilarboppfolging/api/v3/veileder/lest-aktivitetsplan', responseResolver({ status: 204 })),
 	http.get('/veilarboppfolging/api/v3/oppfolging/me', responseResolver({ json: meMockData })),
 	http.post('/veilarboppfolging/api/v3/oppfolging/harFlereAktorIderMedOppfolging', responseResolver({ status: 204 })),
+	http.post('/veilarboppfolfing/api/graphql', () => {
+		return graphqlMock('IKKE_TILGANG_ENHET', true)
+	}),
 	http.post(
 		'/veilarboppfolging/api/v3/oppfolging/hent-veilederTilgang',
 		responseResolver({ json: { tilgangTilBrukersKontor: true } })

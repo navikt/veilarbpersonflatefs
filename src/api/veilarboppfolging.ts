@@ -1,4 +1,4 @@
-import { AxiosPromise } from 'axios';
+ import { AxiosPromise } from 'axios';
 import { axiosInstance } from './utils';
 
 export function synkroniserManuellStatusMedDkif(fnr: string): AxiosPromise<null> {
@@ -17,6 +17,7 @@ const query = `
         }
     }
     oppfolging(fnr: $fnr) {
+    	erUnderOppfolging,
         kanStarteOppfolging
     }
   }

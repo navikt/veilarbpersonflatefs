@@ -19,7 +19,7 @@ export const mockAktivEnhet: AktivEnhetResponse = {
 	aktivEnhet: testEnhetId
 };
 
-export const mockTilgangTilBruker = true;
+export const mockTilgangTilBruker = false;
 
 interface SessionDataMockConfig {
 	createdAt: string;
