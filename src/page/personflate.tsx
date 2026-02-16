@@ -4,7 +4,6 @@ import { hasAnyFailed, isAnyLoading } from '../api/utils';
 import {
 	FeilUnderLastingAvData,
 	FeilmeldingManglerFnr,
-	IngenTilgangTilBruker
 } from '../component/alertstriper/alertstriper';
 import { InternflateDecorator } from '../component/internflate-decorator/internflate-decorator';
 import PageSpinner from '../component/page-spinner/page-spinner';
@@ -12,6 +11,7 @@ import SideInnhold from '../component/side-innhold';
 import { UtloptSesjonAdvarsel } from '../component/utlopt-sesjon-advarsel/utlopt-sesjon-advarsel';
 import { SesjonStatus, useSesjonStatus } from '../hooks/use-sesjon-status';
 import { useModiaContext } from '../store/modia-context-store';
+import { IngenTilgang } from '../component/ingenTilgang';
 
 export const PersonflatePage = () => {
 	return (
@@ -43,7 +43,7 @@ const Body = () => {
 	} else if (hasAnyFailed(fetchTilgangTilBruker)) {
 		innhold = <FeilUnderLastingAvData />;
 	} else if (!fetchTilgangTilBruker.data) {
-		innhold = <IngenTilgangTilBruker />;
+		innhold = <IngenTilgang />;
 	} else {
 		innhold = <SideInnhold />;
 	}

@@ -58,7 +58,7 @@ export type KanStarteOppfolging =
 	| KanIkkeStarteOppfolgingPgaIkkeTilgang
 	| KanIkkeStartePgaFolkeregisterStatus
 
-interface GraphqlSuccessResponse {
+export interface GraphqlSuccessResponse {
 	data: {
 		oppfolging: {
 			kanStarteOppfolging: KanStarteOppfolging
@@ -79,7 +79,7 @@ type GraphqlResponse =
 	| { errors: { message: string }[] }
 	| GraphqlSuccessResponse
 
-const getOppfolgingStatus = async (fnr: string, token: string) => {
+export const getOppfolgingStatus = async (fnr: string, token: string) => {
 	const response = await resilientFetch<GraphqlResponse>(graphqlUrl, {
 		body: JSON.stringify(graphqlBody(fnr)),
 		headers: {
