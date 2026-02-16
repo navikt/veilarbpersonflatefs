@@ -1,5 +1,5 @@
 import { IngenTilgangTilBruker } from '../alertstriper/alertstriper';
-import { getOppfolgingStatus, GraphqlSuccessResponse } from '../../api/veilarboppfolging';
+import { getHarVeilederTilgangFlytteBrukerTilEgetKontor } from '../../api/veilarboppfolging';
 import { FunctionComponent, useEffect, useState } from 'react';
 import {BodyShort, Button} from '@navikt/ds-react';
 import './ingen-tilgang.less';
@@ -10,18 +10,16 @@ type Props = {
 }
 
 export const IngenTilgang: FunctionComponent<Props> = ({fnr}) => {
-	const [oppfolgingStatus, setOppfolgingStatus] = useState<GraphqlSuccessResponse | undefined>()
-
-	const skalViseFlyttBrukerKnapp = oppfolgingStatus?.data.oppfolging.erUnderOppfolging && oppfolgingStatus?.data.oppfolging.kanStarteOppfolging === 'IKKE_TILGANG_ENHET'
+	const [tilgangFlytteBrukerEgetKontor, setTilgangFlytteBrukerEgetKontor] = useState<boolean | undefined>()
 	// TODO: lenke til inngar
 	// TODO: bare gjøre  kallet til veilarboppfolging en gang
 
 	useEffect(() => {
-		if (oppfolgingStatus) return;
+		if (tilgangFlytteBrukerEgetKontor !== undefined) return;
 
-		getOppfolgingStatus(fnr).then((response) => {
+		getHarVeilederTilgangFlytteBrukerTilEgetKontor(fnr).then((response) => {
 			if (response.ok) {
-				setOppfolgingStatus(response.data)
+				setTilgangFlytteBrukerEgetKontor(response.data.data.veilederTilgang.harVeilederTilgangFlytteBrukerTilEgetKontor);
 			} else {
 				throw Error('Kunne ikke hente oppfølgingstatus');
 			}
@@ -34,7 +32,7 @@ export const IngenTilgang: FunctionComponent<Props> = ({fnr}) => {
 		<div>
 			<IngenTilgangTilBruker />
 
-			{skalViseFlyttBrukerKnapp && <div className="ingen-tilgang">
+			{tilgangFlytteBrukerEgetKontor && <div className="ingen-tilgang">
 				<BodyShort>Du har ikke tilgang til bruker, men kan flytte bruker til ditt kontor. Du vil da få tilgang til bruker.</BodyShort>
 				<Button>Flytt bruker</Button>
 			</div>}

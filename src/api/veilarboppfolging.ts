@@ -9,16 +9,8 @@ const graphqlUrl = '/veilarboppfolging/api/graphql';
 
 const query = `
   query($fnr: String!) {
-    oppfolgingsEnhet(fnr: $fnr) {
-        enhet {
-            navn,
-            id,
-            kilde
-        }
-    }
-    oppfolging(fnr: $fnr) {
-    	erUnderOppfolging,
-        kanStarteOppfolging
+    veilederTilgang(fnr: $fnr) {
+		harVeilederTilgangFlytteBrukerTilEgetKontor
     }
   }
 `
@@ -30,42 +22,10 @@ const graphqlBody = (fnr: string) => ({
 	},
 })
 
-interface Enhet {
-	id: string
-	navn: string
-	kilde: string
-}
-
-export type KanIkkeStarteOppfolgingPgaIkkeTilgang =
-	| 'IKKE_TILGANG_FORTROLIG_ADRESSE'
-	| 'IKKE_TILGANG_STRENGT_FORTROLIG_ADRESSE'
-	| 'IKKE_TILGANG_EGNE_ANSATTE'
-	| 'IKKE_TILGANG_ENHET'
-	| 'IKKE_TILGANG_MODIA'
-export type KanIkkeStartePgaFolkeregisterStatus =
-	| 'DOD'
-	| 'IKKE_LOVLIG_OPPHOLD'
-	| 'UKJENT_STATUS_FOLKEREGISTERET'
-	| 'INGEN_STATUS_FOLKEREGISTERET'
-export type KanStarteOppfolging =
-	| 'JA'
-	| 'JA_MED_MANUELL_GODKJENNING_PGA_IKKE_BOSATT' // Manuell dokumentering/godkjenning på at bruker har lovlig opphold
-	| 'JA_MED_MANUELL_GODKJENNING_PGA_DNUMMER_IKKE_EOS_GBR' // Manuell dokumentering/godkjenning på at bruker har lovlig opphold
-	| 'ALLEREDE_UNDER_OPPFOLGING'
-	| 'ALLEREDE_UNDER_OPPFOLGING_MEN_INAKTIVERT' // Disse kan reaktiveres (foreløpig)
-	| 'ALLEREDE_UNDER_OPPFOLGING_MEN_INAKTIVERT_MEN_KREVER_MANUELL_GODKJENNING_PGA_IKKE_BOSATT'
-	| 'ALLEREDE_UNDER_OPPFOLGING_MEN_INAKTIVERT_MEN_KREVER_MANUELL_GODKJENNING_PGA_DNUMMER_IKKE_EOS_GBR'
-	| KanIkkeStarteOppfolgingPgaIkkeTilgang
-	| KanIkkeStartePgaFolkeregisterStatus
-
 export interface GraphqlSuccessResponse {
 	data: {
-		oppfolging: {
-			erUnderOppfolging: boolean,
-			kanStarteOppfolging: KanStarteOppfolging
-		}
-		oppfolgingsEnhet: {
-			enhet?: Enhet
+		veilederTilgang: {
+			harVeilederTilgangFlytteBrukerTilEgetKontor: boolean,
 		}
 	}
 }
@@ -80,12 +40,12 @@ type GraphqlResponse =
 	| { errors: { message: string }[] }
 	| GraphqlSuccessResponse
 
-export const getOppfolgingStatus = async (fnr: string) => {
+export const getHarVeilederTilgangFlytteBrukerTilEgetKontor = async (fnr: string) => {
 	const response = await resilientFetch<GraphqlResponse>(graphqlUrl, {
 		body: JSON.stringify(graphqlBody(fnr)),
 		headers: {
 			Accept: 'application/json',
-			['Nav-Consumer-Id']: 'inngar',
+			['Nav-Consumer-Id']: 'veilarbpersonflatefs',
 			['Content-Type']: 'application/json',
 		},
 		method: 'POST',

@@ -134,7 +134,7 @@ export const handlers = [
 	http.get('/veilarboppfolging/api/v3/oppfolging/me', responseResolver({ json: meMockData })),
 	http.post('/veilarboppfolging/api/v3/oppfolging/harFlereAktorIderMedOppfolging', responseResolver({ status: 204 })),
 	http.post('/veilarboppfolging/api/graphql', () => {
-		return graphqlMock('IKKE_TILGANG_ENHET', true)
+		return graphqlMock( true)
 	}),
 	http.post(
 		'/veilarboppfolging/api/v3/oppfolging/hent-veilederTilgang',
