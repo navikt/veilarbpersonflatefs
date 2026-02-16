@@ -133,7 +133,7 @@ export const handlers = [
 	http.post('/veilarboppfolging/api/v3/veileder/lest-aktivitetsplan', responseResolver({ status: 204 })),
 	http.get('/veilarboppfolging/api/v3/oppfolging/me', responseResolver({ json: meMockData })),
 	http.post('/veilarboppfolging/api/v3/oppfolging/harFlereAktorIderMedOppfolging', responseResolver({ status: 204 })),
-	http.post('/veilarboppfolfing/api/graphql', () => {
+	http.post('/veilarboppfolging/api/graphql', () => {
 		return graphqlMock('IKKE_TILGANG_ENHET', true)
 	}),
 	http.post(

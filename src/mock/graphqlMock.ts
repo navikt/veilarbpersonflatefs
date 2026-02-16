@@ -1,9 +1,9 @@
 import { HttpResponse } from 'msw'
 import { KanStarteOppfolging } from '../api/veilarboppfolging';
 
-export const graphqlMock = (kanStarteOppfoling: KanStarteOppfolging, underOppfolging: boolean) => {
+export const graphqlMock = (kanStarteOppfolging: KanStarteOppfolging, underOppfolging: boolean) => {
     const oppfolging = {
-        kanStarteOppfolging: kanStarteOppfoling,
+        kanStarteOppfolging: kanStarteOppfolging,
         erUnderOppfolging: underOppfolging,
     }
     return HttpResponse.json({

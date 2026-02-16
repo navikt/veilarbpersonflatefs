@@ -61,6 +61,7 @@ export type KanStarteOppfolging =
 export interface GraphqlSuccessResponse {
 	data: {
 		oppfolging: {
+			erUnderOppfolging: boolean,
 			kanStarteOppfolging: KanStarteOppfolging
 		}
 		oppfolgingsEnhet: {
