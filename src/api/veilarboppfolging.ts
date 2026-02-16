@@ -80,13 +80,12 @@ type GraphqlResponse =
 	| { errors: { message: string }[] }
 	| GraphqlSuccessResponse
 
-export const getOppfolgingStatus = async (fnr: string, token: string) => {
+export const getOppfolgingStatus = async (fnr: string) => {
 	const response = await resilientFetch<GraphqlResponse>(graphqlUrl, {
 		body: JSON.stringify(graphqlBody(fnr)),
 		headers: {
 			Accept: 'application/json',
 			['Nav-Consumer-Id']: 'inngar',
-			Authorization: `Bearer ${token}`,
 			['Content-Type']: 'application/json',
 		},
 		method: 'POST',

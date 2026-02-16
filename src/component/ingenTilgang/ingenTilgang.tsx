@@ -14,13 +14,12 @@ export const IngenTilgang: FunctionComponent<Props> = ({fnr}) => {
 
 	const skalViseFlyttBrukerKnapp = oppfolgingStatus?.data.oppfolging.erUnderOppfolging && oppfolgingStatus?.data.oppfolging.kanStarteOppfolging === 'IKKE_TILGANG_ENHET'
 	// TODO: lenke til inngar
-
 	// TODO: bare gjøre  kallet til veilarboppfolging en gang
 
 	useEffect(() => {
 		if (oppfolgingStatus) return;
 
-		getOppfolgingStatus(fnr, 'FIK_TOKEN').then((response) => {
+		getOppfolgingStatus(fnr).then((response) => {
 			if (response.ok) {
 				setOppfolgingStatus(response.data)
 			} else {
