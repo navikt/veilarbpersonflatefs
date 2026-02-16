@@ -1,7 +1,7 @@
 import { DAB_UNLEASH_TOGGLES, DabUnleashFeatures } from './features';
 import { axiosInstance, useAxios, UseAxiosResponseValue } from './utils';
 import { Options } from 'axios-hooks';
-import { AxiosPromise, AxiosResponse } from 'axios';
+import { AxiosResponse } from 'axios';
 import { FrontendEvent } from '../util/frontend-logger';
 
 export interface AntallUlesteDialoger {
@@ -74,10 +74,6 @@ export function useFetchTilgangTilBruker(fnr: string, options?: Options): UseAxi
 		},
 		options
 	);
-}
-
-export function synkroniserManuellStatusMedDkif(fnr: string): AxiosPromise<null> {
-	return axiosInstance.post(`/veilarboppfolging/api/v3/manuell/synkroniser-med-dkif`, { fnr });
 }
 
 export function sendEventTilVeilarbperson(event: FrontendEvent) {
