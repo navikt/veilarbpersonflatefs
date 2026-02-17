@@ -1,7 +1,7 @@
 import {IngenTilgangTilBruker} from '../alertstriper/alertstriper';
 import {getHarVeilederTilgangFlytteBrukerTilEgetKontor} from '../../api/veilarboppfolging';
 import {useEffect, useState} from 'react';
-import {BodyShort, Button, Link} from '@navikt/ds-react';
+import { Alert, BodyShort, Button, Heading, InlineMessage, Link } from '@navikt/ds-react';
 import './ingen-tilgang.less';
 import {useModiaContext} from '../../store/modia-context-store';
 import {settKontor} from '../../api/ao-oppfolgingskontor';
@@ -47,27 +47,36 @@ export const IngenTilgang = () => {
         <div>
             <IngenTilgangTilBruker/>
 
-            {tilgangFlytteBrukerEgetKontor && <div className="ingen-tilgang">
-                {skalViseTekstOgKnapp &&
-                    <div className="ingen-tilgang-innhold">
-                        <BodyShort>Du har ikke tilgang til bruker, men kan flytte bruker til {aktivEnhetId}. Du vil da få
-                            tilgang til bruker.</BodyShort>
-                        <Button loading={steg === Steg.ENDRER_KONTOR} onClick={settKontorButtonClicked}>Flytt
-                            bruker til ditt kontor</Button>
-                    </div>
-                }
-                {steg === Steg.HAR_ENDRET_KONTOR &&
-                    <Link
-                        className="ingen-tilgang-link"
-                        to="/aktivitetsplan"
-                        onClick={() =>
-                            dispatchNavigateEvent('/aktivitetsplan')
-                        }
-                    >
-                        Gå til aktivitetsplanen
-                    </Link>}
-            </div>
-            }
+			<div className="ingen-tilgang">
+				{tilgangFlytteBrukerEgetKontor &&
+					<div>
+						{skalViseTekstOgKnapp &&
+							<div className="ingen-tilgang-innhold">
+								<BodyShort>Du har ikke tilgang til bruker, men kan flytte bruker til {aktivEnhetId}. Du vil da få
+									tilgang til bruker.</BodyShort>
+								<Button loading={steg === Steg.ENDRER_KONTOR} onClick={settKontorButtonClicked}>Flytt
+									bruker til ditt kontor</Button>
+							</div>
+						}
+						{steg === Steg.HAR_ENDRET_KONTOR &&
+							<div className="ingen-tilgang-innhold">
+								<InlineMessage status="success" size="medium">
+									Brukers arbeidsoppfølgingskontor er nå Nav Helsfyr
+								</InlineMessage>
+								<Link
+									className="ingen-tilgang-link"
+									to="/aktivitetsplan"
+									onClick={() =>
+										dispatchNavigateEvent('/aktivitetsplan')
+									}
+								>
+									Gå til aktivitetsplanen
+								</Link>
+							</div>
+						}
+					</div>
+				}
+			</div>
         </div>
     )
 }
