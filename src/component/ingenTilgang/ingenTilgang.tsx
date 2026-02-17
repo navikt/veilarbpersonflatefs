@@ -3,16 +3,13 @@ import {getHarVeilederTilgangFlytteBrukerTilEgetKontor} from '../../api/veilarbo
 import {useEffect, useState} from 'react';
 import {BodyShort, Button} from '@navikt/ds-react';
 import './ingen-tilgang.less';
-import {useSettKontor} from '../../api/ao-oppfolgingskontor';
 import {useModiaContext} from '../../store/modia-context-store';
+import { settKontor } from '../../api/ao-oppfolgingskontor';
 
 export const IngenTilgang = () => {
     const [tilgangFlytteBrukerEgetKontor, setTilgangFlytteBrukerEgetKontor] = useState<boolean | undefined>()
     const {aktivBrukerFnr, aktivEnhetId} = useModiaContext();
     if (!aktivEnhetId) return;
-    const settKontor = (enhetId: string, fnr: string) => {
-        useSettKontor(enhetId, fnr);
-    }
     // TODO: lenke til inngar
     // TODO: bare gjøre  kallet til veilarboppfolging en gang
 
@@ -28,14 +25,19 @@ export const IngenTilgang = () => {
         })
     }, []);
 
+	const settKontorButtonClicked = async () => {
+		const result = await settKontor(aktivBrukerFnr, aktivEnhetId)
+		console.log("Resultat av settKontor: ", result)
+	}
+
     return (
         <div>
             <IngenTilgangTilBruker/>
 
             {tilgangFlytteBrukerEgetKontor && <div className="ingen-tilgang">
                 <BodyShort>Du har ikke tilgang til bruker, men kan flytte bruker til ditt kontor. Du vil da få tilgang
-                    til bruker.</BodyShort>
-                <Button onClick={() => settKontor(aktivEnhetId, aktivBrukerFnr)}>Flytt bruker</Button>
+                    til bruker. Bruker er nå på SETT-INN-KONTOR</BodyShort>
+                <Button onClick={settKontorButtonClicked}>Flytt bruker</Button>
             </div>}
         </div>
     )

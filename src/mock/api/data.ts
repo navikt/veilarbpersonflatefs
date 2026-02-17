@@ -269,4 +269,16 @@ export const contextMock = {
 };
 
 export const malMockData = { mal: null, endretAv: 'VEILEDER', dato: null };
+
+export const settKontorMockData = {
+	fraKontor: {
+		kontorNavn: 'Nav Dalane',
+		kontorId: testEnhetId
+	},
+	tilKontor: {
+		kontorNavn: 'Nav Helsfyr',
+		kontorId: '0399'
+	}
+}
+
 export default sessionData;

@@ -1,11 +1,15 @@
-import { useAxios, UseAxiosResponseValue } from './utils';
+import axios from 'axios';
 
-export function useSettKontor(kontorId: string, fnr: string): UseAxiosResponseValue<boolean> {
-    return useAxios<boolean>(
-        {
-            url: `/ao-oppfolgingskontor/api/kontor`,
-            method: 'POST',
-            data: { kontorId, ident: fnr }
-        }
-    );
+interface Kontor {
+	kontorNavn: string;
+	kontorId: string;
+}
+
+interface SettKontorResponse {
+	fraKontor: Kontor;
+	tilKontor: Kontor;
+}
+
+export function settKontor(fnr: string, kontorId: string): Promise<SettKontorResponse> {
+    return axios.post(`/ao-oppfolgingskontor/api/kontor`, { kontorId, ident: fnr })
 }

@@ -17,7 +17,7 @@ import {
 	oppfolgingMockData,
 	oppfolgingsStatusMockData,
 	personV2mockData,
-	sessionData as getSessionData,
+	sessionData as getSessionData, settKontorMockData,
 	veilederHarTilgangMockData,
 	veilederMeMockData
 } from './data';
@@ -160,6 +160,8 @@ export const handlers = [
 		'/veilarbperson/api/v3/person/hent-siste-opplysninger-om-arbeidssoeker-med-profilering',
 		responseResolver({ json: {} })
 	),
+
+	http.post('/ao-oppfolgingskontor/api/kontor', responseResolver({status: 200, json: settKontorMockData})),
 
 	http.post('https://umami.nav.no/api/send', responseResolver({ json: {} })),
 
