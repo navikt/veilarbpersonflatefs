@@ -10,6 +10,7 @@ import { hentVeilederOgEnheter } from '../../api/modiacontextholder';
 import { EnvType, getEnv } from '../../util/utils';
 
 enum Steg {
+	IKKE_STARTET,
 	HAR_IKKE_ENDRET_KONTOR,
 	ENDRER_KONTOR,
 	HAR_ENDRET_KONTOR
@@ -19,31 +20,32 @@ export const IngenTilgang = () => {
 	const { aktivBrukerFnr, aktivEnhetId } = useModiaContext();
 	const [aktivEnhetNavn, setAktivEnhetNavn] = useState<string | undefined>();
 	const [tilgangFlytteBrukerEgetKontor, setTilgangFlytteBrukerEgetKontor] = useState<boolean | undefined>();
-	const [steg, setSteg] = useState<Steg>(Steg.HAR_IKKE_ENDRET_KONTOR);
+	const [steg, setSteg] = useState<Steg>(Steg.IKKE_STARTET);
 	if (!aktivEnhetId) return;
-	// TODO: lenke til inngar
 	// TODO: bare gjøre  kallet til veilarboppfolging en gang
 
 	useEffect(() => {
-		if (tilgangFlytteBrukerEgetKontor !== undefined) return;
+		if (steg === Steg.IKKE_STARTET) {
+			setSteg(Steg.HAR_IKKE_ENDRET_KONTOR);
 
-		getHarVeilederTilgangFlytteBrukerTilEgetKontor(aktivBrukerFnr).then(response => {
-			if (response.ok) {
-				setTilgangFlytteBrukerEgetKontor(
-					response.data.data.veilederTilgang.harVeilederTilgangFlytteBrukerTilEgetKontor
-				);
-			} else {
-				throw Error('Kunne ikke hente oppfølgingstatus');
-			}
-		});
+			getHarVeilederTilgangFlytteBrukerTilEgetKontor(aktivBrukerFnr).then(response => {
+				if (response.ok) {
+					setTilgangFlytteBrukerEgetKontor(
+						response.data.data.veilederTilgang.harVeilederTilgangFlytteBrukerTilEgetKontor
+					);
+				} else {
+					throw Error('Kunne ikke hente oppfølgingstatus');
+				}
+			});
 
-		hentVeilederOgEnheter().then(response => {
-			if (response.status === 200) {
-				setAktivEnhetNavn(response.data.enheter.find(enhet => enhet.enhetId === aktivEnhetId)?.navn);
-			} else {
-				throw Error('Kunne ikke hente veileder og enheter');
-			}
-		});
+			hentVeilederOgEnheter().then(response => {
+				if (response.status === 200) {
+					setAktivEnhetNavn(response.data.enheter.find(enhet => enhet.enhetId === aktivEnhetId)?.navn);
+				} else {
+					throw Error('Kunne ikke hente veileder og enheter');
+				}
+			});
+		}
 	}, []);
 
 	const settKontorButtonClicked = async () => {
