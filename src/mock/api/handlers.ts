@@ -161,7 +161,7 @@ export const handlers = [
 		responseResolver({ json: {} })
 	),
 
-	http.post('/ao-oppfolgingskontor/api/kontor', responseResolver({status: 200, json: settKontorMockData})),
+	http.post('/ao-oppfolgingskontor/api/kontor', responseResolver({status: 200, json: settKontorMockData, delayMilliseconds: 1000})),
 
 	http.post('https://umami.nav.no/api/send', responseResolver({ json: {} })),
 
