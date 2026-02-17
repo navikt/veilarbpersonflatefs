@@ -3,6 +3,7 @@ import {DispatchContext} from './store-provider';
 import {erMock} from '../util/utils';
 import {applications} from '../data/applications';
 import {dispatchNavigateEvent} from '../Router';
+import {testEnhetId} from "../mock/api/data";
 
 export interface ModiaContextData {
     aktivBrukerFnr: string;
@@ -126,7 +127,7 @@ export const createInitialStore = (fnr: string): ModiaContextData => {
         ? {
             ...defaultValue,
             aktivBrukerFnr: '12345678900',
-            aktivEnhetId: '1234'
+            aktivEnhetId: testEnhetId
         }
         : {
             ...defaultValue,
