@@ -58,7 +58,7 @@ export const IngenTilgang = () => {
 	const skalViseFunksjonalitetForAaFlytteBruker = tilgangFlytteBrukerEgetKontor && getEnv().type !== EnvType.prod;
 
 	return (
-		<div>
+		<div className="ingen-tilgang-container">
 			<IngenTilgangTilBruker />
 
 			<div className="ingen-tilgang">
@@ -70,13 +70,13 @@ export const IngenTilgang = () => {
 									Du har ikke tilgang til bruker, men kan flytte bruker til {aktivEnhetNavn}. Du vil
 									da få tilgang til bruker.
 								</BodyShort>
-								<Button loading={steg === Steg.ENDRER_KONTOR} onClick={settKontorButtonClicked}>
+								<Button className="ingen-tilgang-knapp" loading={steg === Steg.ENDRER_KONTOR} onClick={settKontorButtonClicked}>
 									Flytt bruker til {aktivEnhetNavn}
 								</Button>
 							</div>
 						)}
 						{steg === Steg.HAR_ENDRET_KONTOR && (
-							<div className="ingen-tilgang-innhold">
+							<div>
 								<InlineMessage status="success" size="medium">
 									Brukers arbeidsoppfølgingskontor er nå {aktivEnhetNavn}
 								</InlineMessage>
