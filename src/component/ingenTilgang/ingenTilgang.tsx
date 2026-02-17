@@ -22,7 +22,6 @@ export const IngenTilgang = () => {
 	const [tilgangFlytteBrukerEgetKontor, setTilgangFlytteBrukerEgetKontor] = useState<boolean | undefined>();
 	const [steg, setSteg] = useState<Steg>(Steg.IKKE_STARTET);
 	if (!aktivEnhetId) return;
-	// TODO: bare gjøre  kallet til veilarboppfolging en gang
 
 	useEffect(() => {
 		if (steg === Steg.IKKE_STARTET) {
