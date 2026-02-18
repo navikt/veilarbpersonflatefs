@@ -21,7 +21,6 @@ export const IngenTilgangTilBruker = () => {
 	const veilederOgEnheter = useVeilederOgEnheter();
 	const [tilgangFlytteBrukerEgetKontor, setTilgangFlytteBrukerEgetKontor] = useState<boolean | undefined>();
 	const [steg, setSteg] = useState<Steg>(Steg.IKKE_STARTET);
-	if (!aktivEnhetId) return;
 
 	useEffect(() => {
 		if (steg === Steg.IKKE_STARTET) {
@@ -33,11 +32,13 @@ export const IngenTilgangTilBruker = () => {
 						response.data.data.veilederTilgang.harVeilederTilgangFlytteBrukerTilEgetKontor
 					);
 				} else {
-					throw Error('Kunne ikke hente oppfølgingstatus');
+					throw new Error('Kunne ikke hente oppfølgingstatus');
 				}
 			});
 		}
 	}, []);
+
+	if (!aktivEnhetId) return;
 
 	const settKontorButtonClicked = async () => {
 		setSteg(Steg.ENDRER_KONTOR);
