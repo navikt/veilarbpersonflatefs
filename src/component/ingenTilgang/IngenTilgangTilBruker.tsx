@@ -7,7 +7,7 @@ import { useModiaContext } from '../../store/modia-context-store';
 import { dispatchNavigateEvent } from '../../Router';
 import { EnvType, getEnv } from '../../util/utils';
 import { logAnalyticsEvent } from '../../analytics/analytics';
-import { settKontor, hentVeilederOgEnheter, HentVeilederOgEnheterResponse } from '../../api/api';
+import { hentVeilederOgEnheter, HentVeilederOgEnheterResponse, settKontor } from '../../api/api';
 
 enum Steg {
 	IKKE_STARTET,
@@ -53,12 +53,12 @@ export const IngenTilgangTilBruker = () => {
 		const result = await settKontor(aktivBrukerFnr, aktivEnhetId);
 		if (result) {
 			setSteg(Steg.HAR_ENDRET_KONTOR);
-			logAnalyticsEvent('knapp klikket', {tekst: 'flyttet-bruker-til-veileders-kontor'});
+			logAnalyticsEvent('knapp klikket', { tekst: 'flyttet-bruker-til-veileders-kontor' });
 		}
 	};
 
+	const featureErSkruddPaa = getEnv().type === EnvType.dev || getEnv().type === EnvType.local
 	const aktivEnhetNavn = veilederOgEnheter?.enheter.find(enhet => enhet.enhetId === aktivEnhetId)?.navn;
-	const skalViseFunksjonalitetForAaFlytteBruker = tilgangFlytteBrukerEgetKontor && getEnv().type !== EnvType.prod;
 	const lasterAktivEnhetNavn = aktivEnhetNavn === undefined;
 
 	return (
@@ -66,26 +66,34 @@ export const IngenTilgangTilBruker = () => {
 			<IngenTilgangTilBrukerAlertStripe />
 
 			<div className="ingen-tilgang">
-				{skalViseFunksjonalitetForAaFlytteBruker && (
+				{featureErSkruddPaa && tilgangFlytteBrukerEgetKontor && (
 					<div>
-						{ (steg === Steg.ENDRER_KONTOR || steg === Steg.HAR_IKKE_ENDRET_KONTOR) && (
-
-							lasterAktivEnhetNavn ?
+						{(steg === Steg.ENDRER_KONTOR || steg === Steg.HAR_IKKE_ENDRET_KONTOR) &&
+							(lasterAktivEnhetNavn ? (
 								<div className="ingen-tilgang-innhold">
 									<Skeleton variant="rectangle" height={60} />
-									<Skeleton variant="rounded" className="ingen-tilgang-knapp" height={40} width={240}/>
+									<Skeleton
+										variant="rounded"
+										className="ingen-tilgang-knapp"
+										height={40}
+										width={240}
+									/>
 								</div>
-							:
+							) : (
 								<div className="ingen-tilgang-innhold">
 									<BodyShort>
-										Du har ikke tilgang til bruker, men kan flytte bruker til {aktivEnhetNavn}. Du vil
-										da få tilgang til bruker.
+										Du har ikke tilgang til bruker, men kan flytte bruker til {aktivEnhetNavn}. Du
+										vil da få tilgang til bruker.
 									</BodyShort>
-									<Button className="ingen-tilgang-knapp" loading={steg === Steg.ENDRER_KONTOR} onClick={settKontorButtonClicked}>
+									<Button
+										className="ingen-tilgang-knapp"
+										loading={steg === Steg.ENDRER_KONTOR}
+										onClick={settKontorButtonClicked}
+									>
 										Flytt bruker til {aktivEnhetNavn}
 									</Button>
 								</div>
-						)}
+							))}
 						{steg === Steg.HAR_ENDRET_KONTOR && (
 							<div>
 								<InlineMessage status="success" size="medium">
