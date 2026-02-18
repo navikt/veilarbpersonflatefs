@@ -8,14 +8,14 @@ function PersonflateAlertStripe(props: { tekst: string; type: 'error' | 'warning
 	);
 }
 
-export function FeilmeldingManglerFnr() {
+export function FeilmeldingManglerFnrAlertStripe() {
 	return <PersonflateAlertStripe type="info" tekst="Du må søke opp en person for å vise aktivitetsplanen" />;
 }
 
-export function IngenTilgangTilBruker() {
+export function IngenTilgangTilBrukerAlertStripe() {
 	return <PersonflateAlertStripe type="warning" tekst="Du har ikke tilgang til å se aktivitetsplanen" />;
 }
 
-export function FeilUnderLastingAvData() {
+export function FeilUnderLastingAvDataAlertStripe() {
 	return <PersonflateAlertStripe type="error" tekst="Kunne ikke laste data, prøv på nytt ..." />;
 }

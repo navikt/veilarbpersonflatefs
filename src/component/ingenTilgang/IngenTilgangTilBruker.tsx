@@ -1,4 +1,4 @@
-import { IngenTilgangTilBruker } from '../alertstriper/alertstriper';
+import { IngenTilgangTilBrukerAlertStripe } from '../alertstriper/alertstriper';
 import { getHarVeilederTilgangFlytteBrukerTilEgetKontor } from '../../api/veilarboppfolging';
 import { useEffect, useState } from 'react';
 import { BodyShort, Button, InlineMessage, Link, Skeleton } from '@navikt/ds-react';
@@ -16,7 +16,7 @@ enum Steg {
 	HAR_ENDRET_KONTOR
 }
 
-export const IngenTilgang = () => {
+export const IngenTilgangTilBruker = () => {
 	const { aktivBrukerFnr, aktivEnhetId } = useModiaContext();
 	const veilederOgEnheter = useVeilederOgEnheter();
 	const [tilgangFlytteBrukerEgetKontor, setTilgangFlytteBrukerEgetKontor] = useState<boolean | undefined>();
@@ -54,7 +54,7 @@ export const IngenTilgang = () => {
 
 	return (
 		<div className="ingen-tilgang-container">
-			<IngenTilgangTilBruker />
+			<IngenTilgangTilBrukerAlertStripe />
 
 			<div className="ingen-tilgang">
 				{skalViseFunksjonalitetForAaFlytteBruker && (
