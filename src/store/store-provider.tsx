@@ -1,8 +1,8 @@
 import React, { useEffect, useReducer } from 'react';
 import { useEventListener } from '../util/utils';
 import { createInitialStore, ModiaContext, reducer, SET_RENDER_KEY } from './modia-context-store';
-import { synkroniserManuellStatusMedDkif } from '../api/api';
 import { AppContextProvider } from '../SupAppContext';
+import { synkroniserManuellStatusMedDkif } from '../api/veilarboppfolging';
 
 interface StoreProviderProps {
 	children: React.ReactNode;

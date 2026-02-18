@@ -19,7 +19,7 @@ export const mockAktivEnhet: AktivEnhetResponse = {
 	aktivEnhet: testEnhetId
 };
 
-export const mockTilgangTilBruker = true;
+export const mockTilgangTilBruker = false;
 
 interface SessionDataMockConfig {
 	createdAt: string;
@@ -269,4 +269,16 @@ export const contextMock = {
 };
 
 export const malMockData = { mal: null, endretAv: 'VEILEDER', dato: null };
+
+export const settKontorMockData = {
+	fraKontor: {
+		kontorNavn: 'Nav Dalane',
+		kontorId: testEnhetId
+	},
+	tilKontor: {
+		kontorNavn: 'Nav Helsfyr',
+		kontorId: '0399'
+	}
+}
+
 export default sessionData;

@@ -1,7 +1,7 @@
 import { DAB_UNLEASH_TOGGLES, DabUnleashFeatures } from './features';
 import { axiosInstance, useAxios, UseAxiosResponseValue } from './utils';
 import { Options } from 'axios-hooks';
-import { AxiosPromise, AxiosResponse } from 'axios';
+import { AxiosResponse } from 'axios';
 import { FrontendEvent } from '../util/frontend-logger';
 
 export interface AntallUlesteDialoger {
@@ -43,6 +43,42 @@ export interface SessionMeta {
 	tokens?: Tokens;
 }
 
+export interface HentVeilederOgEnheterResponse {
+	navn: string;
+	fornavn: string;
+	etternavn: string;
+	enheter: {
+		enhetId: string;
+		navn: string;
+	}[]
+}
+
+interface Kontor {
+	kontorNavn: string;
+	kontorId: string;
+}
+
+interface SettKontorResponse {
+	fraKontor: Kontor;
+	tilKontor: Kontor;
+}
+
+export const settKontor = async (fnr: string, kontorId: string): Promise<SettKontorResponse> => {
+	const response = await fetch(`/ao-oppfolgingskontor/api/kontor`, {method: 'POST', body: JSON.stringify({kontorId, ident: fnr})})
+	if(!response.ok) {
+		throw new Error(`Feil ved oppdatering av kontor: ${response.statusText}`)
+	}
+	return response.json()
+}
+
+export const hentVeilederOgEnheter = async (): Promise<HentVeilederOgEnheterResponse> => {
+	const response = await fetch(`/modiacontextholder/api/decorator`, {method: 'GET'})
+	if(!response.ok) {
+		throw new Error(`Feil ved henting av veileder og enheter: ${response.statusText}`)
+	}
+	return response.json()
+}
+
 export function useFetchAntallUlesteDialoger(
 	fnr: string,
 	options?: Options
@@ -74,10 +110,6 @@ export function useFetchTilgangTilBruker(fnr: string, options?: Options): UseAxi
 		},
 		options
 	);
-}
-
-export function synkroniserManuellStatusMedDkif(fnr: string): AxiosPromise<null> {
-	return axiosInstance.post(`/veilarboppfolging/api/v3/manuell/synkroniser-med-dkif`, { fnr });
 }
 
 export function sendEventTilVeilarbperson(event: FrontendEvent) {

@@ -17,11 +17,12 @@ import {
 	oppfolgingMockData,
 	oppfolgingsStatusMockData,
 	personV2mockData,
-	sessionData as getSessionData,
+	sessionData as getSessionData, settKontorMockData,
 	veilederHarTilgangMockData,
 	veilederMeMockData
 } from './data';
 import { SessionMeta } from '../../api/api';
+import {graphqlMock} from "../graphqlMock";
 
 const HTTP_OK = 200;
 const DEFAULT_DELAY_MILLISECONDS = 100;
@@ -107,7 +108,7 @@ export const handlers = [
 		'/modiacontextholder/api/v2/decorator/aktor/hent-fnr',
 		responseResolver({ json: mockAktorFnrMappingMockData })
 	),
-	http.get('/modiacontextholder/api/decorator', responseResolver({ json: contextMock })),
+	http.get('/modiacontextholder/api/decorator', responseResolver({ json: contextMock, delayMilliseconds: 500 })),
 
 	http.post('/veilarbperson/api/v3/person/hent-tilgangTilBruker', responseResolver({ json: mockTilgangTilBruker })),
 	http.post('/veilarbperson/api/v3/person/hent-vergeOgFullmakt', responseResolver({ status: 204 })),
@@ -132,6 +133,9 @@ export const handlers = [
 	http.post('/veilarboppfolging/api/v3/veileder/lest-aktivitetsplan', responseResolver({ status: 204 })),
 	http.get('/veilarboppfolging/api/v3/oppfolging/me', responseResolver({ json: meMockData })),
 	http.post('/veilarboppfolging/api/v3/oppfolging/harFlereAktorIderMedOppfolging', responseResolver({ status: 204 })),
+	http.post('/veilarboppfolging/api/graphql', () => {
+		return graphqlMock( true)
+	}),
 	http.post(
 		'/veilarboppfolging/api/v3/oppfolging/hent-veilederTilgang',
 		responseResolver({ json: { tilgangTilBrukersKontor: true } })
@@ -156,6 +160,8 @@ export const handlers = [
 		'/veilarbperson/api/v3/person/hent-siste-opplysninger-om-arbeidssoeker-med-profilering',
 		responseResolver({ json: {} })
 	),
+
+	http.post('/ao-oppfolgingskontor/api/kontor', responseResolver({status: 200, json: settKontorMockData, delayMilliseconds: 1000})),
 
 	http.post('https://umami.nav.no/api/send', responseResolver({ json: {} })),
 

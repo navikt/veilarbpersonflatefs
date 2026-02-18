@@ -2,9 +2,8 @@ import { useEffect } from 'react';
 import { useFetchTilgangTilBruker } from '../api/api';
 import { hasAnyFailed, isAnyLoading } from '../api/utils';
 import {
-	FeilUnderLastingAvData,
-	FeilmeldingManglerFnr,
-	IngenTilgangTilBruker
+	FeilUnderLastingAvDataAlertStripe,
+	FeilmeldingManglerFnrAlertStripe,
 } from '../component/alertstriper/alertstriper';
 import { InternflateDecorator } from '../component/internflate-decorator/internflate-decorator';
 import PageSpinner from '../component/page-spinner/page-spinner';
@@ -12,6 +11,7 @@ import SideInnhold from '../component/side-innhold';
 import { UtloptSesjonAdvarsel } from '../component/utlopt-sesjon-advarsel/utlopt-sesjon-advarsel';
 import { SesjonStatus, useSesjonStatus } from '../hooks/use-sesjon-status';
 import { useModiaContext } from '../store/modia-context-store';
+import { IngenTilgangTilBruker } from '../component/ingenTilgang/IngenTilgangTilBruker';
 
 export const PersonflatePage = () => {
 	return (
@@ -37,11 +37,11 @@ const Body = () => {
 	let innhold;
 
 	if (!aktivBrukerFnr) {
-		innhold = <FeilmeldingManglerFnr />;
+		innhold = <FeilmeldingManglerFnrAlertStripe />;
 	} else if (isAnyLoading(fetchTilgangTilBruker)) {
 		innhold = <PageSpinner />;
 	} else if (hasAnyFailed(fetchTilgangTilBruker)) {
-		innhold = <FeilUnderLastingAvData />;
+		innhold = <FeilUnderLastingAvDataAlertStripe />;
 	} else if (!fetchTilgangTilBruker.data) {
 		innhold = <IngenTilgangTilBruker />;
 	} else {

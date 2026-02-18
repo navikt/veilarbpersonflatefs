@@ -1,0 +1,116 @@
+import { IngenTilgangTilBrukerAlertStripe } from '../alertstriper/alertstriper';
+import { getHarVeilederTilgangFlytteBrukerTilEgetKontor } from '../../api/veilarboppfolging';
+import { useEffect, useState } from 'react';
+import { BodyShort, Button, InlineMessage, Link, Skeleton } from '@navikt/ds-react';
+import './ingen-tilgang-til-bruker.less';
+import { useModiaContext } from '../../store/modia-context-store';
+import { dispatchNavigateEvent } from '../../Router';
+import { EnvType, getEnv } from '../../util/utils';
+import { logAnalyticsEvent } from '../../analytics/analytics';
+import { hentVeilederOgEnheter, HentVeilederOgEnheterResponse, settKontor } from '../../api/api';
+
+enum Steg {
+	IKKE_STARTET,
+	HAR_IKKE_ENDRET_KONTOR,
+	ENDRER_KONTOR,
+	HAR_ENDRET_KONTOR
+}
+
+export const IngenTilgangTilBruker = () => {
+	const { aktivBrukerFnr, aktivEnhetId } = useModiaContext();
+	const [tilgangFlytteBrukerEgetKontor, setTilgangFlytteBrukerEgetKontor] = useState<boolean | undefined>();
+	const [veilederOgEnheter, setVeilederOgEnheter] = useState<HentVeilederOgEnheterResponse | undefined>();
+	const [steg, setSteg] = useState<Steg>(Steg.IKKE_STARTET);
+
+	useEffect(() => {
+		if (steg === Steg.IKKE_STARTET) {
+			setSteg(Steg.HAR_IKKE_ENDRET_KONTOR);
+
+			getHarVeilederTilgangFlytteBrukerTilEgetKontor(aktivBrukerFnr).then(response => {
+				if (response.ok) {
+					setTilgangFlytteBrukerEgetKontor(
+						response.data.data.veilederTilgang.harVeilederTilgangFlytteBrukerTilEgetKontor
+					);
+				} else {
+					throw new Error('Kunne ikke hente oppfølgingstatus');
+				}
+			});
+
+			hentVeilederOgEnheter().then(response => {
+				if (response) {
+					setVeilederOgEnheter(response);
+				} else {
+					throw new Error('Kunne ikke hente veileder og enheter');
+				}
+			});
+		}
+	}, []);
+
+	if (!aktivEnhetId) return;
+
+	const settKontorButtonClicked = async () => {
+		setSteg(Steg.ENDRER_KONTOR);
+		const result = await settKontor(aktivBrukerFnr, aktivEnhetId);
+		if (result) {
+			setSteg(Steg.HAR_ENDRET_KONTOR);
+			logAnalyticsEvent('knapp klikket', { tekst: 'flyttet-bruker-til-veileders-kontor' });
+		}
+	};
+
+	const featureErSkruddPaa = getEnv().type === EnvType.dev || getEnv().type === EnvType.local
+	const aktivEnhetNavn = veilederOgEnheter?.enheter.find(enhet => enhet.enhetId === aktivEnhetId)?.navn;
+	const lasterAktivEnhetNavn = aktivEnhetNavn === undefined;
+
+	return (
+		<div className="ingen-tilgang-container">
+			<IngenTilgangTilBrukerAlertStripe />
+
+			<div className="ingen-tilgang">
+				{featureErSkruddPaa && tilgangFlytteBrukerEgetKontor && (
+					<div>
+						{(steg === Steg.ENDRER_KONTOR || steg === Steg.HAR_IKKE_ENDRET_KONTOR) &&
+							(lasterAktivEnhetNavn ? (
+								<div className="ingen-tilgang-innhold">
+									<Skeleton variant="rectangle" height={60} />
+									<Skeleton
+										variant="rounded"
+										className="ingen-tilgang-knapp"
+										height={40}
+										width={240}
+									/>
+								</div>
+							) : (
+								<div className="ingen-tilgang-innhold">
+									<BodyShort>
+										Du har ikke tilgang til bruker, men kan flytte bruker til {aktivEnhetNavn}. Du
+										vil da få tilgang til bruker.
+									</BodyShort>
+									<Button
+										className="ingen-tilgang-knapp"
+										loading={steg === Steg.ENDRER_KONTOR}
+										onClick={settKontorButtonClicked}
+									>
+										Flytt bruker til {aktivEnhetNavn}
+									</Button>
+								</div>
+							))}
+						{steg === Steg.HAR_ENDRET_KONTOR && (
+							<div>
+								<InlineMessage status="success" size="medium">
+									Brukers arbeidsoppfølgingskontor er nå {aktivEnhetNavn}
+								</InlineMessage>
+								<Link
+									className="ingen-tilgang-link"
+									href="/aktivitetsplan"
+									onClick={() => dispatchNavigateEvent('/aktivitetsplan')}
+								>
+									Gå til aktivitetsplanen
+								</Link>
+							</div>
+						)}
+					</div>
+				)}
+			</div>
+		</div>
+	);
+};

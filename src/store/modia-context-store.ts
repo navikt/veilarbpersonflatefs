@@ -3,6 +3,7 @@ import { DispatchContext } from './store-provider';
 import { erMock } from '../util/utils';
 import { applications } from '../data/applications';
 import { dispatchNavigateEvent } from '../Router';
+import { testEnhetId } from '../mock/api/data';
 
 export interface ModiaContextData {
 	aktivBrukerFnr: string;
@@ -32,26 +33,35 @@ export const useModiaContext = () => {
 };
 
 export const SET_FNR = 'SET_FNR' as const;
+
 interface SetFnr {
 	type: typeof SET_FNR;
 	fnr: string;
 }
+
 const SET_ENHET = 'SET_ENHET' as const;
+
 interface SetEnhet {
 	type: typeof SET_ENHET;
 	enhet: string;
 }
+
 export const SET_RENDER_KEY = 'SET_RENDER_KEY' as const;
+
 interface SetRenderKey {
 	type: typeof SET_RENDER_KEY;
 	renderKey: number;
 }
+
 export const ON_AKTIV_BRUKER_CHANGED = 'ON_AKTIV_BRUKER_CHANGED' as const;
+
 interface OnAktivBrukerChanged {
 	type: typeof ON_AKTIV_BRUKER_CHANGED;
 	fnr: string | null | undefined;
 }
+
 export const ON_AKTIV_ENHET_CHANGED = 'ON_AKTIV_ENHET_CHANGED' as const;
+
 interface OnAktivEnhetChanged {
 	type: typeof ON_AKTIV_ENHET_CHANGED;
 	enhet: string | null | undefined;
@@ -115,7 +125,8 @@ export const createInitialStore = (fnr: string): ModiaContextData => {
 	return erMock()
 		? {
 				...defaultValue,
-				aktivBrukerFnr: '12345678900'
+				aktivBrukerFnr: '12345678900',
+				aktivEnhetId: testEnhetId
 			}
 		: {
 				...defaultValue,
