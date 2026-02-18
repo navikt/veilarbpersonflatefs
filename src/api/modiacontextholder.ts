@@ -1,4 +1,5 @@
 import axios, { AxiosResponse } from 'axios';
+import { useAxios, UseAxiosResponseValue } from './utils';
 
 export interface HentVeilederOgEnheterResponse {
     navn: string;
@@ -12,4 +13,8 @@ export interface HentVeilederOgEnheterResponse {
 
 export function hentVeilederOgEnheter():  Promise<AxiosResponse<HentVeilederOgEnheterResponse>> {
     return axios.get(`/modiacontextholder/api/decorator`)
+}
+
+export function useVeilederOgEnheter(): UseAxiosResponseValue<HentVeilederOgEnheterResponse> {
+	return useAxios<HentVeilederOgEnheterResponse>(`/modiacontextholder/api/decorator`);
 }

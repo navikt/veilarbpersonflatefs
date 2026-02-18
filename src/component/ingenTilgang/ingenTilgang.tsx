@@ -6,7 +6,7 @@ import './ingen-tilgang.less';
 import { useModiaContext } from '../../store/modia-context-store';
 import { settKontor } from '../../api/ao-oppfolgingskontor';
 import { dispatchNavigateEvent } from '../../Router';
-import { hentVeilederOgEnheter } from '../../api/modiacontextholder';
+import { useVeilederOgEnheter } from '../../api/modiacontextholder';
 import { EnvType, getEnv } from '../../util/utils';
 import { logAnalyticsEvent } from '../../analytics/analytics';
 
@@ -19,7 +19,7 @@ enum Steg {
 
 export const IngenTilgang = () => {
 	const { aktivBrukerFnr, aktivEnhetId } = useModiaContext();
-	const [aktivEnhetNavn, setAktivEnhetNavn] = useState<string | undefined>();
+	const veilederOgEnheter = useVeilederOgEnheter();
 	const [tilgangFlytteBrukerEgetKontor, setTilgangFlytteBrukerEgetKontor] = useState<boolean | undefined>();
 	const [steg, setSteg] = useState<Steg>(Steg.IKKE_STARTET);
 	if (!aktivEnhetId) return;
@@ -37,14 +37,6 @@ export const IngenTilgang = () => {
 					throw Error('Kunne ikke hente oppfølgingstatus');
 				}
 			});
-
-			hentVeilederOgEnheter().then(response => {
-				if (response.status === 200) {
-					setAktivEnhetNavn(response.data.enheter.find(enhet => enhet.enhetId === aktivEnhetId)?.navn);
-				} else {
-					throw Error('Kunne ikke hente veileder og enheter');
-				}
-			});
 		}
 	}, []);
 
@@ -57,6 +49,7 @@ export const IngenTilgang = () => {
 		}
 	};
 
+	const aktivEnhetNavn = veilederOgEnheter.data?.enheter.find(enhet => enhet.enhetId === aktivEnhetId)?.navn;
 	const skalViseFunksjonalitetForAaFlytteBruker = tilgangFlytteBrukerEgetKontor && getEnv().type !== EnvType.prod;
 
 	return (

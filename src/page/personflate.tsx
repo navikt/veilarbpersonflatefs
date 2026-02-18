@@ -43,7 +43,7 @@ const Body = () => {
 	} else if (hasAnyFailed(fetchTilgangTilBruker)) {
 		innhold = <FeilUnderLastingAvData />;
 	} else if (!fetchTilgangTilBruker.data) {
-		innhold = <IngenTilgang fnr={aktivBrukerFnr} />;
+		innhold = <IngenTilgang />;
 	} else {
 		innhold = <SideInnhold />;
 	}
