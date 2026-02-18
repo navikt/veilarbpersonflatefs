@@ -11,7 +11,7 @@ import SideInnhold from '../component/side-innhold';
 import { UtloptSesjonAdvarsel } from '../component/utlopt-sesjon-advarsel/utlopt-sesjon-advarsel';
 import { SesjonStatus, useSesjonStatus } from '../hooks/use-sesjon-status';
 import { useModiaContext } from '../store/modia-context-store';
-import { IngenTilgang } from '../component/ingenTilgang/ingenTilgang';
+import { IngenTilgang } from '../component/ingenTilgang/IngenTilgang';
 
 export const PersonflatePage = () => {
 	return (

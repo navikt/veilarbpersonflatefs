@@ -108,7 +108,7 @@ export const handlers = [
 		'/modiacontextholder/api/v2/decorator/aktor/hent-fnr',
 		responseResolver({ json: mockAktorFnrMappingMockData })
 	),
-	http.get('/modiacontextholder/api/decorator', responseResolver({ json: contextMock })),
+	http.get('/modiacontextholder/api/decorator', responseResolver({ json: contextMock, delayMilliseconds: 500 })),
 
 	http.post('/veilarbperson/api/v3/person/hent-tilgangTilBruker', responseResolver({ json: mockTilgangTilBruker })),
 	http.post('/veilarbperson/api/v3/person/hent-vergeOgFullmakt', responseResolver({ status: 204 })),

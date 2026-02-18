@@ -1,7 +1,7 @@
 import { IngenTilgangTilBruker } from '../alertstriper/alertstriper';
 import { getHarVeilederTilgangFlytteBrukerTilEgetKontor } from '../../api/veilarboppfolging';
 import { useEffect, useState } from 'react';
-import { BodyShort, Button, InlineMessage, Link } from '@navikt/ds-react';
+import { BodyShort, Button, InlineMessage, Link, Skeleton } from '@navikt/ds-react';
 import './ingen-tilgang.less';
 import { useModiaContext } from '../../store/modia-context-store';
 import { settKontor } from '../../api/ao-oppfolgingskontor';
@@ -51,6 +51,7 @@ export const IngenTilgang = () => {
 
 	const aktivEnhetNavn = veilederOgEnheter.data?.enheter.find(enhet => enhet.enhetId === aktivEnhetId)?.navn;
 	const skalViseFunksjonalitetForAaFlytteBruker = tilgangFlytteBrukerEgetKontor && getEnv().type !== EnvType.prod;
+	const lasterAktivEnhetNavn = aktivEnhetNavn === undefined;
 
 	return (
 		<div className="ingen-tilgang-container">
@@ -60,15 +61,22 @@ export const IngenTilgang = () => {
 				{skalViseFunksjonalitetForAaFlytteBruker && (
 					<div>
 						{ (steg === Steg.ENDRER_KONTOR || steg === Steg.HAR_IKKE_ENDRET_KONTOR) && (
-							<div className="ingen-tilgang-innhold">
-								<BodyShort>
-									Du har ikke tilgang til bruker, men kan flytte bruker til {aktivEnhetNavn}. Du vil
-									da få tilgang til bruker.
-								</BodyShort>
-								<Button className="ingen-tilgang-knapp" loading={steg === Steg.ENDRER_KONTOR} onClick={settKontorButtonClicked}>
-									Flytt bruker til {aktivEnhetNavn}
-								</Button>
-							</div>
+
+							lasterAktivEnhetNavn ?
+								<div className="ingen-tilgang-innhold">
+									<Skeleton variant="rectangle" height={60} />
+									<Skeleton variant="rounded" className="ingen-tilgang-knapp" height={40} width={240}/>
+								</div>
+							:
+								<div className="ingen-tilgang-innhold">
+									<BodyShort>
+										Du har ikke tilgang til bruker, men kan flytte bruker til {aktivEnhetNavn}. Du vil
+										da få tilgang til bruker.
+									</BodyShort>
+									<Button className="ingen-tilgang-knapp" loading={steg === Steg.ENDRER_KONTOR} onClick={settKontorButtonClicked}>
+										Flytt bruker til {aktivEnhetNavn}
+									</Button>
+								</div>
 						)}
 						{steg === Steg.HAR_ENDRET_KONTOR && (
 							<div>
