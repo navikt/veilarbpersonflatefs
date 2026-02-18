@@ -64,7 +64,7 @@ interface SettKontorResponse {
 }
 
 export const settKontor = async (fnr: string, kontorId: string): Promise<SettKontorResponse> => {
-	const response = await fetch(`/ao-oppfolgingskontor/api/kontor`, {method: 'POST', body: JSON.stringify({kontorId, ident: fnr})})
+	const response = await fetch(`/ao-oppfolgingskontor/api/kontor`, {method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify({kontorId, ident: fnr})})
 	if(!response.ok) {
 		throw new Error(`Feil ved oppdatering av kontor: ${response.statusText}`)
 	}
