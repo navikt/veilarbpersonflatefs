@@ -8,6 +8,7 @@ import { settKontor } from '../../api/ao-oppfolgingskontor';
 import { dispatchNavigateEvent } from '../../Router';
 import { hentVeilederOgEnheter } from '../../api/modiacontextholder';
 import { EnvType, getEnv } from '../../util/utils';
+import { logAnalyticsEvent } from '../../analytics/analytics';
 
 enum Steg {
 	IKKE_STARTET,
@@ -52,6 +53,7 @@ export const IngenTilgang = () => {
 		const result = await settKontor(aktivBrukerFnr, aktivEnhetId);
 		if (result) {
 			setSteg(Steg.HAR_ENDRET_KONTOR);
+			logAnalyticsEvent('flyttet bruker til veileders eget kontor');
 		}
 	};
 
