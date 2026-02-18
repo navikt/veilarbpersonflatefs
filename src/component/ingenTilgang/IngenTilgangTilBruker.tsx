@@ -45,7 +45,7 @@ export const IngenTilgangTilBruker = () => {
 		const result = await settKontor(aktivBrukerFnr, aktivEnhetId);
 		if (result) {
 			setSteg(Steg.HAR_ENDRET_KONTOR);
-			logAnalyticsEvent('flyttet bruker til veileders eget kontor');
+			logAnalyticsEvent('knapp klikket', {tekst: 'flyttet-bruker-til-veileders-kontor'});
 		}
 	};
 
@@ -85,7 +85,7 @@ export const IngenTilgangTilBruker = () => {
 								</InlineMessage>
 								<Link
 									className="ingen-tilgang-link"
-									to="/aktivitetsplan"
+									href="/aktivitetsplan"
 									onClick={() => dispatchNavigateEvent('/aktivitetsplan')}
 								>
 									Gå til aktivitetsplanen
