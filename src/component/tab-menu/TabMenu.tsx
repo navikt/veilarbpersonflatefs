@@ -21,8 +21,8 @@ const TabMenu = () => {
 	};
 
 	return (
-		<Tabs size="small" className="tab-menu__content" value={appIdToTabId[currentAppId]}>
-			<Tabs.List className="tab-menu__tablist-element">
+		<Tabs size="small" className="tab-menu__wrapper" value={appIdToTabId[currentAppId]}>
+			<Tabs.List className="tab-menu__content">
 				<Tabs.Tab
 					label="Aktivitetsplan"
 					key={TabId.AKTIVITETSPLAN}
