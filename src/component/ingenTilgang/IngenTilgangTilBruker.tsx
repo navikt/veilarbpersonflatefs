@@ -2,7 +2,7 @@ import { IngenTilgangTilBrukerAlertStripe } from '../alertstriper/alertstriper';
 import { getHarVeilederTilgangFlytteBrukerTilEgetKontor } from '../../api/veilarboppfolging';
 import { useEffect, useState } from 'react';
 import { BodyShort, Button, InlineMessage, Link, Skeleton } from '@navikt/ds-react';
-import './ingen-tilgang.less';
+import './ingen-tilgang-til-bruker.less';
 import { useModiaContext } from '../../store/modia-context-store';
 import { dispatchNavigateEvent } from '../../Router';
 import { EnvType, getEnv } from '../../util/utils';
