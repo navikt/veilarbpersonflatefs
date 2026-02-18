@@ -4,11 +4,10 @@ import { useEffect, useState } from 'react';
 import { BodyShort, Button, InlineMessage, Link, Skeleton } from '@navikt/ds-react';
 import './ingen-tilgang.less';
 import { useModiaContext } from '../../store/modia-context-store';
-import { settKontor } from '../../api/ao-oppfolgingskontor';
 import { dispatchNavigateEvent } from '../../Router';
-import { useVeilederOgEnheter } from '../../api/modiacontextholder';
 import { EnvType, getEnv } from '../../util/utils';
 import { logAnalyticsEvent } from '../../analytics/analytics';
+import { settKontor, useVeilederOgEnheter } from '../../api/api';
 
 enum Steg {
 	IKKE_STARTET,

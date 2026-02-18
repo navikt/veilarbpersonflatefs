@@ -1,7 +1,7 @@
 import { DAB_UNLEASH_TOGGLES, DabUnleashFeatures } from './features';
 import { axiosInstance, useAxios, UseAxiosResponseValue } from './utils';
 import { Options } from 'axios-hooks';
-import { AxiosResponse } from 'axios';
+import axios, { AxiosResponse } from 'axios';
 import { FrontendEvent } from '../util/frontend-logger';
 
 export interface AntallUlesteDialoger {
@@ -41,6 +41,34 @@ export interface Tokens {
 export interface SessionMeta {
 	session?: Session;
 	tokens?: Tokens;
+}
+
+export interface HentVeilederOgEnheterResponse {
+	navn: string;
+	fornavn: string;
+	etternavn: string;
+	enheter: {
+		enhetId: string;
+		navn: string;
+	}[]
+}
+
+interface Kontor {
+	kontorNavn: string;
+	kontorId: string;
+}
+
+interface SettKontorResponse {
+	fraKontor: Kontor;
+	tilKontor: Kontor;
+}
+
+export function settKontor(fnr: string, kontorId: string): Promise<SettKontorResponse> {
+	return axios.post(`/ao-oppfolgingskontor/api/kontor`, { kontorId, ident: fnr })
+}
+
+export function useVeilederOgEnheter(): UseAxiosResponseValue<HentVeilederOgEnheterResponse> {
+	return useAxios<HentVeilederOgEnheterResponse>(`/modiacontextholder/api/decorator`);
 }
 
 export function useFetchAntallUlesteDialoger(
