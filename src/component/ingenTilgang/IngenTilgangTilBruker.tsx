@@ -7,7 +7,7 @@ import { useModiaContext } from '../../store/modia-context-store';
 import { dispatchNavigateEvent } from '../../Router';
 import { EnvType, getEnv } from '../../util/utils';
 import { logAnalyticsEvent } from '../../analytics/analytics';
-import { settKontor, useVeilederOgEnheter } from '../../api/api';
+import { settKontor, hentVeilederOgEnheter, HentVeilederOgEnheterResponse } from '../../api/api';
 
 enum Steg {
 	IKKE_STARTET,
@@ -18,8 +18,8 @@ enum Steg {
 
 export const IngenTilgangTilBruker = () => {
 	const { aktivBrukerFnr, aktivEnhetId } = useModiaContext();
-	const veilederOgEnheter = useVeilederOgEnheter();
 	const [tilgangFlytteBrukerEgetKontor, setTilgangFlytteBrukerEgetKontor] = useState<boolean | undefined>();
+	const [veilederOgEnheter, setVeilederOgEnheter] = useState<HentVeilederOgEnheterResponse | undefined>();
 	const [steg, setSteg] = useState<Steg>(Steg.IKKE_STARTET);
 
 	useEffect(() => {
@@ -33,6 +33,14 @@ export const IngenTilgangTilBruker = () => {
 					);
 				} else {
 					throw new Error('Kunne ikke hente oppfølgingstatus');
+				}
+			});
+
+			hentVeilederOgEnheter().then(response => {
+				if (response) {
+					setVeilederOgEnheter(response);
+				} else {
+					throw new Error('Kunne ikke hente veileder og enheter');
 				}
 			});
 		}
@@ -49,7 +57,7 @@ export const IngenTilgangTilBruker = () => {
 		}
 	};
 
-	const aktivEnhetNavn = veilederOgEnheter.data?.enheter.find(enhet => enhet.enhetId === aktivEnhetId)?.navn;
+	const aktivEnhetNavn = veilederOgEnheter?.enheter.find(enhet => enhet.enhetId === aktivEnhetId)?.navn;
 	const skalViseFunksjonalitetForAaFlytteBruker = tilgangFlytteBrukerEgetKontor && getEnv().type !== EnvType.prod;
 	const lasterAktivEnhetNavn = aktivEnhetNavn === undefined;
 
