@@ -138,7 +138,7 @@ spec:
               "toApp": {
                 "name": "tryggtekst-proxy",
                 "namespace": "team-effekt",
-                "cluster": "dev-gcp"
+                "cluster": "prod-gcp"
               }
             },
             {
