@@ -88,6 +88,8 @@ spec:
           namespace: amt
         - application: veilarbvedtaksstotte
           namespace: obo
+        - application: tryggtekst-proxy
+          namespace: team-effekt
       external:
         - host: veilarbarena.prod-fss-pub.nais.io
   env:
@@ -129,6 +131,16 @@ spec:
             }
           ],
           "proxies": [
+            {
+              "fromPath": "/tryggtekst",
+              "toUrl": "http://tryggtekst-proxy.team-effekt",
+              "preserveFromPath": false,
+              "toApp": {
+                "name": "tryggtekst-proxy",
+                "namespace": "team-effekt",
+                "cluster": "dev-gcp"
+              }
+            },
             {
               "fromPath": "/veilarbperson",
               "toUrl": "http://veilarbperson.obo",
