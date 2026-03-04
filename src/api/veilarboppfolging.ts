@@ -29,9 +29,12 @@ const graphqlBody = (fnr: string) => ({
 export interface TilgangFlyttBrukerTilEgetKontorSuccessResponse {
 	data: {
 		veilederTilgang: {
-			harVeilederTilgangFlytteBrukerTilEgetKontor: boolean,
-		}
-	}
+			harVeilederTilgangFlytteBrukerTilEgetKontor: boolean;
+		};
+		brukerStatus: {
+			harAktiveTiltaksdeltakelser: boolean;
+		};
+	};
 }
 
 export const getHarVeilederTilgangFlytteBrukerTilEgetKontor = async (fnr: string) => {
