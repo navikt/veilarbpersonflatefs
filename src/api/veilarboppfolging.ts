@@ -8,16 +8,19 @@ export function synkroniserManuellStatusMedDkif(fnr: string): AxiosPromise<null>
 
 const graphqlUrl = '/veilarboppfolging/api/graphql';
 
-const query = `
+const tilgangFlytteBrukerTilEgetKontorQuery = `
   query($fnr: String!) {
     veilederTilgang(fnr: $fnr) {
 		harVeilederTilgangFlytteBrukerTilEgetKontor
+    }
+    brukerStatus(fnr: $fnr) {
+    	harAktiveTiltaksdeltakelser
     }
   }
 `
 
 const graphqlBody = (fnr: string) => ({
-	query,
+	query: tilgangFlytteBrukerTilEgetKontorQuery,
 	variables: {
 		fnr,
 	},
