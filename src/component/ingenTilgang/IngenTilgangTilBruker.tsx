@@ -97,7 +97,7 @@ export const IngenTilgangTilBruker = () => {
 									</BodyShort>
 									{harAktiveTiltaksdeltakelser && <Alert variant={'info'} className={'ingen-tilgang-alert'}>
 										Bruker deltar på tiltak. Hvis du flytter brukeren må du undersøke om dette kan
-										få konsekvenser for tiltaksdeltakelsen eller pengestøtte fra Nav.
+										få konsekvenser for tiltaksdeltakelsen.
 									</Alert>}
 									<Button
 										className="ingen-tilgang-knapp"
