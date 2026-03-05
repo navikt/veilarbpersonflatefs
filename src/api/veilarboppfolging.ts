@@ -8,16 +8,17 @@ export function synkroniserManuellStatusMedDkif(fnr: string): AxiosPromise<null>
 
 const graphqlUrl = '/veilarboppfolging/api/graphql';
 
-const query = `
+const tilgangFlytteBrukerTilEgetKontorQuery = `
   query($fnr: String!) {
     veilederTilgang(fnr: $fnr) {
 		harVeilederTilgangFlytteBrukerTilEgetKontor
+		harAktiveTiltaksdeltakelserVedFlyttingTilEgetKontor
     }
   }
 `
 
 const graphqlBody = (fnr: string) => ({
-	query,
+	query: tilgangFlytteBrukerTilEgetKontorQuery,
 	variables: {
 		fnr,
 	},
@@ -26,9 +27,10 @@ const graphqlBody = (fnr: string) => ({
 export interface TilgangFlyttBrukerTilEgetKontorSuccessResponse {
 	data: {
 		veilederTilgang: {
-			harVeilederTilgangFlytteBrukerTilEgetKontor: boolean,
-		}
-	}
+			harVeilederTilgangFlytteBrukerTilEgetKontor: boolean;
+            harAktiveTiltaksdeltakelserVedFlyttingTilEgetKontor: boolean;
+		};
+	};
 }
 
 export const getHarVeilederTilgangFlytteBrukerTilEgetKontor = async (fnr: string) => {

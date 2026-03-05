@@ -1,7 +1,7 @@
 import { IngenTilgangTilBrukerAlertStripe } from '../alertstriper/alertstriper';
 import { getHarVeilederTilgangFlytteBrukerTilEgetKontor } from '../../api/veilarboppfolging';
 import { useEffect, useState } from 'react';
-import { BodyShort, Button, InlineMessage, Link, Skeleton } from '@navikt/ds-react';
+import { Alert, BodyShort, Button, Heading, InlineMessage, Link, Skeleton } from '@navikt/ds-react';
 import './ingen-tilgang-til-bruker.less';
 import { useModiaContext } from '../../store/modia-context-store';
 import { dispatchNavigateEvent } from '../../Router';
@@ -19,6 +19,7 @@ enum Steg {
 export const IngenTilgangTilBruker = () => {
 	const { aktivBrukerFnr, aktivEnhetId } = useModiaContext();
 	const [tilgangFlytteBrukerEgetKontor, setTilgangFlytteBrukerEgetKontor] = useState<boolean | undefined>();
+	const [harAktiveTiltaksdeltakelser, setHarAktiveTiltaksdeltakelser] = useState<boolean | undefined>();
 	const [veilederOgEnheter, setVeilederOgEnheter] = useState<HentVeilederOgEnheterResponse | undefined>();
 	const [steg, setSteg] = useState<Steg>(Steg.IKKE_STARTET);
 
@@ -30,6 +31,9 @@ export const IngenTilgangTilBruker = () => {
 				if (response.ok) {
 					setTilgangFlytteBrukerEgetKontor(
 						response.data.data.veilederTilgang.harVeilederTilgangFlytteBrukerTilEgetKontor
+					);
+					setHarAktiveTiltaksdeltakelser(
+						response.data.data.veilederTilgang.harAktiveTiltaksdeltakelserVedFlyttingTilEgetKontor
 					);
 				} else {
 					throw new Error('Kunne ikke hente oppfølgingstatus');
@@ -81,14 +85,25 @@ export const IngenTilgangTilBruker = () => {
 								</div>
 							) : (
 								<div className="ingen-tilgang-innhold">
+									<Heading
+										size={'medium'}
+										className={'ingen-tilgang-heading'}
+									>
+										Ikke tilgang til bruker
+									</Heading>
 									<BodyShort>
 										Du har ikke tilgang til bruker, men kan flytte bruker til {aktivEnhetNavn}. Du
 										vil da få tilgang til bruker.
 									</BodyShort>
+									{harAktiveTiltaksdeltakelser && <Alert variant={'info'} className={'ingen-tilgang-alert'}>
+										Bruker deltar på tiltak. Hvis du flytter brukeren må du undersøke om dette kan
+										få konsekvenser for tiltaksdeltakelsen eller pengestøtte fra Nav.
+									</Alert>}
 									<Button
 										className="ingen-tilgang-knapp"
 										loading={steg === Steg.ENDRER_KONTOR}
 										onClick={settKontorButtonClicked}
+										variant={'secondary'}
 									>
 										Flytt bruker til {aktivEnhetNavn}
 									</Button>
