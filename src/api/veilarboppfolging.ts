@@ -12,9 +12,7 @@ const tilgangFlytteBrukerTilEgetKontorQuery = `
   query($fnr: String!) {
     veilederTilgang(fnr: $fnr) {
 		harVeilederTilgangFlytteBrukerTilEgetKontor
-    }
-    brukerStatus(fnr: $fnr) {
-    	harAktiveTiltaksdeltakelser
+		harAktiveTiltaksdeltakelserVedFlyttingTilEgetKontor
     }
   }
 `
@@ -30,9 +28,7 @@ export interface TilgangFlyttBrukerTilEgetKontorSuccessResponse {
 	data: {
 		veilederTilgang: {
 			harVeilederTilgangFlytteBrukerTilEgetKontor: boolean;
-		};
-		brukerStatus: {
-			harAktiveTiltaksdeltakelser: boolean;
+            harAktiveTiltaksdeltakelserVedFlyttingTilEgetKontor: boolean;
 		};
 	};
 }

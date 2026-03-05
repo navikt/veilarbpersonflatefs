@@ -4,11 +4,9 @@ export const graphqlMock = (kanFlytteBrukerTilEgetKontor: boolean, brukerHarAkti
     return HttpResponse.json({
         data: {
 			veilederTilgang: {
-				harVeilederTilgangFlytteBrukerTilEgetKontor: kanFlytteBrukerTilEgetKontor
+				harVeilederTilgangFlytteBrukerTilEgetKontor: kanFlytteBrukerTilEgetKontor,
+                harAktiveTiltaksdeltakelserVedFlyttingTilEgetKontor: brukerHarAktiveTiltaksdeltakelser
             },
-			brukerStatus: {
-				harAktiveTiltaksdeltakelser: brukerHarAktiveTiltaksdeltakelser
-			}
         },
     })
 }

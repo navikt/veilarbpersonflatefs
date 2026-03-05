@@ -33,7 +33,7 @@ export const IngenTilgangTilBruker = () => {
 						response.data.data.veilederTilgang.harVeilederTilgangFlytteBrukerTilEgetKontor
 					);
 					setHarAktiveTiltaksdeltakelser(
-						response.data.data.brukerStatus.harAktiveTiltaksdeltakelser
+						response.data.data.veilederTilgang.harAktiveTiltaksdeltakelserVedFlyttingTilEgetKontor
 					);
 				} else {
 					throw new Error('Kunne ikke hente oppfølgingstatus');
