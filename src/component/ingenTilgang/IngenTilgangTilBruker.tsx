@@ -13,7 +13,8 @@ enum Steg {
 	IKKE_STARTET,
 	HAR_IKKE_ENDRET_KONTOR,
 	ENDRER_KONTOR,
-	HAR_ENDRET_KONTOR
+	HAR_ENDRET_KONTOR,
+	HAR_ENDRET_TIL_SAMME_KONTOR
 }
 
 export const IngenTilgangTilBruker = () => {
@@ -58,7 +59,8 @@ export const IngenTilgangTilBruker = () => {
 		setSteg(Steg.ENDRER_KONTOR);
 		const result = await settKontor(aktivBrukerFnr, aktivEnhetId);
 		if (result) {
-			setSteg(Steg.HAR_ENDRET_KONTOR);
+			const nyttSteg = result.fraKontor === result.tilKontor ? Steg.HAR_ENDRET_TIL_SAMME_KONTOR : Steg.HAR_ENDRET_KONTOR;
+			setSteg(nyttSteg);
 			settAtVeilederHarFlyttetBrukerTilEgetKontor();
 			logAnalyticsEvent('knapp klikket', { tekst: 'flyttet-bruker-til-veileders-kontor' });
 		}
@@ -131,6 +133,13 @@ export const IngenTilgangTilBruker = () => {
 										Brukers arbeidsoppfølgingskontor er nå {aktivEnhetNavn}. Det vil ta minst en halvtime før du får tilgang til bruker.
 									</InlineMessage>
 								</div>
+							)}
+							{steg === Steg.HAR_ENDRET_TIL_SAMME_KONTOR && (
+							<div>
+								<InlineMessage status="info" size="medium">
+									Brukers arbeidsoppfølgingskontor er allerede {aktivEnhetNavn}. Det vil ta minst en halvtime før du får tilgang til bruker.
+								</InlineMessage>
+							</div>
 							)}
 						</div>
 					)}
