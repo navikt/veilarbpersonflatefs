@@ -1,10 +1,9 @@
 import { IngenTilgangTilBrukerAlertStripe } from '../alertstriper/alertstriper';
 import { getHarVeilederTilgangFlytteBrukerTilEgetKontor } from '../../api/veilarboppfolging';
 import { useEffect, useState } from 'react';
-import { Alert, BodyShort, Button, Checkbox, Heading, InlineMessage, Link, Skeleton } from '@navikt/ds-react';
+import { Alert, BodyShort, Button, Checkbox, Heading, InlineMessage, Skeleton } from '@navikt/ds-react';
 import './ingen-tilgang-til-bruker.less';
 import { useModiaContext } from '../../store/modia-context-store';
-import { dispatchNavigateEvent } from '../../Router';
 import { EnvType, getEnv } from '../../util/utils';
 import { logAnalyticsEvent } from '../../analytics/analytics';
 import { hentVeilederOgEnheter, HentVeilederOgEnheterResponse, settKontor } from '../../api/api';
@@ -103,6 +102,7 @@ export const IngenTilgangTilBruker = () => {
 										</Heading>
 										<BodyShort>
 											Du har ikke tilgang til bruker, men kan flytte bruker til {aktivEnhetNavn} dersom brukeren skal følges opp av {aktivEnhetNavn}.
+											Dersom du velger å flytte bruker vil det ta minst en halvtime før du får tilgang til bruker.
 										</BodyShort>
 										{harAktiveTiltaksdeltakelser && <Alert variant={'info'} className={'ingen-tilgang-alert'}>
 											Bruker deltar på tiltak. Hvis du flytter brukeren må du undersøke om dette kan
@@ -128,15 +128,8 @@ export const IngenTilgangTilBruker = () => {
 							{steg === Steg.HAR_ENDRET_KONTOR && (
 								<div>
 									<InlineMessage status="success" size="medium">
-										Brukers arbeidsoppfølgingskontor er nå {aktivEnhetNavn}
+										Brukers arbeidsoppfølgingskontor er nå {aktivEnhetNavn}. Det vil ta minst en halvtime før du får tilgang til bruker.
 									</InlineMessage>
-									<Link
-										className="ingen-tilgang-link"
-										href="/aktivitetsplan"
-										onClick={() => dispatchNavigateEvent('/aktivitetsplan')}
-									>
-										Gå til aktivitetsplanen
-									</Link>
 								</div>
 							)}
 						</div>
