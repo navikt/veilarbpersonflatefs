@@ -59,7 +59,7 @@ export const IngenTilgangTilBruker = () => {
 		setSteg(Steg.ENDRER_KONTOR);
 		const result = await settKontor(aktivBrukerFnr, aktivEnhetId);
 		if (result) {
-			const nyttSteg = result.fraKontor === result.tilKontor ? Steg.HAR_ENDRET_TIL_SAMME_KONTOR : Steg.HAR_ENDRET_KONTOR;
+			const nyttSteg = result.fraKontor.kontorId === result.tilKontor.kontorId ? Steg.HAR_ENDRET_TIL_SAMME_KONTOR : Steg.HAR_ENDRET_KONTOR;
 			setSteg(nyttSteg);
 			settAtVeilederHarFlyttetBrukerTilEgetKontor();
 			logAnalyticsEvent('knapp klikket', { tekst: 'flyttet-bruker-til-veileders-kontor' });
