@@ -1,7 +1,7 @@
 import { IngenTilgangTilBrukerAlertStripe } from '../alertstriper/alertstriper';
 import { getHarVeilederTilgangFlytteBrukerTilEgetKontor } from '../../api/veilarboppfolging';
 import { useEffect, useState } from 'react';
-import { Alert, BodyShort, Button, Heading, InlineMessage, Link, Skeleton } from '@navikt/ds-react';
+import { Alert, BodyShort, Button, Checkbox, Heading, InlineMessage, Link, Skeleton } from '@navikt/ds-react';
 import './ingen-tilgang-til-bruker.less';
 import { useModiaContext } from '../../store/modia-context-store';
 import { dispatchNavigateEvent } from '../../Router';
@@ -20,6 +20,7 @@ enum Steg {
 export const IngenTilgangTilBruker = () => {
 	const { aktivBrukerFnr, aktivEnhetId } = useModiaContext();
 	const { harFlyttetBrukerTilEgetKontor, settAtVeilederHarFlyttetBrukerTilEgetKontor } = useHarFlyttetBrukerTilEgetKontor(aktivBrukerFnr);
+	const [harHuketAvForAtBrukerSkalFlyttes, setHarHuketAvForAtBrukerSkalFlyttes] = useState<boolean>(false);
 	const [tilgangFlytteBrukerEgetKontor, setTilgangFlytteBrukerEgetKontor] = useState<boolean | undefined>();
 	const [harAktiveTiltaksdeltakelser, setHarAktiveTiltaksdeltakelser] = useState<boolean | undefined>();
 	const [veilederOgEnheter, setVeilederOgEnheter] = useState<HentVeilederOgEnheterResponse | undefined>();
@@ -101,14 +102,20 @@ export const IngenTilgangTilBruker = () => {
 											Ikke tilgang til bruker
 										</Heading>
 										<BodyShort>
-											Du har ikke tilgang til bruker, men kan flytte bruker til {aktivEnhetNavn}. Du
-											vil da få tilgang til bruker.
+											Du har ikke tilgang til bruker, men kan flytte bruker til {aktivEnhetNavn} dersom brukeren skal følges opp av {aktivEnhetNavn}.
 										</BodyShort>
 										{harAktiveTiltaksdeltakelser && <Alert variant={'info'} className={'ingen-tilgang-alert'}>
 											Bruker deltar på tiltak. Hvis du flytter brukeren må du undersøke om dette kan
 											få konsekvenser for tiltaksdeltakelsen.
 										</Alert>}
+										<Checkbox
+											onChange={() => setHarHuketAvForAtBrukerSkalFlyttes(!harHuketAvForAtBrukerSkalFlyttes)}
+											className={'flytt-bruker-checkbox'}
+										>
+											Ja, bruker skal følges opp av {aktivEnhetNavn}
+										</Checkbox>
 										<Button
+											disabled={!harHuketAvForAtBrukerSkalFlyttes}
 											className="ingen-tilgang-knapp"
 											loading={steg === Steg.ENDRER_KONTOR}
 											onClick={settKontorButtonClicked}
