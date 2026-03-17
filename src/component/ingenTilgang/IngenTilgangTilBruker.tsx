@@ -7,7 +7,7 @@ import { useModiaContext } from '../../store/modia-context-store';
 import { EnvType, getEnv } from '../../util/utils';
 import { logAnalyticsEvent } from '../../analytics/analytics';
 import { hentVeilederOgEnheter, HentVeilederOgEnheterResponse, settKontor } from '../../api/api';
-import useHarFlyttetBrukerTilEgetKontor from '../../hooks/useHarFlyttetBrukerTilEgetKontor';
+import useHarFlyttetBrukerTilEgetKontor from '../../store/flyttet-bruker-store';
 
 enum Steg {
 	IKKE_STARTET,
@@ -19,7 +19,7 @@ enum Steg {
 
 export const IngenTilgangTilBruker = () => {
 	const { aktivBrukerFnr, aktivEnhetId } = useModiaContext();
-	const { harFlyttetBrukerTilEgetKontor, settAtVeilederHarFlyttetBrukerTilEgetKontor } = useHarFlyttetBrukerTilEgetKontor(aktivBrukerFnr);
+	const { harFlyttetBrukerTilEgetKontor, setHarFlyttetBrukerTilEgetKontor } = useHarFlyttetBrukerTilEgetKontor(aktivBrukerFnr);
 	const [harHuketAvForAtBrukerSkalFlyttes, setHarHuketAvForAtBrukerSkalFlyttes] = useState<boolean>(false);
 	const [tilgangFlytteBrukerEgetKontor, setTilgangFlytteBrukerEgetKontor] = useState<boolean | undefined>();
 	const [harAktiveTiltaksdeltakelser, setHarAktiveTiltaksdeltakelser] = useState<boolean | undefined>();
@@ -59,10 +59,10 @@ export const IngenTilgangTilBruker = () => {
 		setSteg(Steg.ENDRER_KONTOR);
 		const result = await settKontor(aktivBrukerFnr, aktivEnhetId);
 		if (result) {
-			const nyttSteg = result.fraKontor.kontorId === result.tilKontor.kontorId ? Steg.HAR_ENDRET_TIL_SAMME_KONTOR : Steg.HAR_ENDRET_KONTOR;
+			const nyttSteg = result.fraKontor?.kontorId === result.tilKontor.kontorId ? Steg.HAR_ENDRET_TIL_SAMME_KONTOR : Steg.HAR_ENDRET_KONTOR;
 			setSteg(nyttSteg);
 			if(nyttSteg === Steg.HAR_ENDRET_KONTOR) {
-				settAtVeilederHarFlyttetBrukerTilEgetKontor()
+				setHarFlyttetBrukerTilEgetKontor()
 			}
 			logAnalyticsEvent('knapp klikket', { tekst: 'flyttet-bruker-til-veileders-kontor' });
 		}

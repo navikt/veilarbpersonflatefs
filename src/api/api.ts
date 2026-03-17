@@ -59,7 +59,7 @@ interface Kontor {
 }
 
 interface SettKontorResponse {
-	fraKontor: Kontor;
+	fraKontor?: Kontor;
 	tilKontor: Kontor;
 }
 

@@ -12,6 +12,7 @@ import { UtloptSesjonAdvarsel } from '../component/utlopt-sesjon-advarsel/utlopt
 import { SesjonStatus, useSesjonStatus } from '../hooks/use-sesjon-status';
 import { useModiaContext } from '../store/modia-context-store';
 import { IngenTilgangTilBruker } from '../component/ingenTilgang/IngenTilgangTilBruker';
+import useHarFlyttetBrukerTilEgetKontor from '../store/flyttet-bruker-store';
 
 export const PersonflatePage = () => {
 	return (
@@ -26,10 +27,12 @@ const Body = () => {
 	const { aktivBrukerFnr } = useModiaContext();
 	const { sesjonStatus } = useSesjonStatus();
 	const fetchTilgangTilBruker = useFetchTilgangTilBruker(aktivBrukerFnr, { manual: true });
+	const { slettUtlopteInnslagAvFlyttetBrukerTilEgetKontor } = useHarFlyttetBrukerTilEgetKontor(aktivBrukerFnr);
 
 	useEffect(() => {
 		if (aktivBrukerFnr) {
 			fetchTilgangTilBruker.fetch();
+			slettUtlopteInnslagAvFlyttetBrukerTilEgetKontor();
 		}
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [aktivBrukerFnr]);
