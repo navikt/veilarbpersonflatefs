@@ -8,11 +8,11 @@ const useHarFlyttetBrukerTilEgetKontor = (brukerFnr: string) => {
 
 	const registrerAtVeilederHarFlyttetBrukerTilEgetKontor = () => {
 		setHarFlyttetBrukerTilEgetKontor(true);
-		localStorage.setItem(flyttetBrukerTilEgetKontorKey, new Date().getTime().toString());
+		localStorage.setItem(flyttetBrukerTilEgetKontorKey, Date.now().toString());
 	}
 
 	const slettUtlopteInnslagAvFlyttetBrukerTilEgetKontor = () => {
-		const now = new Date().getTime();
+		const now = Date.now();
 		const enTimeMillis = 3600000;
 		const lagredeItems = Object.keys(localStorage).filter((key) => key.startsWith(keyPrefix));
 		lagredeItems.forEach((key) => {
