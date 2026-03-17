@@ -58,6 +58,9 @@ const fjernPersonopplysninger = (event: ErrorEvent, hint: EventHint): ErrorEvent
 
 if (getEnv().type !== EnvType.local) {
 	init({
+		initialScope: {
+			tags: { microfrontend: 'veilarbpersonflate' }
+		},
 		dsn: 'https://82639012ef3d42aab4a8ac2d60e2c464@sentry.gc.nav.no/143',
 		integrations: [
 			browserTracingIntegration(),
