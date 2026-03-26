@@ -114,9 +114,10 @@ spec:
           "header": {
             "csp": {
               "scriptSrc": ["'self'", "blob:", "*.nav.no", "*.google-analytics.com", "*.googletagmanager.com", "account.psplugin.com", "*.hotjar.com", "survey.skyra.no"],
-              "connectSrc": ["'self'", "blob:", "wss:", "*.nav.no", "*.adeo.no", "cdn.sanity.io", "storage.googleapis.com"],
+              "connectSrc": ["'self'", "blob:", "wss:", "*.nav.no", "*.adeo.no", "cdn.sanity.io", "storage.googleapis.com", "ingest.skyra.no", "survey.skyra.no"],
               "frameSrc": ["vars.hotjar.com", "video.qbrick.com"],
-              "imgSrc": ["'self'", "data:", "*.nav.no", "*.adeo.no", "cdn.sanity.io"]
+              "imgSrc": ["'self'", "data:", "*.nav.no", "*.adeo.no", "cdn.sanity.io"],
+              "styleSrc": ["'unsafe-inline'"]
             }
           },
           "redirects": [
