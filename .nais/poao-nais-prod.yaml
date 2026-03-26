@@ -29,8 +29,6 @@ spec:
     requests:
       cpu: 500m
       memory: 512Mi
-  secureLogs:
-    enabled: true
   azure:
     application:
       enabled: true
