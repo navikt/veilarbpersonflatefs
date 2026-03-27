@@ -117,7 +117,7 @@ spec:
               "connectSrc": ["'self'", "blob:", "wss:", "*.nav.no", "*.adeo.no", "cdn.sanity.io", "storage.googleapis.com", "ingest.skyra.no", "survey.skyra.no"],
               "frameSrc": ["vars.hotjar.com", "video.qbrick.com"],
               "imgSrc": ["'self'", "data:", "*.nav.no", "*.adeo.no", "cdn.sanity.io"],
-              "styleSrc": ["'unsafe-inline'"]
+              "styleSrc": ["'self'", "https:", "data:", "'unsafe-inline'"]
             }
           },
           "redirects": [
