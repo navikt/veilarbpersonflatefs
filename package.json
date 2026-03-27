@@ -34,7 +34,7 @@
     "react": "19.1.0",
     "react-dom": "19.1.0",
     "regenerator-runtime": "0.14.1",
-    "vite": "6.2.5"
+    "vite": "8.0.3"
   },
   "devDependencies": {
     "@types/react": "19.1.0",
