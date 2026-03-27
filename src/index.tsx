@@ -39,3 +39,7 @@ if (erMock()) {
 	renderApp();
 	lastInnSubApper();
 }
+
+globalThis.window.SKYRA_CONFIG = {
+	org: 'arbeids-og-velferdsetaten-nav'
+};
