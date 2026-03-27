@@ -9,6 +9,10 @@ import { createRoot } from 'react-dom/client';
 import { initAnalytics } from './analytics/analytics';
 import App from './App';
 
+globalThis.window.SKYRA_CONFIG = {
+	org: 'arbeids-og-velferdsetaten-nav'
+};
+
 const lastInnSubApper = () => {
 	AsyncNavspa.preload(vedtaksstotteAsyncConfig);
 };
@@ -39,7 +43,3 @@ if (erMock()) {
 	renderApp();
 	lastInnSubApper();
 }
-
-globalThis.window.SKYRA_CONFIG = {
-	org: 'arbeids-og-velferdsetaten-nav'
-};
