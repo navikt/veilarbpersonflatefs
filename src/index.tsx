@@ -9,9 +9,15 @@ import { createRoot } from 'react-dom/client';
 import { initAnalytics } from './analytics/analytics';
 import App from './App';
 
-globalThis.window.SKYRA_CONFIG = {
-	org: 'arbeids-og-velferdsetaten-nav'
-};
+const skyraOrg = 'arbeids-og-velferdsetaten-nav';
+
+if (globalThis.window.SKYRA_CONFIG) {
+	globalThis.window.SKYRA_CONFIG.org = skyraOrg;
+} else {
+	globalThis.window.SKYRA_CONFIG = {
+		org: skyraOrg
+	};
+}
 
 const lastInnSubApper = () => {
 	AsyncNavspa.preload(vedtaksstotteAsyncConfig);
