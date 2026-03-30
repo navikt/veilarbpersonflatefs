@@ -113,7 +113,7 @@ spec:
           },
           "header": {
             "csp": {
-              "scriptSrc": ["'self'", "blob:", "*.nav.no", "*.google-analytics.com", "*.googletagmanager.com", "account.psplugin.com", "*.hotjar.com", "survey.skyra.no"],
+              "scriptSrc": ["'self'", "blob:", "*.nav.no", "*.google-analytics.com", "*.googletagmanager.com", "account.psplugin.com", "*.hotjar.com", "survey.skyra.no", "'sha256-ZDlhMjViMzcyNzg0ZmE1ZGFhYjUzNjZlY2E0YjIzMWU4ZmZjMTIzNmU0MDkxNmY0ZGM5NmE0ZWIwYTdjNTQwYQ=='", "'sha256-YBuv6C/zm9QfO/1HwdzECMasaBPWlHnaRg+OwvthdtQ='"],
               "connectSrc": ["'self'", "blob:", "wss:", "*.nav.no", "*.adeo.no", "cdn.sanity.io", "storage.googleapis.com", "ingest.skyra.no", "survey.skyra.no"],
               "frameSrc": ["vars.hotjar.com", "video.qbrick.com"],
               "imgSrc": ["'self'", "data:", "*.nav.no", "*.adeo.no", "cdn.sanity.io"],
