@@ -1,7 +1,6 @@
+import { useQuery } from '@tanstack/react-query';
 import { DAB_UNLEASH_TOGGLES, DabUnleashFeatures } from './features';
-import { axiosInstance, useAxios, UseAxiosResponseValue } from './utils';
-import { Options } from 'axios-hooks';
-import { AxiosResponse } from 'axios';
+import { fetchWithHeaders, UseQueryResponseValue } from './utils';
 import { FrontendEvent } from '../util/frontend-logger';
 
 export interface AntallUlesteDialoger {
@@ -81,41 +80,59 @@ export const hentVeilederOgEnheter = async (): Promise<HentVeilederOgEnheterResp
 
 export function useFetchAntallUlesteDialoger(
 	fnr: string,
-	options?: Options
-): UseAxiosResponseValue<AntallUlesteDialoger> {
-	return useAxios<AntallUlesteDialoger>(
-		{ url: `/veilarbdialog/api/dialog/antallUleste`, method: 'POST', data: fnr ? { fnr } : undefined },
-		options
-	);
-}
-
-export function useFetchSistOppdatert(fnr: string, options?: Options): UseAxiosResponseValue<SistOppdatertData> {
-	return useAxios<SistOppdatertData>(
-		{ method: 'POST', url: `/veilarbdialog/api/dialog/sistOppdatert`, data: { fnr } },
-		options
-	);
-}
-
-export function useFetchFeaturesFromDabUnleash(): UseAxiosResponseValue<DabUnleashFeatures> {
-	const toggles = DAB_UNLEASH_TOGGLES.map(element => 'feature=' + element).join('&');
-	return useAxios<DabUnleashFeatures>(`/veilarbaktivitet/api/feature?${toggles}`);
-}
-
-export function useFetchTilgangTilBruker(fnr: string, options?: Options): UseAxiosResponseValue<boolean> {
-	return useAxios<boolean>(
-		{
-			url: `/veilarbperson/api/v3/person/hent-tilgangTilBruker`,
+	options?: { manual?: boolean }
+): UseQueryResponseValue<AntallUlesteDialoger> {
+	const { data, isLoading, error, refetch } = useQuery<AntallUlesteDialoger>({
+		queryKey: ['antallUlesteDialoger', fnr],
+		queryFn: () => fetchWithHeaders<AntallUlesteDialoger>(`/veilarbdialog/api/dialog/antallUleste`, {
 			method: 'POST',
-			data: { fnr }
-		},
-		options
-	);
+			body: JSON.stringify(fnr ? { fnr } : undefined),
+		}),
+		enabled: !options?.manual,
+	});
+	return { data, loading: isLoading, error: error as Error | null, fetch: refetch };
 }
 
-export function sendEventTilVeilarbperson(event: FrontendEvent) {
-	return axiosInstance.post(`/veilarbperson/api/logger/event`, event);
+export function useFetchSistOppdatert(fnr: string, options?: { manual?: boolean }): UseQueryResponseValue<SistOppdatertData> {
+	const { data, isLoading, error, refetch } = useQuery<SistOppdatertData>({
+		queryKey: ['sistOppdatert', fnr],
+		queryFn: () => fetchWithHeaders<SistOppdatertData>(`/veilarbdialog/api/dialog/sistOppdatert`, {
+			method: 'POST',
+			body: JSON.stringify({ fnr }),
+		}),
+		enabled: !options?.manual,
+	});
+	return { data, loading: isLoading, error: error as Error | null, fetch: refetch };
+}
+
+export function useFetchFeaturesFromDabUnleash(): UseQueryResponseValue<DabUnleashFeatures> {
+	const toggles = DAB_UNLEASH_TOGGLES.map(element => 'feature=' + element).join('&');
+	const { data, isLoading, error, refetch } = useQuery<DabUnleashFeatures>({
+		queryKey: ['dabFeatures'],
+		queryFn: () => fetchWithHeaders<DabUnleashFeatures>(`/veilarbaktivitet/api/feature?${toggles}`),
+	});
+	return { data, loading: isLoading, error: error as Error | null, fetch: refetch };
+}
+
+export function useFetchTilgangTilBruker(fnr: string, options?: { manual?: boolean }): UseQueryResponseValue<boolean> {
+	const { data, isLoading, error, refetch } = useQuery<boolean>({
+		queryKey: ['tilgangTilBruker', fnr],
+		queryFn: () => fetchWithHeaders<boolean>(`/veilarbperson/api/v3/person/hent-tilgangTilBruker`, {
+			method: 'POST',
+			body: JSON.stringify({ fnr }),
+		}),
+		enabled: !options?.manual,
+	});
+	return { data, loading: isLoading, error: error as Error | null, fetch: refetch };
+}
+
+export function sendEventTilVeilarbperson(event: FrontendEvent): Promise<void> {
+	return fetchWithHeaders(`/veilarbperson/api/logger/event`, {
+		method: 'POST',
+		body: JSON.stringify(event),
+	});
 }
 
 export function hentSesjonMetadata(): Promise<SessionMeta> {
-	return axiosInstance.get('/oauth2/session').then((res: AxiosResponse<SessionMeta>) => Promise.resolve(res.data));
+	return fetchWithHeaders<SessionMeta>('/oauth2/session');
 }

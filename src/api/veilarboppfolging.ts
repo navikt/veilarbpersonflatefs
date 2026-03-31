@@ -1,9 +1,11 @@
- import { AxiosPromise } from 'axios';
-import { axiosInstance } from './utils';
- import { FetchError, GraphqlErrorResponse, GraphqlResponse, HttpError, resilientFetch, Success } from './graphql';
+import { fetchWithHeaders } from './utils';
+import { FetchError, GraphqlErrorResponse, GraphqlResponse, HttpError, resilientFetch, Success } from './graphql';
 
-export function synkroniserManuellStatusMedDkif(fnr: string): AxiosPromise<null> {
-	return axiosInstance.post(`/veilarboppfolging/api/v3/manuell/synkroniser-med-dkif`, { fnr });
+export function synkroniserManuellStatusMedDkif(fnr: string): Promise<void> {
+	return fetchWithHeaders(`/veilarboppfolging/api/v3/manuell/synkroniser-med-dkif`, {
+		method: 'POST',
+		body: JSON.stringify({ fnr }),
+	});
 }
 
 const graphqlUrl = '/veilarboppfolging/api/graphql';

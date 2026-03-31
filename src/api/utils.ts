@@ -1,28 +1,35 @@
-import { useMemo } from 'react';
-import axios, { AxiosPromise, AxiosRequestConfig } from 'axios';
-import useAxiosHook, { configure, Options, RefetchOptions, ResponseValues } from 'axios-hooks';
-
-export type UseAxiosResponseValue<T> = ResponseValues<T, any, any> & {
-	fetch: (config?: AxiosRequestConfig, options?: RefetchOptions) => AxiosPromise<T>;
+const defaultHeaders: HeadersInit = {
+	'Nav-Consumer-Id': 'veilarbpersonflatefs',
+	'Content-Type': 'application/json',
 };
 
-export const axiosInstance = axios.create({
-	withCredentials: true,
-	headers: { 'Nav-Consumer-Id': 'veilarbpersonflatefs' },
-	timeout: 5000
-});
-
-configure({ axios: axiosInstance });
-
-export function useAxios<T = any>(config: AxiosRequestConfig | string, options?: Options): UseAxiosResponseValue<T> {
-	const [{ data, loading, error }, refetch] = useAxiosHook<T>(config, options);
-	return useMemo(() => ({ data, loading, error, fetch: refetch }), [data, loading, error, refetch]);
+export async function fetchWithHeaders<T>(url: string, options?: RequestInit): Promise<T> {
+	const response = await fetch(url, {
+		credentials: 'include',
+		...options,
+		headers: { ...defaultHeaders, ...(options?.headers ?? {}) },
+	});
+	if (!response.ok) {
+		throw new Error(`HTTP error ${response.status}: ${response.statusText}`);
+	}
+	const contentType = response.headers.get('content-type');
+	if (contentType?.includes('application/json')) {
+		return response.json();
+	}
+	return undefined as T;
 }
 
-export function isAnyLoading(...axiosResponseValues: UseAxiosResponseValue<any>[]): boolean {
-	return axiosResponseValues.some(responseValue => responseValue.loading);
+export type UseQueryResponseValue<T> = {
+	data: T | undefined;
+	loading: boolean;
+	error: Error | null;
+	fetch: () => Promise<any>;
+};
+
+export function isAnyLoading(...queryResponseValues: UseQueryResponseValue<any>[]): boolean {
+	return queryResponseValues.some(v => v.loading);
 }
 
-export function hasAnyFailed(...axiosResponseValues: UseAxiosResponseValue<any>[]): boolean {
-	return axiosResponseValues.some(responseValue => responseValue.error);
+export function hasAnyFailed(...queryResponseValues: UseQueryResponseValue<any>[]): boolean {
+	return queryResponseValues.some(v => v.error !== null);
 }
