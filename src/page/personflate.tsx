@@ -1,9 +1,8 @@
 import { useEffect } from 'react';
-import { useFetchTilgangTilBruker } from '../api/api';
 import { hasAnyFailed, isAnyLoading } from '../api/utils';
 import {
 	FeilUnderLastingAvDataAlertStripe,
-	FeilmeldingManglerFnrAlertStripe,
+	FeilmeldingManglerFnrAlertStripe
 } from '../component/alertstriper/alertstriper';
 import { InternflateDecorator } from '../component/internflate-decorator/internflate-decorator';
 import PageSpinner from '../component/page-spinner/page-spinner';
@@ -13,6 +12,7 @@ import { SesjonStatus, useSesjonStatus } from '../hooks/use-sesjon-status';
 import { useModiaContext } from '../store/modia-context-store';
 import { IngenTilgangTilBruker } from '../component/ingenTilgang/IngenTilgangTilBruker';
 import useHarFlyttetBrukerTilEgetKontor from '../store/flyttet-bruker-store';
+import { useFetchTilgangTilBruker } from '../api/veilarbperson';
 
 export const PersonflatePage = () => {
 	return (
