@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useQuery } from '@tanstack/react-query';
 import { hentSesjonMetadata, SessionMeta } from '../api/api';
 import { isDefined } from '../util/typeguards';
 
@@ -8,46 +8,28 @@ export enum SesjonStatus {
 	UINITIALISERT
 }
 
+const getRefetchInterval = (data: SessionMeta | undefined): number | false => {
+	if (!data) return false;
+	const tokenSek = data.tokens?.expire_in_seconds;
+	const sesjonSek = data.session?.ends_in_seconds;
+	if (!isDefined(tokenSek) || !isDefined(sesjonSek)) {
+		console.error(
+			'Forsøkte å hente sesjonsmetadata men expire_in_seconds/ends_in_seconds var null eller undefined.'
+		);
+		return false;
+	}
+	return Math.min(tokenSek, sesjonSek) * 1000 + 100;
+};
+
 export const useSesjonStatus = (): { sesjonStatus: SesjonStatus } => {
-	const [sekunderTilSesjonUtloper, setSekunderTilSesjonUtloper] = useState<number | null>(null);
-	const [sesjonStatus, setSesjonStatus] = useState<SesjonStatus>(SesjonStatus.UINITIALISERT);
+	const { _, isError, isPending } = useQuery({
+		queryKey: ['sesjonMetadata'],
+		queryFn: hentSesjonMetadata,
+		refetchInterval: query => getRefetchInterval(query.state.data),
+		retry: false
+	});
 
-	const oppdaterSesjonStatus = (sesjonMetadata: SessionMeta) => {
-		const tokensUtloperOmSekunder = sesjonMetadata?.tokens?.expire_in_seconds;
-		const sesjonUtloperOmSekunder = sesjonMetadata?.session?.ends_in_seconds;
-
-		if (!isDefined(tokensUtloperOmSekunder) || !isDefined(sesjonUtloperOmSekunder)) {
-			console.error(
-				'Forsøkte å hente sesjonsmetadata men expire_in_seconds/ends_in_seconds var null eller undefined.'
-			);
-			return;
-		}
-
-		setSesjonStatus(SesjonStatus.AKTIV);
-		setSekunderTilSesjonUtloper(Math.min(tokensUtloperOmSekunder, sesjonUtloperOmSekunder));
-	};
-
-	useEffect(() => {
-		hentSesjonMetadata()
-			.then(oppdaterSesjonStatus)
-			.catch(() => setSesjonStatus(SesjonStatus.UTLOPT));
-	}, []);
-
-	useEffect(() => {
-		let timeout: number | undefined;
-
-		if (isDefined(sekunderTilSesjonUtloper) && !isNaN(sekunderTilSesjonUtloper)) {
-			const msTilSesjonUtloper = sekunderTilSesjonUtloper * 1000;
-
-			timeout = window.setTimeout(() => {
-				hentSesjonMetadata()
-					.then(oppdaterSesjonStatus)
-					.catch(() => setSesjonStatus(SesjonStatus.UTLOPT));
-			}, msTilSesjonUtloper + 100);
-		}
-
-		return () => window.clearTimeout(timeout);
-	}, [sekunderTilSesjonUtloper]);
-
-	return { sesjonStatus };
+	if (isError) return { sesjonStatus: SesjonStatus.UTLOPT };
+	if (isPending) return { sesjonStatus: SesjonStatus.UINITIALISERT };
+	return { sesjonStatus: SesjonStatus.AKTIV };
 };

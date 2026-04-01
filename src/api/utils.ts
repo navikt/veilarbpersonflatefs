@@ -1,3 +1,12 @@
+export class HttpError extends Error {
+	readonly status: number;
+	constructor(status: number, statusText: string) {
+		super(`HTTP error ${status}: ${statusText}`);
+		this.name = 'HttpError';
+		this.status = status;
+	}
+}
+
 const defaultHeaders: HeadersInit = {
 	'Nav-Consumer-Id': 'veilarbpersonflatefs',
 	'Content-Type': 'application/json',
@@ -10,7 +19,7 @@ export async function fetchWithHeaders<T>(url: string, options?: RequestInit): P
 		headers: { ...defaultHeaders, ...(options?.headers ?? {}) },
 	});
 	if (!response.ok) {
-		throw new Error(`HTTP error ${response.status}: ${response.statusText}`);
+		throw new HttpError(response.status, response.statusText);
 	}
 	const contentType = response.headers.get('content-type');
 	if (contentType?.includes('application/json')) {
