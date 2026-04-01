@@ -1,8 +1,9 @@
 import { useEffect, useState } from 'react';
-import { useFetchAntallUlesteDialoger, useFetchFeaturesFromDabUnleash, useFetchSistOppdatert } from '../../../api/api';
 import { useEventListener } from '../../../util/utils';
 import { listenForNyDialogEvents } from './wsDialogEvents';
 import { DIALOG_WEBSOCKET } from '../../../api/features';
+import { useFetchAntallUlesteDialoger, useFetchSistOppdatert } from '../../../api/veilarbdialog';
+import { useFetchFeaturesFromDabUnleash } from '../../../api/veilarbaktivitet';
 
 export enum UpdateTypes {
 	Dialog = 'DIALOG'

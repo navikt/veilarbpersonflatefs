@@ -1,4 +1,4 @@
-import { sendEventTilVeilarbperson } from '../api/api';
+import { sendEventTilVeilarbperson } from '../api/veilarbperson';
 
 export interface FrontendEvent {
 	name: string;
