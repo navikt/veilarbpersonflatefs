@@ -40,11 +40,5 @@ export function isAnyLoading(...queryResponseValues: UseQueryResponseValue<any>[
 }
 
 export function hasAnyFailed(...queryResponseValues: UseQueryResponseValue<any>[]): boolean {
-	const hasErrors = queryResponseValues.some(v => v.error !== null);
-	if (hasErrors) {
-		queryResponseValues.forEach(response => {
-			console.error(`Error: ${response.error}`);
-		});
-	}
-	return hasErrors;
+	return queryResponseValues.some(v => v.error !== null && v.error !== undefined);
 }

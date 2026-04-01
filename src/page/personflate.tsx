@@ -11,7 +11,9 @@ import { UtloptSesjonAdvarsel } from '../component/utlopt-sesjon-advarsel/utlopt
 import { SesjonStatus, useSesjonStatus } from '../hooks/use-sesjon-status';
 import { useModiaContext } from '../store/modia-context-store';
 import { IngenTilgangTilBruker } from '../component/ingenTilgang/IngenTilgangTilBruker';
-import useHarFlyttetBrukerTilEgetKontor from '../store/flyttet-bruker-store';
+import useHarFlyttetBrukerTilEgetKontor, {
+	useSlettUtlopteInnslagAvFlyttetBrukerTilEgetKontorOnMount
+} from '../store/flyttet-bruker-store';
 import { useFetchTilgangTilBruker } from '../api/veilarbperson';
 
 export const PersonflatePage = () => {
@@ -26,16 +28,8 @@ export const PersonflatePage = () => {
 const Body = () => {
 	const { aktivBrukerFnr } = useModiaContext();
 	const { sesjonStatus } = useSesjonStatus();
-	const fetchTilgangTilBruker = useFetchTilgangTilBruker(aktivBrukerFnr, { manual: true });
-	const { slettUtlopteInnslagAvFlyttetBrukerTilEgetKontor } = useHarFlyttetBrukerTilEgetKontor(aktivBrukerFnr);
-
-	useEffect(() => {
-		if (aktivBrukerFnr) {
-			fetchTilgangTilBruker.fetch();
-			slettUtlopteInnslagAvFlyttetBrukerTilEgetKontor();
-		}
-		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [aktivBrukerFnr]);
+	const fetchTilgangTilBruker = useFetchTilgangTilBruker(aktivBrukerFnr);
+	useSlettUtlopteInnslagAvFlyttetBrukerTilEgetKontorOnMount();
 
 	let innhold;
 
