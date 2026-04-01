@@ -93,7 +93,7 @@ const rewriteHttpErrorEvent = (event: ErrorEvent): ErrorEvent => {
 	const method = extractRequestMethod(event);
 	const path = url ? getPathFromUrl(url) : undefined;
 	const backend = url ? resolveProxyBackendFromUrl(url) : undefined;
-	const titleParts = ['HTTP', String(statusCode), url];
+	const titleParts = ['HTTP', String(statusCode)];
 	if (method) titleParts.push(method);
 	if (path) titleParts.push(path);
 	const title = titleParts.join(' ');
