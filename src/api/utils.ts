@@ -9,14 +9,14 @@ export class HttpError extends Error {
 
 const defaultHeaders: HeadersInit = {
 	'Nav-Consumer-Id': 'veilarbpersonflatefs',
-	'Content-Type': 'application/json',
+	'Content-Type': 'application/json'
 };
 
 export async function fetchWithHeaders<T>(url: string, options?: RequestInit): Promise<T> {
 	const response = await fetch(url, {
 		credentials: 'include',
 		...options,
-		headers: { ...defaultHeaders, ...(options?.headers ?? {}) },
+		headers: { ...defaultHeaders, ...(options?.headers ?? {}) }
 	});
 	if (!response.ok) {
 		throw new HttpError(response.status, response.statusText);
@@ -40,5 +40,11 @@ export function isAnyLoading(...queryResponseValues: UseQueryResponseValue<any>[
 }
 
 export function hasAnyFailed(...queryResponseValues: UseQueryResponseValue<any>[]): boolean {
-	return queryResponseValues.some(v => v.error !== null);
+	const hasErrors = queryResponseValues.some(v => v.error !== null);
+	if (hasErrors) {
+		queryResponseValues.forEach(response => {
+			console.error(`Error: ${response.error}`);
+		});
+	}
+	return hasErrors;
 }
