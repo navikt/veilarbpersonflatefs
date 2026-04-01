@@ -11,10 +11,10 @@ const App = () => {
 			<SWRConfig
 				value={{
 					onErrorRetry: (error, _key, _config, revalidate, { retryCount }) => {
-						if (error instanceof HttpError && error.status >= 400 && error.status < 500) return;
+						if (error instanceof HttpError && error.status >= 400 && error.status < 500) return; // Dont retry on 4xx errors
 						if (retryCount >= 2) return;
 						setTimeout(() => revalidate({ retryCount }), 5000);
-					},
+					}
 				}}
 			>
 				<StoreProvider>
