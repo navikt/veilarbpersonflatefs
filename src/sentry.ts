@@ -8,6 +8,7 @@ import {
 	EventHint,
 	ErrorEvent
 } from '@sentry/react';
+import { resolveProxyBackendFromUrl } from './util/proxy-backends';
 
 const fnrRegexRegel = {
 	regex: /[0-9]{11}/g,
@@ -31,9 +32,103 @@ const tagsFilter = (tags: Event['tags']): Event['tags'] => {
 	};
 };
 
-const fjernPersonopplysninger = (event: ErrorEvent, hint: EventHint): ErrorEvent => {
-	const url = event.request?.url ? maskerPersonopplysninger(event.request.url) : '';
+const HTTP_STATUS_REGEX = /HTTP Client Error with status code:\s*(\d{3})/;
+
+const extractStatusCode = (event: ErrorEvent): number | undefined => {
+	const exceptionValue = event.exception?.values?.[0]?.value;
+	if (typeof exceptionValue === 'string') {
+		const status = Number(exceptionValue.match(HTTP_STATUS_REGEX)?.[1]);
+		if (!Number.isNaN(status)) return status;
+	}
+
+	const requestAsRecord = event.request as Record<string, unknown> | undefined;
+	const statusCode = requestAsRecord?.status_code;
+	if (typeof statusCode === 'number') return statusCode;
+	if (typeof statusCode === 'string') {
+		const parsed = Number(statusCode);
+		if (!Number.isNaN(parsed)) return parsed;
+	}
+
+	const responseContext = event.contexts?.response as Record<string, unknown> | undefined;
+	const responseStatusCode = responseContext?.status_code;
+	if (typeof responseStatusCode === 'number') return responseStatusCode;
+	if (typeof responseStatusCode === 'string') {
+		const parsed = Number(responseStatusCode);
+		if (!Number.isNaN(parsed)) return parsed;
+	}
+
+	return undefined;
+};
+
+const extractRequestUrl = (event: ErrorEvent): string | undefined => {
+	if (event.request?.url) return event.request.url;
+	for (const breadcrumb of event.breadcrumbs || []) {
+		if (typeof breadcrumb.data?.url === 'string') return breadcrumb.data.url;
+	}
+	return undefined;
+};
+
+const extractRequestMethod = (event: ErrorEvent): string | undefined => {
+	if (typeof event.request?.method === 'string') return event.request.method.toUpperCase();
+	for (const breadcrumb of event.breadcrumbs || []) {
+		if (typeof breadcrumb.data?.method === 'string') return breadcrumb.data.method.toUpperCase();
+	}
+	return undefined;
+};
+
+const getPathFromUrl = (url: string): string => {
+	if (url.startsWith('/')) return url;
+	try {
+		return new URL(url).pathname;
+	} catch {
+		return url;
+	}
+};
+
+const rewriteHttpErrorEvent = (event: ErrorEvent): ErrorEvent => {
+	const statusCode = extractStatusCode(event);
+	if (!statusCode || statusCode < 400) return event;
+
+	const url = extractRequestUrl(event);
+	const method = extractRequestMethod(event);
+	const path = url ? getPathFromUrl(url) : undefined;
+	const backend = url ? resolveProxyBackendFromUrl(url) : undefined;
+	const titleParts = ['HTTP', String(statusCode), url];
+	if (method) titleParts.push(method);
+	if (path) titleParts.push(path);
+	const title = titleParts.join(' ');
+
 	return {
+		...event,
+		level: statusCode >= 500 ? 'error' : 'warning',
+		message: title,
+		exception: {
+			...event.exception,
+			values: (event.exception?.values || []).map((value, idx) => {
+				if (idx > 0) return value;
+				return {
+					...value,
+					type: 'HttpError',
+					value: title
+				};
+			})
+		},
+		tags: {
+			...event.tags,
+			...(backend ? { backend: backend.toApp.name } : {})
+		},
+		fingerprint: [
+			'http-client',
+			String(statusCode),
+			backend?.toApp.name || 'unknown-backend',
+			backend?.fromPath || path || 'unknown-path'
+		]
+	};
+};
+
+const fjernPersonopplysninger = (event: ErrorEvent, _hint: EventHint): ErrorEvent => {
+	const url = event.request?.url ? maskerPersonopplysninger(event.request.url) : '';
+	const sanitized = {
 		...event,
 		request: {
 			...event.request,
@@ -54,6 +149,8 @@ const fjernPersonopplysninger = (event: ErrorEvent, hint: EventHint): ErrorEvent
 			}
 		}))
 	};
+
+	return rewriteHttpErrorEvent(sanitized);
 };
 
 if (getEnv().type !== EnvType.local) {
