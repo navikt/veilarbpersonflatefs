@@ -1,4 +1,3 @@
-import { useEffect } from 'react';
 import { hasAnyFailed, isAnyLoading } from '../api/utils';
 import {
 	FeilUnderLastingAvDataAlertStripe,
@@ -11,9 +10,7 @@ import { UtloptSesjonAdvarsel } from '../component/utlopt-sesjon-advarsel/utlopt
 import { SesjonStatus, useSesjonStatus } from '../hooks/use-sesjon-status';
 import { useModiaContext } from '../store/modia-context-store';
 import { IngenTilgangTilBruker } from '../component/ingenTilgang/IngenTilgangTilBruker';
-import useHarFlyttetBrukerTilEgetKontor, {
-	useSlettUtlopteInnslagAvFlyttetBrukerTilEgetKontorOnMount
-} from '../store/flyttet-bruker-store';
+import { useSlettUtlopteInnslagAvFlyttetBrukerTilEgetKontorOnMount } from '../store/flyttet-bruker-store';
 import { useFetchTilgangTilBruker } from '../api/veilarbperson';
 
 export const PersonflatePage = () => {
