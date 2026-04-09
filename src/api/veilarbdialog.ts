@@ -18,17 +18,12 @@ export function useFetchAntallUlesteDialoger(fnr: string | undefined): UseQueryR
 	return { data, loading: isLoading, error: error as Error | null, fetch: mutate };
 }
 
-export function useFetchSistOppdatert(
-	fnr: string,
-	options?: { manual?: boolean }
-): UseQueryResponseValue<SistOppdatertData> {
-	const { data, isLoading, error, mutate } = useSWR<SistOppdatertData>(
-		options?.manual ? null : ['sistOppdatert', fnr],
-		() =>
-			fetchWithHeaders<SistOppdatertData>(`/veilarbdialog/api/dialog/sistOppdatert`, {
-				method: 'POST',
-				body: JSON.stringify({ fnr })
-			})
+export function useFetchSistOppdatert(fnr: string): UseQueryResponseValue<SistOppdatertData> {
+	const { data, isLoading, error, mutate } = useSWR<SistOppdatertData>(fnr ? ['sistOppdatert', fnr] : null, () =>
+		fetchWithHeaders<SistOppdatertData>(`/veilarbdialog/api/dialog/sistOppdatert`, {
+			method: 'POST',
+			body: JSON.stringify({ fnr })
+		})
 	);
 	return { data, loading: isLoading, error: error as Error | null, fetch: mutate };
 }

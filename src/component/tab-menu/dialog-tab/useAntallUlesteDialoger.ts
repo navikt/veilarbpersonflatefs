@@ -31,7 +31,7 @@ const DIALOG_LEST_EVENT = 'aktivitetsplan.dialog.lest';
 
 export default function useUlesteDialoger(fnr: string): number | undefined {
 	const fetchAntallUlesteDialoger = useFetchAntallUlesteDialoger(fnr);
-	const fetchSistOppdatert = useFetchSistOppdatert(fnr, { manual: true });
+	const fetchSistOppdatert = useFetchSistOppdatert(fnr);
 
 	const [antallUleste, setAntallUleste] = useState<number | undefined>(undefined);
 	const [localSistOppdatert, setLocalSistOppdatert] = useState(new Date());
