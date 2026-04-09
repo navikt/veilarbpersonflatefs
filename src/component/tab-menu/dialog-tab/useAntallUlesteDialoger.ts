@@ -30,7 +30,7 @@ function widowEvent(update: UpdateTypes) {
 const DIALOG_LEST_EVENT = 'aktivitetsplan.dialog.lest';
 
 export default function useUlesteDialoger(fnr: string): number | undefined {
-	const fetchAntallUlesteDialoger = useFetchAntallUlesteDialoger(fnr, { manual: true });
+	const fetchAntallUlesteDialoger = useFetchAntallUlesteDialoger(fnr);
 	const fetchSistOppdatert = useFetchSistOppdatert(fnr, { manual: true });
 
 	const [antallUleste, setAntallUleste] = useState<number | undefined>(undefined);
@@ -62,11 +62,6 @@ export default function useUlesteDialoger(fnr: string): number | undefined {
 			return pollWithHttp();
 		}
 	}, [fnr, dabToggles]);
-
-	useEffect(() => {
-		fetchAntallUlesteDialoger.fetch();
-		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [fnr]);
 
 	useEffect(() => {
 		if (fetchAntallUlesteDialoger.data) {

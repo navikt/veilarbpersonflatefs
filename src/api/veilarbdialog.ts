@@ -6,12 +6,9 @@ export interface SistOppdatertData {
 	sistOppdatert?: string;
 }
 
-export function useFetchAntallUlesteDialoger(
-	fnr: string,
-	options?: { manual?: boolean }
-): UseQueryResponseValue<AntallUlesteDialoger> {
+export function useFetchAntallUlesteDialoger(fnr: string | undefined): UseQueryResponseValue<AntallUlesteDialoger> {
 	const { data, isLoading, error, mutate } = useSWR<AntallUlesteDialoger>(
-		options?.manual ? null : ['antallUlesteDialoger', fnr],
+		fnr ? ['antallUlesteDialoger', fnr] : null,
 		() =>
 			fetchWithHeaders<AntallUlesteDialoger>(`/veilarbdialog/api/dialog/antallUleste`, {
 				method: 'POST',
