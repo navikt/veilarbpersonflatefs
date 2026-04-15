@@ -171,6 +171,16 @@ spec:
               }
             },
             {
+              "fromPath": "/ao-oppfolgingskontor",
+              "toUrl": "http://ao-oppfolgingskontor.dab",
+              "preserveFromPath": false,
+              "toApp": {
+                "name": "ao-oppfolgingskontor",
+                "namespace": "dab",
+                "cluster": "prod-gcp"
+              }
+            },
+            {
               "fromPath": "/veilarbdialog",
               "toUrl": "http://veilarbdialog.dab",
               "preserveFromPath": true,
