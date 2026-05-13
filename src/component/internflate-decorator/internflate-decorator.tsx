@@ -31,9 +31,9 @@ export function InternflateDecorator() {
 			app-name="Arbeidsrettet oppfølging"
 			environment={getEnv().type === EnvType.prod ? 'prod' : 'q2'}
 			url-format={getEnv().ingressType === 'ansatt' ? 'ANSATT' : 'NAV_NO'}
-			show-enheter="false"
+			show-enheter="true"
 			show-search-area="true"
-			fetch-active-enhet-on-mount="false"
+			fetch-active-enhet-on-mount="true"
 			fetch-active-user-on-mount="true"
 			show-hotkeys="false"
 			proxy={'/api/modiacontextholder'}
