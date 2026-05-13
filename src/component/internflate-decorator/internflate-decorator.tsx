@@ -21,7 +21,7 @@ export function InternflateDecorator() {
 		decoratorElement.addEventListener('enhet-changed', handleEnhetChanged);
 		return () => {
 			decoratorElement.removeEventListener('fnr-changed', handleFnrChanged);
-			decoratorElement.removeEventListener('enhet-changed', handleFnrChanged);
+			decoratorElement.removeEventListener('enhet-changed', handleEnhetChanged);
 		};
 	}, []);
 
@@ -36,7 +36,7 @@ export function InternflateDecorator() {
 			fetch-active-enhet-on-mount="true"
 			fetch-active-user-on-mount="true"
 			show-hotkeys="false"
-			proxy={'/api/modiacontextholder'}
+			proxy="/modiacontextholder"
 		/>
 	);
 }
