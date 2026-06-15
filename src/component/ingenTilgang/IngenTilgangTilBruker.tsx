@@ -4,17 +4,18 @@ import { useState } from 'react';
 import { Alert, BodyShort, Button, Checkbox, Heading, InlineMessage, Skeleton } from '@navikt/ds-react';
 import './ingen-tilgang-til-bruker.less';
 import { useModiaContext } from '../../store/modia-context-store';
-import { EnvType, getEnv } from '../../util/utils';
 import { logAnalyticsEvent } from '../../analytics/analytics';
 import useHarFlyttetBrukerTilEgetKontor from '../../store/flyttet-bruker-store';
 import useSWR from 'swr';
 import useSWRMutation from 'swr/mutation';
 import { hentVeilederOgEnheter } from '../../api/modiacontextholder';
 import { settKontor } from '../../api/ao-oppfolgingskontor';
+import { useBrukAoKontorSomMaster } from '../../api/veilarbaktivitet';
 
 type KontorEndretSteg = 'ingen' | 'endret' | 'endretTilSamme';
 
 export const IngenTilgangTilBruker = () => {
+	const featureErSkruddPaa = useBrukAoKontorSomMaster();
 	const { aktivBrukerFnr, aktivEnhetId } = useModiaContext();
 	const { harFlyttetBrukerTilEgetKontor, setHarFlyttetBrukerTilEgetKontor } =
 		useHarFlyttetBrukerTilEgetKontor(aktivBrukerFnr);
@@ -32,26 +33,21 @@ export const IngenTilgangTilBruker = () => {
 
 	const veilederQuery = useSWR('veilederOgEnheter', hentVeilederOgEnheter);
 
-	const settKontorMutation = useSWRMutation(
-		'settKontor',
-		() => settKontor(aktivBrukerFnr, aktivEnhetId!),
-		{
-			onSuccess: result => {
-				const nyttSteg: KontorEndretSteg =
-					result.fraKontor?.kontorId === result.tilKontor.kontorId ? 'endretTilSamme' : 'endret';
-				setKontorEndretSteg(nyttSteg);
-				if (nyttSteg === 'endret') {
-					setHarFlyttetBrukerTilEgetKontor();
-				}
-				logAnalyticsEvent('knapp klikket', { tekst: 'flyttet-bruker-til-veileders-kontor' });
+	const settKontorMutation = useSWRMutation('settKontor', () => settKontor(aktivBrukerFnr, aktivEnhetId!), {
+		onSuccess: result => {
+			const nyttSteg: KontorEndretSteg =
+				result.fraKontor?.kontorId === result.tilKontor.kontorId ? 'endretTilSamme' : 'endret';
+			setKontorEndretSteg(nyttSteg);
+			if (nyttSteg === 'endret') {
+				setHarFlyttetBrukerTilEgetKontor();
 			}
+			logAnalyticsEvent('knapp klikket', { tekst: 'flyttet-bruker-til-veileders-kontor' });
 		}
-	);
+	});
 
 	if (!aktivEnhetId) return null;
 
 	const hentingFeilet = !!tilgangQuery.error || !!veilederQuery.error;
-	const featureErSkruddPaa = getEnv().type === EnvType.dev || getEnv().type === EnvType.local;
 	const aktivEnhetNavn = veilederQuery.data?.enheter.find(enhet => enhet.enhetId === aktivEnhetId)?.navn;
 	const skalViseMeldingOmAtBrukerAlleredeErFlyttetTilEgetKontor =
 		harFlyttetBrukerTilEgetKontor && kontorEndretSteg !== 'endret';

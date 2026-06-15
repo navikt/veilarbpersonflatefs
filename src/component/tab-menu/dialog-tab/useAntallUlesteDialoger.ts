@@ -3,7 +3,7 @@ import { useEventListener } from '../../../util/utils';
 import { listenForNyDialogEvents } from './wsDialogEvents';
 import { DIALOG_WEBSOCKET } from '../../../api/features';
 import { useFetchAntallUlesteDialoger, useFetchSistOppdatert } from '../../../api/veilarbdialog';
-import { useFetchFeaturesFromDabUnleash } from '../../../api/veilarbaktivitet';
+import { useFeaturesFromDabUnleash } from '../../../api/veilarbaktivitet';
 
 export enum UpdateTypes {
 	Dialog = 'DIALOG'
@@ -40,7 +40,7 @@ export default function useUlesteDialoger(fnr: string): number | undefined {
 		setAntallUleste(prevState => (prevState ? prevState - 1 : 0));
 	});
 
-	const { data: dabToggles } = useFetchFeaturesFromDabUnleash();
+	const { data: dabToggles } = useFeaturesFromDabUnleash();
 
 	const pollWithHttp = () => {
 		let interval: number; // yes this is actually the correct type, interval-handle is just a number
