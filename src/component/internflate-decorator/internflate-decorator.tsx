@@ -1,14 +1,15 @@
-import { EnvType, getEnv } from '../../util/utils';
+import { useLayoutEffect, useRef } from 'react';
 import { useModiaContext } from '../../store/modia-context-store';
-import { useLayoutEffect } from 'react';
+import { EnvType, getEnv } from '../../util/utils';
 
 type Environment = 'q2' | 'prod' | 'local' | 'mock';
 
 export function InternflateDecorator() {
-	const { aktivBrukerFnr, setAktivBrukerFnr, setAktivEnhetId } = useModiaContext();
+	const { aktivBrukerFnr, aktivEnhetId, setAktivBrukerFnr, setAktivEnhetId } = useModiaContext();
+	const decoratorRef = useRef<HTMLElement>(null);
 
 	useLayoutEffect(() => {
-		const element = document.querySelector('internarbeidsflate-decorator');
+		const element = decoratorRef.current;
 		if (!element) return;
 
 		const onEnhetChanged = (event: Event) => {
@@ -36,11 +37,15 @@ export function InternflateDecorator() {
 	return (
 		<nav>
 			<internarbeidsflate-decorator
+				ref={decoratorRef}
 				app-name="Arbeidsrettet oppfølging"
-				enhet-sync-mode="ignore"
+				enhet={aktivEnhetId ?? undefined}
 				environment={getDecoratorEnv()}
-				fnr={aktivBrukerFnr}
-				fnr-sync-mode="writeOnly"
+				fnr={aktivBrukerFnr || undefined}
+				fetch-active-enhet-on-mount
+				fetch-active-user-on-mount
+				show-enheter
+				show-search-area
 				proxy="/modiacontextholder"
 				url-format={getUrlFormat()}
 			/>
