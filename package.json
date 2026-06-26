@@ -23,7 +23,7 @@
   },
   "dependencies": {
     "@navikt/aksel-icons": "^8.3.0",
-    "@navikt/ds-css": "^8.3.0",
+    "@navikt/ds-css": "^8.13.0",
     "@navikt/ds-react": "^8.3.0",
     "@navikt/navspa": "6.2.0",
     "@sentry/react": "^9.11.0",
