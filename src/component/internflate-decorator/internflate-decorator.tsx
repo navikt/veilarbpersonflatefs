@@ -46,6 +46,7 @@ export function InternflateDecorator() {
 				fetch-active-user-on-mount
 				show-enheter
 				show-search-area
+				enable-hotkeys
 				proxy="/modiacontextholder"
 				url-format={getUrlFormat()}
 			/>
