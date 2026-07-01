@@ -100,8 +100,6 @@ export const handlers = [
 			}
 		})
 	),
-	http.post('/veilarbdialog/api/logger/event', responseResolver({ status: 204 })),
-
 	http.get('/modiacontextholder/api/context/aktivenhet', responseResolver({ json: mockAktivEnhet })),
 	http.get('/modiacontextholder/api/context/aktivbruker', responseResolver({ json: aktivBrukerMock })),
 	http.post(
