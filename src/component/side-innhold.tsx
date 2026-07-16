@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Router } from '../Router';
 import { useModiaContext } from '../store/modia-context-store';
 import TabMenu from './tab-menu/TabMenu';
@@ -11,8 +11,20 @@ const SideInnhold = () => {
 	const { aktivBrukerFnr, aktivEnhetId } = useModiaContext();
 	const [theme, setTheme] = useState<Theme>('light');
 
+	useEffect(() => {
+		const body = document.body;
+
+		body.classList.add('aksel-theme');
+		body.classList.toggle('dark', theme === 'dark');
+		body.classList.toggle('light', theme === 'light');
+
+		return () => {
+			body.classList.remove('aksel-theme', 'dark', 'light');
+		};
+	}, [theme]);
+
 	return (
-		<div className={`aksel-theme ${theme}`}>
+		<>
 			<Visittkort
 				enhet={aktivEnhetId ?? undefined}
 				fnr={aktivBrukerFnr}
@@ -21,9 +33,11 @@ const SideInnhold = () => {
 				theme={theme}
 				onThemeChange={setTheme}
 			/>
+
 			<TabMenu />
+
 			<Router />
-		</div>
+		</>
 	);
 };
 
