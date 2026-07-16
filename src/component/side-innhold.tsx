@@ -16,7 +16,7 @@ const SideInnhold = () => {
 			<Visittkort
 				enhet={aktivEnhetId ?? undefined}
 				fnr={aktivBrukerFnr}
-				visVeilederVerktoy={true}
+				visVeilederVerktoy="true"
 				tilbakeTilFlate={utledTilbakeUrl()}
 				theme={theme}
 				onThemeChange={setTheme}
