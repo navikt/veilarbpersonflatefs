@@ -12,6 +12,7 @@ declare global {
 					tilbakeTilFlate?: string;
 					visVeilederVerktoy?: string;
 					skjulEtiketter?: string;
+					theme?: string;
 				},
 				HTMLElement
 			>;
@@ -35,16 +36,22 @@ const lastInnVisittkort = () => {
 
 lastInnVisittkort();
 
+type Theme = 'light' | 'dark';
+
 interface VisittKortProps extends SpaProps {
 	tilbakeTilFlate: string;
 	visVeilederVerktoy: 'true' | 'false'; // Når man sendre props til custom elements / web comonents så må det være string
+	theme?: Theme;
+	onThemeChange?: (theme: Theme) => void;
 }
 
 export const Visittkort: React.ComponentType<VisittKortProps> = ({
 	enhet,
 	fnr,
 	tilbakeTilFlate,
-	visVeilederVerktoy
+	visVeilederVerktoy,
+	theme,
+	onThemeChange
 }) => {
 	return (
 		<ao-visittkort
@@ -52,6 +59,7 @@ export const Visittkort: React.ComponentType<VisittKortProps> = ({
 			fnr={fnr ?? '123123123'}
 			tilbakeTilFlate={tilbakeTilFlate}
 			visVeilederVerktoy={visVeilederVerktoy ? 'true' : 'false'}
+			theme={theme}
 			key={fnr}
 		></ao-visittkort>
 	);
