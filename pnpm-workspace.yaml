@@ -1,0 +1,10 @@
+allowBuilds:
+  core-js: true
+  esbuild: true
+  msw: true
+minimumReleaseAgeExclude:
+  - '@navikt/*'
+
+registries:
+  default: https://registry.npmjs.org/
+  '@navikt': https://npm.pkg.github.com/
