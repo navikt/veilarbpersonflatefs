@@ -66,7 +66,7 @@ const getTicket = (body: SubscriptionPayload): Promise<string> => {
 		}
 	})
 		.then(response => {
-			if (!response.ok) throw Error('Failed to fetch ticket for websocket');
+			if (!response.ok) throw Error(`Failed to fetch ticket for websocket ${response.status}`);
 			return response.text();
 		})
 		.then(ticket => {
