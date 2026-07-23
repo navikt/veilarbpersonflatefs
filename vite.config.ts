@@ -4,7 +4,7 @@ import legacy from '@vitejs/plugin-legacy';
 
 export default defineConfig({
 	// config options,
-	plugins: [react(), legacy()],
+	plugins: [react(), legacy({ renderLegacyChunks: false, modernPolyfills: true })],
 	build: {
 		outDir: 'build',
 		sourcemap: true
