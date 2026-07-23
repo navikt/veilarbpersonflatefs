@@ -118,7 +118,7 @@ spec:
               "frameSrc": ["vars.hotjar.com", "video.qbrick.com"],
               "imgSrc": ["'self'", "data:", "*.nav.no", "*.adeo.no", "cdn.sanity.io"],
               "styleSrc": ["'self'", "https:", "data:", "'unsafe-inline'"],
-              "reportUri": "https://sentry.gc.nav.no/api/143/security/?sentry_key=82639012ef3d42aab4a8ac2d60e2c464"
+              "reportUri": "https://sentry.gc.nav.no/api/143/security/?sentry_key=82639012ef3d42aab4a8ac2d60e2c464&sentry_environment=dev"
             }
           },
           "redirects": [
