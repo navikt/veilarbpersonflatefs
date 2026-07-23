@@ -9,6 +9,7 @@
   "scripts": {
     "dev": "vite",
     "start": "vite",
+    "typecheck": "tsc --noEmit",
     "build": "vite build",
     "build:dev": "vite build --mode=dev",
     "build:prod": "vite build --mode=prod",
@@ -18,14 +19,11 @@
     "test:coverage": "echo not implemented",
     "prettier": "prettier --write 'src/**/*.ts{,x}'"
   },
-  "resolutions": {
-    "**/fsevents": "^1.2.9"
-  },
   "dependencies": {
     "@navikt/aksel-icons": "^8.3.0",
     "@navikt/ds-css": "^8.3.0",
     "@navikt/ds-react": "^8.3.0",
-    "@navikt/navspa": "6.2.0",
+  	"@navikt/navspa": "^7.5.0",
     "@sentry/react": "^9.11.0",
     "classnames": "2.5.1",
     "core-js": "3.37.1",
