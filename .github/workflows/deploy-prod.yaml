@@ -26,7 +26,7 @@ jobs:
           registry-url: "https://npm.pkg.github.com"
           cache: 'pnpm'
       - name: Install dependencies
-        run: pnpm ci
+        run: pnpm ci --ignore-scripts
         env:
           NODE_AUTH_TOKEN: ${{ secrets.READER_TOKEN }}
       - name: Run tests
