@@ -4,7 +4,10 @@ import { listenForNyDialogEvents } from './wsDialogEvents';
 import { DIALOG_WEBSOCKET } from '../../../api/features';
 import { useFetchAntallUlesteDialoger, useFetchSistOppdatert } from '../../../api/veilarbdialog';
 import { useFeaturesFromDabUnleash } from '../../../api/veilarbaktivitet';
-import { getHarVeilederLeseTilgangTilEksternBruker } from '../../../api/veilarboppfolging';
+import {
+	getHarVeilederLeseTilgangTilEksternBruker,
+	getHarVeilederTilgangFlytteBrukerTilEgetKontor
+} from '../../../api/veilarboppfolging';
 import useSWR from 'swr';
 
 export enum UpdateTypes {
@@ -52,16 +55,18 @@ export default function useUlesteDialoger(fnr: string): number | undefined {
 
 	const { data: veilederTilgang, isLoading: veilederTilgangIsLoading } = useSWR(
 		fnr ? ['veilederTIlgang', fnr] : null,
-		getHarVeilederLeseTilgangTilEksternBruker
+		async () => {
+			const response = await getHarVeilederLeseTilgangTilEksternBruker(fnr);
+			if (!response.ok) throw response.error;
+			return response.data.data.veilederTilgang;
+		}
 	);
-	const veilederHarLeseTilgangTilBruker = veilederTilgang?.ok
-		? veilederTilgang.data.data.veilederTilgang.harVeilederLeseTilgangTilBruker
-		: false;
+	const veilederHarLeseTilgangTilBruker = veilederTilgang?.harVeilederLeseTilgangTilBruker ?? false;
 
 	useEffect(() => {
 		if (veilederTilgangIsLoading) return;
 		if (!veilederHarLeseTilgangTilBruker) return;
-		if (veilederTilgang?.ok) if (!dabToggles) return;
+		if (!dabToggles) return;
 		if (dabToggles[DIALOG_WEBSOCKET]) {
 			try {
 				return listenForNyDialogEvents(() => {
