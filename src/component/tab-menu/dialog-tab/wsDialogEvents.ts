@@ -49,6 +49,7 @@ const handleClose = (callback: () => void, body: SubscriptionPayload, socket: We
 	setTimeout(() => {
 		socket?.close();
 		const newSocket = connectNewWebsocket(callback, body);
+		socketSingleton = newSocket;
 		getTicketAndAuthenticate(body, newSocket);
 	}, 1000);
 };
@@ -102,11 +103,13 @@ export const listenForNyDialogEvents = (callback: () => void, fnr?: string) => {
 		getTicketAndAuthenticate(body, socketSingleton);
 	}
 	return () => {
-		if (socketSingleton?.readyState === ReadyState.CLOSING) return;
+		if (fnr) ticketCache.delete(fnr as SubscriptionKey);
 		if (socketSingleton) {
 			// Clear reconnect try on intentional close
 			socketSingleton.onclose = () => {};
-			socketSingleton.close();
+			if (!isClosedOrClosing(socketSingleton?.readyState)) {
+				socketSingleton.close();
+			}
 		}
 	};
 };
