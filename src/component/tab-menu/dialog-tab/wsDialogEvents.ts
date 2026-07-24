@@ -95,7 +95,6 @@ const isClosedOrClosing = (readyState: ReadyState) => ![ReadyState.OPEN, ReadySt
 
 let socketSingleton: WebSocket | undefined;
 export const listenForNyDialogEvents = (callback: () => void, fnr?: string) => {
-	// Start with only internal
 	if (!fnr) return;
 	if (socketSingleton === undefined || isClosedOrClosing(socketSingleton.readyState)) {
 		const body = { subscriptionKey: fnr as SubscriptionKey, events: [EventTypes.NY_MELDING] };
