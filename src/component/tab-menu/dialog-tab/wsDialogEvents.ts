@@ -16,47 +16,46 @@ enum ReadyState {
 }
 
 interface SubscriptionPayload {
-	subscriptionKey: string;
+	subscriptionKey: SubscriptionKey;
 }
 
-let socketSingleton: WebSocket | undefined;
-let ticketSingleton: { ticket: string; fnr: string } | undefined;
+type Ticket = string & { _brand: 'Ticket' };
+type SubscriptionKey = string & { _brand: 'SubscriptionKey' };
+const ticketCache: Map<SubscriptionKey, Ticket> = new Map(); // { ticket: string; fnr: string } | undefined;
 
-const handleMessage = (callback: () => void, body: SubscriptionPayload) => (event: MessageEvent) => {
-	if (event.data === 'AUTHENTICATED') return;
-	if (event.data === 'INVALID_TOKEN' && socketSingleton) {
-		ticketSingleton = undefined;
-		getTicketAndAuthenticate(body);
-		return;
+const handleMessage = (callback: () => void, body: SubscriptionPayload, socket: WebSocket) => (event: MessageEvent) => {
+	switch (event.data) {
+		case 'AUTHENTICATED':
+			ticketCache.delete(body.subscriptionKey);
+			return;
+		case 'INVALID_TOKEN':
+			ticketCache.delete(body.subscriptionKey);
+			getTicketAndAuthenticate(body, socket);
+			return;
+		default:
+			const message = JSON.parse(event.data);
+			if (message === EventTypes.NY_MELDING) {
+				callback();
+			}
 	}
-	const message = JSON.parse(event.data);
-	if (message !== EventTypes.NY_MELDING) return;
-	callback();
 };
 
 const maxRetries = 10;
 let retries = 0;
-const handleClose = (callback: () => void, body: SubscriptionPayload) => (event: CloseEvent) => {
+const handleClose = (callback: () => void, body: SubscriptionPayload, socket: WebSocket) => (event: CloseEvent) => {
+	ticketCache.delete(body.subscriptionKey);
 	if (retries >= maxRetries) return;
 	retries++;
 	setTimeout(() => {
-		socketSingleton?.close();
-		reconnectWebsocket(callback, body);
-		getTicketAndAuthenticate(body);
+		socket?.close();
+		const newSocket = coonnectNewWebsocket(callback, body);
+		getTicketAndAuthenticate(body, newSocket);
 	}, 1000);
 };
 
-const sendTicketWhenOpen = (socket: WebSocket, ticket: string) => {
-	const sendTicket = () => socket.send(ticket);
-	if (socket?.readyState === ReadyState.OPEN) {
-		sendTicket();
-	} else {
-		socket.onopen = sendTicket;
-	}
-};
-
 const getTicket = (body: SubscriptionPayload): Promise<string> => {
-	if (ticketSingleton && ticketSingleton.fnr === body.subscriptionKey) return Promise.resolve(ticketSingleton.ticket);
+	const cachedTicket = ticketCache.get(body.subscriptionKey);
+	if (cachedTicket) return Promise.resolve(cachedTicket);
 	return fetch(ticketUrl, {
 		body: JSON.stringify(body),
 		method: 'POST',
@@ -70,43 +69,41 @@ const getTicket = (body: SubscriptionPayload): Promise<string> => {
 			return response.text();
 		})
 		.then(ticket => {
-			ticketSingleton = { ticket, fnr: body.subscriptionKey };
+			ticketCache.set(body.subscriptionKey, ticket as Ticket);
 			return ticket;
 		});
 };
 
-const authenticate = (socket: WebSocket, ticket: string) => {
-	sendTicketWhenOpen(socket, ticket);
-};
-
-const getTicketAndAuthenticate = async (body: SubscriptionPayload) => {
+const getTicketAndAuthenticate = async (body: SubscriptionPayload, socket: WebSocket) => {
 	const ticket = await getTicket(body);
-	if (!socketSingleton) return;
-	authenticate(socketSingleton, ticket);
+	const sendTicket = () => socket.send(ticket);
+	if (socket?.readyState === ReadyState.OPEN) {
+		sendTicket();
+	} else {
+		socket.onopen = sendTicket;
+	}
 };
 
-const reconnectWebsocket = (callback: () => void, body: SubscriptionPayload) => {
+const coonnectNewWebsocket = (callback: () => void, body: SubscriptionPayload) => {
 	const socket = new WebSocket(socketUrl);
-	socketSingleton = socket;
-	socketSingleton.onmessage = handleMessage(callback, body);
-	socketSingleton.onclose = handleClose(callback, body);
+	socket.onmessage = handleMessage(callback, body, socket);
+	socket.onclose = handleClose(callback, body, socket);
 	return socket;
 };
 
+const isClosedOrClosing = (readyState: ReadyState) => ![ReadyState.OPEN, ReadyState.CONNECTING].includes(readyState);
+
+let socketSingleton: WebSocket | undefined;
 export const listenForNyDialogEvents = (callback: () => void, fnr?: string) => {
 	// Start with only internal
 	if (!fnr) return;
-	const currentReadyState = socketSingleton?.readyState;
-	const body = { subscriptionKey: fnr, events: [EventTypes.NY_MELDING] };
-	if (
-		socketSingleton === undefined ||
-		![ReadyState.OPEN, ReadyState.CONNECTING].includes(socketSingleton.readyState)
-	) {
-		reconnectWebsocket(callback, body);
-		getTicketAndAuthenticate(body);
+	if (socketSingleton === undefined || isClosedOrClosing(socketSingleton.readyState)) {
+		const body = { subscriptionKey: fnr as SubscriptionKey, events: [EventTypes.NY_MELDING] };
+		socketSingleton = coonnectNewWebsocket(callback, body);
+		getTicketAndAuthenticate(body, socketSingleton);
 	}
 	return () => {
-		if (currentReadyState === ReadyState.CLOSING) return;
+		if (socketSingleton?.readyState === ReadyState.CLOSING) return;
 		if (socketSingleton) {
 			// Clear reconnect try on intentional close
 			socketSingleton.onclose = () => {};
