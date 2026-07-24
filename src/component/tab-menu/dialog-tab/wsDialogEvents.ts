@@ -48,7 +48,7 @@ const handleClose = (callback: () => void, body: SubscriptionPayload, socket: We
 	retries++;
 	setTimeout(() => {
 		socket?.close();
-		const newSocket = coonnectNewWebsocket(callback, body);
+		const newSocket = connectNewWebsocket(callback, body);
 		getTicketAndAuthenticate(body, newSocket);
 	}, 1000);
 };
@@ -84,7 +84,7 @@ const getTicketAndAuthenticate = async (body: SubscriptionPayload, socket: WebSo
 	}
 };
 
-const coonnectNewWebsocket = (callback: () => void, body: SubscriptionPayload) => {
+const connectNewWebsocket = (callback: () => void, body: SubscriptionPayload) => {
 	const socket = new WebSocket(socketUrl);
 	socket.onmessage = handleMessage(callback, body, socket);
 	socket.onclose = handleClose(callback, body, socket);
@@ -99,7 +99,7 @@ export const listenForNyDialogEvents = (callback: () => void, fnr?: string) => {
 	if (!fnr) return;
 	if (socketSingleton === undefined || isClosedOrClosing(socketSingleton.readyState)) {
 		const body = { subscriptionKey: fnr as SubscriptionKey, events: [EventTypes.NY_MELDING] };
-		socketSingleton = coonnectNewWebsocket(callback, body);
+		socketSingleton = connectNewWebsocket(callback, body);
 		getTicketAndAuthenticate(body, socketSingleton);
 	}
 	return () => {
