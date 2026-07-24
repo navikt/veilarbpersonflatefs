@@ -4,6 +4,11 @@ import { listenForNyDialogEvents } from './wsDialogEvents';
 import { DIALOG_WEBSOCKET } from '../../../api/features';
 import { useFetchAntallUlesteDialoger, useFetchSistOppdatert } from '../../../api/veilarbdialog';
 import { useFeaturesFromDabUnleash } from '../../../api/veilarbaktivitet';
+import {
+	getHarVeilederLeseTilgangTilEksternBruker,
+	getHarVeilederTilgangFlytteBrukerTilEgetKontor
+} from '../../../api/veilarboppfolging';
+import useSWR from 'swr';
 
 export enum UpdateTypes {
 	Dialog = 'DIALOG'
@@ -48,7 +53,19 @@ export default function useUlesteDialoger(fnr: string): number | undefined {
 		return () => clearInterval(interval);
 	};
 
+	const { data: veilederTilgang, isLoading: veilederTilgangIsLoading } = useSWR(
+		fnr ? ['veilederTIlgang', fnr] : null,
+		async () => {
+			const response = await getHarVeilederLeseTilgangTilEksternBruker(fnr);
+			if (!response.ok) throw response.error;
+			return response.data.data.veilederTilgang;
+		}
+	);
+	const veilederHarLeseTilgangTilBruker = veilederTilgang?.harVeilederLeseTilgangTilBruker ?? false;
+
 	useEffect(() => {
+		if (veilederTilgangIsLoading) return;
+		if (!veilederHarLeseTilgangTilBruker) return;
 		if (!dabToggles) return;
 		if (dabToggles[DIALOG_WEBSOCKET]) {
 			try {
@@ -61,7 +78,7 @@ export default function useUlesteDialoger(fnr: string): number | undefined {
 		} else {
 			return pollWithHttp();
 		}
-	}, [fnr, dabToggles]);
+	}, [fnr, dabToggles, veilederTilgangIsLoading, veilederHarLeseTilgangTilBruker]);
 
 	useEffect(() => {
 		if (fetchAntallUlesteDialoger.data) {
