@@ -12,7 +12,7 @@ jobs:
         runs-on: ubuntu-latest
         steps:
             - name: Checkout
-              uses: actions/checkout@v4
+              uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
             - name: Lint
               uses: ./.github/actions/lint-yaml
               with:
@@ -27,14 +27,14 @@ jobs:
             id-token: write # Needed for `nais/deploy/actions/deploy`
         steps:
             - name: Checkout code
-              uses: actions/checkout@v4
+              uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
             - name: deploy to dev
-              uses: nais/deploy/actions/deploy@v2
+              uses: nais/deploy/actions/deploy@2d18f050f07b6a007864c6a57070ed915d571beb # v2
               env:
                   CLUSTER: dev-gcp
                   RESOURCE: iac/alerts/alerts-dev.yaml
             - name: deploy to prod
-              uses: nais/deploy/actions/deploy@v2
+              uses: nais/deploy/actions/deploy@2d18f050f07b6a007864c6a57070ed915d571beb # v2
               env:
                   CLUSTER: prod-gcp
                   RESOURCE: iac/alerts/alerts-prod.yaml
