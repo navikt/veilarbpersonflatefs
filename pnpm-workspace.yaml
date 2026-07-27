@@ -8,3 +8,4 @@ minimumReleaseAgeExclude:
 registries:
   default: https://registry.npmjs.org/
   '@navikt': https://npm.pkg.github.com/
+  '@nais': https://npm.pkg.github.com/
