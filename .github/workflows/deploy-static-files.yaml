@@ -4,11 +4,9 @@ on:
   workflow_call:
     inputs:
       env:
+        description: 'Target environment (dev, prod)'
         required: true
-        type: choice
-        options:
-          - dev
-          - prod
+        type: string
     secrets:
       READER_TOKEN:
         required: true
