@@ -4,6 +4,12 @@ import { useAppContext } from './SupAppContext';
 import { AppId } from './data/tab-id';
 import { useCallback } from 'react';
 
+type Theme = 'light' | 'dark';
+
+interface RouterProps {
+	theme: Theme;
+}
+
 export const NAVIGATE_EVENT = 'veilarbpersonflate.navigate';
 
 export const appFromPath = (path: string): Application => {
@@ -15,7 +21,7 @@ export function dispatchNavigateEvent(path: string) {
 	window.dispatchEvent(new CustomEvent('veilarbpersonflate.navigate'));
 }
 
-export const Router = () => {
+export const Router = ({ theme }: RouterProps) => {
 	const { setCurrentAppId, currentAppId } = useAppContext();
 
 	const changeApplication = () => {
@@ -33,5 +39,7 @@ export const Router = () => {
 	useEventListener('visDialog', visDialog);
 
 	const application = applications.find(app => app.id === currentAppId) || defaultApplication;
-	return <application.component />;
+	const ApplicationComponent = application.component;
+
+	return <ApplicationComponent theme={theme} />;
 };

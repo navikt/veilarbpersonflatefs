@@ -5,14 +5,23 @@ import { importSubApp } from './importUtils';
 
 const overblikkBaseUrl = utledOboCdnUrl('veilarbdetaljerfs/dist');
 
-const OverblikkPage = () => {
+type Theme = 'light' | 'dark';
+
+interface OverblikkPageProps {
+	theme: Theme;
+}
+
+const OverblikkPage = ({ theme }: OverblikkPageProps) => {
 	const { aktivBrukerFnr } = useModiaContext();
 
 	useEffect(() => {
 		importSubApp(overblikkBaseUrl);
 	}, []);
 
-	return React.createElement('veilarb-detaljer', { ['data-fnr']: aktivBrukerFnr });
+	return React.createElement('veilarb-detaljer', {
+		'data-fnr': aktivBrukerFnr,
+		theme
+	});
 };
 
 export default OverblikkPage;
