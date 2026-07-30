@@ -26,8 +26,8 @@ const ArbeidsmarkedstiltakPage = () => {
 		const syncTheme = () => {
 			const theme = document.body.classList.contains('dark') ? 'dark' : 'light';
 
-			if (arbeidsmarkedstiltakElement.getAttribute('theme') !== theme) {
-				arbeidsmarkedstiltakElement.setAttribute('theme', theme);
+			if (arbeidsmarkedstiltakElement.getAttribute('aksel-theme') !== theme) {
+				arbeidsmarkedstiltakElement.setAttribute('aksel-theme', theme);
 			}
 		};
 
