@@ -42,6 +42,19 @@ type ThemeChangeEvent = CustomEvent<{
 	source: string;
 }>;
 
+const isTheme = (value: unknown): value is Theme => value === 'light' || value === 'dark';
+
+const toTheme = (event: Event): Theme | null => {
+	const customEvent = event as ThemeChangeEvent;
+	const detail = customEvent.detail as { theme?: unknown; mode?: unknown; value?: unknown } | undefined;
+
+	if (isTheme(detail?.theme)) return detail.theme;
+	if (isTheme(detail?.mode)) return detail.mode;
+	if (isTheme(detail?.value)) return detail.value;
+
+	return null;
+};
+
 interface VisittKortProps extends SpaProps {
 	tilbakeTilFlate: string;
 	visVeilederVerktoy: 'true' | 'false'; // Når man sendre props til custom elements / web comonents så må det være string
@@ -61,29 +74,26 @@ export const Visittkort: React.ComponentType<VisittKortProps> = ({
 
 	useEffect(() => {
 		const element = elementRef.current;
-
-		if (!element) {
-			return;
-		}
+		const eventNames = ['app-theme-change', 'themechange', 'theme-change'];
 
 		const handleThemeChange = (event: Event) => {
-			const customEvent = event as ThemeChangeEvent;
+			const nextTheme = toTheme(event);
 
-			const nextTheme = customEvent.detail?.theme;
-
-			if (nextTheme === 'light' || nextTheme === 'dark') {
+			if (nextTheme) {
 				onThemeChange(nextTheme);
 			}
 		};
 
-		element.addEventListener('app-theme-change', handleThemeChange);
+		eventNames.forEach(eventName => {
+			element?.addEventListener(eventName, handleThemeChange);
+			window.addEventListener(eventName, handleThemeChange);
+		});
 
 		return () => {
-			element.removeEventListener(
-				'app-theme-change',
-
-				handleThemeChange
-			);
+			eventNames.forEach(eventName => {
+				element?.removeEventListener(eventName, handleThemeChange);
+				window.removeEventListener(eventName, handleThemeChange);
+			});
 		};
 	}, [onThemeChange]);
 	return (

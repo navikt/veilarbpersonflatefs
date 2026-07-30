@@ -11,6 +11,10 @@ const SideInnhold = () => {
 	const { aktivBrukerFnr, aktivEnhetId } = useModiaContext();
 	const [theme, setTheme] = useState<Theme>('light');
 
+	useEffect(() => {
+		document.documentElement.setAttribute('data-theme', theme);
+	}, [theme]);
+
 	return (
 		<>
 			<Visittkort
@@ -18,6 +22,7 @@ const SideInnhold = () => {
 				fnr={aktivBrukerFnr}
 				visVeilederVerktoy="true"
 				tilbakeTilFlate={utledTilbakeUrl()}
+				theme={theme}
 				onThemeChange={setTheme}
 			/>
 
