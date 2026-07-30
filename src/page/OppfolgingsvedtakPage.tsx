@@ -16,10 +16,16 @@ const vedtaksstotteAsyncConfig: AsyncSpaConfig = {
 
 const Vedtaksstotte: React.ComponentType<SpaProps> = AsyncNavspa.importer<SpaProps>(vedtaksstotteAsyncConfig);
 
-const OppfolgingsvedtakPage = () => {
+type Theme = 'light' | 'dark';
+
+interface OppfolgingsvedtakPageProps {
+	theme: Theme;
+}
+
+const OppfolgingsvedtakPage = ({ theme }: OppfolgingsvedtakPageProps) => {
 	const { aktivBrukerFnr, aktivEnhetId } = useModiaContext();
 
-	return <Vedtaksstotte fnr={aktivBrukerFnr} enhet={aktivEnhetId ?? undefined} />;
+	return <Vedtaksstotte fnr={aktivBrukerFnr} enhet={aktivEnhetId ?? undefined} theme={theme} />;
 };
 
 export default OppfolgingsvedtakPage;

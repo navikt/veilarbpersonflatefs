@@ -10,7 +10,13 @@ function utledArbeidsmarkedstiltakCdnUrl(contextPath: string): string {
 
 const arbeidsmarkedstiltakBaseUrl = utledArbeidsmarkedstiltakCdnUrl('arbeidsmarkedstiltak-modia/dist');
 
-const ArbeidsmarkedstiltakPage = () => {
+type Theme = 'light' | 'dark';
+
+interface ArbeidsmarkedstiltakPageProps {
+	theme: Theme;
+}
+
+const ArbeidsmarkedstiltakPage = ({ theme }: ArbeidsmarkedstiltakPageProps) => {
 	const { aktivBrukerFnr, aktivEnhetId } = useModiaContext();
 
 	const { manifest, error } = useSubApp(arbeidsmarkedstiltakBaseUrl);
@@ -22,6 +28,8 @@ const ArbeidsmarkedstiltakPage = () => {
 	return React.createElement('mulighetsrommet-arbeidsmarkedstiltak', {
 		'data-fnr': aktivBrukerFnr,
 		'data-enhet': aktivEnhetId,
+		'data-theme': theme,
+		theme,
 		'data-base-url': arbeidsmarkedstiltakBaseUrl,
 		'data-asset-manifest': manifest ? JSON.stringify(manifest) : undefined
 	});

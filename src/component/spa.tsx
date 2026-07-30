@@ -7,6 +7,7 @@ import Spinner from './spinner/spinner';
 export interface SpaProps {
 	enhet?: string;
 	fnr: string;
+	theme?: 'light' | 'dark';
 }
 
 export const vedtaksstotteAsyncConfig: AsyncSpaConfig = {

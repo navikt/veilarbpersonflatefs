@@ -27,10 +27,16 @@ const finnStillingInngangAsyncConfig: AsyncSpaConfig = {
 const FinnStillingInngang: React.ComponentType<SpaProps> =
 	AsyncNavspa.importer<SpaProps>(finnStillingInngangAsyncConfig);
 
-const FinnStillingerPage = () => {
+type Theme = 'light' | 'dark';
+
+interface FinnStillingerPageProps {
+	theme: Theme;
+}
+
+const FinnStillingerPage = ({ theme }: FinnStillingerPageProps) => {
 	const { aktivBrukerFnr, aktivEnhetId } = useModiaContext();
 
-	return <FinnStillingInngang fnr={aktivBrukerFnr} enhet={aktivEnhetId ?? undefined} />;
+	return <FinnStillingInngang fnr={aktivBrukerFnr} enhet={aktivEnhetId ?? undefined} theme={theme} />;
 };
 
 export default FinnStillingerPage;

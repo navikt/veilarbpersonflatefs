@@ -10,13 +10,23 @@ const dialogCdnUrl =
 		? `${dabCdnUrl}/arbeidsrettet-dialog-prod-intern/build`
 		: `${dabCdnUrl}/arbeidsrettet-dialog-dev-intern/build`;
 
-const DialogPage = () => {
+type Theme = 'light' | 'dark';
+
+interface DialogPageProps {
+	theme: Theme;
+}
+
+const DialogPage = ({ theme }: DialogPageProps) => {
 	const { aktivBrukerFnr } = useModiaContext();
 	useEffect(() => {
 		importSubApp(dialogCdnUrl);
 	}, []);
 
-	return React.createElement('dab-dialog', { ['data-fnr']: aktivBrukerFnr });
+	return React.createElement('dab-dialog', {
+		['data-fnr']: aktivBrukerFnr,
+		theme,
+		['data-theme']: theme
+	});
 };
 
 export default DialogPage;

@@ -2,7 +2,13 @@ import { useLoadDeltakerRegistreringApp } from './hooks/useLoadDeltakerRegistrer
 import { useModiaContext } from '../../store/modia-context-store';
 import { createElement } from 'react';
 
-const DeltakelsePage = () => {
+type Theme = 'light' | 'dark';
+
+interface DeltakelsePageProps {
+	theme: Theme;
+}
+
+const DeltakelsePage = ({ theme }: DeltakelsePageProps) => {
 
 	useLoadDeltakerRegistreringApp();
 
@@ -11,7 +17,9 @@ const DeltakelsePage = () => {
 	return (
 		createElement('arbeidsmarkedstiltak-deltaker', {
 			'data-personident': aktivBrukerFnr,
-			'data-enhetId': aktivEnhetId
+			'data-enhetId': aktivEnhetId,
+			'data-theme': theme,
+			theme
 		})
 	);
 };

@@ -10,7 +10,13 @@ const aktivitetsplanCdnUrl =
 		? `${dabCdnUrl}/aktivitetsplan-prod-intern/build`
 		: `${dabCdnUrl}/aktivitetsplan-dev-intern/build`;
 
-const AktivitetsplanPage = () => {
+type Theme = 'light' | 'dark';
+
+interface AktivitetsplanPageProps {
+	theme: Theme;
+}
+
+const AktivitetsplanPage = ({ theme }: AktivitetsplanPageProps) => {
 	const { aktivBrukerFnr, aktivEnhetId } = useModiaContext();
 	useEffect(() => {
 		importSubApp(aktivitetsplanCdnUrl);
@@ -18,7 +24,9 @@ const AktivitetsplanPage = () => {
 
 	return React.createElement('dab-aktivitetsplan', {
 		['data-fnr']: aktivBrukerFnr,
-		['data-aktivEnhet']: aktivEnhetId
+		['data-aktivEnhet']: aktivEnhetId,
+		theme,
+		['data-theme']: theme
 	});
 };
 
