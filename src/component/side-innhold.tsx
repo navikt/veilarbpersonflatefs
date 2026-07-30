@@ -1,9 +1,12 @@
+import { useState, useEffect } from 'react';
 import { Router } from '../Router';
 import { useModiaContext } from '../store/modia-context-store';
 import TabMenu from './tab-menu/TabMenu';
 import { utledTilbakeUrl } from '../util/url-utils';
 import { Visittkort } from './visittkort';
 import { useState } from 'react';
+
+type Theme = 'light' | 'dark';
 
 type Theme = 'light' | 'dark';
 
@@ -16,10 +19,11 @@ const SideInnhold = () => {
 			<Visittkort
 				enhet={aktivEnhetId ?? undefined}
 				fnr={aktivBrukerFnr}
-				visVeilederVerktoy={true}
+				visVeilederVerktoy="true"
 				tilbakeTilFlate={utledTilbakeUrl()}
 				onThemeChange={setTheme}
 			/>
+
 			<TabMenu />
 			<Router theme={theme} />
 		</>

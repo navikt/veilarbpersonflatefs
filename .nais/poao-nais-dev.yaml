@@ -9,7 +9,7 @@ metadata:
     nginx.ingress.kubernetes.io/proxy-buffer-size: "8k"
     config.linkerd.io/proxy-cpu-limit: 500m
 spec:
-  image: europe-north1-docker.pkg.dev/nais-management-233d/poao/poao-frontend:2026.06.15_08.35-d63d247dcd18
+  image: europe-north1-docker.pkg.dev/nais-management-233d/poao/poao-frontend:2026.07.23_12.25-8a75dcc76c88
   port: 8080
   ingresses:
     - https://veilarbpersonflate.intern.dev.nav.no
@@ -113,8 +113,8 @@ spec:
           },
           "header": {
             "csp": {
-              "scriptSrc": ["'self'", "blob:", "*.nav.no", "*.google-analytics.com", "*.googletagmanager.com", "account.psplugin.com", "*.hotjar.com", "survey.skyra.no", "'sha256-pVNlfJYjmbosVQRWYB0NKYLCoz4IonLhDJErOMkwDbs='"],
-              "connectSrc": ["'self'", "blob:", "wss:", "*.nav.no", "*.adeo.no", "cdn.sanity.io", "storage.googleapis.com", "ingest.staging.skyra.no", "survey.skyra.no"],
+              "scriptSrc": ["'self'", "blob:", "data:", "*.nav.no", "*.google-analytics.com", "*.googletagmanager.com", "account.psplugin.com", "*.hotjar.com", "survey.skyra.no", "'sha256-pVNlfJYjmbosVQRWYB0NKYLCoz4IonLhDJErOMkwDbs='", "'sha256-SDKwBzZ4Vm0oFpiQLfxhx06TUao1m+unt+k5nYSuwbg='"],
+              "connectSrc": ["'self'", "blob:", "wss:", "*.nav.no", "*.adeo.no", "cdn.sanity.io", "storage.googleapis.com", "ingest.staging.skyra.no", "ingest.skyra.no", "survey.skyra.no"],
               "frameSrc": ["vars.hotjar.com", "video.qbrick.com"],
               "imgSrc": ["'self'", "data:", "*.nav.no", "*.adeo.no", "cdn.sanity.io"],
               "styleSrc": ["'self'", "https:", "data:", "'unsafe-inline'"]

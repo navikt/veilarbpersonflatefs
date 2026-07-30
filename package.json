@@ -9,6 +9,7 @@
   "scripts": {
     "dev": "vite",
     "start": "vite",
+    "typecheck": "tsc --noEmit",
     "build": "vite build",
     "build:dev": "vite build --mode=dev",
     "build:prod": "vite build --mode=prod",
@@ -18,28 +19,25 @@
     "test:coverage": "echo not implemented",
     "prettier": "prettier --write 'src/**/*.ts{,x}'"
   },
-  "resolutions": {
-    "**/fsevents": "^1.2.9"
-  },
   "dependencies": {
+    "@nais/apm": "^0.5.0",
     "@navikt/aksel-icons": "^8.3.0",
     "@navikt/ds-css": "^8.3.0",
     "@navikt/ds-react": "^8.3.0",
-    "@navikt/navspa": "6.2.0",
-    "@sentry/react": "^9.11.0",
+    "@navikt/navspa": "^6.2.0",
     "classnames": "2.5.1",
-    "core-js": "3.37.1",
     "react": "19.1.0",
     "react-dom": "19.1.0",
     "regenerator-runtime": "0.14.1",
     "swr": "^2.4.1",
-    "vite": "6.4.1"
+    "vite": "8.1.5"
   },
   "devDependencies": {
     "@types/react": "19.1.0",
     "@types/react-dom": "19.1.1",
     "@types/react-modal": "3.16.3",
     "@types/regenerator-runtime": "^0.13.8",
+    "@vitejs/plugin-legacy": "^8.2.1",
     "@vitejs/plugin-react": "4.7.0",
     "less": "4.3.0",
     "msw": "2.7.3",
@@ -57,5 +55,6 @@
   ],
   "msw": {
     "workerDirectory": "public"
-  }
+  },
+  "packageManager": "pnpm@11.17.0+sha512.cca3cea332ad254bb84145f966d19f4879615210346fc92c79a047f23a0d7b3cca3c3792f0076ba1f1831d277efbcf0a9119b31a9a60eca7fb3d6231f331ef72"
 }

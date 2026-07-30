@@ -17,12 +17,13 @@ import {
 	oppfolgingMockData,
 	oppfolgingsStatusMockData,
 	personV2mockData,
-	sessionData as getSessionData, settKontorMockData,
+	sessionData as getSessionData,
+	settKontorMockData,
 	veilederHarTilgangMockData,
 	veilederMeMockData
 } from './data';
 import { SessionMeta } from '../../api/api';
-import {graphqlMock} from "../graphqlMock";
+import { graphqlMock } from '../graphqlMock';
 
 const HTTP_OK = 200;
 const DEFAULT_DELAY_MILLISECONDS = 100;
@@ -116,7 +117,6 @@ export const handlers = [
 
 	http.post('/veilarboppfolging/api/v3/manuell/synkroniser-med-dkif', responseResolver({ status: 204 })),
 	http.get('/veilarboppfolging/api/oppfolging', responseResolver({ json: oppfolgingMockData })),
-	http.post('/veilarboppfolging/api/v3/oppfolging/hent-status', responseResolver({ json: oppfolgingMockData })),
 	http.post(
 		'/veilarboppfolging/api/v2/person/hent-oppfolgingsstatus',
 		responseResolver({ json: oppfolgingsStatusMockData })
@@ -132,7 +132,7 @@ export const handlers = [
 	http.get('/veilarboppfolging/api/v3/oppfolging/me', responseResolver({ json: meMockData })),
 	http.post('/veilarboppfolging/api/v3/oppfolging/harFlereAktorIderMedOppfolging', responseResolver({ status: 204 })),
 	http.post('/veilarboppfolging/api/graphql', () => {
-		return graphqlMock( true, false)
+		return graphqlMock(true, false);
 	}),
 	http.post(
 		'/veilarboppfolging/api/v3/oppfolging/hent-veilederTilgang',
@@ -159,7 +159,10 @@ export const handlers = [
 		responseResolver({ json: {} })
 	),
 
-	http.post('/ao-oppfolgingskontor/api/kontor', responseResolver({status: 200, json: settKontorMockData, delayMilliseconds: 1000})),
+	http.post(
+		'/ao-oppfolgingskontor/api/kontor',
+		responseResolver({ status: 200, json: settKontorMockData, delayMilliseconds: 1000 })
+	),
 
 	http.post('https://umami.nav.no/api/send', responseResolver({ json: {} })),
 
