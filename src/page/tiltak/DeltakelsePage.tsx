@@ -9,19 +9,16 @@ interface DeltakelsePageProps {
 }
 
 const DeltakelsePage = ({ theme }: DeltakelsePageProps) => {
-
 	useLoadDeltakerRegistreringApp();
 
 	const { aktivBrukerFnr, aktivEnhetId } = useModiaContext();
 
-	return (
-		createElement('arbeidsmarkedstiltak-deltaker', {
-			'data-personident': aktivBrukerFnr,
-			'data-enhetId': aktivEnhetId,
-			'data-theme': theme,
-			theme
-		})
-	);
+	return createElement('arbeidsmarkedstiltak-deltaker', {
+		'data-personident': aktivBrukerFnr,
+		'data-enhetId': aktivEnhetId,
+		'data-theme': theme,
+		theme
+	});
 };
 
 export default DeltakelsePage;
