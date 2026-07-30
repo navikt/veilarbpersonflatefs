@@ -5,7 +5,6 @@ import { AppId, appIdToTabId, TabId } from '../../data/tab-id';
 import { useAppContext } from '../../SupAppContext';
 import { logEvent } from '../../util/frontend-logger';
 import { UlesteDialoger } from './dialog-tab/UlesteDialoger';
-import './tab-menu.less';
 import { dispatchNavigateEvent } from '../../Router';
 
 const TabMenu = () => {
