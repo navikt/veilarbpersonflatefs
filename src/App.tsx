@@ -3,7 +3,7 @@ import StoreProvider from './store/store-provider';
 import { PersonflatePage } from './page/personflate';
 import { ErrorBoundary } from './component/error-boundary/ErrorBoundary';
 import { HttpError } from './api/utils';
-import './sentry';
+import './apmInit';
 
 const App = () => {
 	return (
