@@ -10,12 +10,10 @@ import useSWR from 'swr';
 import useSWRMutation from 'swr/mutation';
 import { hentVeilederOgEnheter } from '../../api/modiacontextholder';
 import { settKontor } from '../../api/ao-oppfolgingskontor';
-import { useBrukAoKontorSomMaster } from '../../api/veilarbaktivitet';
 
 type KontorEndretSteg = 'ingen' | 'endret' | 'endretTilSamme';
 
 export const IngenTilgangTilBruker = () => {
-	const featureErSkruddPaa = useBrukAoKontorSomMaster();
 	const { aktivBrukerFnr, aktivEnhetId } = useModiaContext();
 	const { harFlyttetBrukerTilEgetKontor, setHarFlyttetBrukerTilEgetKontor } =
 		useHarFlyttetBrukerTilEgetKontor(aktivBrukerFnr);
@@ -73,7 +71,7 @@ export const IngenTilgangTilBruker = () => {
 							Kunne ikke flytte bruker til kontor. Prøv igjen.
 						</Alert>
 					)}
-					{featureErSkruddPaa && tilgangQuery.data?.harVeilederTilgangFlytteBrukerTilEgetKontor && (
+					{tilgangQuery.data?.harVeilederTilgangFlytteBrukerTilEgetKontor && (
 						<div>
 							{kontorEndretSteg === 'ingen' &&
 								(veilederQuery.isLoading ? (
