@@ -93,7 +93,8 @@ export const IngenTilgangTilBruker = () => {
 										<BodyShort>
 											Du har ikke tilgang til bruker, men kan flytte bruker til {aktivEnhetNavn}{' '}
 											dersom brukeren skal følges opp av {aktivEnhetNavn}. Dersom du velger å
-											flytte bruker vil det ta minst en halvtime før du får tilgang til bruker.
+											flytte bruker vil det ta minst en halvtime før du får tilgang til bruker. Hvis
+											du nettopp startet oppfølging vil det ta minst en halvtime før du får tilgang.
 										</BodyShort>
 										{tilgangQuery.data.harAktiveTiltaksdeltakelserVedFlyttingTilEgetKontor && (
 											<Alert variant="info" className="ingen-tilgang-alert">
