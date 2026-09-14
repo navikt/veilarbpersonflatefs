@@ -23,7 +23,7 @@ export const IngenTilgangStartOppfolging = ({ aktivEnhetNavn }: IngenTilgangStar
 				onChange={() => setHarHuketAvForAStarteOppfolging(!harHuketAvForAStarteOppfolging)}
 				className="flytt-bruker-checkbox"
 			>
-				Ja, bruker skal følges opp av {aktivEnhetNavn}
+				Ja, bruker skal følges opp av {aktivEnhetNavn} (det tar minst en halvtime før du får tilgang til bruker)
 			</Checkbox>
 			<Button
 				disabled={!harHuketAvForAStarteOppfolging}
