@@ -15,6 +15,7 @@ const tilgangFlytteBrukerTilEgetKontorQuery = `
     veilederTilgang(fnr: $fnr) {
 		harVeilederTilgangFlytteBrukerTilEgetKontor
 		harAktiveTiltaksdeltakelserVedFlyttingTilEgetKontor
+		harVeilederTilgangStarteOppfolging
     }
   }
 `;
@@ -39,6 +40,7 @@ export interface TilgangFlyttBrukerTilEgetKontorSuccessResponse {
 		veilederTilgang: {
 			harVeilederTilgangFlytteBrukerTilEgetKontor: boolean;
 			harAktiveTiltaksdeltakelserVedFlyttingTilEgetKontor: boolean;
+			harVeilederTilgangStarteOppfolging: boolean;
 		};
 	};
 }
