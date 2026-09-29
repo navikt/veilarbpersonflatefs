@@ -6,6 +6,6 @@ if (getEnv().type !== EnvType.local) {
 		app: 'veilarbpersonflate',
 		namespace: 'poao',
 		environment: getEnv().type,
-		ignoreErrors: [/^canceled$/]
+		ignoreErrors: [/^canceled$/, /\[Decorator WS\]/]
 	});
 }
