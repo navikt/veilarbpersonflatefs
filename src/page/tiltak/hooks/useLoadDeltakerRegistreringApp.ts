@@ -6,7 +6,7 @@ export const DELTAKERREGISTRERING_ENTRY = 'src/webComponentWrapper.tsx';
 const deltakerRegistreringOrigin = () => {
 	switch (getEnv().type) {
 		case EnvType.prod:
-			return 'https://amt-deltaker-flate.intern.nav.no';
+			return 'https://cdn.nav.no/amt/amt-veileder-flate-prod/build';
 		case EnvType.dev:
 			return 'https://cdn.nav.no/amt/amt-veileder-flate-dev/build';
 		case EnvType.local:
