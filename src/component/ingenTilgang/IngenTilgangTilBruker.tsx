@@ -53,7 +53,7 @@ export const IngenTilgangTilBruker = () => {
 
 	return (
 		<div className="ingen-tilgang-container">
-			<IngenTilgangTilBrukerAlertStripe />
+			<IngenTilgangTilBrukerAlertStripe tilgangResultat={tilgangQuery.data?.tilgang} />
 
 			{skalViseMeldingOmAtBrukerAlleredeErFlyttetTilEgetKontor ? (
 				<div className="ingen-tilgang">
