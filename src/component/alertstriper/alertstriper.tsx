@@ -1,4 +1,5 @@
 import { Alert } from '@navikt/ds-react';
+import { TilgangResultat } from '../../api/veilarboppfolging';
 
 function PersonflateAlertStripe(props: { tekst: string; type: 'error' | 'warning' | 'info' | 'success' }) {
 	return (
@@ -12,8 +13,21 @@ export function FeilmeldingManglerFnrAlertStripe() {
 	return <PersonflateAlertStripe type="info" tekst="Du må søke opp en person for å vise aktivitetsplanen" />;
 }
 
-export function IngenTilgangTilBrukerAlertStripe() {
-	return <PersonflateAlertStripe type="warning" tekst="Du har ikke tilgang til å se aktivitetsplanen" />;
+function ikkeTilgangTekst(tilgangResultat: TilgangResultat | undefined): string {
+	switch (tilgangResultat) {
+		case 'IKKE_TILGANG_STRENGT_FORTROLIG_ADRESSE':
+			return 'Du har ikke tilgang til å se aktivitetsplanen fordi bruker har strengt fortrolig adresse (kode 6)';
+		case 'IKKE_TILGANG_FORTROLIG_ADRESSE':
+			return 'Du har ikke tilgang til å se aktivitetsplanen fordi bruker har fortrolig adresse (kode 7)';
+		case 'IKKE_TILGANG_EGNE_ANSATTE':
+			return 'Du har ikke tilgang til å se aktivitetsplanen fordi bruker er skjermet';
+		default:
+			return 'Du har ikke tilgang til å se aktivitetsplanen';
+	}
+}
+
+export function IngenTilgangTilBrukerAlertStripe(props: { tilgangResultat: TilgangResultat | undefined }) {
+	return <PersonflateAlertStripe type="warning" tekst={ikkeTilgangTekst(props.tilgangResultat)} />;
 }
 
 export function FeilUnderLastingAvDataAlertStripe() {
