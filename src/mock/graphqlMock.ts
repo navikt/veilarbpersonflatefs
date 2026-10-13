@@ -1,12 +1,20 @@
 import { HttpResponse } from 'msw'
+import { TilgangResultat } from '../api/veilarboppfolging';
 
-export const graphqlMock = (kanFlytteBrukerTilEgetKontor: boolean, brukerHarAktiveTiltaksdeltakelser: boolean) => {
-    return HttpResponse.json({
-        data: {
+export const graphqlMock = (
+	kanFlytteBrukerTilEgetKontor: boolean,
+	brukerHarAktiveTiltaksdeltakelser: boolean,
+	kanStarteOppfolging: boolean,
+	tilgangResultat: TilgangResultat
+) => {
+	return HttpResponse.json({
+		data: {
 			veilederTilgang: {
 				harVeilederTilgangFlytteBrukerTilEgetKontor: kanFlytteBrukerTilEgetKontor,
-                harAktiveTiltaksdeltakelserVedFlyttingTilEgetKontor: brukerHarAktiveTiltaksdeltakelser
-            },
-        },
-    })
-}
+				tilgang: tilgangResultat,
+				harAktiveTiltaksdeltakelserVedFlyttingTilEgetKontor: brukerHarAktiveTiltaksdeltakelser,
+				harVeilederTilgangStarteOppfolging: kanStarteOppfolging
+			}
+		}
+	});
+};

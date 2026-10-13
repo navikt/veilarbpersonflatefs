@@ -1,29 +1,27 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="no">
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Modia</title>
-    <link rel="icon" href="/favicon.ico" type="image/x-icon">
-    <link rel="stylesheet" href="/internarbeidsflatedecorator/latest/dist/index.css" />
-    <script src="/internarbeidsflatedecorator/latest/dist/bundle.js"></script>
-	<script
-		defer
-		src="https://cdn.nav.no/team-researchops/sporing/sporing.js"
-		data-host-url="https://umami.nav.no"
-		data-website-id="%VITE_UMAMI_WEBSITE_ID%"
-	></script>
-
-</head>
-<body>
-<div id="modal-a11y-wrapper" class="veilarbpersonflatefs">
-    <div id="veilarbpersonflatefs-root"></div>
-</div>
-<script type="module" src="/src/index.tsx"></script>
-<script>
-    window.SKYRA_CONFIG = {org: 'arbeids-og-velferdsetaten-nav'}
-</script>
-<script src="https://survey.skyra.no/skyra-survey.js"></script>
-</body>
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<title>Modia</title>
+		<link rel="icon" href="/favicon.ico" type="image/x-icon" />
+		<script type="module" src="%VITE_DECORATOR%/latest/dist/internarbeidsflate-decorator.wc.js"></script>
+		<script
+			defer
+			src="https://cdn.nav.no/team-researchops/sporing/sporing.js"
+			data-host-url="https://umami.nav.no"
+			data-website-id="%VITE_UMAMI_WEBSITE_ID%"
+		></script>
+	</head>
+	<body>
+		<div id="modal-a11y-wrapper" class="veilarbpersonflatefs">
+			<div id="veilarbpersonflatefs-root"></div>
+		</div>
+		<script type="module" src="/src/index.tsx"></script>
+		<script>
+			window.SKYRA_CONFIG = { org: 'arbeids-og-velferdsetaten-nav' };
+		</script>
+		<script src="https://survey.skyra.no/skyra-survey.js"></script>
+	</body>
 </html>

@@ -17,13 +17,6 @@ const renderApp = () => {
 	root.render(<App />);
 };
 
-if (!globalThis['__core-js_shared__']) {
-	// @ts-ignore
-	import('core-js/stable');
-	// @ts-ignore
-	import('regenerator-runtime/runtime');
-}
-
 if (erMock()) {
 	// @ts-ignore
 	const { worker } = await import('./mock/setup');

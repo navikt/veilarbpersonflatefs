@@ -1,0 +1,46 @@
+name: GCP root
+
+on:
+  workflow_call:
+    inputs:
+      env:
+        description: 'Target environment (dev, prod)'
+        required: true
+        type: string
+    secrets:
+      READER_TOKEN:
+        required: true
+      GCS_SA_KEY:
+        required: true
+
+jobs:
+  deploy:
+    name: Deploy static files to GCP-bucket
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - name: Install pnpm
+        uses: pnpm/action-setup@0ebf47130e4866e96fce0953f49152a61190b271
+      - name: Setup node
+        uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # actions/setup-node@v7
+        with:
+          node-version: 24
+          cache: 'pnpm'
+          registry-url: "https://npm.pkg.github.com"
+      - name: Install dependencies
+        run: pnpm ci --ignore-scripts
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.READER_TOKEN }}
+      - name: Run tests
+        run: pnpm run test
+      - name: Build application
+        run: pnpm run build:${{ inputs.env }}
+      - name: Authenticate to Google Cloud
+        uses: google-github-actions/auth@7c6bc770dae815cd3e89ee6cdf493a5fab2cc093
+        with:
+          credentials_json: ${{ secrets.GCS_SA_KEY }}
+      - name: Set up Cloud SDK
+        uses: google-github-actions/setup-gcloud@aa5489c8933f4cc7a4f7d45035b3b1440c9c10db
+      - name: Upload files to GCS
+        run: gsutil -m rsync -r build gs://poao-veilarbpersonflate-${{ inputs.env }}

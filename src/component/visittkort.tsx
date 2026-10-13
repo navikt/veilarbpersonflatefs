@@ -1,20 +1,19 @@
+import { useEffect, useRef } from 'react';
 import { utledCDNSpaUrl } from '../util/url-utils';
 import { SpaProps } from './spa';
 import { SpaName } from '../util/utils';
 
-declare global {
+declare module 'react' {
 	namespace JSX {
 		interface IntrinsicElements {
-			'ao-visittkort': React.DetailedHTMLProps<
-				React.HTMLAttributes<HTMLElement> & {
-					fnr?: string;
-					enhet?: string;
-					tilbakeTilFlate?: string;
-					visVeilederVerktoy?: string;
-					skjulEtiketter?: string;
-				},
-				HTMLElement
-			>;
+			'ao-visittkort': React.DetailedHTMLProps<React.HTMLAttributes<HTMLElement>, HTMLElement> & {
+				fnr?: string;
+				enhet?: string;
+				tilbakeTilFlate?: string;
+				visVeilederVerktoy?: string;
+				skjulEtiketter?: string;
+				theme?: 'light' | 'dark';
+			};
 		}
 	}
 }
@@ -35,24 +34,66 @@ const lastInnVisittkort = () => {
 
 lastInnVisittkort();
 
+type Theme = 'light' | 'dark';
+
+type ThemeChangeEvent = CustomEvent<{
+	theme: Theme;
+
+	source: string;
+}>;
+
 interface VisittKortProps extends SpaProps {
 	tilbakeTilFlate: string;
 	visVeilederVerktoy: 'true' | 'false'; // Når man sendre props til custom elements / web comonents så må det være string
+	theme?: Theme;
+	onThemeChange: (theme: Theme) => void;
 }
 
 export const Visittkort: React.ComponentType<VisittKortProps> = ({
 	enhet,
 	fnr,
 	tilbakeTilFlate,
-	visVeilederVerktoy
-}) => {
+	visVeilederVerktoy,
+	theme,
+	onThemeChange
+}: VisittKortProps) => {
+	const elementRef = useRef<HTMLElement | null>(null);
+
+	useEffect(() => {
+		const element = elementRef.current;
+
+		if (!element) {
+			return;
+		}
+
+		const handleThemeChange = (event: Event) => {
+			const customEvent = event as ThemeChangeEvent;
+
+			const nextTheme = customEvent.detail?.theme;
+
+			if (nextTheme === 'light' || nextTheme === 'dark') {
+				onThemeChange(nextTheme);
+			}
+		};
+
+		element.addEventListener('app-theme-change', handleThemeChange);
+
+		return () => {
+			element.removeEventListener(
+				'app-theme-change',
+
+				handleThemeChange
+			);
+		};
+	}, [onThemeChange]);
 	return (
 		<ao-visittkort
+			ref={elementRef}
 			enhet={enhet ?? '1234'}
 			fnr={fnr ?? '123123123'}
 			tilbakeTilFlate={tilbakeTilFlate}
-			visVeilederVerktoy={visVeilederVerktoy ? 'true' : 'false'}
-			key={fnr}
-		></ao-visittkort>
+			visVeilederVerktoy={visVeilederVerktoy}
+			theme={theme}
+		/>
 	);
 };

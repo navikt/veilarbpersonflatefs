@@ -10,12 +10,11 @@ import useSWR from 'swr';
 import useSWRMutation from 'swr/mutation';
 import { hentVeilederOgEnheter } from '../../api/modiacontextholder';
 import { settKontor } from '../../api/ao-oppfolgingskontor';
-import { useBrukAoKontorSomMaster } from '../../api/veilarbaktivitet';
+import { IngenTilgangStartOppfolging } from './IngenTilgangStartOppfolging';
 
 type KontorEndretSteg = 'ingen' | 'endret' | 'endretTilSamme';
 
 export const IngenTilgangTilBruker = () => {
-	const featureErSkruddPaa = useBrukAoKontorSomMaster();
 	const { aktivBrukerFnr, aktivEnhetId } = useModiaContext();
 	const { harFlyttetBrukerTilEgetKontor, setHarFlyttetBrukerTilEgetKontor } =
 		useHarFlyttetBrukerTilEgetKontor(aktivBrukerFnr);
@@ -54,7 +53,7 @@ export const IngenTilgangTilBruker = () => {
 
 	return (
 		<div className="ingen-tilgang-container">
-			<IngenTilgangTilBrukerAlertStripe />
+			<IngenTilgangTilBrukerAlertStripe tilgangResultat={tilgangQuery.data?.tilgang} />
 
 			{skalViseMeldingOmAtBrukerAlleredeErFlyttetTilEgetKontor ? (
 				<div className="ingen-tilgang">
@@ -73,7 +72,7 @@ export const IngenTilgangTilBruker = () => {
 							Kunne ikke flytte bruker til kontor. Prøv igjen.
 						</Alert>
 					)}
-					{featureErSkruddPaa && tilgangQuery.data?.harVeilederTilgangFlytteBrukerTilEgetKontor && (
+					{tilgangQuery.data?.harVeilederTilgangFlytteBrukerTilEgetKontor && (
 						<div>
 							{kontorEndretSteg === 'ingen' &&
 								(veilederQuery.isLoading ? (
@@ -94,7 +93,8 @@ export const IngenTilgangTilBruker = () => {
 										<BodyShort>
 											Du har ikke tilgang til bruker, men kan flytte bruker til {aktivEnhetNavn}{' '}
 											dersom brukeren skal følges opp av {aktivEnhetNavn}. Dersom du velger å
-											flytte bruker vil det ta minst en halvtime før du får tilgang til bruker.
+											flytte bruker vil det ta minst en halvtime før du får tilgang til bruker. Hvis
+											du nettopp startet oppfølging vil det ta minst en halvtime før du får tilgang.
 										</BodyShort>
 										{tilgangQuery.data.harAktiveTiltaksdeltakelserVedFlyttingTilEgetKontor && (
 											<Alert variant="info" className="ingen-tilgang-alert">
@@ -136,6 +136,23 @@ export const IngenTilgangTilBruker = () => {
 										en halvtime før du får tilgang til bruker.
 									</InlineMessage>
 								</div>
+							)}
+						</div>
+					)}
+					{tilgangQuery.data?.harVeilederTilgangStarteOppfolging && (
+						<div>
+							{veilederQuery.isLoading ? (
+								<div className="ingen-tilgang-innhold">
+									<Skeleton variant="rectangle" height={60} />
+									<Skeleton
+										variant="rounded"
+										className="ingen-tilgang-knapp"
+										height={40}
+										width={240}
+									/>
+								</div>
+							) : (
+								<IngenTilgangStartOppfolging aktivEnhetNavn={aktivEnhetNavn!} />
 							)}
 						</div>
 					)}

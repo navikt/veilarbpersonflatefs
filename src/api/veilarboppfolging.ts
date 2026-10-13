@@ -4,7 +4,7 @@ import { FetchError, GraphqlErrorResponse, GraphqlResponse, HttpError, resilient
 export function synkroniserManuellStatusMedDkif(fnr: string): Promise<void> {
 	return fetchWithHeaders(`/veilarboppfolging/api/v3/manuell/synkroniser-med-dkif`, {
 		method: 'POST',
-		body: JSON.stringify({ fnr }),
+		body: JSON.stringify({ fnr })
 	});
 }
 
@@ -14,48 +14,95 @@ const tilgangFlytteBrukerTilEgetKontorQuery = `
   query($fnr: String!) {
     veilederTilgang(fnr: $fnr) {
 		harVeilederTilgangFlytteBrukerTilEgetKontor
+		tilgang
 		harAktiveTiltaksdeltakelserVedFlyttingTilEgetKontor
+		harVeilederTilgangStarteOppfolging
     }
   }
-`
+`;
 
-const graphqlBody = (fnr: string) => ({
-	query: tilgangFlytteBrukerTilEgetKontorQuery,
+const leseTilgangTilEksternBrukerQuery = `
+  query($fnr: String!) {
+    veilederTilgang(fnr: $fnr) {
+    	harVeilederLeseTilgangTilBruker
+    }
+  }
+`;
+
+const graphqlBody = (fnr: string, query: string) => ({
+	query,
 	variables: {
-		fnr,
-	},
-})
+		fnr
+	}
+});
+
+export type TilgangResultat =
+	| 'HAR_TILGANG'
+	| 'IKKE_TILGANG_FORTROLIG_ADRESSE'
+	| 'IKKE_TILGANG_STRENGT_FORTROLIG_ADRESSE'
+	| 'IKKE_TILGANG_EGNE_ANSATTE'
+	| 'IKKE_TILGANG_ENHET'
+	| 'IKKE_TILGANG_MODIA';
 
 export interface TilgangFlyttBrukerTilEgetKontorSuccessResponse {
 	data: {
 		veilederTilgang: {
 			harVeilederTilgangFlytteBrukerTilEgetKontor: boolean;
-            harAktiveTiltaksdeltakelserVedFlyttingTilEgetKontor: boolean;
+			tilgang: TilgangResultat;
+			harAktiveTiltaksdeltakelserVedFlyttingTilEgetKontor: boolean;
+			harVeilederTilgangStarteOppfolging: boolean;
 		};
 	};
 }
 
-export const getHarVeilederTilgangFlytteBrukerTilEgetKontor = async (fnr: string) => {
+export interface LeseTilgangTilEksternBrukerSuccessResponse {
+	data: {
+		veilederTilgang: {
+			harVeilederLeseTilgangTilBruker: boolean;
+		};
+	};
+}
+
+const headers = {
+	Accept: 'application/json',
+	['Nav-Consumer-Id']: 'veilarbpersonflatefs',
+	['Content-Type']: 'application/json'
+};
+
+export const getHarVeilederLeseTilgangTilEksternBruker = async (fnr: string) => {
 	const response = await resilientFetch<GraphqlResponse>(graphqlUrl, {
-		body: JSON.stringify(graphqlBody(fnr)),
-		headers: {
-			Accept: 'application/json',
-			['Nav-Consumer-Id']: 'veilarbpersonflatefs',
-			['Content-Type']: 'application/json',
-		},
-		method: 'POST',
-	})
+		body: JSON.stringify(graphqlBody(fnr, leseTilgangTilEksternBrukerQuery)),
+		headers,
+		method: 'POST'
+	});
 	if (response.ok) {
 		if ('errors' in response.data) {
-			const errorMessage = response.data.errors
-				?.map((it) => it.message)
-				.join(',')
+			const errorMessage = response.data.errors?.map(it => it.message).join(',');
 			return {
 				ok: false as const,
 				type: 'GraphqlError' as const,
-				error: new Error(`GraphqlError: ${errorMessage}`),
-			} as GraphqlErrorResponse
+				error: new Error(`GraphqlError: ${errorMessage}`)
+			} as GraphqlErrorResponse;
 		}
 	}
-	return response as Success<TilgangFlyttBrukerTilEgetKontorSuccessResponse> | HttpError | FetchError
-}
+	return response as Success<LeseTilgangTilEksternBrukerSuccessResponse> | HttpError | FetchError;
+};
+
+export const getHarVeilederTilgangFlytteBrukerTilEgetKontor = async (fnr: string) => {
+	const response = await resilientFetch<GraphqlResponse>(graphqlUrl, {
+		body: JSON.stringify(graphqlBody(fnr, tilgangFlytteBrukerTilEgetKontorQuery)),
+		headers,
+		method: 'POST'
+	});
+	if (response.ok) {
+		if ('errors' in response.data) {
+			const errorMessage = response.data.errors?.map(it => it.message).join(',');
+			return {
+				ok: false as const,
+				type: 'GraphqlError' as const,
+				error: new Error(`GraphqlError: ${errorMessage}`)
+			} as GraphqlErrorResponse;
+		}
+	}
+	return response as Success<TilgangFlyttBrukerTilEgetKontorSuccessResponse> | HttpError | FetchError;
+};
