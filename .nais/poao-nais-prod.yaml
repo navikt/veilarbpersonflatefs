@@ -64,8 +64,6 @@ spec:
           namespace: dab
         - application: veilarblest
           namespace: dab
-        - application: veilarbfilter
-          namespace: obo
         - application: veilarboppgave
           namespace: obo
         - application: veilarbaktivitet
@@ -287,16 +285,6 @@ spec:
               "toApp": {
                 "name": "please",
                 "namespace": "dab",
-                "cluster": "prod-gcp"
-              }
-            },
-            {
-              "fromPath": "/veilarbfilter",
-              "toUrl": "http://veilarbfilter.obo",
-              "preserveFromPath": true,
-              "toApp": {
-                "name": "veilarbfilter",
-                "namespace": "obo",
                 "cluster": "prod-gcp"
               }
             },
