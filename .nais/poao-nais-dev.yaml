@@ -73,8 +73,6 @@ spec:
           namespace: dab
         - application: ao-oppfolgingskontor
           namespace: dab
-        - application: veilarbfilter
-          namespace: obo
         - application: veilarboppgave
           namespace: obo
         - application: veilarbdialog
@@ -290,16 +288,6 @@ spec:
               "toApp": {
                 "name": "orkivar",
                 "namespace": "dab",
-                "cluster": "dev-gcp"
-              }
-            },
-            {
-              "fromPath": "/veilarbfilter",
-              "toUrl": "http://veilarbfilter.obo",
-              "preserveFromPath": true,
-              "toApp": {
-                "name": "veilarbfilter",
-                "namespace": "obo",
                 "cluster": "dev-gcp"
               }
             },
