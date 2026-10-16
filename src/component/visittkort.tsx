@@ -94,6 +94,9 @@ export const Visittkort: React.ComponentType<VisittKortProps> = ({
 			tilbakeTilFlate={tilbakeTilFlate}
 			visVeilederVerktoy={visVeilederVerktoy}
 			theme={theme}
-		/>
+		>
+			{/* Take full height of visittkort until the sub-app is loaded */}
+			<div className={'visittkort-placeholder'} />
+		</ao-visittkort>
 	);
 };
