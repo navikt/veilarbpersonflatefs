@@ -35,5 +35,5 @@ export const loginUrl = () => {
 	if (erMock()) {
 		return `${window.location.href}`;
 	}
-	return `${window.location.origin}/oauth2/login?redirect=${window.location.href}`;
+	return `${window.location.origin}/oauth2/login?redirect=${encodeURIComponent(window.location.href)}`;
 };
