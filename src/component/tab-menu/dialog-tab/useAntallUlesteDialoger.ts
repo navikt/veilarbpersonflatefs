@@ -5,8 +5,7 @@ import { DIALOG_WEBSOCKET } from '../../../api/features';
 import { useFetchAntallUlesteDialoger, useFetchSistOppdatert } from '../../../api/veilarbdialog';
 import { useFeaturesFromDabUnleash } from '../../../api/veilarbaktivitet';
 import {
-	getHarVeilederLeseTilgangTilEksternBruker,
-	getHarVeilederTilgangFlytteBrukerTilEgetKontor
+	getHarVeilederLeseTilgangTilEksternBruker
 } from '../../../api/veilarboppfolging';
 import useSWR from 'swr';
 

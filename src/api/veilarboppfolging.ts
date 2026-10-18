@@ -14,6 +14,7 @@ const tilgangFlytteBrukerTilEgetKontorQuery = `
   query($fnr: String!) {
     veilederTilgang(fnr: $fnr) {
 		harVeilederTilgangFlytteBrukerTilEgetKontor
+		tilgang
 		harAktiveTiltaksdeltakelserVedFlyttingTilEgetKontor
 		harVeilederTilgangStarteOppfolging
     }
@@ -35,10 +36,19 @@ const graphqlBody = (fnr: string, query: string) => ({
 	}
 });
 
+export type TilgangResultat =
+	| 'HAR_TILGANG'
+	| 'IKKE_TILGANG_FORTROLIG_ADRESSE'
+	| 'IKKE_TILGANG_STRENGT_FORTROLIG_ADRESSE'
+	| 'IKKE_TILGANG_EGNE_ANSATTE'
+	| 'IKKE_TILGANG_ENHET'
+	| 'IKKE_TILGANG_MODIA';
+
 export interface TilgangFlyttBrukerTilEgetKontorSuccessResponse {
 	data: {
 		veilederTilgang: {
 			harVeilederTilgangFlytteBrukerTilEgetKontor: boolean;
+			tilgang: TilgangResultat;
 			harAktiveTiltaksdeltakelserVedFlyttingTilEgetKontor: boolean;
 			harVeilederTilgangStarteOppfolging: boolean;
 		};

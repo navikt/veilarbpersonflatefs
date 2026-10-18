@@ -9,7 +9,7 @@ metadata:
     nginx.ingress.kubernetes.io/proxy-buffer-size: "8k"
     config.linkerd.io/proxy-cpu-limit: 500m
 spec:
-  image: europe-north1-docker.pkg.dev/nais-management-233d/poao/poao-frontend:2026.08.07_09.17-7dc500768b63
+  image: europe-north1-docker.pkg.dev/nais-management-233d/poao/poao-frontend:2026.10.13_06.24-89db570822aa
   port: 8080
   ingresses:
     - https://veilarbpersonflate.intern.dev.nav.no
@@ -73,8 +73,6 @@ spec:
           namespace: dab
         - application: ao-oppfolgingskontor
           namespace: dab
-        - application: veilarbfilter
-          namespace: obo
         - application: veilarboppgave
           namespace: obo
         - application: veilarbdialog
@@ -290,16 +288,6 @@ spec:
               "toApp": {
                 "name": "orkivar",
                 "namespace": "dab",
-                "cluster": "dev-gcp"
-              }
-            },
-            {
-              "fromPath": "/veilarbfilter",
-              "toUrl": "http://veilarbfilter.obo",
-              "preserveFromPath": true,
-              "toApp": {
-                "name": "veilarbfilter",
-                "namespace": "obo",
                 "cluster": "dev-gcp"
               }
             },

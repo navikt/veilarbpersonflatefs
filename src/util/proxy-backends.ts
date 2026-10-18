@@ -26,7 +26,6 @@ const proxyBackends: ProxyBackend[] = [
 	{ fromPath: '/veilarboppgave', toApp: { name: 'veilarboppgave', namespace: 'obo' } },
 	{ fromPath: '/please', toApp: { name: 'please', namespace: 'dab' } },
 	{ fromPath: '/orkivar', toApp: { name: 'orkivar', namespace: 'dab' } },
-	{ fromPath: '/veilarbfilter', toApp: { name: 'veilarbfilter', namespace: 'obo' } },
 	{ fromPath: '/amt-deltaker-bff', toApp: { name: 'amt-deltaker-bff', namespace: 'amt' } },
 	{ fromPath: '/veilarbarena', toApp: { name: 'veilarbarena', namespace: 'pto' } }
 ];
