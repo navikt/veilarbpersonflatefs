@@ -1,5 +1,4 @@
 import { AsyncSpaConfig } from '@navikt/navspa';
-import React from 'react';
 import { utledOboCdnUrl } from '../util/url-utils';
 import { SpaName, spaWrapperTabContentClassName } from '../util/utils';
 import Spinner from './spinner/spinner';
