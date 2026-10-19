@@ -2,7 +2,7 @@ import { EnvType, getEnv } from '../../../util/utils';
 
 const PLEASE_URL = getEnv().type === EnvType.prod ? 'please.nav.no' : 'please.ekstern.dev.nav.no';
 const ticketUrl = `/please/ws-auth-ticket`;
-const socketUrl = `ws://${PLEASE_URL}/ws`;
+const socketUrl = `wss://${PLEASE_URL}/ws`;
 
 enum EventTypes {
 	NY_MELDING = 'NY_DIALOGMELDING_FRA_BRUKER_TIL_NAV'
