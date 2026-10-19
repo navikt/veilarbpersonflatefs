@@ -28,7 +28,7 @@ spec:
     limits:
       memory: 512Mi
     requests:
-      cpu: 250m
+      cpu: 10m
       memory: 256Mi
   azure:
     application:
@@ -105,7 +105,7 @@ spec:
           "gcs": {
             "bucketName": "poao-veilarbpersonflate-dev"
           },
-          "enableModiaContextUpdater": { 
+          "enableModiaContextUpdater": {
             "url": "http://modiacontextholder.personoversikt",
             "scope": "api://dev-gcp.personoversikt.modiacontextholder/.default"
           },
