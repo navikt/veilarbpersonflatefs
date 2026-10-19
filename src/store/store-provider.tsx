@@ -1,6 +1,12 @@
 import React, { useEffect, useReducer } from 'react';
 import { useEventListener } from '../util/utils';
-import { createInitialStore, ModiaContext, reducer, SET_RENDER_KEY } from './modia-context-store';
+import {
+	createInitialStore,
+	ModiaContext,
+	ModiaContextDispatchActions,
+	reducer,
+	SET_RENDER_KEY
+} from './modia-context-store';
 import { AppContextProvider } from '../SupAppContext';
 import { synkroniserManuellStatusMedDkif } from '../api/veilarboppfolging';
 
@@ -8,7 +14,7 @@ interface StoreProviderProps {
 	children: React.ReactNode;
 }
 
-export const DispatchContext = React.createContext({});
+export const DispatchContext = React.createContext<ModiaContextDispatchActions | undefined>(undefined);
 
 const StoreProvider = (props: StoreProviderProps) => {
 	const [state, dispatch] = useReducer(reducer, '', createInitialStore);

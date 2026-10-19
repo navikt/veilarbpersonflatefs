@@ -92,7 +92,7 @@ export const resilientFetch = async <T>(
             return {
                 ok: false as const,
                 type: 'FetchError' as const,
-                error: new Error(`Unknown error ${e.toString()}`),
+                error: new Error(`Unknown error ${String(e)}`),
             } as FetchError
         }
     }
