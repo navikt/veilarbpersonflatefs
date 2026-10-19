@@ -1,5 +1,6 @@
 
-import { AktivEnhetResponse, AntallUlesteDialoger, SessionMeta, SistOppdatertData } from '../../api/api';
+import type { AktivEnhetResponse, AntallUlesteDialoger, SessionMeta } from '../../api/api';
+import type { SistOppdatertData } from '../../api/veilarbdialog';
 
 export const testBrukerFnr = '03818796950';
 
