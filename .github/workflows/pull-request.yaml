@@ -26,5 +26,7 @@ jobs:
           NODE_AUTH_TOKEN: ${{ secrets.READER_TOKEN }}
       - name: Run tests
         run: pnpm run test
+      - name: Typecheck
+        run: pnpm run typecheck
       - name: Build application
         run: pnpm run build
