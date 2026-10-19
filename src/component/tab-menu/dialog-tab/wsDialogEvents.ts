@@ -27,6 +27,7 @@ const handleMessage = (callback: () => void, body: SubscriptionPayload, socket: 
 	switch (event.data) {
 		case 'AUTHENTICATED':
 			ticketCache.delete(body.subscriptionKey);
+			retries = 0;
 			return;
 		case 'INVALID_TOKEN':
 			ticketCache.delete(body.subscriptionKey);
