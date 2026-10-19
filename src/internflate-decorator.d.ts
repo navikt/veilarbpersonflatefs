@@ -23,10 +23,4 @@ declare module 'react' {
 	}
 }
 
-declare global {
-	interface HTMLElementTagNameMap {
-		'internarbeidsflate-decorator': HTMLElement;
-	}
-}
-
 export {};

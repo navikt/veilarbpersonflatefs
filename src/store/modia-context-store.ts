@@ -24,6 +24,9 @@ export const ModiaContext = React.createContext<ModiaContextData>(null as any);
 export const useModiaContext = () => {
 	const dispatch = useContext(DispatchContext);
 	const values = useContext(ModiaContext);
+	if (!dispatch) {
+		throw new Error('useModiaContext must be used within StoreProvider');
+	}
 	return {
 		...values,
 		setAktivBrukerFnr: (fnr: string) => dispatch({ type: SET_FNR, fnr }),
