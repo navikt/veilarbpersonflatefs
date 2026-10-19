@@ -2,8 +2,8 @@ const timeoutMs = 5000;
 const waitForUmamiToAppearOnWindow = new Promise<void>((resolve, reject) => {
 	if (window.umami) return resolve();
 
-	let interval: NodeJS.Timeout | undefined;
-	let timeout: NodeJS.Timeout | undefined;
+	let interval: ReturnType<typeof setInterval> | undefined;
+	let timeout: ReturnType<typeof setTimeout> | undefined;
 
 	timeout = setTimeout(() => {
 		clearInterval(interval);
