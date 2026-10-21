@@ -89,6 +89,8 @@ spec:
           namespace: poao
         - application: tryggtekst-proxy
           namespace: team-effekt
+        - application: populasjonstilgangskontroll
+          namespace: tilgangsmaskin
       external:
         - host: veilarbarena.dev-fss-pub.nais.io
   env:
@@ -309,6 +311,16 @@ spec:
                 "name": "veilarbarena",
                 "namespace": "pto",
                 "cluster": "dev-fss"
+              }
+            },
+            {
+              "fromPath": "/tilgangsmaskin",
+              "preserveFromPath": false,
+              "toUrl": "http://populasjonstilgangskontroll.tilgangsmaskin",
+              "toApp": {
+                "name": "populasjonstilgangskontroll",
+                "namespace": "tilgangsmaskin",
+                "cluster": "dev-gcp"
               }
             }
           ]

@@ -86,6 +86,8 @@ spec:
           namespace: obo
         - application: tryggtekst-proxy
           namespace: team-effekt
+        - application: populasjonstilgangskontroll
+          namespace: tilgangsmaskin
       external:
         - host: veilarbarena.prod-fss-pub.nais.io
   env:
@@ -305,6 +307,16 @@ spec:
               "toApp": {
                 "name": "amt-deltaker-bff",
                 "namespace": "amt",
+                "cluster": "prod-gcp"
+              }
+            },
+            {
+              "fromPath": "/tilgangsmaskin",
+              "preserveFromPath": false,
+              "toUrl": "http://populasjonstilgangskontroll.tilgangsmaskin",
+              "toApp": {
+                "name": "populasjonstilgangskontroll",
+                "namespace": "tilgangsmaskin",
                 "cluster": "prod-gcp"
               }
             }

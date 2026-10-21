@@ -164,10 +164,7 @@ export const handlers = [
 		responseResolver({ status: 200, json: settKontorMockData, delayMilliseconds: 1000 })
 	),
 
-	http.post(
-		'/api/v1/overstyr',
-		responseResolver({ status: 204, delayMilliseconds: 50 })
-	),
+	http.post('/tilgangsmaskin/api/v1/overstyr', responseResolver({ status: 204, delayMilliseconds: 50 })),
 
 	http.post('https://umami.nav.no/api/send', responseResolver({ json: {} })),
 

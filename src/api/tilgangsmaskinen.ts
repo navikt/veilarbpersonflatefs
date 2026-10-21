@@ -1,5 +1,5 @@
 export const beOmEnkelttilgang = async (brukerId: string, begrunnelse: string, gyldigtil: string): Promise<void> => {
-	const response = await fetch(`/api/v1/overstyr`, {
+	const response = await fetch(`/tilgangsmaskin/api/v1/overstyr`, {
 		method: 'POST',
 		headers: { 'Content-Type': 'application/json' },
 		body: JSON.stringify({ brukerId, begrunnelse, gyldigtil})
