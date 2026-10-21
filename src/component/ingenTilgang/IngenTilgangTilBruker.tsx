@@ -11,6 +11,7 @@ import useSWRMutation from 'swr/mutation';
 import { hentVeilederOgEnheter } from '../../api/modiacontextholder';
 import { settKontor } from '../../api/ao-oppfolgingskontor';
 import { IngenTilgangStartOppfolging } from './IngenTilgangStartOppfolging';
+import { Enkelttilgang } from './Enkelttilgang';
 
 type KontorEndretSteg = 'ingen' | 'endret' | 'endretTilSamme';
 
@@ -57,7 +58,7 @@ export const IngenTilgangTilBruker = () => {
 
 			{skalViseMeldingOmAtBrukerAlleredeErFlyttetTilEgetKontor ? (
 				<div className="ingen-tilgang">
-					Du har allerede flyttet bruker til eget kontor. Det vil ta minst en halvtime før du får tilgang til
+					Du har allerede flyttet bruker til eget kontor. Det vil ta noen minutter før du får tilgang til
 					bruker.
 				</div>
 			) : (
@@ -72,74 +73,7 @@ export const IngenTilgangTilBruker = () => {
 							Kunne ikke flytte bruker til kontor. Prøv igjen.
 						</Alert>
 					)}
-					{tilgangQuery.data?.harVeilederTilgangFlytteBrukerTilEgetKontor && (
-						<div>
-							{kontorEndretSteg === 'ingen' &&
-								(veilederQuery.isLoading ? (
-									<div className="ingen-tilgang-innhold">
-										<Skeleton variant="rectangle" height={60} />
-										<Skeleton
-											variant="rounded"
-											className="ingen-tilgang-knapp"
-											height={40}
-											width={240}
-										/>
-									</div>
-								) : (
-									<div className="ingen-tilgang-innhold">
-										<Heading size="medium" className="ingen-tilgang-heading">
-											Ikke tilgang til bruker
-										</Heading>
-										<BodyShort>
-											Du har ikke tilgang til bruker, men kan flytte bruker til {aktivEnhetNavn}{' '}
-											dersom brukeren skal følges opp av {aktivEnhetNavn}. Dersom du velger å
-											flytte bruker vil det ta minst en halvtime før du får tilgang til bruker. Hvis
-											du nettopp startet oppfølging vil det ta minst en halvtime før du får tilgang.
-										</BodyShort>
-										{tilgangQuery.data.harAktiveTiltaksdeltakelserVedFlyttingTilEgetKontor && (
-											<Alert variant="info" className="ingen-tilgang-alert">
-												Bruker deltar på tiltak. Hvis du flytter brukeren må du undersøke om
-												dette kan få konsekvenser for tiltaksdeltakelsen.
-											</Alert>
-										)}
-										<Checkbox
-											onChange={() =>
-												setHarHuketAvForAtBrukerSkalFlyttes(!harHuketAvForAtBrukerSkalFlyttes)
-											}
-											className="flytt-bruker-checkbox"
-										>
-											Ja, bruker skal følges opp av {aktivEnhetNavn}
-										</Checkbox>
-										<Button
-											disabled={!harHuketAvForAtBrukerSkalFlyttes}
-											className="ingen-tilgang-knapp"
-											loading={settKontorMutation.isMutating}
-											onClick={() => settKontorMutation.trigger()}
-											variant="secondary"
-										>
-											Flytt bruker til {aktivEnhetNavn}
-										</Button>
-									</div>
-								))}
-							{kontorEndretSteg === 'endret' && (
-								<div>
-									<InlineMessage status="success" size="medium">
-										Brukers arbeidsoppfølgingskontor er nå {aktivEnhetNavn}. Det vil ta minst en
-										halvtime før du får tilgang til bruker.
-									</InlineMessage>
-								</div>
-							)}
-							{kontorEndretSteg === 'endretTilSamme' && (
-								<div>
-									<InlineMessage status="info" size="medium">
-										Brukers arbeidsoppfølgingskontor er allerede {aktivEnhetNavn}. Det vil ta minst
-										en halvtime før du får tilgang til bruker.
-									</InlineMessage>
-								</div>
-							)}
-						</div>
-					)}
-					{tilgangQuery.data?.harVeilederTilgangStarteOppfolging && (
+					{tilgangQuery.data?.kanBeOmEnkelttilgang && (
 						<div>
 							{veilederQuery.isLoading ? (
 								<div className="ingen-tilgang-innhold">
@@ -152,10 +86,99 @@ export const IngenTilgangTilBruker = () => {
 									/>
 								</div>
 							) : (
-								<IngenTilgangStartOppfolging aktivEnhetNavn={aktivEnhetNavn!} />
+								<Enkelttilgang aktivBrukerFnr={aktivBrukerFnr!} />
 							)}
 						</div>
 					)}
+					{!tilgangQuery.data?.kanBeOmEnkelttilgang &&
+						tilgangQuery.data?.harVeilederTilgangFlytteBrukerTilEgetKontor && (
+							<div>
+								{kontorEndretSteg === 'ingen' &&
+									(veilederQuery.isLoading ? (
+										<div className="ingen-tilgang-innhold">
+											<Skeleton variant="rectangle" height={60} />
+											<Skeleton
+												variant="rounded"
+												className="ingen-tilgang-knapp"
+												height={40}
+												width={240}
+											/>
+										</div>
+									) : (
+										<div className="ingen-tilgang-innhold">
+											<Heading size="medium" className="ingen-tilgang-heading">
+												Ikke tilgang til bruker
+											</Heading>
+											<BodyShort>
+												Du har ikke tilgang til bruker, men kan flytte bruker til{' '}
+												{aktivEnhetNavn} dersom brukeren skal følges opp av {aktivEnhetNavn}.
+												Dersom du velger å flytte bruker kan det ta noen minutter før du får
+												tilgang til bruker. Hvis du nettopp startet oppfølging vil det ta
+												noen minutter før du får tilgang. Du kan forsøke å laste siden på nytt.
+											</BodyShort>
+											{tilgangQuery.data.harAktiveTiltaksdeltakelserVedFlyttingTilEgetKontor && (
+												<Alert variant="info" className="ingen-tilgang-alert">
+													Bruker deltar på tiltak. Hvis du flytter brukeren må du undersøke om
+													dette kan få konsekvenser for tiltaksdeltakelsen.
+												</Alert>
+											)}
+											<Checkbox
+												onChange={() =>
+													setHarHuketAvForAtBrukerSkalFlyttes(
+														!harHuketAvForAtBrukerSkalFlyttes
+													)
+												}
+												className="flytt-bruker-checkbox"
+											>
+												Ja, bruker skal følges opp av {aktivEnhetNavn}
+											</Checkbox>
+											<Button
+												disabled={!harHuketAvForAtBrukerSkalFlyttes}
+												className="ingen-tilgang-knapp"
+												loading={settKontorMutation.isMutating}
+												onClick={() => settKontorMutation.trigger()}
+												variant="secondary"
+											>
+												Flytt bruker til {aktivEnhetNavn}
+											</Button>
+										</div>
+									))}
+								{kontorEndretSteg === 'endret' && (
+									<div>
+										<InlineMessage status="success" size="medium">
+											Brukers arbeidsoppfølgingskontor er nå {aktivEnhetNavn}. Det vil ta minst en
+											halvtime før du får tilgang til bruker.
+										</InlineMessage>
+									</div>
+								)}
+								{kontorEndretSteg === 'endretTilSamme' && (
+									<div>
+										<InlineMessage status="info" size="medium">
+											Brukers arbeidsoppfølgingskontor er allerede {aktivEnhetNavn}. Det vil ta
+											minst en halvtime før du får tilgang til bruker.
+										</InlineMessage>
+									</div>
+								)}
+							</div>
+						)}
+					{!tilgangQuery.data?.kanBeOmEnkelttilgang &&
+						tilgangQuery.data?.harVeilederTilgangStarteOppfolging && (
+							<div>
+								{veilederQuery.isLoading ? (
+									<div className="ingen-tilgang-innhold">
+										<Skeleton variant="rectangle" height={60} />
+										<Skeleton
+											variant="rounded"
+											className="ingen-tilgang-knapp"
+											height={40}
+											width={240}
+										/>
+									</div>
+								) : (
+									<IngenTilgangStartOppfolging aktivEnhetNavn={aktivEnhetNavn!} />
+								)}
+							</div>
+						)}
 				</div>
 			)}
 		</div>

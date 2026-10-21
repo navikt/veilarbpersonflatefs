@@ -132,7 +132,7 @@ export const handlers = [
 	http.get('/veilarboppfolging/api/v3/oppfolging/me', responseResolver({ json: meMockData })),
 	http.post('/veilarboppfolging/api/v3/oppfolging/harFlereAktorIderMedOppfolging', responseResolver({ status: 204 })),
 	http.post('/veilarboppfolging/api/graphql', () => {
-		return graphqlMock(true, false, false, 'HAR_TILGANG');
+		return graphqlMock(true, false, false, 'HAR_TILGANG', true);
 	}),
 	http.post(
 		'/veilarboppfolging/api/v3/oppfolging/hent-veilederTilgang',
@@ -162,6 +162,11 @@ export const handlers = [
 	http.post(
 		'/ao-oppfolgingskontor/api/kontor',
 		responseResolver({ status: 200, json: settKontorMockData, delayMilliseconds: 1000 })
+	),
+
+	http.post(
+		'/api/v1/overstyr',
+		responseResolver({ status: 204, delayMilliseconds: 50 })
 	),
 
 	http.post('https://umami.nav.no/api/send', responseResolver({ json: {} })),

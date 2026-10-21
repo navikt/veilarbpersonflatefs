@@ -17,6 +17,7 @@ const tilgangFlytteBrukerTilEgetKontorQuery = `
 		tilgang
 		harAktiveTiltaksdeltakelserVedFlyttingTilEgetKontor
 		harVeilederTilgangStarteOppfolging
+		kanBeOmEnkelttilgang
     }
   }
 `;
@@ -51,6 +52,7 @@ export interface TilgangFlyttBrukerTilEgetKontorSuccessResponse {
 			tilgang: TilgangResultat;
 			harAktiveTiltaksdeltakelserVedFlyttingTilEgetKontor: boolean;
 			harVeilederTilgangStarteOppfolging: boolean;
+			kanBeOmEnkelttilgang: boolean;
 		};
 	};
 }
