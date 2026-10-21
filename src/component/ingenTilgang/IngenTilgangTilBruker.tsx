@@ -146,8 +146,8 @@ export const IngenTilgangTilBruker = () => {
 								{kontorEndretSteg === 'endret' && (
 									<div>
 										<InlineMessage status="success" size="medium">
-											Brukers arbeidsoppfølgingskontor er nå {aktivEnhetNavn}. Det vil ta minst en
-											halvtime før du får tilgang til bruker.
+											Brukers arbeidsoppfølgingskontor er nå {aktivEnhetNavn}. Det vil ta noen
+											minutter før du får tilgang til bruker.
 										</InlineMessage>
 									</div>
 								)}
@@ -155,7 +155,7 @@ export const IngenTilgangTilBruker = () => {
 									<div>
 										<InlineMessage status="info" size="medium">
 											Brukers arbeidsoppfølgingskontor er allerede {aktivEnhetNavn}. Det vil ta
-											minst en halvtime før du får tilgang til bruker.
+											noen minutter før du får tilgang til bruker.
 										</InlineMessage>
 									</div>
 								)}
