@@ -168,7 +168,7 @@ export const EnkelttilgangSkjema = ({ open, onClose, onSendt, aktivBrukerFnr }: 
 				</Modal.Body>
 				<Modal.Footer>
 					<Button type="submit" loading={senderInn}>
-						Lagre
+						Be om tilgang
 					</Button>
 					<Button type="button" variant="secondary" onClick={lukk}>
 						Avbryt
