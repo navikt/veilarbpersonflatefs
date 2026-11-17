@@ -21,8 +21,8 @@ importers:
         specifier: ^8.3.0
         version: 8.15.0(@types/react@19.1.0)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
       '@navikt/navspa':
-        specifier: ^6.2.0
-        version: 6.2.0(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
+        specifier: ^7.2.0
+        version: 7.2.0(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
       classnames:
         specifier: 2.5.1
         version: 2.5.1
@@ -837,11 +837,11 @@ packages:
   '@navikt/ds-tokens@8.15.0':
     resolution: {integrity: sha512-i76uLUIONOWc/G7kzPHQwNCR65bKBVulYbua6tyVmtlAhJyEPjC2vNyeeOq1bE4QcccPNQz9rBKydmXOVvJYtw==, tarball: https://npm.pkg.github.com/download/@navikt/ds-tokens/8.15.0/96c20d8f453f8be770e5e1a9e9ce4888e50e4348}
 
-  '@navikt/navspa@6.2.0':
-    resolution: {integrity: sha512-ix3lqWZWIhIAlmFL883hbmD9kjWk9qeijEGXiQOxPzanpWZ4EeeZhEsXng+MftDurJk04y3Q9i/1x0V7l34O9w==, tarball: https://npm.pkg.github.com/download/@navikt/navspa/6.2.0/fedd207df70dff922a729cef18a28112274202c6}
+  '@navikt/navspa@7.2.0':
+    resolution: {integrity: sha512-kROHO3lVGQ74bqZpy1Yq0NmGC691y5rFRMSwcOg7k0HTcEPFOrsd6McYPYu6RZDIe0V3c9e+s5io7QzZuOwmwQ==, tarball: https://npm.pkg.github.com/download/@navikt/navspa/7.2.0/2f9f5dc035c3ba76fc83caa5e4f6c7a46ab1d2f7}
     peerDependencies:
-      react: '>=16.6.0 || 17 || 18'
-      react-dom: '>=16.6.0 || 17 || 18'
+      react: '>=19.0.0'
+      react-dom: '>=19.0.0'
 
   '@open-draft/deferred-promise@2.2.0':
     resolution: {integrity: sha512-CecwLWx3rhxVQF6V4bAgPS5t+So2sTbPgAzafKkVizyi7tlwpcFpdFqq+wqF2OwNBmqFuu6tOyouTuxgpMfzmA==}
@@ -935,24 +935,28 @@ packages:
   '@opentelemetry/sdk-trace-base@2.10.0':
     resolution: {integrity: sha512-GuYQQT7QD2EeO8lcZLRQzcbOyhqAzL+6WWTKTU9mSUBYBazkEDl+VrQcXQhbB08OWM9anD1aHleVadzulpOaUQ==}
     engines: {node: ^18.19.0 || >=20.6.0}
+    deprecated: Use @opentelemetry/sdk-trace package
     peerDependencies:
       '@opentelemetry/api': '>=1.3.0 <1.10.0'
 
   '@opentelemetry/sdk-trace-base@2.8.0':
     resolution: {integrity: sha512-mhU4jp+vW0mGbFRd+GeXHvmfA4aDqWjBjLC3pE5XMpLs0IE2ryYb019Ts2AQrOq67gaTF25D91+fgvEHDZEnuQ==}
     engines: {node: ^18.19.0 || >=20.6.0}
+    deprecated: Use @opentelemetry/sdk-trace package
     peerDependencies:
       '@opentelemetry/api': '>=1.3.0 <1.10.0'
 
   '@opentelemetry/sdk-trace-web@2.10.0':
     resolution: {integrity: sha512-6WqXdWSlBH0GNjDhv1gg6SLVtMtIBVhLaWqd1hiKSXS8meXXP13sVPQoYFHz1uVo0feUTUCdP9vMS54KflisAw==}
     engines: {node: ^18.19.0 || >=20.6.0}
+    deprecated: Use @opentelemetry/sdk-trace package
     peerDependencies:
       '@opentelemetry/api': '>=1.0.0 <1.10.0'
 
   '@opentelemetry/sdk-trace-web@2.8.0':
     resolution: {integrity: sha512-P3ZM8BGJ5mwjtyfAxRyxsCyWHvaj+xahdhLoS3YiPsEyTHcWTVzx2691C8SrGkpvro3tNFCsWuNNrvM+spKODg==}
     engines: {node: ^18.19.0 || >=20.6.0}
+    deprecated: Use @opentelemetry/sdk-trace package
     peerDependencies:
       '@opentelemetry/api': '>=1.0.0 <1.10.0'
 
@@ -1482,6 +1486,7 @@ packages:
   image-size@0.5.5:
     resolution: {integrity: sha512-6TDAlDPZxUFCv+fuOkIoXT/V/f3Qbq8e37p+YOiYrUv3v9cc3/6x78VdfPgFVaB9dZYeLUfKgHRebpkm/oP2VQ==}
     engines: {node: '>=0.10.0'}
+    deprecated: Please migrate to image-size@2.x
     hasBin: true
 
   import-in-the-middle@3.3.2:
@@ -3154,7 +3159,7 @@ snapshots:
 
   '@navikt/ds-tokens@8.15.0': {}
 
-  '@navikt/navspa@6.2.0(react-dom@19.1.0(react@19.1.0))(react@19.1.0)':
+  '@navikt/navspa@7.2.0(react-dom@19.1.0(react@19.1.0))(react@19.1.0)':
     dependencies:
       loadjs: 4.3.0
       react: 19.1.0
