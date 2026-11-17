@@ -48,7 +48,7 @@
     "tslint-config-prettier": "^1.18.0",
     "tslint-react": "5.0.0",
     "typescript": "5.8.3",
-    "vitest": "5.0.5"
+    "vitest": "5.1.0"
   },
   "browserslist": [
     ">0.2%",
